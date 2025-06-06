@@ -1,0 +1,9 @@
+<button pButton type="button" label="Download Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm text-xs" title="Download Report" (click)='generatedPdf()'></button>
+<!-- <button pButton type="button" label="New Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm text-xs mx-3" title="Download Report" (click)='latestReport()'></button> -->
+<button pButton type="button" label="Export Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm text-xs ml-3" title="Export Report" (click)='exportPdf()'></button>
+<button pButton type="button" label="Export Report Lendscape Mode" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm text-xs ml-3" title="Export Report Lendscape Mode" (click)='exportPdfLendscape()'></button>
+
+<p-dialog header="Processing" [(visible)]="isProcessing" [modal]="true">
+    <p>Please wait while the PDF is being generated...</p>
+    <p-progressBar mode="indeterminate" *ngIf="isProcessing"></p-progressBar>
+</p-dialog>

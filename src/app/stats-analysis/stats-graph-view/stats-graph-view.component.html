@@ -1,0 +1,25 @@
+<ng-container *ngIf="graphType == 'doughnutGraph'">
+
+    <div class="grid">
+        <div class="col-6 flex align-items-center justify-content-center">
+            <p-chart type="doughnut" [data]="doughnutChartDatasets" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" width="250px" height="250px" [responsive]="true"></p-chart>
+        </div>
+        <div class="col-6 text-right">
+            <ng-container *ngFor="let item of chipDataArray">
+
+                <div class="flex flex-column p-2 m-2 font-semibold">
+                    <div class="flex align-items-center justify-content-center cursor-pointer shadow-2 transition-duration-300 hover:bg-yellow-200 hover:text-gray-900" (click)="gotToSearchPage( item.label )" style="border: 3px solid #fff; border-radius: 15px; padding: 3px" [ngStyle]="{'background': item.colorCode, 'border-color': item.colorCode}">
+                        <span class="pr-2" >{{item['count'] | numberSuffix : '2' : ''}}</span> <span>{{ item['label']}}</span>
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="graphType == 'lineGraph'">
+    <div #chartContainer>
+        <p-chart type="line" [data]="data" [options]="options"  height="300px" [responsive]="true" [plugins]="ChartDataLabelsPlugins"></p-chart>
+    </div>
+</ng-container>

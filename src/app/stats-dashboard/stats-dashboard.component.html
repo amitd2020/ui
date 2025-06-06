@@ -1,0 +1,54 @@
+<p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+
+<div class="grid">
+
+    <div class="col-12">
+        <dg-stats-filter-options [totalRecords]="mapDataObj?.['total']" (payloadHandler)="getPayloadFromChild($event)" ></dg-stats-filter-options>
+    </div>
+
+    <div class="col-4 smallScreen">
+        <div class="card h-30rem">
+            <dg-map-analysis [mapData]="mapDataObj" [selectedFilter]="selectedFilter" showMapCheckbox="true" mapId="'statMap'"></dg-map-analysis>
+        </div>
+    </div>
+    <div class="col-4 smallScreen">
+        <div class="card h-30rem">
+            <dg-risk-details [selectedFilter]="selectedFilter" [riskData]="mapDataObj?.['riskChartArray']"></dg-risk-details>
+        </div>
+    </div>
+    <div class="col-4 smallScreen">
+        <div class="card h-30rem">
+            <dg-employees-segments [selectedFilter]="selectedFilter" [employeesData]="mapDataObj?.['noOfEmployeesArray']"></dg-employees-segments>
+        </div>
+    </div>
+
+    <div *ngIf="mapDataObj?.['yearly_employees']" class="col-4 pt-0 smallScreen">
+        <div class="card h-full">
+            <dg-shared-trend-analysis-component [header]="'Annual Workforce Insights'" [graphType]="'lineGraph'" [trendsData]="graphTrendsHandler['employees']" >
+                Tracks yearly changes in workforce size to assess employment patterns.
+            </dg-shared-trend-analysis-component>
+        </div>
+    </div>
+    <div  *ngIf="mapDataObj?.['yearly_turnover']" class="col-4 pt-0 smallScreen">
+        <div class="card h-full">
+            <dg-shared-trend-analysis-component [header]="'Annual Revenue Insights'" [graphType]="'lineGraph'" [trendsData]="graphTrendsHandler['turnover']" >
+                Visualises annual turnover to highlight financial performance trends over time.
+            </dg-shared-trend-analysis-component>
+        </div>
+    </div>
+    <div *ngIf="mapDataObj?.['yearly_new_registered_company']" class="col-4 pt-0 smallScreen">
+        <div class="card h-full">
+            <dg-shared-trend-analysis-component [header]="'Annual Company Registration Trends'" [graphType]="'lineGraph'" [trendsData]="graphTrendsHandler['newCompany']" >
+                Charts the yearly number of newly registered companies, indicating business growth patterns.
+            </dg-shared-trend-analysis-component>
+        </div>
+    </div>
+    
+
+    <div *ngIf="mapDataObj?.['turnoverGrowth1YearInfo'] && mapDataObj?.['turnoverGrowth3YearsInfo'] && mapDataObj?.['turnoverGrowth5YearsInfo']" class="col-12 pt-0">
+        <div class="card h-full">
+            <dg-financial-details [growthData]="{ '1yearGrowth':  mapDataObj?.['turnoverGrowth1YearInfo'], '3yearGrowth':  mapDataObj?.['turnoverGrowth3YearsInfo'], '5yearGrowth':  mapDataObj?.['turnoverGrowth5YearsInfo'] }" [selectedFilter]="selectedFilter"></dg-financial-details>
+        </div>
+    </div>
+
+</div>

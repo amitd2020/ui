@@ -1,0 +1,30 @@
+
+::ng-deep {
+	p-progressbar {
+		.p-progressbar {
+			height: 2rem;
+		}
+	}
+	
+	.p-progressbar {
+		.p-progressbar-value {
+			background: #4e5fbb;
+			// background: #2196f3;
+		}
+	}
+
+	.tableCssModify {
+
+		.p-datatable .p-datatable-tbody>tr>td {
+			padding: 0.7em;
+			word-wrap: break-word;
+			word-break: break-word;
+			border: none;
+			line-height: 2;
+			font-size: .88em;
+		}
+		.p-datatable>.p-datatable-wrapper {
+			overflow-x: hidden;
+		}
+	}
+}

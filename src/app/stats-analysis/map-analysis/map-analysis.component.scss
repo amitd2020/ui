@@ -1,0 +1,30 @@
+#map {
+    height: 92%;
+    // width: 35%;
+    position: relative;
+}
+.text-label {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px;
+    font-size: 12px;
+    color: black;
+    text-align: center;
+}
+
+::ng-deep {
+	// .leaflet-left, .leaflet-top {
+	// 	z-index: 998;
+	// }
+    .leaflet-left, .leaflet-top {
+        z-index: 400;
+    }
+
+    .leaflet-control-attribution, .leaflet-control-scale-line {
+        display: none;
+    }
+    // .leaflet-control-attribution a {
+    //     display: none;
+    // }
+}

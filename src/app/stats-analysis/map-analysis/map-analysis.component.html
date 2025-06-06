@@ -1,0 +1,16 @@
+<div class="flex align-items-center justify-content-between">
+    <div class="flex align-items-center">
+        <button pButton label="Reset" class="p-button-rounded p-button-sm bg-gray-600" icon="pi pi-refresh" (click)="resetMap()"></button>
+        <!-- <button (click)="downloadMap()">Download Map</button> -->
+    </div>
+    <div *ngIf="showMapCheckbox" class="flex gap-4">
+        <ng-container *ngFor="let item of mapCheckBoxHandler">
+            <div class="flex justify-content-center align-items-center">
+                <p-checkbox [(ngModel)]="mapNgmodelObj[item['mapModel']]" binary="true" [disabled]="item?.disable" inputId="{{item?.inputId}}" label="{{item?.label}}" (onChange)="selectionCheckbox($event, item)"></p-checkbox>
+                <!-- <label for="region">Region</label> -->
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div id="{{mapId}}" style="height: 90%; position: relative"></div>

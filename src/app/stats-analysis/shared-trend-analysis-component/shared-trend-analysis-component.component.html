@@ -1,0 +1,23 @@
+<div class="grid select-none">
+    <div class="col-12 flex justify-content-between align-items-center surface-border border-bottom-1">
+        <div class="text-lg font-medium text-indigo-700">
+            {{ header }}
+            <dg-shared-itag-component>
+                <ng-content></ng-content>
+            </dg-shared-itag-component>
+        </div>
+
+        <div class="mr-3 flex gap-3">
+            <div class="border-1 border-radius border-indigo-600 border-circle cursor-pointer selection" (click)="takeScreenshot( chartContainer )">
+                <i class="pi pi-camera text-gray-800 m-2" title="Screenshot"></i>
+            </div>
+            <div class="border-1 border-radius border-indigo-600 border-circle cursor-pointer selection" (click)="downloadChart()">
+                <i class="pi pi-download text-gray-800 m-2" title="Download"></i>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="trendsData?.['data']" class="col-12" #chartContainer>
+        <dg-stats-graph-view [graphType]="graphType" [data]="trendsData['data']" [options]="trendsData['options']" ></dg-stats-graph-view>
+    </div>
+</div>

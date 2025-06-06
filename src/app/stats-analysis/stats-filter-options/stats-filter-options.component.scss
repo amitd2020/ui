@@ -1,0 +1,79 @@
+::ng-deep {
+    .layout-container .p-multiselect {
+        width: 100%;
+    }
+
+    // .dropdown {
+
+        .p-multiselect .p-multiselect-label.p-placeholder {
+            color: grey;
+            font-size: .875rem;
+            padding: 1em;
+        } 
+    // }
+    
+
+    .col-12.overflow-auto {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .col-12.overflow-auto::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .col-12.overflow-auto::-webkit-scrollbar-thumb {
+        background-color: #c0c0c0;
+        border-radius: 4px;
+    }
+    
+    .col-12.overflow-auto::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .custom-multiselect-dropdown .p-multiselect-label-container {
+        display: none;
+    }
+
+    .custom-multiselect-dropdown .p-multiselect-trigger {
+        margin-left: 0;
+        font-size: 1rem;
+    }
+
+    .custom-multiselect-dropdown .p-multiselect {
+        border: none;
+        box-shadow: none;
+    }
+
+    .p-input-filled .p-multiselect {
+        background-image: none !important
+    }
+
+    .custom-multiselect-dropdown .p-multiselect-label {
+        display: none !important;
+    }
+
+    .custom-multiselect-dropdown .p-multiselect-trigger {
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+    
+    .custom-multiselect-dropdown .p-multiselect-trigger:hover {
+        color: #007bff;  /* Change to your desired color */
+        transform: scale(1.1);  /* Slightly increase size */
+    }
+
+    .clearAllButton {
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+    
+    .clearAllButton:hover {
+        transform: scale(1.2);
+        color: #149735;
+    }
+    
+
+}
+
+

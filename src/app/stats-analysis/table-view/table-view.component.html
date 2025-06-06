@@ -1,0 +1,55 @@
+<p-table [columns]="tableColumn" [value]="tableData" responsiveLayout="scroll" scrollHeight="{{additionalAttributForTable?.['scrollHeight']}}">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }" style="background-color: #fff; padding-bottom: 0px; border: none;">{{ col.header }}</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body"  let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns" [ngSwitch]="true" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">
+
+                <ng-container *ngSwitchCase="col.field == 'count_percentage'">
+                    <ng-container [ngSwitch]="true">
+
+                        <ng-container *ngSwitchCase="col?.showProgressBarWithPercentage == true">
+                            <div class="grid">
+                                <div class="col-8">
+                                    <p-progressBar [value]="rowData.count_percentage" [showValue]="false" styleClass="bg-white"></p-progressBar>
+                                </div>
+                                <div class="col-4 text-left flex align-items-center justify-content-end  {{col?.class}}">{{rowData.count_percentage}}%</div>
+                            </div> 
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="col?.showProgressbar == true">
+                            <p-progressBar [value]="rowData.count_percentage" [showValue]="false"></p-progressBar>
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault>
+                            <div class="{{col?.class}}">{{rowData.count_percentage}}%</div>
+                        </ng-container>
+
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="col.field == 'count'">
+                    <a href="javascript:void(0);" style="color: blue;" (click)="gotToSearchPage(rowData )">
+                        <span [class]="col?.class">{{ rowData[ col.field ] ? ( +rowData[ col.field ]  | numberSuffix : '2' : '') : '-' }}</span>
+                    </a>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="col.field == 'doc_count'">
+                    <a href="javascript:void(0);" style="color: blue;" (click)="tableClick( rowData, headerName )">
+                        <span [class]="col?.class">{{ rowData[ col.field ] ? ( +rowData[ col.field ]  | numberSuffix : '2' : '') : '-' }}</span>
+                    </a>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+
+                    <span [class]="col?.class">{{ rowData[ col.field ] ? rowData[ col.field ] : '-' }}</span>
+                </ng-container>
+
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

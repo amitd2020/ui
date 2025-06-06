@@ -1,0 +1,140 @@
+<p-sidebar [(visible)]="openSideBarPanel" styleClass="w-3" position="right">
+    <div  class="p-1">
+        <div class="text-base mb-4 line-height-3 pt-5">👉 The company data has been filtered according to the following criteria, resulting in <b class="text-xl">{{totalRecords | number : '1.0-0'}} companies:</b></div>
+        
+        <ng-container *ngFor="let val of payloadFormationObject['filterData']">
+
+            <div *ngIf="val['chip_group'] != 'Status'" class="border-1 border-gray-200 mt-3 p-2 border-round bg-white">
+                <div class="flex border-bottom-3 border-white pt-1 pb-2 gap-2">
+                    <!-- <div>{{filterImageObj[ val['chip_group']['img'] ]}}</div> -->
+                    <div class="text-2xl font-bold">{{filterImageObj[ val['chip_group'] ]['header']}}</div>
+                </div>
+                <ng-container *ngFor="let item of val['chip_values']">
+                    <div class="grid mt-1">
+                        <div class="m-1 col-fixed border-round bg-blue-100">{{ item | titlecase }}</div>
+                    </div>
+                </ng-container>
+            </div>
+
+        </ng-container>
+
+    </div>
+</p-sidebar>
+
+<div class="card mb-1">
+    <div class="grid">
+        <div class="col-12 border-none border-bottom-1 border-dotted p-2 flex overflow-auto">
+            <div class="border-1 px-3 py-2 mr-3 border-round-2xl text-center border-gray-400 text-gray-700 font-semibold flex align-items-center">
+                <i class="pi pi-filter "></i>
+                <div class="ml-2">All Filters</div>
+            </div>
+            <div class="border-none border-right-2 text-gray-500 mr-3"></div>
+            
+            <ng-container *ngFor="let item of dropdownCheckboxArray">
+                <div class="border-1 px-3 py-2 mr-2 border-round-2xl text-center text-gray-700 font-semibold flex align-items-center" [ngClass]="{'bg-orange-100 border-orange-600': !!item['ngModel'].length, 'border-gray-400': !item['ngModel'].length }">
+                    <!-- Label and Custom Trigger for Dropdown -->
+                    <div class="font-bold pl-2">{{ item?.label }}</div>
+                    <p-multiSelect 
+                        [options]="item['options']" 
+                        [(ngModel)]="item['ngModel']" 
+                        selectedItemsLabel="false" 
+                        maxSelectedLabels="0" 
+                        [showClear]="false" 
+                        [display]="false" 
+                        appendTo="body" 
+                        [baseZIndex]="999999998" 
+                        [showToggleAll]="false" 
+                        [virtualScroll]="true" 
+                        [filter]="true" 
+                        [virtualScrollItemSize]="43" 
+                        placeholder=" " 
+                        optionLabel="label" 
+                        class="custom-multiselect-dropdown text-sm text-gray-500 flex font-semibold" 
+                        (onPanelShow)="getAggregatedData(item)" 
+                        (onChange)="setPayloadData(item)" 
+                        [resetFilterOnHide]="true" 
+                        [disabled]="item?.disable ? item.disable : false">
+                        
+                        <ng-template pTemplate="trigger">
+                            <span class="pi pi-chevron-down ml-2" style="cursor: pointer;"></span>
+                        </ng-template>
+                        
+                        <ng-template let-filterItem pTemplate="filterItem">
+                            <div class="flex align-items-center">
+                                <ng-container *ngIf="item?.label == 'Industry'; else otherTemplate">
+                                    <span>{{ filterItem.label }}</span>
+                                </ng-container>
+                                <ng-template #otherTemplate>
+                                    <span>{{ filterItem.label + ' (' + (filterItem.count | number : '1.0-0') + ')' }}</span>
+                                </ng-template>
+                            </div>
+                        </ng-template>
+                    </p-multiSelect>
+                </div>
+            </ng-container>
+            
+        </div>
+        
+        <div class="col-12 pb-0">
+            <div  class="py-2 flex flex-wrap gap-2">
+
+                <ng-container *ngFor="let val of dropdownCheckboxArray">
+                    <ng-container *ngFor="let item of val['ngModel']; let indx=index">
+                        <span *ngIf="val['chip_group'] != 'Status'" class="py-1 bg-white text-sm p-chip font-bold border-1 border-round-2xl text-center text-orange-700 font-semibold flex align-items-center border-orange-600">
+                            {{ item?.label | titlecase }}
+                            <button class="ml-1 bg-white py-0 border-none text-lg text-orange-700 font-bold cursor-pointer clearAllButton" (click)="removeChip( val, indx )">&times;</button>
+                        </span>
+                    </ng-container>
+                </ng-container>
+
+                <button class="ml-1 text font-semibold text-blue-600 border-round-2xl bg-white border-none cursor-pointer clearAllButton" (click)="clearAll()">Clear All</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex card mb-0">
+    <div class="text-xl text-gray-800 font-semibold"><span class="text-lg">Found</span> {{totalRecords | number : '1.0-0' }} <span class="text-lg">Companies</span></div>
+    <div *ngIf="payloadFormationObject['filterData'].length > 1" class="ml-3">
+        <button pButton icon="pi pi-arrow-right" class="p-button-sm mb-0" (click)="openSideBarPanel = true"></button>
+    </div>
+</div>
+
+
+<!-- <div class="grid">
+    <div class="col-9 bg-white shadow-2 border-round-sm">
+        <div class="grid">
+            <ng-container *ngFor="let item of dropdownCheckboxArray">
+                <div class="col-3 border-right-2 border-gray-200">
+                    <div class="font-bold flex align-items-center pl-2 dropdown">{{ item?.label }}</div>
+                        <p-multiSelect [options]="item['options']" [(ngModel)]="item['ngModel']" maxSelectedLabels="1" appendTo="body" [baseZIndex]="999999998" [showToggleAll]="false" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" placeholder="{{item['placeHolder']}}" optionLabel="label" class="multiselect-custom-virtual-scroll text-sm text-gray-500" (onPanelShow)="getAggregatedData( item )" (onChange)="setPayloadData( item )" [resetFilterOnHide]="true" [disabled]="item?.disable ? item.disable : false">
+                            <ng-template let-filterItem pTemplate="filterItem">
+                                <div class="flex align-items-center">
+                                    <ng-container *ngIf="item?.label == 'Industry'; else otherTemplate">
+                                        <span >{{ filterItem.label }}</span>
+                                    </ng-container>
+                                    <ng-template #otherTemplate>
+                                        <span >{{filterItem.label + ' ' + '(' + (filterItem.count  | number : '1.0-0') + ')'}}</span>
+                                    </ng-template>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="col-3 gap-4 flex flex-column  justify-content-center bg-yellow-200 text-black shadow-2 border-round-sm ">
+        <div class="flex align-items-center ml-3">
+            <div class="text-5xl mr-3 font-bold">{{totalRecords | number : '1.0-0' }}</div>
+            <div *ngIf="payloadFormationObject['filterData'].length > 1" class="mt-2">
+                <button pButton icon="pi pi-arrow-right" class="p-button-sm" (click)="openSideBarPanel = true"></button>
+            </div>
+        </div>
+        <div class="flex gap-1 ml-4">
+            <div>
+                <i class="pi pi-building" style="font-size: 1.25rem"></i>
+            </div>
+            <div class="text-lg font-semibold text-gray-800">Total Companies</div>
+        </div>
+    </div>
+</div> -->

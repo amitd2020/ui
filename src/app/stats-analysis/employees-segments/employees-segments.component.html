@@ -1,0 +1,17 @@
+<div class="grid select-none">
+    <div class="col-12 flex justify-content-between surface-border border-bottom-1">
+        <div class="text-lg font-medium text-indigo-700">
+            Employee Distribution
+            <dg-shared-itag-component>
+                <div>Shows the distribution of companies by employee count, presented in both numbers and percentages.</div>
+            </dg-shared-itag-component>
+        </div>
+        
+        <!-- <div class="text-right mr-5">
+            <dg-shared-toggle-component [toggleId]="'employeesToggle'"></dg-shared-toggle-component>
+        </div> -->
+    </div>
+    <div class="col-12 h-25rem tableCssModify">
+        <dg-table-view [tableColumn]="tableColumn" [tableData]="tableData" [additionalAttributForTable]="tableAttribute" [selectedFilter]="selectedFilter"></dg-table-view>
+    </div>
+</div>

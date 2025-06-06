@@ -1,0 +1,4 @@
+<i class="ui-icon-info-outline text-gray-800 cursor-pointer" (click)="msmeInfoOverlay.show($event)"></i>
+<p-overlayPanel #msmeInfoOverlay [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+    <ng-content></ng-content>
+</p-overlayPanel>

@@ -1,0 +1,22 @@
+<div class="grid select-none">
+    <div class="col-12 flex justify-content-between surface-border border-bottom-1">
+        <div class="text-lg font-medium text-indigo-700">Risk Assessment
+            <dg-shared-itag-component>
+                <div>Displays a bar chart categorising companies by risk levels, from very low to high, supporting risk management decisions.</div>
+            </dg-shared-itag-component>
+        </div>
+        <div class="text-right mr-5">
+            <dg-shared-toggle-component [toggleId]="'risktoggle'" (toggleChange)="receivedToggleChange($event)" ></dg-shared-toggle-component>
+        </div>
+    </div>
+    <ng-container *ngIf="cardView == 'Table'">
+        <div class="col-12 h-25rem tableCssModify">
+            <dg-table-view [tableColumn]="tableColumn" [tableData]="tableData" [selectedFilter]="selectedFilter" [additionalAttributForTable]="riskTableAttribute"></dg-table-view>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="cardView == 'Chart'">
+        <div class="col-12 h-25rem">
+            <dg-stats-graph-view [graphType]="'doughnutGraph'" [additionalAttributForTable]="{chipGroupName: 'Bands'}" [doughnutChartDatasets]="graphDataset" [chipDataArray]="tableData" [selectedFilter]="selectedFilter"></dg-stats-graph-view>
+        </div>
+    </ng-container>
+</div>
