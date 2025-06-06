@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+$gutter: 0.5rem; //for primeflex grid system
+
+/* Layout */
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Google Icons CDN*/
+// @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Quill Text Editor for p-editor */
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
+
+/* Demos */
+@import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+@import "assets/demo/styles/code.scss";
+@import "./appdemo.scss";
+// @import "assets/layout/styles/layout/layout.css";
+@import "../node_modules/leaflet/dist/leaflet.css";
+// @import "assets/layout/styles/theme/theme-light/teal/theme.css";
+// @import 'assets/layout/styles/layout/css/dg-layout-light.css';
+@import "assets/layout/styles/layout/overrides/layout-override.scss";
