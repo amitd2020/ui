@@ -1,0 +1,294 @@
+
+<div class="col card-pt-ForMobileView">
+	<div class="col-12">
+		<div class="card">
+		
+			<h3 class="text-center text-normal">Your current plan is</h3>
+			<h2 class="text-center font-bold uppercase"><strong>{{ user_active_plan_name }}</strong></h2>
+			<p class="text-center fs-small" *ngIf="!userDetails?.isSubscriptionActive">Plan subscription is over. Please contact at <a class="cName" href="mailto: grow@datagardener.com">grow@datagardener.com</a></p>
+			
+			<dg-upgrade-plan [currentPlan]="userDetails?.planId" [buttonOnly]="true" *ngIf="( [ subscribedPlanModal['Start'] , subscribedPlanModal['Expand_Weekly_Trial'] , subscribedPlanModal['Monthly_Expand_Trial'] , subscribedPlanModal['Annually_Expand_Trial'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Monthly_Enterprise_Trial'], subscribedPlanModal['Annually_Enterprise_Trial'], subscribedPlanModal['Valentine_Special'] ].includes( userDetails?.planId ) ) && !userAuthService.hasRolePermission( ['Client Admin'] )"></dg-upgrade-plan>
+		
+		</div>
+	</div>
+</div>
+
+<div class="col card-pt-ForMobileView">
+	<div class="col-12">
+		<div class="card">
+			<div class="text-left">
+				<h2>Limit Details</h2>
+			</div>
+		
+			<p-table [columns]="limitcols" [value]="limitData" [scrollable]="false">
+				<ng-template pTemplate="colgroup" let-columns>
+					<colgroup>
+						<col *ngFor="let col of columns" [ngStyle]="{ 'width' : col.width }"
+							[hidden]="col.field == 'total_Limit' && ( [subscribedPlanModal['Start'], subscribedPlanModal['Valentine_Special'] ].includes( userDetails?.planId ) )">
+					</colgroup>
+				</ng-template>
+		
+				<ng-template pTemplate="header" let-columns>
+					<tr>
+						<th id="subscriptionDataTable" *ngFor="let col of columns" [ngStyle]="{ 'text-align': col.textAlign }"
+							[hidden]="col.field == 'total_Limit' && ( [subscribedPlanModal['Start'], subscribedPlanModal['Valentine_Special'] ].includes( userDetails?.planId ) )">
+							{{ col.header }}
+						</th>
+					</tr>
+				</ng-template>
+		
+				<ng-template pTemplate="body" let-rowData let-columns="columns">
+					<tr>
+						<td *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign}" [ngSwitch]="true"
+							[hidden]="col.field == 'total_Limit' && ( [subscribedPlanModal['Start'], subscribedPlanModal['Valentine_Special'] ].includes( userDetails?.planId ) )">
+
+							<span class="p-column-title">{{ col.header }}:</span>
+		
+							<ng-container *ngSwitchCase="col.field == 'total_Limit'">
+								{{ rowData[col.field] | number: '1.0-0' }}
+							</ng-container>
+		
+							<ng-container *ngSwitchCase="col.field == 'limit_Available'">
+								{{ rowData[col.field] ? (rowData[col.field] | number: '1.0-0') : 0 }}
+							</ng-container>
+		
+							<ng-container *ngSwitchDefault>
+								{{ rowData[col.field] }}
+							</ng-container>
+						</td>
+					</tr>
+				</ng-template>
+		
+				<ng-template pTemplate="emptymessage" let-columns>
+					<tr>
+						<td [attr.colspan]="columns.length">No data found.</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="col card-pt-ForMobileView">
+
+	<div class="col-12">
+
+		<div class="card">
+			<div class="text-left">
+				<h2>Add On Details</h2>
+			</div>
+	
+			<div class="grid">
+				<dg-shared-addon-list [isAdmin]="userAuthService.hasRolePermission( ['Super Admin'] ) || userDetails?.companyNumber == '07706156'" [editMode]="false" [addOnNgModel]="addOnNgModel" [showAddonList]="'combineAddon'"></dg-shared-addon-list>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<!-- <div class="col card-pt-ForMobileView">
+
+	<div class="col-12">
+
+		<div class="card">
+
+			<div class="text-left">
+				<h2>Add On Details</h2>
+			</div>
+		
+			<div class="grid">
+				<ng-container *ngIf="userRoleAndFeatureAuthService.isAdmin() || userRoleAndFeatureAuthService.userAuthorizationDetails.companyNumber == '07706156' else otherBlock">
+					<ng-container *ngFor="let addOnFeatures of userRoleAndFeatureAuthService.addOnFeaturesDataObject | keyvalue: returnZero">
+						<ng-container *ngIf="![ '_id', 'userId', '__v', 'corporateCount', 'propertiesCount', 'defaultExportFeature', 'emailFilter', 'exportTemplate', 'accountType' ].includes( addOnFeatures.key )" >
+							<div class="col-3 md-6 lg-3">
+								
+								<ng-container *ngIf="addOnFeatures && addOnFeatures.value; else whenNoFilterOn">
+									<i class="material-icons c-green">check_circle</i>
+								</ng-container>
+
+								<ng-template #whenNoFilterOn>
+									<i class="material-icons c-red">cancel</i>
+								</ng-template>
+
+								<ng-container *ngIf="![ 'hnwiLandscape', 'crmExport' ].includes(addOnFeatures.key); else otherBlock">
+									{{ commonService.camelCaseToTitleCaseStr( addOnFeatures.key == 'specialFilter' ? 'premiumFilter' : addOnFeatures.key == 'epc'  ? 'energyPerformanceCertificate' : addOnFeatures.key == 'ablFilter' ? 'lendingIntelligence' : addOnFeatures.key  == 'internationalTradeLandscape' ? 'internationalTrade' : addOnFeatures.key  == 'investorInvesteeLandscape' ? 'investor / Investee Finder' : addOnFeatures.key  == 'corporateRiskLandscape' ? 'corporateRisk' : addOnFeatures.key  == 'lendingLandscape' ? 'lending': addOnFeatures.key  == 'governmentEnabler' ? 'governmentProcurement' : addOnFeatures.key)  }}
+								</ng-container>
+
+								<ng-template #otherBlock>
+									<ng-container *ngIf="addOnFeatures.key == 'hnwiLandscape'; else secondBlock">
+										HNWI
+									</ng-container>
+									<ng-template #secondBlock>
+										CRM Export
+									</ng-template>
+								</ng-template>
+								
+							</div>
+									
+						</ng-container>
+					</ng-container>
+				</ng-container>
+
+				<ng-template #otherBlock>
+					<ng-container *ngFor="let addOnFeatures of userRoleAndFeatureAuthService.addOnFeaturesDataObject | keyvalue: returnZero">
+						<ng-container *ngIf="![ '_id', 'userId', '__v', 'corporateCount', 'accountType', 'propertiesCount', 'emailFilter', 'valuationFilter', 'defaultExportFeature', 'exportTemplate', 'ablFilter' ].includes( addOnFeatures.key )">
+							<div class="col-12 md-6 lg-3">
+								
+								<ng-container *ngIf="addOnFeatures && addOnFeatures.value">
+									<i class="material-icons c-green">check_circle</i>
+								</ng-container>
+
+								<ng-container *ngIf="addOnFeatures && addOnFeatures.value == false">
+									<i class="material-icons c-red">cancel</i>
+								</ng-container>
+
+								<ng-container *ngIf="![ 'hnwiLandscape', 'crmExport', 'accountType', 'companyMonitorPlus' ].includes(addOnFeatures.key); else otherBlock">
+									{{ commonService.camelCaseToTitleCaseStr( addOnFeatures.key == 'specialFilter' ? 'premiumFilter' : addOnFeatures.key == 'epc'  ? 'energyPerformanceCertificate' : addOnFeatures.key  == 'internationalTradeLandscape' ? 'internationalTrade' : addOnFeatures.key  == 'investorInvesteeLandscape' ? 'investor / Investee Finder' : addOnFeatures.key  == 'corporateRiskLandscape' ? 'corporateRisk' : addOnFeatures.key  == 'lendingLandscape' ? 'lending': addOnFeatures.key  == 'governmentEnabler' ? 'governmentProcurement' : addOnFeatures.key)  }}
+										
+								</ng-container>
+
+								<ng-template #otherBlock>
+
+									{{ addOnFeatures.key == 'hnwiLandscape' ? 'HNWI' : addOnFeatures.key == 'companyMonitorPlus' ? 'Business Monitor Plus' : 'CRM Export' }}
+									
+								</ng-template>
+								
+							</div>
+								
+						</ng-container>
+
+					</ng-container>	
+				</ng-template>	
+				
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div> -->
+
+<div class="col card-pt-ForMobileView">
+	<div class="col-12">
+		<div class="card">
+			<div class="text-left">
+				<h2>Subscription Details</h2>
+			</div>
+		
+			<p-table [columns]="subscriptioncols" [value]="subscriptionData" [scrollable]="false">
+		
+				<ng-template pTemplate="colgroup" let-columns>
+					<colgroup>
+						<col *ngFor="let col of columns" [ngStyle]="{ 'width' : col.width }" [hidden]="col.field == 'contractName' && login_details && !login_details['contractName']">
+					</colgroup>
+				</ng-template>
+		
+				<ng-template pTemplate="header" let-columns>
+					<tr>
+						<th id="_header" *ngFor="let col of columns" [ngStyle]="{ 'text-align': col.textAlign }" [hidden]="col.field == 'contractName' && login_details && !login_details['contractName']">
+							{{ col.header }}
+						</th>
+					</tr>
+				</ng-template>
+		
+				<ng-template pTemplate="body" let-rowData let-columns="columns">
+					<tr>
+						<td *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign}" [ngSwitch]="col.field" [hidden]="col.field == 'contractName' && login_details && !login_details['contractName']">
+							
+							<span class="p-column-title">{{ col.header }}:</span>
+							
+							<ng-container *ngSwitchCase="'invoice'">
+								<span *ngIf="rowData['planAmt'] !== undefined && rowData['planAmt'] !== 0">
+									<button pButton type="button" class="p-button-rounded p-button-lg" icon="pi pi-file-pdf" label="Download" (click)='openInvoice($event,rowData[col.field])'></button>
+								</span>
+							</ng-container>
+
+							<ng-container *ngSwitchCase="'contractName'">
+								<span *ngIf="rowData['planName'] == 'Expand' || rowData['planName'] == 'Enterprise'">
+									<button pButton type="button" class="p-button-rounded p-button-lg mr-2" icon="pi pi-file-pdf" label="View" (click)='viewContractAgreement()'></button>
+									<button pButton type="button" class="p-button-rounded p-button-lg" icon="pi pi-file-pdf" label="Download" (click)='downloadContractAgreement()'></button>
+								</span>
+							</ng-container>
+		
+							<ng-container *ngSwitchCase="[ 'planName', 'startDate', 'status', 'endDate' ].includes( col.field ) ? col.field : ''">
+								<span [ngClass]="{ 'c-green': col.field == 'status' && rowData[col.field] == 'Active' }">
+									{{ (rowData[col.field] != undefined && rowData[col.field] != null && rowData[col.field] != "" ? rowData[col.field] : "-") }}
+								</span>
+							</ng-container>
+		
+							<ng-container *ngSwitchCase="'planAmt'">
+								{{  (rowData[col.field] != undefined && rowData[col.field] != null && rowData[col.field] != "" ? (rowData[col.field] | currency: selectedGlobalCurrency:'symbol':'1.0-2') : "-") }}
+							</ng-container>
+							
+							<ng-container *ngSwitchDefault>
+								{{ rowData[col.field] }}
+							</ng-container>
+		
+						</td>
+					</tr>
+				</ng-template>
+		
+				<ng-template pTemplate="emptymessage" let-columns>
+					<tr>
+						<td [attr.colspan]="columns.length">No data found.</td>
+					</tr>
+				</ng-template>
+                
+			</p-table>
+		
+		</div>
+	</div>
+</div>
+
+<div class="col card-pt-ForMobileView">
+	<div class="col-12">
+		<div class="card">
+			<div class="text-left">
+				<h2>Terms & Conditions</h2>
+			</div>
+			
+			<p-table [columns]="termsAndConditioncols" [value]="termConditionArray" [scrollable]="false">
+		
+				<ng-template pTemplate="header" let-columns>
+					<tr>
+						<th id="_header" *ngFor="let col of columns" [ngStyle]="{ 'text-align': col.textAlign }">
+							{{ col.header }}
+						</th>
+					</tr>
+				</ng-template>
+		
+				<ng-template pTemplate="body" let-rowData let-columns="columns">
+					<tr>
+						<td *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign}" [ngSwitch]="true">
+							
+							<ng-container *ngSwitchCase="col.field == 'pdfButton'">
+								<button pButton type="button" class="p-button-rounded p-button-lg mr-2" icon="pi pi-file-pdf" label="View" (click)='viewTermConditionPdf($event)'></button>
+								<button pButton type="button" class="p-button-rounded p-button-lg" icon="pi pi-file-pdf" label="Download" (click)='downloadTermConditionPdf($event)'></button>
+							</ng-container>
+							<ng-container *ngSwitchCase="col.field == 'acceptedDate'">
+								{{ acceptedTermNCondition_Date }}
+							</ng-container>
+							<ng-container *ngSwitchCase="col.field == 'description'">
+								Accepted Terms & Conditions
+							</ng-container>
+									
+						</td>
+					</tr>
+				</ng-template>
+		
+				<ng-template pTemplate="emptymessage" let-columns>
+					<tr>
+						<td [attr.colspan]="columns.length">No data found.</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		
+		</div>
+	</div>
+</div>

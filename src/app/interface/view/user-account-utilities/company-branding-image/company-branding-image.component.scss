@@ -1,0 +1,26 @@
+::ng-deep {
+    .p-element{
+        .p-button.p-button-icon-only {
+            width: auto;
+        }
+    }
+}
+
+.logoAndCoverDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+p-fileupload {
+    ::ng-deep {
+        .p-component {
+            .p-component {
+                .p-button-label {
+                    max-width: 10em;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}

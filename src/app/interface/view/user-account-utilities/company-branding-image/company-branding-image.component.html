@@ -1,0 +1,53 @@
+<p-messages [(value)]="uploadCompanyLogoMessage"></p-messages>
+<p-confirmDialog [style]="{width: '20vw'}" [baseZIndex]="10000"></p-confirmDialog>
+<div [ngClass]="{ 'logoAndCoverDisabled': isLogoAndCoverDisabled }">
+
+	<strong *ngIf="!userDetails?.companyNumber || userDetails?.companyNumber == ' '" class="text-cyan-700">This section is Enable only if, this profile is associated with Company Name and Company Number.</strong>
+		
+	<ng-container *ngIf="logoSectionCard; else hasImageCard">
+		<div class="mt-1 grid">
+			<div class="col-12">
+				<h3 class="m-2 p-text-uppercase"><strong>upload company logo & Cover Image</strong></h3>
+				<div class="grid">
+					<div class="col-12 m-2 grid">
+						<div class="col-6 h-full p-4 border-round-sm border-1 border-dashed flex align-items-center justify-content-center">
+							<p-fileUpload mode="basic" #companyLogoImage name="companyLogoImage" accept=".jpg, .jpeg, .png" customUpload="true" maxFileSize="5000000" multiple="multiple" (onSelect)="onSelect($event, 'companyLogoImage')" (onUpload)="preventUpload($event)"></p-fileUpload>
+						</div>
+						<div class="col-6 h-full p-4 border-round-sm border-1 border-dashed flex align-items-center justify-content-center">
+							<p-fileUpload mode="basic" #companyCoverImage name="companyCoverImage" accept=".jpg, .jpeg, .png" customUpload="true" maxFileSize="5000000" multiple="multiple" (onSelect)="onSelect($event, 'companyCoverImage')" (onUpload)="preventUpload($event)"></p-fileUpload>
+						</div>
+					</div>
+					<div class="col-12 grid">
+						<div class="col-6 flex flex-wrap justify-content-center">Please Upload Logo Image.</div>
+						<div class="col-6 flex flex-wrap justify-content-center" >Please Upload Cover Image.</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 grid">
+				<div class="col-6 flex justify-content-end flex-wrap">
+					<button pButton pRipple type="button" label="Upload" class="p-button-rounded p-button-secondary bg-primary" (click)="uploadCompanyCoverAndLogoImage()"></button>
+				</div>
+				<div class="col-6 flex justify-content-start flex-wrap card-container ui-button-danger">					
+					<button pButton pRipple type="button" label="Reset" class="p-button-rounded p-button-sm p-button-danger" (click)="onRemove()"></button>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-template #hasImageCard>
+		<div *ngIf="imageBasedataAvailable" class="grid mt-6"><!-- Block if Company have Image and Cover Image -->
+			<div class="col-6 card shadow-2 max-w-20rem m-auto text-center"><!-- Company Logo Card -->
+				<img [src]="userLogoImageFromAPI" alt="logo Image" class="w-6rem h-6rem">
+				<p class="text-500 text-lg m-4">Company Logo Image</p>
+			</div>
+			<div class="col-6 card shadow-2 max-w-20rem m-auto text-center"><!-- Company Cover Image Card -->
+				<img [src]="userCoverImageFromAPI" alt="cover Image" class="w-6rem h-6rem">
+				<p class="text-500 text-lg m-4">Company Cover Image</p>
+			</div>
+			<div class="col-12 flex justify-content-center flex-wrap card-container mt-4">
+					<button pButton pRipple type="button" label="Delete" class="p-button-rounded p-button-sm p-button-danger" (click)="logoAndCoverImagedeleteConfirmation()"></button>
+			</div>
+		</div>
+	</ng-template>
+
+</div>

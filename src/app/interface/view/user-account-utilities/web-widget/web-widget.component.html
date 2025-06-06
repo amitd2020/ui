@@ -1,0 +1,61 @@
+
+<div class="searchBoxForBI" > 
+
+    <div class="grid">
+        <div class="grid card m-4">
+            <div>
+                <p-calendar placeholder="From Date" styleClass="calendarStyling" [(ngModel)]="selectedPeriodValue.fromDate"
+                    [readonlyInput]="true" dateFormat="dd-mm-yy" [monthNavigator]="true" [defaultDate]="maxSelectableDate"
+                    [yearNavigator]="true" hideOnDateTimeSelect="true" [numberOfMonths]="1" appendTo="body"
+                    yearRange="2016:{{maxYear}}"
+                    [maxDate]="selectedPeriodValue.toDate ? selectedPeriodValue.toDate : maxSelectableDate"
+                    [showIcon]="true"></p-calendar>
+            </div>
+            <div class="ml-4">
+                <p-calendar placeholder="To Date" styleClass="calendarStyling" [(ngModel)]="selectedPeriodValue.toDate"
+                [readonlyInput]="true" dateFormat="dd-mm-yy" [monthNavigator]="true" [defaultDate]="maxSelectableDate"
+                [yearNavigator]="true" hideOnDateTimeSelect="true" [numberOfMonths]="1" appendTo="body"
+                yearRange="2016:{{maxYear}}" [minDate]="selectedPeriodValue.fromDate" [maxDate]="maxSelectableDate"
+                [showIcon]="true"></p-calendar>
+            </div>
+        </div>
+        <div class="card grid m-4 gap-3" >
+                <div class="flex align-items-center">
+                    <p-radioButton name="selectDays" value="Today" [(ngModel)]="selectDays" label="Today" (onClick)="selectedDays($event)"></p-radioButton>
+                </div>
+                
+                <div class="flex align-items-center">
+                    <p-radioButton name="selectDays" value="Last 7 days" [(ngModel)]="selectDays" label="Last 7 days" (onClick)="selectedDays($event)"></p-radioButton>
+                </div>
+                
+                <div class="flex align-items-center">
+                    <p-radioButton name="selectDays" value="Last 30 days" [(ngModel)]="selectDays" label="Last 30 days" (onClick)="selectedDays($event)"></p-radioButton>
+                </div>
+        </div>
+        <div class="card m-4">
+            <div class=" flex justify-content-center p-4">
+                <p-radioButton name="viewCompaniesVisitors" value="Companies" label="Companies"
+                    [(ngModel)]="viewCompaniesVisitors" class="mr-3"
+                    (onClick)="onToggleChange('Companies')"></p-radioButton>
+                <p-radioButton name="viewCompaniesVisitors" value="Visitors" label="Visitors"
+                    [(ngModel)]="viewCompaniesVisitors" (onClick)="onToggleChange('Visitors')"></p-radioButton>
+            </div>
+        </div>
+    </div>
+    
+    <div class="m-4 pb-responsive">
+        <button class="mr-4" pButton pRipple
+            [disabled]="!(this.selectedPeriodValue.fromDate && this.selectedPeriodValue.toDate) && !selectDaysRadinButton" label="Search"
+            icon="pi pi-search piIcon" (click)="submit()"></button>
+        <button pButton pRipple label="clear"
+            [disabled]="!(this.selectedPeriodValue.fromDate || this.selectedPeriodValue.toDate) && !selectDaysRadinButton" icon="pi pi-times"
+            class="p-button-warning" (click)="clear()"></button>
+    </div>
+</div>
+
+<ng-container class="col-12">
+    <dg-admin-record-list  [listColumns]="tableCols" [listDataValues]="tableData" [thisPage]="'webWidgetPage'" [searchTotalCount]="totalRecords" (updateTableAfterPagination)="requestUpdateTableData( $event )" (operatingTable)="sidebarPanel($event)"></dg-admin-record-list>
+</ng-container>
+
+
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
