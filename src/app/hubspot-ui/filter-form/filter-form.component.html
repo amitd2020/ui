@@ -1,0 +1,368 @@
+<p-messages [(value)]="msgs"></p-messages>
+
+<div class="mt-4">
+    <p-dialog [draggable]="false" [(visible)]="showDialog" [style]="{width: '100vw', height: '90vh'}" [modal]="true" [blockScroll]="true" (onHide)="hideDialog()">
+    
+        <div class="flex justify-content-between align-items-center">
+            <button pButton label="Import To HubSpot" [disabled]="totalRecordsCount <= 0" (click)="checkCrmLimit()"></button>
+            <ng-container *ngIf="tableData.length">
+                <p-paginator #recordListPaginator [first]="first" [rows]="rows" [pageLinkSize]="3" [totalRecords]="totalRecords" [rowsPerPageOptions]="[25,50,100]" (onPageChange)="pageChange($event)"></p-paginator>
+            </ng-container>
+        </div>
+
+        <p><strong>{{ totalRecordsCount }} Results Found!</strong></p>
+    
+      <!-- <div class="flex">
+        <div class="ml-3 font-medium">
+            <label for="multiple">Multiple Contact Import</label>
+        </div>
+        <div class="ml-3">
+            <p-inputSwitch id="multiple" [(ngModel)]="isMultipleContact"></p-inputSwitch>
+        </div>
+      </div> -->
+    
+      <div *ngIf="showProgressSpinner" class="mt-3">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+      </div>
+    
+      <div class="card">
+          <p-table styleClass="p-datatable-gridlines" [columns]="cols" [value]="tableData" [(selection)]="selectedCompany" [scrollable]="true" scrollHeight="65vh" [tableStyle]="{ 'min-width': '50rem' }">
+              <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th style="min-width: 35px; max-width: 35px;">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                      <th *ngFor="let col of columns" [ngStyle]="{'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign}">
+                          {{ col.header }}
+    
+                          <ng-container *ngIf="col.header == 'Turnover'">
+                            
+                              <i class="pi pi-info-circle" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide()"
+                                  style="font-size:18px"></i>
+                              <p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                                  <div class="OverlayAdmin pb-2">
+                                      <i class="pi pi-circle-fill pr-2" style="color: #1ab394;"></i><strong>Turnover</strong>						
+                                  </div>
+                                  <div class="OverlayAdmin">
+                                      <i class="pi pi-circle-fill pr-2" style="color: #03a9f4;"></i><strong>Estimated Turnover (*)</strong>						
+                                  </div>
+                              </p-overlayPanel>
+                          </ng-container>
+                      </th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                      <td>
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                      </td>
+                      <td *ngFor="let col of columns" [ngSwitch]="true" [ngStyle]="{'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign}">
+    
+                          <ng-container *ngSwitchCase="col?.tableValueType == 'uppercase'">
+                              {{ rowData[ col.field ] ? ( rowData[col.field] | uppercase ) : '-' }}
+                          </ng-container>
+    
+                          <ng-container *ngSwitchCase="col?.tableValueType == 'titlecase'">
+                              {{ rowData[ col.field ] ? ( rowData[col.field] | titlecase ) : '-' }}
+                          </ng-container>
+    
+                          <ng-container *ngSwitchCase="col?.tableValueType == 'number'">
+                              {{ rowData[ col.field ] ? ( rowData[col.field] | number : '1.0-1' ) : '-' }}
+                          </ng-container>
+    
+                          <!-- <ng-container *ngSwitchCase="col?.tableValueType == 'currency'">
+                              {{ rowData[ col.field ] | currency: 'GBP' : 'symbol' : '1.0-2' }}
+                          </ng-container>    -->
+                          
+                          <ng-container *ngSwitchCase="col.header == 'Company Name'">
+                              <a class="cName" target="_blank"
+                              [href]="'https://app.datagardener.com/company/' + rowData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['companyName'] | titlecase)">
+                              {{ rowData[col.field] | uppercase }}</a>
+                          </ng-container>
+    
+                          <ng-container *ngSwitchCase="col.header == 'Turnover'">
+                              <span [ngClass]="{'c-blue': rowData['estimatedTurnover'] != 0, 'c-green':  rowData['turnover'] != 0}">
+                                  <span *ngIf="rowData['estimatedTurnover'] != 0">*</span> {{ (rowData[ 'estimatedTurnover' ]  == 0 ? rowData[ 'turnover' ] : rowData[ 'estimatedTurnover' ]) | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                              </span>
+                          </ng-container>
+    
+                          <ng-container *ngSwitchCase="col.header == 'Risk Band'">
+                              <div class="riskRatingLabel" [ngClass]="{'lightGreen' : rowData.riskBand == 'very low risk', 'cyan' : rowData.riskBand == 'low risk', 'yellow' : rowData.riskBand == 'moderate risk', 'orange' : rowData.riskBand == 'high risk', 'darkRed': rowData.riskBand == 'not scored' }">
+                                {{ (rowData[ col.field ] == 'not scored' ? 'Not Scored /Very High Risk' : rowData[ col.field ]) | titlecase  }}
+                              </div>
+                          </ng-container>
+    
+                          <ng-container *ngSwitchDefault>
+                              {{ rowData[ col.field ] ? rowData[ col.field ] : '-' }}
+                          </ng-container>
+    
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
+    </p-dialog>
+</div>
+
+<p-dialog header="Header" [(visible)]="showDialogForListName" [modal]="true" [style]="{width: '25vw'}">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">Required List Name</span>
+    </ng-template>
+    <div class="flex flex-column">
+        <label htmlFor="username">Enter your list name</label>
+        <input pInputText id="username" aria-describedby="username-help" class="p-inputtext mt-2" [(ngModel)]="listNameForHubSpot" />
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button (click)="pushCompaniesToHubSpot()" label="Create" [disabled]="!listNameForHubSpot"></p-button>
+    </ng-template>
+</p-dialog>
+
+<div class="col-12 card shadow-4 mt-3">
+    <div class="p-fluid p-4" *ngIf="!showDialog">
+        <h5>Filter Criteria</h5>
+        <div class="grid">
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="search-name" class="mb-2 font-medium">Search For</label>
+                    <div>
+                        <input pInputText id="search-name" type="text" [(ngModel)]="searchName" disabled="true" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="industry" class="mb-2 font-medium">Industry</label>
+                    <div>
+                        <p-multiSelect [options]="industryTagList" [(ngModel)]="selectedIndustryTag" appendTo="body" [baseZIndex]="999999998"  [showToggleAll]="false" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" placeholder="Select Industry" optionLabel="label" class="multiselect-custom-virtual-scroll" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Industry')" (onPanelHide)="resetOptions(industryTagList)" (onChange)="setPayloadData($event, 'Industry')">
+                            <ng-template let-industry pTemplate="industry">
+                                <div class="flex align-items-center">
+                                    <span class="ml-2">{{industry.label + ' ' + '(' + (industry.count  | number : '1.0-0') + ')'}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="sic-code" class="mb-2 font-medium">SIC Code Description</label>
+                    <div>
+                        <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [options]="sicCodeOptions" [(ngModel)]="selectedSicCode" placeholder="Select SIC Code" [filter]="true" [filterInputAutoFocus]="true" selectionMode="multiple" [metaKeySelection]="false" (onHide)="selectSicCode($event, 'SIC Codes')">
+
+                            <ng-template let-node pTemplate="default">
+                                <ng-container>{{ node.label }}</ng-container>
+                            </ng-template>
+                        </p-treeSelect>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="filter-name" class="mb-2 font-medium">Company Name</label>
+                    <div>
+                        <input pInputText id="filter-name" type="text" [(ngModel)]="filterCompanyName" placeholder="eg: Tesco Plc" (blur)="handleBlur($event)" />
+                        <div class="card" *ngIf="filterCompanyName">
+                            <div>
+                                <div class="flex cursor-pointer" (click)="getValue($event)">
+                                    <p class="font-medium c-grey hover:text-teal-300" id="and">Contains all of keyword<i class="forPlusIcon pi pi-plus ml-7"></i></p>
+                                </div>
+                                <div class="flex cursor-pointer" (click)="getValue($event)">
+                                    <p class="font-medium c-grey hover:text-teal-300" id="or">Contains any one of keyword<i class="forPlusIcon pi pi-plus ml-4"></i></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="postcode" class="mb-2 font-medium">Post Code</label>
+                    <div class="flex">
+                        <div class="ml-0">
+                            <div class="flex">
+                                <div class="card w-10rem m-1 border-1 border-500">
+                                    <p-slider [(ngModel)]="radiusValue" [max]="100" [disabled]="selectedPostCode.length > 1" (onChange)="changeRadius($event)"></p-slider>
+                                </div>
+                                <div class="w-4rem ml-1">
+                                    <p-inputNumber [(ngModel)]="radiusValue" [max]="100" [maxFractionDigits]="3" [disabled]="selectedPostCode.length > 1" (onInput)="changeRadius({value: radiusValue})"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-1 mlt-wdt">
+                            <p-multiSelect [options]="postCodeOptions" [(ngModel)]="selectedPostCode" appendTo="body" [baseZIndex]="999999998" [showToggleAll]="false" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" placeholder="Select Post Code" optionLabel="label" class="multiselect-custom-virtual-scroll" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Post Code')" (onChange)="setPayloadData($event, 'Post Code')" (onFilter)="getAggregatedData($event, 'Post Code', 'onFilter')">
+                                <ng-template let-postCode pTemplate="postCode">
+                                    <div class="flex align-items-center">
+                                        <span class="ml-2">{{postCode.label + ' ' + '(' + (postCode.count  | number : '1.0-0') + ')'}}</span>
+                                    </div>
+                                </ng-template>
+                            </p-multiSelect>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="postcode" class="mb-2 font-medium">Region</label>
+                    <div>
+                        <p-multiSelect [options]="regionOptions" [(ngModel)]="selectedRegion" appendTo="body" [baseZIndex]="999999998"  [showToggleAll]="false" placeholder="Select Region" optionLabel="label" class="multiselect-custom" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Region')" (onChange)="setPayloadData($event, 'Region')">
+                            <ng-template let-region pTemplate="region">
+                                <div class="flex align-items-center">
+                                    <span class="ml-2">{{region.label + ' ' + '(' + (region.count  | number : '1.0-0') + ')'}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="town/city" class="mb-2 font-medium">Town / City</label>
+                    <div>
+                        <p-multiSelect [options]="townCityOptions" [(ngModel)]="selectedTownCity" appendTo="body" [baseZIndex]="999999998"  [showToggleAll]="false" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" placeholder="Select Town / City" optionLabel="label" class="multiselect-custom-virtual-scroll" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Town / City')" (onChange)="setPayloadData($event, 'Town / City')">
+                            <ng-template let-townCity pTemplate="townCity">
+                                <div class="flex align-items-center">
+                                    <span class="ml-2">{{townCity.label + ' ' + '(' + (townCity.count  | number : '1.0-0') + ')'}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="risk-profile" class="mb-2 font-medium">Risk Profile</label>
+                    <div>
+                        <p-multiSelect [options]="riskRatingOptions" [(ngModel)]="riskRating" appendTo="body" [baseZIndex]="999999998"  [showToggleAll]="false" placeholder="Select Risk Rating" optionLabel="label" class="multiselect-custom" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Bands')" (onPanelHide)="resetOptions(riskRatingOptions)" (onChange)="setPayloadData($event, 'Bands')">
+                            <ng-template let-risk pTemplate="risk">
+                                <div class="flex align-items-center">
+                                    <span class="ml-2">{{risk.label  + ' ' + '(' + (risk.count  | number : '1.0-0') + ')'}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="personal-contact-information" class="mb-2 font-medium">Person Position</label>
+                    <div>
+                        <p-multiSelect [options]="positionOptions" [(ngModel)]="selectedPositions" appendTo="body" [baseZIndex]="999999998"  [showToggleAll]="false" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" placeholder="Select Position" optionLabel="label" class="multiselect-custom-virtual-scroll" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Person Positions')" (onPanelHide)="resetOptions(positionOptions)" (onChange)="setPayloadData($event, 'Person Positions')">
+                            <ng-template let-position pTemplate="position">
+                                <div class="flex align-items-center">
+                                    <span class="ml-2">{{position.label  + ' ' + '(' + (position.count  | number : '1.0-0') + ')'}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="actual-employees" class="mb-2 font-medium">Actual/Estimated Employees</label>
+                    <div>
+                        <p-multiSelect [options]="numberOfEmployeesOptions" [(ngModel)]="selectedNumberOfEmployees" appendTo="body" [baseZIndex]="999999998"  [showToggleAll]="false" placeholder="Select Number Of Employees" optionLabel="label" class="multiselect-custom" display="chip" [resetFilterOnHide]="true" (onPanelShow)="getAggregatedData($event, 'Number of Employees')" (onChange)="setPayloadData($event, 'Number of Employees')">
+                            <ng-template let-employees pTemplate="item">
+                                <div class="flex align-items-center">
+                                    <span class="ml-2">{{employees.label + ' ' + '(' + (employees.count  | number : '1.0-0') + ')'}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="mb-1">
+                    <label for="accounts-date" class="mb-2 font-medium">Last filed accounts date</label>
+                    <div class="formgroup-inline align-items-baseline">
+                        <div class="mr-0 flex-1">
+                            <p-calendar [showIcon]="true" inputId="icon" dateFormat="dd-mm-yy" [(ngModel)]="lastFiledAccounts['startingDate']" [maxDate]="maxSelectableDate" placeholder="From" (onSelect)="handleBlur($event)"></p-calendar>
+                            <small *ngIf="lastFiledAccounts['startingDate'] || lastFiledAccounts['endingDate']" class="text-red-400">Both fields are necessary</small>
+                        </div>
+                        <span class="font-medium mr-0 px-2">-</span>
+                        <div class="mr-0 flex-1">
+                            <p-calendar [showIcon]="true" inputId="icon" dateFormat="dd-mm-yy" [(ngModel)]="lastFiledAccounts['endingDate']" [minDate]="lastFiledAccounts['startingDate']" [maxDate]="maxSelectableDate" placeholder="To" (onSelect)="handleBlur($event)"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="field mb-1">
+                    <label for="actual-turnover" class="mb-2 font-medium">Actual/Estimated Turnover</label>
+                    <div class="formgroup-inline align-items-center">
+                        <div class="mr-0 flex-1">
+                            <p-inputNumber inputId="integeronly" [(ngModel)]="actualTurnover['minimumTurnover']" placeholder="Minimum" (onBlur)="handleBlur($event)"></p-inputNumber>
+                        </div>
+                        <span class="font-medium mr-0 px-2">To</span>
+                        <div class="mr-0 flex-1">
+                            <p-inputNumber inputId="integeronly" [(ngModel)]="actualTurnover['maximumTurnover']" placeholder="Maximum" (onBlur)="handleBlur($event)"></p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="mb-1">
+                    <label for="in-date" class="mb-2 font-medium">Incorporation Date</label>
+                    <div class="formgroup-inline align-items-baseline">
+                        <div class="mr-0 flex-1">
+                            <p-calendar [showIcon]="true" inputId="icon" dateFormat="dd-mm-yy" [(ngModel)]="incorporationDate['startingDate']" [maxDate]="maxSelectableDate" placeholder="From" (onSelect)="handleBlur($event)"></p-calendar>
+                            <small *ngIf="incorporationDate['startingDate'] || incorporationDate['endingDate']" class="text-red-400">Both fields are necessary</small>
+                        </div>
+                        <span class="font-medium mr-0 px-2">-</span>
+                        <div class="mr-0 flex-1">
+                            <p-calendar [showIcon]="true" inputId="icon" dateFormat="dd-mm-yy" [(ngModel)]="incorporationDate['endingDate']" [minDate]="incorporationDate['startingDate']" [maxDate]="maxSelectableDate" placeholder="To" (onSelect)="handleBlur($event)"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="field mb-1">
+                    <label for="actual-employees" class="mb-2 font-medium">Personal Preferences</label>
+                    <div class="grid">
+                        <ng-container *ngFor="let prefOption of preferencesOptionIndex">
+                            <div class="col-4">
+                                <div class="card border-1 border-500">
+                                    <div>
+                                        <p>{{prefOption.header}}</p>
+                                    </div>
+                                    <hr>
+                                    <div class="flex gap-5">
+                                        <ng-container *ngFor="let item of prefOption['items']">
+                                            <div class="field-checkbox">
+                                                <p-checkbox name="{{item.checkBoxName}}" value="{{item.checkBxValue}}" id="ny" [binary]="true" inputId="binary" [(ngModel)]="item.chckbxNgModel" [disabled]="item.disable" (onChange)="changePreference($event, 'Preferences', item.preferenceOperator, item.chipValue, item.checkBoxName, item.chckbxNgModel)"></p-checkbox>
+                                                <label for="ny">{{item.label}}</label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <!-- <div class="field-checkbox">
+                            <p-checkbox name="phone" value="phone" id="ph" [binary]="true" inputId="binary" [(ngModel)]="preferenceOperator['hasContactNumber']" (onChange)="changePreference($event, 'Preferences', 'hasContactNumber', 'Company must have phone number')"></p-checkbox>
+                            <label for="ph">Company Phone Number</label>
+                        </div>  -->
+                    </div>
+                </div>
+            </div>
+            <div class="flex mt-2">
+                <div class="m-2 w-6rem"><button pButton label="Search" (click)="searchData()"></button></div>
+                <div class="m-2 w-6rem"><button class="bg-red-300" pButton label="Clear" (click)="clearData()"></button></div>
+            </div>
+        </div>
+    </div>
+
+</div>

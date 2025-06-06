@@ -1,0 +1,127 @@
+<p-dialog header="Confirmation" [(visible)]="loginConfirmation" [modal]="true" [style]="{width: '22vw'}" [draggable]="false" [focusOnShow]="false" styleClass="confirmDialogModalLogoutAll">
+    <div class="text-center">
+        <p>Do you want to logout from other devices?</p>
+    </div>
+    <p-footer>
+        <div class="text-center">
+            <button pButton class="p-button-rounded" (click)="loginConfirm()" type="button" label="Yes"></button>
+            <button pButton class="p-button-rounded darkGrey" type="button" (click)="loginConfirmation=false" label="No"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<div class="login-body">
+    <div class="login-panel p-fluid p-input-filled">
+        <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" autocomplete="on">
+            
+            <div class="grid">
+
+                <div class="col-12 logo">
+                    <h1 class="p-0 m-0">
+                        <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener Logo" width="280">
+                    </h1>
+                </div>
+
+                <div class="col-12 py-0">
+                    <div class="card mb-3">
+                        
+                        <div class="grid text-center align-items-center justify-content-center">
+                            <div class="col-4 px-0">
+                                <h2 class="m-0">Login</h2>
+                            </div>
+                            <!-- <div class="col-6 px-0 ml-auto" *ngIf="userAuthService.envServer == 'dev'">
+                                <p-dropdown [options]="countrySelectionOptions" optionLabel="name" [(ngModel)]="selectedGlobalCountry" [ngModelOptions]="{ standalone: true }" styleClass="countryDropdown">
+                                    <ng-template let-countrySelected pTemplate="selectedItem">
+                                        <div class="flex align-items-center">
+                                            <img src="assets/utilities/flags/flag_placeholder.png" alt="{{ countrySelected?.name }}" class="flag flag-{{ countrySelected?.countryCode }} mr-2" />
+                                            <span>{{ countrySelected?.name }}</span>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-countryItem pTemplate="item">
+                                        <div class="flex align-items-center">
+                                            <img src="assets/utilities/flags/flag_placeholder.png" alt="{{ countryItem?.name }}" class="flag flag-{{ countryItem?.countryCode }} mr-2" />
+                                            <span>{{ countryItem?.name }}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div> -->
+                        </div>
+
+                        <p-messages [(value)]="msgs"></p-messages>
+
+                        <div class="grid">
+
+                            <div class="col-12">
+                                <input type="email" pInputText name="email" #email="ngModel" ngModel required placeholder="Email Address">
+                                <span *ngIf="(email.touched || loginForm.submitted) && email.errors?.required" style="color: red;">
+                                    <span style="float: left;font-size: small;">
+                                        Email is required
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-12 pb-0">
+                                <span class="p-float-label p-input-icon-right">
+                                    <i class="pi pi-{{ hide ? 'eye-slash' : 'eye' }}" (click)="hide = !hide"></i>
+                                    <input [type]="hide ? 'password' : 'text'" pInputText name="password" #password="ngModel" ngModel required placeholder="Password">
+                                    <span *ngIf="(password.touched || loginForm.submitted) && password.errors?.required" style="color: red;">
+                                        <span style="float: left;font-size: small;">
+                                            Please enter a password
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-12 text-right p-0 mb-2 mt-2">
+                                <a [href]="'hubspot-ui/ForgotPassword'" class="c-green fs-small">Forgot Password.?</a>
+                            </div>
+                            <div class="col-12 pb-0 mb-4">
+                                <button pButton type="submit" label="Log In" class="p-button-lg p-button-rounded mb-1"></button>
+
+                                <!-- Google is not work fine so hide all social media ticket no DG-6429 -->
+
+                                <!-- <p-divider align="center" type="dashed">
+                                    <b>OR</b>
+                                </p-divider> -->
+
+                                <!-- <div class="flex justify-content-between mr-6 ml-6 mb-4">
+                                    <div>
+        
+                                        <a href="javascript:void(0)" (click)="socialSignIn('google')">
+                                            <img src="../../assets/layout/images/google-color-icon.svg" width="30px">
+                                        </a>
+                                        
+                                    </div>
+                                    <div>
+            
+                                        <a href="javascript:void(0)" (click)="socialSignIn('facebook')">
+                                            <img src="../../assets/layout/images/facebook-square-color-icon.svg" width="30px">
+                                        </a>
+                                
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <a href="javascript:void(0)" (click)="linkedInLogIn()">
+                                                <img src="../../assets/layout/images/linkedin.png" width="30px">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="text-center mb-4">
+                                    <a href="javascript:void(0);" class="c-green" [routerLink]="['/authentication/forgotPassword']">Forgot Password?</a>
+                                </div> -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <p class="p-m-0" style="color: white">Don't have an account, <a href="https://datagardener.com/contact/" class="c-green">Create Account</a></p>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

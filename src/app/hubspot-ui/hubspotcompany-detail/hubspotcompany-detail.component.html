@@ -1,0 +1,280 @@
+<p-messages [(value)]="msgs"></p-messages>
+<div class="col-12 card shadow-4 mt-3">
+    <div class="p-fluid">
+        
+        <div *ngIf="showProgressBar">
+            <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+        </div>
+        <div class="flex justify-content-center align-items-center" *ngIf="showProgressSpinner">
+            <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="4"></p-progressSpinner>
+        </div>
+
+        <div class="grid">
+
+            <div class="col-6">
+
+                <!-- Company Header -->
+                <div class="col-12 mb-3">
+                    <div class="flex justify-content-center align-items-center">
+                        <div class="grid">
+                            <div class="col-fixed hidden md:block">
+                                <span class="companyLogo">
+                                    <img *ngIf="companyDetails?.company_contact_info_latest && companyDetails?.company_contact_info_latest?.logo_url; else defaultLogo" src="{{ companyDetails.company_contact_info_latest.logo_url }}"/>
+                                </span>
+                
+                            </div>
+                            <ng-template #defaultLogo>
+                                <i class="material-icons defaultCompanyLogo absolute right-0 bussinessIcon">business</i>
+                            </ng-template>
+
+                            <div class="col pt-3">
+                                <div class="line-height-3">
+                                    <div class="text-2xl font-semibold text-800 text-blue-600">{{ companyDetails?.['companyName'] | uppercase }}</div>
+                                    <div>
+                                        <span class="featuredLinks">
+                                            <ng-container *ngIf="companyDetails?.company_contact_info_latest && companyDetails?.company_contact_info_latest?.linkedin_url">
+                                                <a  target="_blank" [href]="companyDetails?.company_contact_info_latest?.linkedin_url" class="mt-1">
+                                                    <svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                        <path d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                                    </svg>
+                                                </a>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="companyDetails?.company_contact_info_latest && companyDetails?.company_contact_info_latest?.website">
+                                                <a target="_blank" class="cName" href="http://www.{{ companyDetails.company_contact_info_latest.website }}">
+                                                    <i class="material-icons mb-1">language</i>
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngIf="companyDetails?.company_contact_info_latest && companyDetails?.company_contact_info_latest?.email && companyDetails?.company_contact_info_latest?.email.length">
+                                                <a href="mailto:{{ companyDetails.company_contact_info_latest.email[0] }}">
+                                                    <i class="material-icons mb-1">mail</i>
+                                                </a>
+                                            </ng-container>
+                                            <ng-container *ngIf="companyDetails?.company_contact_info_latest && companyDetails?.company_contact_info_latest?.telephone">
+                                                <a href="tel:{{ companyDetails.company_contact_info_latest.telephone }}">
+                                                    <i class="material-icons mb-1">phone</i>
+                                                </a>
+                                            </ng-container>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company General Informattion -->
+                <div class="col-12">
+                    <p-fieldset [toggleable]="true">
+                        <ng-template pTemplate="header"> 
+                            <div class="flex align-items-center">
+                                <span class="ui-icon-article mx-2"></span>
+                                <span class="font-semibold text-lg text-800">General Information</span>
+                            </div>
+                        </ng-template>
+                        <div class="grid px-4">
+
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class="surface-50">
+                                    <div class="ml-1 text-sm font-light pt-1">Company Number</div>
+                                    <div class="ml-1 text-xl font-medium text-blue-600 pb-1">{{ companyDetails?.companyRegistrationNumber ? ( companyDetails?.companyRegistrationNumber | uppercase ) : '-'}}</div>
+                                </div>
+                            </div>
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light pt-1">Risk Profile</div>
+                                    <div class="ml-1 pb-1 riskRatingLabel"  [ngClass]="{'lightGreen' : companyDetails?.riskBand == 'very low risk', 'cyan' : companyDetails?.riskBand == 'low risk', 'yellow' : companyDetails?.riskBand == 'moderate risk', 'orange' : companyDetails?.riskBand == 'high risk', 'darkRed': companyDetails?.riskBand == 'not scored' }">{{ ( companyDetails?.riskBand ? companyDetails.riskBand == 'not scored'? 'Not Scored /Very High Risk': companyDetails.riskBand : '-' ) | titlecase }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class="surface-50">
+                                    <div class="ml-1 text-sm font-light pt-1">No. Of Employees</div>
+                                    <div class="ml-1 text-xl font-medium pb-1 text-indigo-700">{{ companyDetails?.numberOfEmplyees ? companyDetails?.numberOfEmplyees : '-' }}</div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light pt-1">Company Incorporation Date</div>
+                                    <div class="ml-1 text-xl font-medium pb-1">{{ companyDetails?.companyIncorporationDate ? companyDetails?.companyIncorporationDate : '-' }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light pt-1">Account Filling Date</div>
+                                    <div class="ml-1 text-xl font-medium pb-1">{{ companyDetails?.accountsFilingDate ? companyDetails?.accountsFilingDate : '-' }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light pt-1">CTPS*</div>
+                                    <!--  [ngClass]="{ 'c-red': companyDetails?.RegAddress_Modified?.ctps == 'y', 'green': ( !companyDetails?.RegAddress_Modified?.ctps || companyDetails?.RegAddress_Modified?.ctps !== 'y') } " -->
+                                    <div class="ml-1 text-xl font-medium status" [ngClass]="{ 'c-red': companyDetails?.company_contact_info_latest?.ctps == 'y', 'green': ( companyDetails?.company_contact_info_latest?.ctps || companyDetails?.company_contact_info_latest?.ctps !== 'y') } ">{{ companyDetails?.company_contact_info_latest?.ctps === "y" ? " Yes" : companyDetails?.company_contact_info_latest?.ctps === "n" ? " No" : "-" }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light">SIC Code</div>
+                                    <div class="ml-1 text-xl font-medium">{{ companyDetails?.sicCode ? ( companyDetails?.sicCode | uppercase ) : '-' }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light">SIC Code Description</div>
+                                    <div class="ml-1 text-xl font-medium">{{ companyDetails?.sicCodeDescription ? ( companyDetails?.sicCodeDescription | titlecase ) : '-' }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light">Post Code</div>
+                                    <div class="ml-1 text-xl font-medium">{{ companyDetails?.postCode ? ( companyDetails?.postCode | uppercase ) : '-' }}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 border-left-2 border-black-alpha-20 mb-3">
+                                <div class=" surface-50">
+                                    <div class="ml-1 text-sm font-light">Company Type</div>
+                                    <div class="ml-1 text-lg font-medium text-indigo-800">{{ companyDetails?.companyType ? ( companyDetails?.companyType | titlecase ) : '-' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+
+                <!-- Financial Information -->
+                <div class="col-12">
+                    <p-fieldset [toggleable]="true">
+                        <ng-template pTemplate="header"> 
+                            <div class="flex align-items-center">
+                                <span class="ui-icon-currency-pound mx-2"></span>
+                                <span class="font-bold text-lg">Financial</span>
+                            </div>
+                        </ng-template>
+                        <div class="grid px-4">
+                            <div class="col-6">
+                                <div class="bg-purple-100 border-round-lg">
+                                    <div class="ml-2 text-sm font-light py-1">Turnover</div>
+                                    <div class="ml-2 text-2xl font-medium pb-1 text-indigo-700">{{ companyDetails?.turnover ? ( companyDetails?.turnover | numberSuffix: '2' : 'GBP') : '-'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="bg-purple-100 border-round-lg">
+                                    <div class="ml-2 text-sm font-light py-1">Estimated Turnover</div>
+                                    <div class="ml-2 text-2xl font-medium pb-1 text-indigo-700">{{ companyDetails?.estimatedTurnover ? ( companyDetails?.estimatedTurnover | numberSuffix: '2' : 'GBP' ) : '-'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+                <div class="grid">
+
+                    <!-- About Us -->
+                    <!-- <div class="col-12">
+                        <p-fieldset [toggleable]="true">
+                            <ng-template pTemplate="header"> 
+                                <div class="flex align-items-center">
+                                    <span class="ui-icon-info mx-2"></span>
+                                    <span class="font-bold text-lg">About Us</span>
+                                </div>
+                            </ng-template>
+                            <ng-container *ngIf="companyDetails?.company_contact_info_latest?.about_us; else noRecord">
+                                <div class="px-4 text-sm">{{ companyDetails?.company_contact_info_latest?.about_us }} </div>
+                            </ng-container>
+                        </p-fieldset>
+                    </div> -->
+
+                    <!-- Director Info -->
+                    <div class="col-12">
+                        <p-fieldset [toggleable]="true">
+                            <ng-template pTemplate="header"> 
+                                <div class="flex align-items-center">
+                                    <span class="ui-icon-people mx-2"></span>
+                                    <span class="font-bold text-lg">Director Information</span>
+                                </div>
+                            </ng-template>
+                            <ng-container *ngIf="companyDetails?.directorsData && companyDetails?.directorsData.length; else noRecord">
+                                <div class="grid">
+                                    <ng-container *ngFor="let item of companyDetails?.directorsData">
+                                        <div class="col-3">
+                                            <div class="bg-green-100 border-round-lg">
+                                                <div class="ml-2 text-lg font-medium text-800 pt-1">{{ ( item?.detailedInformation?.fullName | titlecase)  || '-' }}</div>
+                                                <div class="ml-2 text-sm font-light pb-1">PNR: {{ item?.directorPnr || '-' }}</div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+
+                        </p-fieldset>
+                    </div>
+
+                    <!-- Person info -->
+                    <div class="col-12">
+                        <p-fieldset [toggleable]="true">
+                            <ng-template pTemplate="header"> 
+                                <div class="flex align-items-center">
+                                    <span class="ui-icon-people mx-2"></span>
+                                    <span class="font-bold text-lg">Person Contact Information</span>
+                                </div>
+                            </ng-template>
+                            <ng-container *ngIf="companyDetails?.person_contact_info_latest && companyDetails?.person_contact_info_latest.length; else noRecord">
+                                <div class="grid">
+    
+                                    <ng-container *ngFor="let item of companyDetails.person_contact_info_latest">
+                                        <div class="col-3">
+                                            <div class="bg-cyan-100 border-round-lg">
+                                                <div class="ml-2 text-lg font-medium text-800 pt-1">{{ ( item?.full_name | titlecase)  || '-' }}</div>
+                                                <div class="ml-2 text-sm font-light pb-1">{{ ( item?.personPosition | titlecase)  || '' }}</div>
+                                                <div class="ml-2 pb-1">
+                                                    <span class="featuredLinks">
+                                                        <ng-container *ngIf="item?.linkedin_url">
+                                                            <a target="_blank" href="https://www.{{item.linkedin_url}}">
+                                                                <svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                                    <path d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                                                </svg>
+                                                            </a>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="item?.email">
+                                                            <a href="mailto:{{ item.email }}">
+                                                                <i class="material-icons mb-1">mail</i>
+                                                            </a>
+                                                        </ng-container>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                            </ng-container>
+                        </p-fieldset>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="flex justify-content-center align-items-center">
+        <div class="m-2">
+            <button pButton class="bg-blue-300 btn" label="Sync with Hubspot" icon="pi pi-sync" [disabled]="!isCompanyDetails" (click)="syncWithHubSpot()"></button>
+        </div>
+    </div>
+
+</div>
+
+
+                            
+<ng-template #noRecord>
+    <div class="flex justify-content-center align-items-center text-400 text-2xl">
+        Oops😞! We couldn't find any matches at the moment. Don't worry, we're on it!
+    </div>
+</ng-template>

@@ -1,0 +1,112 @@
+.middle {
+    transform: translate(0%, 65%);
+}
+
+.btn {
+    max-width: 40rem;
+}
+
+.cName {
+    color: #4593bd;
+    cursor: pointer;
+}
+
+.c-blue{
+    color: #03a9f4;
+}
+
+.c-red{
+    color: #e22f2f;
+}
+
+.c-green{
+	color: #289888;
+}
+
+.riskRatingLabel {
+	font-size: 0.9rem;
+	margin-bottom: 0;
+	padding: 0.4em 0.8em;
+	border-radius: 5px;
+	margin-right: 0.2em;
+	width: 120px;
+	text-align: center;
+
+	&.lightGreen {
+		background-color: #6DC470;
+		color: #fff;
+	}
+
+	&.cyan {
+		background-color: #59BA9B;
+		color: #fff;
+	}
+
+	&.yellow {
+		background-color: #FFC201;
+		color: #fff;
+	}
+
+	&.orange {
+		background-color: #E4790F;
+		color: #fff;
+	}
+
+	&.darkRed {
+		background-color: #D92727;
+		color: #fff;
+	}
+
+	&.light {
+		background-color: #9b9b9b;
+		color: #fff;
+	}
+
+}
+
+.forPlusIcon {
+    display: inline-block;
+    background-color: #8694a0;
+    color: #ffffff;
+    padding: 0.2em 0.2em;
+    font-size: 0.8em;
+}
+
+.mlt-wdt {
+	width: 15.4rem; // 58.8
+}
+
+.c-grey {
+	color: #616161;
+}
+
+.c-teal {
+	color: teal;
+}
+
+::ng-deep {
+	.p-multiselect {
+	
+		.p-multiselect-label {
+			&.p-placeholder {
+				padding: 0.6rem !important;
+			}
+		}
+	}
+
+	.p-button {
+		box-shadow: 0 0px 0px 0 rgb(0 0 0 / 0%), 0 1px 5px 0 rgb(0 0 0 / 0%) !important;
+	}
+
+	p-dialog {
+		.p-dialog-header-icons {
+			.p-dialog-header-icon {
+				margin-top: 1rem;
+			}
+		}
+
+		.p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+			margin-right: 1rem;
+		}
+	}
+}

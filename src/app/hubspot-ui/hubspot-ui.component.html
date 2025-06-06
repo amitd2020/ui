@@ -1,0 +1,24 @@
+<div class="layout-container" [ngClass]="containerClass">
+
+    <app-topbar></app-topbar>
+    <div class="m-4 mt-8">
+        <div class="layout-content">
+            <div>
+                <button pButton icon="pi pi-search" label="Search" class="my-1 p-button-sm" [routerLink]="['/hubspot-ui/filters']" [disabled]="router.routerState.snapshot.url == '/hubspot-ui/filters' || router.routerState.snapshot.url == '/hubspot-ui/dg-authenticate'"></button>
+
+                <button pButton label="Logout" class="mx-2 my-1 p-button-sm" (click)="showLoginModal = true;"></button>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+
+        <!-- <app-footer></app-footer> -->
+    </div>
+
+    <p-dialog header="Do you want to Logout?" [modal]="true" [(visible)]="showLoginModal" [focusOnShow]="false" [style]="{ width: '25vw' }" styleClass="text-center" [blockScroll]="true">	
+		<div class="text-center py-4">
+			<button pButton type="reset" label="Yes" class="p-button-rounded" (click)="logoutFromDGHubSpot()"></button>
+			<button pButton type="button" label="No" class="p-button-rounded darkGrey ml-2" (click)="showLoginModal = false;"></button>
+		</div>
+	</p-dialog>
+
+</div>
