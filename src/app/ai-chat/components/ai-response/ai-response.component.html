@@ -1,0 +1,56 @@
+<!-- <div class="response-box p-mt-3">
+    <i class="pi pi-sparkles"></i>
+    <p class="p-mt-2">
+      {{ responseText }}
+    </p>
+    <a class="p-link text-primary p-mt-2" *ngIf="showLink">Show Companies</a>
+</div> -->
+
+<div>
+    <p-scrollPanel #scrollContainer  [style]="{ width: '100%', height: '60vh' }">
+        <ng-container *ngFor="let chat of chatHistory; let indx=index">
+            <div class="grid py-3 align-items-center">
+                <div class="col-fixed">
+                    <div class="bg-gray-100 border-circle p-2">
+                        <img
+                            src="../../../../assets/layout/images/ri_sparkling_gradient.png"
+                            alt="AI Icon"
+                            style="width: 26px; height: 25px; vertical-align: middle"
+                        />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="bg-gray-300 border-round-xl px-3 py-0 mr-3 flex align-items-center">
+                        <div
+                            class="font-medium text-sm font-semibold text-indigo-700 py-2" 
+                        >
+                        <!-- style="font-family: 'Cormorant Garamond', serif !important" -->
+                            {{chat.user}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid mb-4">
+                <div class="col-fixed">
+                    <div class="border-circle p-2 pt-0">
+                        <img
+                            src="../../../../assets/layout/images/ri_sparkling.png"
+                            alt="AI Icon"
+                            style="width: 26px; height: 25px; vertical-align: middle"
+                        />
+                    </div>
+                </div>
+                <div class="col pr-3">
+                    <div class="ml-2 font-medium text-sm" style="font-family: 'Poppins', sans-serif !important" *ngFor="let line of chat.aiVisibleLines; let dx=index;">
+                        <span [id]="'id_' + indx + '_' +  dx">{{ line }}</span>
+
+                        
+                    </div>
+                    <div  class="ml-2 mt-2 font-semibold" style="font-family: 'Poppins', sans-serif !important">
+                        <a href="javascript:void(0)" class="text-indigo-500 hover:text-indigo-700 hover:underline" (click)="showCompany(chat?.companyStore)">Show Companies</a>
+                    </div>
+                </div>
+            </div>
+        </ng-container> 
+    </p-scrollPanel>
+</div>

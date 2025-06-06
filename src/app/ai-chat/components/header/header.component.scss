@@ -1,0 +1,21 @@
+.ai-animated:hover .ai-icon {
+    transform: rotate(8deg) scale(1.1);
+    transition: transform 0.4s ease-in-out;
+}
+
+.ai-text {
+    
+    background: linear-gradient(90deg, #8100bb, #75c0e2, #1421e6);
+    background-size: 200% auto;
+    /* background-clip: text; */
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.6s ease-in-out;
+}
+
+.ai-animated:hover .ai-text {
+    background-position: right center;
+}
+
+

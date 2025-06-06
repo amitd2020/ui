@@ -1,0 +1,15 @@
+<div class="p-inputgroup mt-0 py-2">
+    <input
+      type="text"
+      [(ngModel)]="prompt"
+      (keydown.enter)="submitQuery()"
+      placeholder="What's in your mind?"
+      class="p-inputtext py-0 p-inputtext-sm w-full border-none"
+    />
+    <button
+      pButton
+      icon="pi pi-send"
+      (click)="submitQuery()"
+      class="p-button-rounded py-0 p-button-sm p-button-info"
+    ></button>
+</div>

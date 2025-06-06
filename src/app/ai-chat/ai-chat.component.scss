@@ -1,0 +1,103 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 30vh);
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    // padding: 2rem;
+}
+
+.chat-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+// .gradient-wrapper {
+//     position: sticky;
+//     bottom: 0;
+//     display: flex;
+//     justify-content: center;
+//     padding: 1rem;
+//     background: transparent;
+//     z-index: 10;
+//   }
+
+//   /* The glow-style gradient border behind white input */
+//   .gradient-wrapper > div {
+//     background: linear-gradient(90deg, #ff86e1, #89bcff); /* the outer gradient */
+//     padding: 3px; /* this acts like the glowing border */
+//     border-radius: 2rem;
+//     width: 100%;
+//     max-width: 800px;
+//     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+//   }
+
+// .gradientCss {
+//     position: sticky; /* Or fixed if outside scrollable area */
+//     bottom: 0;
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     padding: 1rem;
+
+//     background: transparent; /* leave transparent so gradient stands out on the inner box */
+//     z-index: 10;
+//     background: linear-gradient(90deg, #ff86e1, #89bcff);
+//     padding: 1rem 1.5rem;
+//     border-radius: 2rem;
+//     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+//     width: 100%;
+//     max-width: 700px;
+//     display: flex;
+//     align-items: center;
+
+//     /* Optional glassy effect */
+//     backdrop-filter: blur(10px);
+//     -webkit-backdrop-filter: blur(10px);
+// }
+
+:host {
+    display: block;
+
+    background: radial-gradient(
+        circle at 55% 112%,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 134, 225, 0.1) 12%,
+        rgba(137, 188, 255, 0.25) 20%,
+        rgba(180, 180, 180, 0.4) 38%,
+        transparent 100%
+    );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+// .gradient-wrapper {
+//     position: sticky; /* or use fixed if you want it always on screen */
+//     bottom: 0;
+//     display: flex;
+//     justify-content: center;
+//     padding: 1rem;
+//     background: radial-gradient(
+//       circle at center,
+//       rgba(255, 255, 255, 1) 100%,
+//       rgba(255, 134, 225, 0.2) 20%,
+//       rgba(137, 188, 255, 0.15) 40%,
+//       rgba(200, 200, 200, 0.5) 70%,
+//       rgba(220, 220, 220, 0.8) 100%
+//     );
+//     z-index: 99999;
+//   }
+
+.input-container {
+    background: radial-gradient(
+            circle at center,
+            rgb(255 175 235 / 20%) 20%,
+            rgb(139 176 223 / 15%) 40%,
+            rgb(255 255 255) 70%,
+            rgb(255 255 255) 100%
+        ),
+        rgb(237 237 237) 97%;
+    z-index: 99999;
+}

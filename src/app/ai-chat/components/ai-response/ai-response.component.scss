@@ -1,0 +1,22 @@
+.response-box {
+    margin-top: 1rem;
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+::ng-deep {
+    .p-scrollpanel .p-scrollpanel-bar {
+        border: 0 none;
+        background: linear-gradient(183deg, #f0c0f0cc, #aaacae7a, #999eeb);
+    }
+
+    .p-scrollpanel-wrapper {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        float: left;
+        padding-top: 2rem !important;
+    }
+}

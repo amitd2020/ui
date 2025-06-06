@@ -1,0 +1,17 @@
+.p-inputgroup {
+    margin-top: 1rem;
+}
+
+::ng-deep {
+    .p-input-filled .p-inputtext {
+        background-image: none !important;
+    }
+    
+    .p-input-filled .p-inputtext:enabled:hover {
+        background-image: none;
+    }
+}
+
+.font-family {
+    font-family: Georgia, serif;
+}

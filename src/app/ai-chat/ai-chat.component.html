@@ -1,0 +1,24 @@
+<div class="pt-4">
+  <dg-header></dg-header>
+</div>
+<p-dialog 
+    header="" 
+    [(visible)]="visible" 
+    [modal]="true" 
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" 
+    [style]="{ width: '70vw' }" 
+    [draggable]="false" 
+    [resizable]="true">
+	<dg-admin-record-list *ngIf="companyDataHandler['companyData']" [listColumns]="recordTableCols" [listDataValues]="companyDataHandler['companyData']" [searchTotalCount]="companyDataHandler['searchTotalCount']" [thisPage]="'promptSearchAi'" [queryId]="companyDataHandler['queryId']" (updateTableAfterPagination)="updateTableAfterPagination($event)"></dg-admin-record-list>  
+</p-dialog>
+
+<div class="chat-container">
+  <div class="chat-content mb-3 overflow-hidden">
+    <dg-ai-response [chatHistory]="response" [showLink]="showCompanies" (viewCompany)="openDialogToShowCompany($event)"></dg-ai-response>
+  </div>
+  <div class="gradient-wrapper">
+    <div class="input-container border-round-3xl bg-white py-2 px-4 mb-2 text-sm gradientCss"> 
+      <dg-prompt-input (promptSubmit)="onPromptSubmit($event)"></dg-prompt-input>
+    </div>
+  </div>
+</div>
