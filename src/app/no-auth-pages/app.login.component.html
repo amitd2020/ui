@@ -1,0 +1,406 @@
+<p-dialog header="Confirmation" [(visible)]="loginConfirmation" [modal]="true" [style]="{width: '22vw'}" [draggable]="false" [focusOnShow]="false" styleClass="confirmDialogModalLogoutAll">
+    <div class="text-center">
+        <p>Do you want to logout from other devices?</p>
+    </div>
+    <p-footer>
+        <div class="text-center">
+            <button pButton class="p-button-rounded" (click)="loginConfirm()" type="button" label="Yes"></button>
+            <button pButton class="p-button-rounded darkGrey" type="button" (click)="loginConfirmation=false" label="No"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+<!--<p-dialog [(visible)]="otpConfirmation" [modal]="true" [style]="{width: '26vw' }" [draggable]="false" [focusOnShow]="false">
+    <p-messages [(value)]="message" [closable]="false"></p-messages>
+    <div class="pb-5">
+        <div class="flex flex-column align-items-center  justify-content-center">
+            <h2>Enter OTP</h2>
+            <p>Code has been sent to your Email</p>
+          
+            <div class="w-8 flex gap-2 h-3rem">
+              <input *ngFor="let digit of otpDigits; let i = index"
+                     type="text"
+                     maxlength="1"
+                     class="p-inputtext otp-box"
+                     [(ngModel)]="otp[i]"
+                     (input)="onInput($event, i)"
+                     (keydown)="onKeyDown($event, i)"
+                     #otpInput />
+            </div>
+          
+            <span class="mt-3" >
+              Didn’t get OTP Code <span *ngIf="countdown > 0">{{countdown}} </span>?
+            </span>
+            <a href="javascript:void(0);" [ngClass]="{'disabled': countdown > 0}"  class="text-base text-blue-600" (click)="resendOtp()">Resend Code</a>
+
+            <div class="mt-4">
+                <button pButton type="submit" label="Verify" class="p-element p-button-lg px-8 p-button-rounded  p-button p-component" (click)="verifyOtp()"></button>
+
+            </div>
+        </div>
+    </div>
+</p-dialog>-->
+
+
+<!--<div class="login-body">
+    <div class="login-panel p-fluid p-input-filled">
+        <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" autocomplete="on">
+            
+            <div class="grid">
+
+                <div class="col-12 logo">
+                    <h1 class="p-0 m-0">
+                        <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280">
+                    </h1>
+                </div>
+                            
+                <div class="col-12 pb-3 -mt-4" *ngIf="authGuardService?.sessionTimeoutIndicator">
+                    <p-message severity="error" text="Session Expired" styleClass="inline-flex"></p-message>
+                </div>
+
+                <div class="col-12 py-0">
+                    <div class="card mb-3">
+                        
+                        <div class="grid text-center align-items-center justify-content-center text-left">
+                            <div class="col-4 px-0">
+                                <h2 class="m-0">Login</h2>
+                            </div>
+                            <div class="col-6 px-0 ml-auto">
+                                <p-dropdown [options]="countrySelectionOptions" optionLabel="name" [(ngModel)]="selectedGlobalCountry" [ngModelOptions]="{ standalone: true }" styleClass="countryDropdown">
+                                    <ng-template pTemplate="selectedItem">
+                                        <div class="flex align-items-center">
+                                            <img src="assets/utilities/flags/flag_placeholder.png" alt="{{ selectedGlobalCountry?.name }}" class="flag flag-{{ selectedGlobalCountry?.countryCode }} mr-2" />
+                                            <span>{{ selectedGlobalCountry?.name }}</span>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-countryItem pTemplate="item">
+                                        <div class="flex align-items-center">
+                                            <img src="assets/utilities/flags/flag_placeholder.png" alt="{{ countryItem?.name }}" class="flag flag-{{ countryItem?.countryCode }} mr-2" />
+                                            <span>{{ countryItem?.name }}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        
+
+                        <p-messages [(value)]="msgs" [closable]="false"></p-messages>
+                        
+                        <div class="grid">
+
+                            <div class="col-12">
+                                <input type="email" pInputText name="email" #email="ngModel" ngModel required placeholder="Email Address">
+                                <span *ngIf="(email.touched || loginForm.submitted) && email.errors?.required" style="color: red;">
+                                    <span style="float: left;font-size: small;">
+                                        Email is required
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-12 pb-0">
+                                <span class="p-float-label p-input-icon-right">
+                                    <i class="pi pi-{{ hide ? 'eye-slash' : 'eye' }}" (click)="hide = !hide"></i>
+                                    <input [type]="hide ? 'password' : 'text'" pInputText name="password" #password="ngModel" ngModel required placeholder="Password">
+                                    <span *ngIf="(password.touched || loginForm.submitted) && password.errors?.required" style="color: red;">
+                                        <span style="float: left;font-size: small;">
+                                            Please enter a password
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-12 text-right p-0 mb-2 mt-2">
+                                <a href="javascript:void(0);" class="c-green fs-small" (click)="openInNewTab()">Forgot Password?</a>
+                            </div>
+
+                            <div class="col-12 pb-0 mb-4">
+                                <button pButton type="submit" label="Log In" class="p-button-lg p-button-rounded mb-1"><i class="pi pi-spin pi-spinner" style="font-size: 2rem; position: absolute; left: 15rem;" *ngIf="showProgressSpinner"></i></button>
+
+                                <!~~ Google is not work fine so hide all social media ticket no DG-6429 ~~>
+
+                                <p-divider align="center" type="dashed">
+                                    <b>OR</b>
+                                </p-divider>
+
+                                <div class="flex justify-content-between mr-6 ml-6 mb-4">
+                                    <div>
+        
+                                        <a href="javascript:void(0)" (click)="socialSignIn('google')">
+                                            <img src="../../assets/layout/images/google-color-icon.svg" width="30px">
+                                        </a>
+                                        
+                                    </div>
+                                    <div>
+            
+                                        <a href="javascript:void(0)" (click)="socialSignIn('facebook')">
+                                            <img src="../../assets/layout/images/facebook-square-color-icon.svg" width="30px">
+                                        </a>
+                                
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <a href="javascript:void(0)" (click)="linkedInLogIn()">
+                                                <img src="../../assets/layout/images/linkedin.png" width="30px">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <p class="p-m-0" style="color: white;">Don't have an account, <a href="https://datagardener.com/contact/" class="c-green">Create Account</a></p>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>-->
+
+
+
+
+<div class="flip-container" [class.flipped]="showOtpForm">
+    <div class="login-body">
+        <div class="login-panel p-fluid p-input-filled">
+            <div class="col-12 logo">
+                <h1 class="p-0 m-0">
+                    <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280">
+                </h1>
+            </div>
+            <div class="col-12 pb-3 -mt-4" *ngIf="authGuardService?.sessionTimeoutIndicator">
+                <p-message severity="error" text="Session Expired" styleClass="inline-flex"></p-message>
+            </div>
+            <div class="flipper">
+                <div class="front" *ngIf="!showOtpForm">
+                    <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" autocomplete="on">
+                            <div class="col-12 py-0">
+                                <div class="card mb-3">
+                                    
+                                    <div class="grid text-center align-items-center justify-content-center text-left">
+                                        <div class="col-4 px-0">
+                                            <h2 class="m-0">Login</h2>
+                                        </div>
+                                        <div class="col-6 px-0 ml-auto">
+                                            <p-dropdown [options]="countrySelectionOptions" optionLabel="name" [(ngModel)]="selectedGlobalCountry" [ngModelOptions]="{ standalone: true }" styleClass="countryDropdown">
+                                                <ng-template pTemplate="selectedItem">
+                                                    <div class="flex align-items-center">
+                                                        <img src="assets/utilities/flags/flag_placeholder.png" alt="{{ selectedGlobalCountry?.name }}" class="flag flag-{{ selectedGlobalCountry?.countryCode }} mr-2" />
+                                                        <span>{{ selectedGlobalCountry?.name }}</span>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template let-countryItem pTemplate="item">
+                                                    <div class="flex align-items-center">
+                                                        <img src="assets/utilities/flags/flag_placeholder.png" alt="{{ countryItem?.name }}" class="flag flag-{{ countryItem?.countryCode }} mr-2" />
+                                                        <span>{{ countryItem?.name }}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+            
+                                    
+            
+                                    <p-messages [(value)]="msgs" [closable]="false"></p-messages>
+                                    
+                                    <div class="grid">
+            
+                                        <div class="col-12">
+                                            <input type="email" pInputText name="email" #email="ngModel" ngModel required placeholder="Email Address">
+                                            <span *ngIf="(email.touched || loginForm.submitted) && email.errors?.required" style="color: red;">
+                                                <span style="float: left;font-size: small;">
+                                                    Email is required
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-12 pb-0">
+                                            <span class="p-float-label p-input-icon-right">
+                                                <i class="pi pi-{{ hide ? 'eye-slash' : 'eye' }}" (click)="hide = !hide"></i>
+                                                <input [type]="hide ? 'password' : 'text'" pInputText name="password" #password="ngModel" ngModel required placeholder="Password">
+                                                <span *ngIf="(password.touched || loginForm.submitted) && password.errors?.required" style="color: red;">
+                                                    <span style="float: left;font-size: small;">
+                                                        Please enter a password
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="col-12 text-right p-0 mb-2 mt-2">
+                                            <a href="javascript:void(0);" class="c-green fs-small" (click)="openInNewTab()">Forgot Password?</a>
+                                        </div>
+            
+                                        <div class="col-12 pb-0 mb-4">
+                                            <button pButton type="submit" label="Log In" class="p-button-lg p-button-rounded mb-1"><i class="pi pi-spin pi-spinner" style="font-size: 2rem; position: absolute; left: 15rem;" *ngIf="showProgressSpinner"></i></button>
+            
+                                            <!-- Google is not work fine so hide all social media ticket no DG-6429 -->
+            
+                                            <p-divider align="center" type="dashed">
+                                                <b>OR</b>
+                                            </p-divider>
+            
+                                            <div class="flex justify-content-between mr-6 ml-6 mb-4">
+                                                <div>
+                    
+                                                    <a href="javascript:void(0)" (click)="socialSignIn('google')">
+                                                        <img src="../../assets/layout/images/google-color-icon.svg" width="30px">
+                                                    </a>
+                                                    
+                                                </div>
+                                                <div>
+                        
+                                                    <a href="javascript:void(0)" (click)="socialSignIn('facebook')">
+                                                        <img src="../../assets/layout/images/facebook-square-color-icon.svg" width="30px">
+                                                    </a>
+                                            
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        <a href="javascript:void(0)" (click)="linkedInLogIn()">
+                                                            <img src="../../assets/layout/images/linkedin.png" width="30px">
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+            
+                                    </div>
+            
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p class="p-m-0" style="color: white;">Don't have an account, <a href="https://datagardener.com/contact/" class="c-green">Create Account</a></p>
+                            </div>
+                    </form>
+                </div>
+                <div class="back" *ngIf="showOtpForm">
+                    <div class="col-12 py-0">
+                        <div class="card mb-3">
+                            
+                            <div class="grid text-center justify-content-center">
+                                <div class="px-0">
+                                    <h2 class="m-5">Enter OTP</h2>
+                                </div>
+                            </div>
+    
+                            <p-messages [(value)]="msgs" [closable]="false"></p-messages>
+
+                            <ng-container *ngIf="showTemplate1" [ngTemplateOutlet]="template1"></ng-container>
+
+                            <ng-container *ngIf="showTemplate2" [ngTemplateOutlet]="template2"></ng-container>
+
+                            <ng-container *ngIf="showTemplate3" [ngTemplateOutlet]="template3"></ng-container>
+    
+                        </div>
+                    </div>
+                </div>         
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template1>
+
+    <ng-container *ngIf="!hasOtpFromApp; else otherBlock">
+        <span class="app-authenticator">Code has been sent to your Email</span>
+    </ng-container>
+
+    <ng-template #otherBlock>
+        <span class="app-authenticator">From Your Authenticator App</span>
+    </ng-template>
+
+    <form (ngSubmit)="hasOtpFromApp ? verifyOtpFromApp() : verifyOtp()">
+        <div class="w-8 flex gap-2 h-3rem mt-3">
+          <input *ngFor="let digit of otpDigits; let i = index"
+            #otpInput
+            type="text"
+            maxlength="1"
+            class="otp-box"
+            name="otp{{i}}"
+            [(ngModel)]="otp[i]"
+            (input)="onInput($event, i)"
+            (keydown)="onKeyDown($event, i)"
+            (paste)="onPaste($event)"
+            required />
+        </div>
+
+        <div class="mt-4 mb-2" *ngIf="!hasOtpFromApp">
+            Didn’t get OTP Code <span *ngIf="countdown > 0">{{countdown}}</span>?
+        </div>
+
+        <div class="flex mt-3">
+            <ng-container *ngIf="hasModesList && hasModesList.length">
+                <div class="text-indigo-600 cursor-pointer" (click)="handleTryAnotherWay()">
+                    <span>Try another way!</span>
+                </div>
+            </ng-container>
+            
+            <ng-container *ngIf="!hasModesList.length || !hasOtpFromApp">
+                <div style="margin-left: 8rem">
+                    <a href="javascript:void(0);" [ngClass]="{'disabled': countdown > 0}" class="text-base text-blue-600 mt-3" (click)="resendOtp()">Resend Code</a>
+                </div>
+            </ng-container>
+        </div>
+      
+        <div class="mt-4 pb-4">
+          <button pButton type="submit" label="Verify" class="p-button-lg p-button-rounded mb-1">
+          </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #template2>
+    <span class="app-authenticator">From Your Authenticator App</span>
+    <form (ngSubmit)="verifyOtpFromApp()">
+        <div class="w-8 flex gap-2 h-3rem mt-3">
+          <input *ngFor="let digit of otpDigits; let i = index"
+            #otpInput
+            type="text"
+            maxlength="1"
+            class="otp-box"
+            name="otp{{i}}"
+            [(ngModel)]="otp[i]"
+            (input)="onInput($event, i)"
+            (keydown)="onKeyDown($event, i)"
+            (paste)="onPaste($event)"
+            required />
+        </div>
+      
+        <div class="mt-4 pb-4">
+          <button pButton type="submit" label="Verify" class="p-button-lg p-button-rounded mb-1">
+          </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #template3>
+    <span class="app-authenticator">Code has been sent to your Email</span>
+    <form (ngSubmit)="verifyOtp()">
+        <div class="w-8 flex gap-2 h-3rem mt-3">
+          <input *ngFor="let digit of otpDigits; let i = index"
+            #otpInput
+            type="text"
+            maxlength="1"
+            class="otp-box"
+            name="otp{{i}}"
+            [(ngModel)]="otp[i]"
+            (input)="onInput($event, i)"
+            (keydown)="onKeyDown($event, i)"
+            (paste)="onPaste($event)"
+            required />
+        </div>
+
+        <div class="mt-4 mb-2">
+            Didn’t get OTP Code <span *ngIf="countdown > 0">{{countdown}}</span>?
+        </div>
+
+        <div>
+            <a href="javascript:void(0);" [ngClass]="{'disabled': countdown > 0}" class="text-base text-blue-600 mt-3" (click)="resendOtp()">Resend Code</a>
+        </div>
+      
+        <div class="mt-4 pb-4">
+          <button pButton type="submit" label="Verify" class="p-button-lg p-button-rounded mb-1">
+          </button>
+        </div>
+    </form>
+</ng-template>

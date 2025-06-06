@@ -1,0 +1,17 @@
+<div class="layout-breadcrumb-container">
+    <nav class="layout-breadcrumb">
+        <ol>
+            <li><i class="pi pi-home"></i></li>
+            <ng-template ngFor let-item let-last="last" [ngForOf]="breadcrumbs$ | async">
+                <li><i class="pi pi-angle-right"></i></li>
+                <li><a [href]="item.url">{{item.label}}</a></li>
+            </ng-template>
+        </ol>
+    </nav>
+    <button pButton icon="pi pi-arrow-right" label="Go to Filters" class="p-button-rounded p-button-sm mb-0 bg-indigo-600 border-2" [routerLink]="['/company-search']"></button>
+    <!-- <div class="layout-breadcrumb-buttons">
+        <button pButton pRipple type="button" icon="pi pi-cloud-upload" class="p-button-rounded p-button-text p-button-plain"></button>
+        <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-text p-button-plain"></button>
+        <button pButton pRipple type="button" icon="pi pi-power-off" class="p-button-rounded p-button-text p-button-plain"></button>
+    </div> -->
+</div>

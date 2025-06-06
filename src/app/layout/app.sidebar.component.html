@@ -1,0 +1,14 @@
+<div class="layout-sidebar menu-wrapper" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <div class="layout-sidebar-top">
+        <!-- <button class="layout-sidebar-anchor p-link" type="button" (click)="anchor()"></button> -->
+    </div>
+    <app-menu-profile #menuProfileStart *ngIf="menuProfilePosition === 'start'"></app-menu-profile>
+    <div #menuContainer class="layout-menu-container">
+        <a #menuButton class="layout-menu-button" (click)="onMenuButtonClick()" pRipple>
+            <i class="pi pi-chevron-right"></i>
+        </a>
+        <app-menu></app-menu>
+    </div>
+    <!-- <app-menu-profile #menuProfileEnd *ngIf="menuProfilePosition === 'end'"></app-menu-profile> -->
+</div>
+

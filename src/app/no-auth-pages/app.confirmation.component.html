@@ -1,0 +1,20 @@
+<div class="login-body">
+    <div class="login-panel p-fluid">
+        <div class="grid">
+            <div class="col-12 logo">
+                <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280">
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <h1>{{ confirmationHeading }}</h1>
+                    <i *ngIf="confirmationHeading == 'Verified'" class="pi pi-check-circle pi-5x c-green"></i>
+                    <i *ngIf="confirmationHeading == 'Expired'" class="pi pi-times-circle pi-5x c-red"></i>
+                    <div class="text-center mb-4">{{ verificationText }}</div>
+                    <div class="text-center pb-4">
+                        <button pButton type="button" [routerLink]="['/authentication/login']" label="Log In" class="p-button-rounded p-button-lg confirmationBoxBtn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,238 @@
+<div class="login-body signUpFormPanel">
+    <div class="login-panel p-fluid p-input-filled">
+
+        <form #signUpForm="ngForm" (ngSubmit)="signUpUserFormSubmission( signUpForm )">
+            <div class="grid">
+                <div class="col-12 logo text-center">
+                    <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280">
+                </div>
+                <div class="card">
+                    <h1 class="text-center">{{ signUpPageHeader }}</h1>
+                    <p-messages [(value)]="msgs"></p-messages>
+
+                    <ng-container *ngIf="( requestFormData && requestFormData.thisPage == 'user-management' && ( ( userAuthService.hasRolePermission( ['Super Admin'] ) && userRoleInput ) || userAuthService.hasRolePermission( ['Client Admin Master', 'Client Admin'] ) ) )">
+                        
+                        <div class="grid">
+
+                            <div class="col-12 md:col-5">
+                                <p-dropdown name="clientUserTeam" #clientUserTeam="ngModel" ngModel [options]="clientTeamListOptions" placeholder="Select team" optionLabel="name" optionValue="_id"  [baseZIndex]="999999998" appendTo="body" [required]="false" styleClass="listOfTeamsStyle">
+                                    <ng-template let-user pTemplate="item">
+                                        {{ user.name | titlecase }}
+                                    </ng-template>
+                                </p-dropdown>
+                                <span *ngIf="( clientUserTeam.touched || fieldValidate ) && clientUserTeam.errors?.required" class="c-red">
+                                    <small *ngIf="clientTeamListOptions.length > 1">Please select a team</small>
+                                    <small *ngIf="clientTeamListOptions.length == 1">Please <a href="javascript:void(0);" class="c-green" (click)="goToTeamManagementPage()"><u>click here</u></a> and create team first</small>
+                                </span>
+
+                            </div>
+
+                        </div>
+                            
+                    </ng-container>
+
+                    <div class="grid">
+                        <ng-container *ngIf="( ( userRoleInput?.userRole !== 'Client Admin Master' && !userAuthService.hasRolePermission( ['Client Admin'] ) ) && !userAuthService.hasRolePermission( ['Client Admin'] ) ) && !userAuthService.hasRolePermission( ['Team Admin'] ) && !userAuthService.hasRolePermission( ['Client Admin Master'] )">
+
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <p-autoComplete name="company_name" [suggestions]="filteredCompanyNameArray" (completeMethod)="filteredCompanyName($event)" (onSelect)="onSelectCompany($event)" field="key" [size]="5" [minLength]="1" #companyName="ngModel" ngModel></p-autoComplete>
+                                    <label>Company Name <small class="c-light">(Optional)</small></label>
+                                </span>
+                            </div>
+
+                        </ng-container>
+    
+                        <div class="col-12 md:col-6 md:pr-3">
+                            <span class="p-float-label">
+                                <input type="text" pInputText name="first_name" #first_name="ngModel" ngModel required>
+                                <label>First Name</label>
+                                <span *ngIf="(first_name.touched || fieldValidate) && first_name.errors?.required" class="c-red">
+                                    <small style="float: left;">
+                                        First Name is required
+                                    </small>
+                                </span>
+                            </span>
+                        </div>
+    
+                        <div class="col-12 md:col-6 md:pl-3">
+                            <span class="p-float-label">
+                                <input type="text" pInputText name="last_name" #last_name="ngModel" ngModel required>
+                                <label>Last Name</label>
+                                <span *ngIf="(last_name.touched || fieldValidate) && last_name.errors?.required"
+                                    class="c-red">
+                                    <small style="float: left;">
+                                        Last Name is required
+                                    </small>
+                                </span>
+                            </span>
+                        </div>
+    
+                        <div class="col-12 md:col-6 md:pr-3">
+                            <span class="p-float-label">
+                                <input type="text" pInputText name="phoneNumber" maxlength="13" #phoneNumber="ngModel" ngModel (keypress)="contactNumOnly($event)" required>
+                                <label>Phone Number</label>
+                                <!-- <span *ngIf="(phoneNumber.touched || fieldValidate) && phoneNumber.errors?.required" class="c-red">
+                                    <small style="float: left;">
+                                        Phone Number is required
+                                    </small>
+                                </span> -->
+                                <small *ngIf="phoneNumber.errors?.maxlength || showContactNumbMsg" style="color: red;float: left;">
+                                    Please enter Numeric Value, + and - Character only, max 13 digits.
+                                </small>
+                            </span>
+                        </div>
+    
+                        <div class="col-12 md:col-6 md:pl-3">
+                            <span class="p-float-label">
+                                <ng-container *ngIf="planStatus; else other">
+                                    <input type="email" pInputText name="email"
+                                    pattern="^[a-zA-Z0-9._%+-]+@(?!gmail\.com|yahoo\.com|outlook\.com|hotmail\.com|icloud\.com|mail\.com|aol\.com|zoho\.com|protonmail\.com|tutanota\.com|yandex\.com|rocketmail\.com|hotmail\.co\.uk|live\.com)(?!gmail\.)(?!outlook\.)(?!hotmail\.)(?!yahoo\.)(?!mail\.)(?!icloud\.)(?!live\.)(?!hotmail\.)(?!yandex\.)(?!protonmail\.)(?!tutanota\.)(?!zoho\.)(?!rocketmail\.)(?!yourcompany\.)(?!example\.)(?!businessmail\.)(?!businessdomain\.)(?!organization\.)(?!fastmail\.)(?!hushmail\.)(?!protonmail\.)(?!spectrum\.)(?!verizon\.)(?!att\.)(?!sbcglobal\.)(?!bellsouth\.)(?!ameritech\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"  #email="ngModel" [(ngModel)]="emailValue" 
+                                    (ngModelChange)="$event ? emailValue = $event.toLowerCase() : ''"
+                                        required>
+                                        <label>Email Address</label>
+                                    <span *ngIf="(email.touched || fieldValidate) && email.errors?.required" class="c-red">
+                                        <small style="float: left;">
+                                            Email is required
+                                        </small>
+                                    </span>
+                                    <small *ngIf="email.errors?.pattern" style="color: red;float: left;">
+                                        Please use a professional  email
+                                    </small>
+                                </ng-container>
+                                <ng-template #other>
+                                    <input type="email" pInputText name="email"
+                                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$"  #email="ngModel" [(ngModel)]="emailValue" 
+                                    (ngModelChange)="$event ? emailValue = $event.toLowerCase() : ''"
+                                        required>
+                                        <label>Email Address</label>
+                                    <span *ngIf="(email.touched || fieldValidate) && email.errors?.required" class="c-red">
+                                        <small style="float: left;">
+                                            Email is required
+                                        </small>
+                                    </span>
+                                    <small *ngIf="email.errors?.pattern" style="color: red;float: left;">
+                                        Please enter a valid email
+                                    </small>
+                                </ng-template>
+                                
+                                
+                            </span>
+                        </div>
+
+                        <!-- <ng-container *ngIf="!isLoggedIn">
+                            <div class="col-12 md:col-6 md:pr-3">
+                                <span class="p-float-label p-input-icon-right">
+                                    <i class="pi pi-{{ hide ? 'eye-slash' :'eye'  }}" (click)="hide = !hide"></i>
+                                    <input [type]="hide ? 'password' : 'text'" pInputText name="password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$" #password="ngModel" ngModel required>
+                                    <label>Password</label>
+                                    <small *ngIf="password.errors?.pattern" style="color: red;float: left;">
+                                        Password must have a minimum of 8 characters with atleast one number,one small letter
+                                        and one capital letter
+                                    </small>
+                                    <span *ngIf="(password.touched || fieldValidate) && password.errors?.required" class="c-red">
+                                        <small style="float: left;">
+                                            Password is required
+                                        </small>
+                                    </span>
+                                </span>
+                            </div>
+        
+                            <div class="col-12 md:col-6 md:pl-3">
+                                <span class="p-float-label p-input-icon-right">
+                                    <i class="pi pi-{{ hide1 ? 'eye-slash' :'eye'  }}" (click)="hide1 = !hide1"></i>
+                                    <input [type]="hide1 ? 'password' : 'text'" pInputText name="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$" #confirmPassword="ngModel" ngModel required>
+                                    <label>Confirm Password</label>
+                                    <span *ngIf="signUpForm['password'] !== signUpForm['confirmPassword']" class="c-red">
+                                        <small style="float: left;">
+                                            Password didn't matched 
+                                        </small>
+                                    </span>
+                                    <span *ngIf="(confirmPassword.touched || fieldValidate) && confirmPassword.errors?.required" class="c-red">
+                                        <small style="float: left;">
+                                            Confirm Password is required
+                                        </small>
+                                    </span>
+                                </span>
+                            </div>
+                        </ng-container> -->
+
+                        <ng-container *ngIf="( ( userRoleInput?.userRole !== 'Client Admin Master' && !userAuthService.hasRolePermission( ['Client Admin'] ) ) && !userAuthService.hasRolePermission( ['Client Admin'] ) ) && !userAuthService.hasRolePermission( ['Team Admin'] ) && !userAuthService.hasRolePermission( ['Client Admin Master'] )">
+                            <ng-container *ngIf="requestFormData && requestFormData.thisPage == 'user-management'; else defaultSignUpFields">
+        
+                                <div class="col-12">
+            
+                                    <label class="mr-2">Payment Mode Offline: </label>
+                                    <p-radioButton name="paymentModeOfflineGroup" value="true" label="Yes" [(ngModel)]="signUpData.paymentModeOffline" inputId="payment_mode_offline_option_1"></p-radioButton>
+                                    <p-radioButton styleClass="ml-2" name="paymentModeOfflineGroup" value="false" label="No" [(ngModel)]="signUpData.paymentModeOffline" inputId="payment_mode_offline_option_2"></p-radioButton>
+            
+                                </div>
+        
+                            </ng-container>
+
+                            <ng-template #defaultSignUpFields>
+        
+                                <div class="col-12">
+                                    <h3 class="text-left m-0">{{ howDidYouFineHeader }}</h3>
+                                    <div class="grid">
+                                        <div class="col-12 md:col-6 md:pr-3">
+                                            <span class="p-float-label text-left">
+                                                <p-dropdown [options]="foundUsOptions" #referredData="ngModel" [(ngModel)]="referredValue" name="referredValue" (onChange)="selectedData($event, referredValue)" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
+                                            </span>
+                                            <div *ngIf="(referredData.touched || fieldValidate) && referredData.errors?.required" class="c-red">
+                                                <small>This option is required</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 md:col-6 md:pr-3 md:pl-3" *ngIf="show_refred_by_text">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText name="refered_By" #refered_By="ngModel" [(ngModel)]="signUpData.refered_by" required> 
+                                                <label>Enter text here</label>
+                                            </span>
+                                            <div *ngIf="(refered_By.touched || fieldValidate) && refered_By.errors?.required" class="c-red">
+                                                <small>Referrer Name is required</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 md:col-6 md:pr-3 md:pl-3" *ngIf="show_other_text">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText name="otherText" #otherText="ngModel" [(ngModel)]="signUpData.other" required>
+                                                <label>Enter text here</label>
+                                            </span>
+                                            <div *ngIf="(otherText.touched || fieldValidate) && otherText.errors?.required" class="c-red">
+                                                <small>Information is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="col-12 d-xsm-font-8 pt-0">
+                                    <span class="field-checkbox">
+                                        <p-checkbox inputId="acceptT&C" #termsNconditon="ngModel" name="termsNconditon" value="termsCondition" [(ngModel)]="acceptTermsCondition" [required]="true"></p-checkbox>
+                                        <label for="acceptT&C">Accept <a target="_blank" href="../../assets/utilities/images/termsConditionPdf/DataGardener Service Terms.pdf">Terms & Conditions</a></label>
+                                    </span>
+                                    <div *ngIf="(termsNconditon.touched || fieldValidate) && termsNconditon.errors?.required" class="c-red">
+                                        <small>Terms & Condition is required</small>
+                                    </div>
+                                </div>
+        
+                            </ng-template>
+                        </ng-container>
+    
+                        <div class="col-12">
+                            <div class="grid align-center justify-content-between justify-content-center">
+                                <div class="col-fixed" *ngIf="requestFormData && requestFormData.thisPage !== 'user-management'">
+                                    <button pButton type="button" label="Login" icon="pi pi-arrow-left" class="p-button-lg p-button-rounded m-0" [routerLink]="['/authentication/login']"></button>
+                                </div>
+                                <div class="col-fixed" [ngClass]="{ 'ml-auto': requestFormData && requestFormData.thisPage == 'user-management' }">
+                                    <button pButton type="submit" label="{{ ( requestFormData && requestFormData.thisPage == 'user-management' && userAuthService.hasRolePermission( ['Client Admin'] ) || userAuthService.hasRolePermission( ['Client Admin Master'] ) || userRoleInput?.userRole == 'Client Admin Master' ) ? 'Create User' : 'Sign Up' }}" icon="ui-icon-arrow-forward" iconPos="right" class="p-button-lg p-button-rounded m-0"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

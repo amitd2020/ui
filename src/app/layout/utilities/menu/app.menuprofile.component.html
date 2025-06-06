@@ -1,0 +1,72 @@
+<div class="layout-menu-profile">
+
+    <ng-container *ngIf="!( userAuthService.isLoggedInSubject$ | async )">
+		<ul>
+            <li pTooltip="Support" [tooltipDisabled]="isTooltipDisabled">
+                <button class="p-link c-green" [routerLink]="['/authentication/login']">
+                    <i class="pi pi-sign-in pi-fw"></i>
+                    <span>Login</span>
+                </button>
+            </li>
+		</ul>
+	</ng-container>
+
+    <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async )">
+
+        <button class="p-link" (click)="toggleMenu()" pTooltip="Profile" [tooltipDisabled]="isTooltipDisabled">
+            <img src="/assets/layout/images/admin.png" alt="avatar" style="width: 32px; height: 32px;">
+            <span>
+                <strong>Hi {{ ( userAuthService.userAuthInfo$ | async )?.username | titlecase }}</strong>
+                <!-- <small>Webmaster</small> -->
+            </span>
+            <i class="layout-menu-profile-toggler pi pi-fw" [ngClass]="{'pi-angle-down': menuProfilePosition === 'start' || isHorizontal, 'pi-angle-up': menuProfilePosition === 'end' && !isHorizontal}"></i>
+        </button>
+    
+        <ul *ngIf="menuProfileActive" [@menu]="isHorizontal ? 'overlay' : 'inline'">
+            <li pTooltip="Profile" [tooltipDisabled]="isTooltipDisabled">
+                <button class="p-link" [routerLink]="['user-account-info/user-profile']">
+                    <i class="pi pi-user pi-fw c-darkBlue"></i>
+                    <span class="c-darkBlue">Profile</span>
+                </button>
+            </li>
+            <li pTooltip="Multi-factor Authentication" [tooltipDisabled]="isTooltipDisabled">
+                <button class="p-link" [routerLink]="['user-account-info/multi-factor-authenticaton']">
+                    <i class="pi pi-verified c-darkBlue pi-fw"></i>
+                    <span class="c-darkBlue">Multi-factor Authentication</span>
+                </button>
+            </li>
+            <li pTooltip="Support" [tooltipDisabled]="isTooltipDisabled" *ngIf="!userAuthService.hasRolePermission( ['Client User'] )">
+                <button class="p-link" [routerLink]="['user-account-info/user-subscription']">
+                    <i class="pi pi-briefcase pi-fw c-voilet"></i>
+                    <span class="c-voilet">Subscription</span>
+                </button>
+            </li>
+            <li pTooltip="MyCompany" *ngIf="selectedGlobalCountry == 'uk'" [tooltipDisabled]="isTooltipDisabled" [ngClass]="{'disabled': (!this.userAuthService?.getUserInfo('companyNumber')) || this.userAuthService?.getUserInfo('companyNumber') == 'undefined'}">
+                <button class="p-link" (click)="myCompanyDetail()">
+                    <i class="pi pi-user pi-fw c-darkBlue"></i>
+                    <span class="c-darkBlue">My Company</span>
+                </button>
+            </li>
+            <li pTooltip="WebWiget" [tooltipDisabled]="isTooltipDisabled" *ngIf="selectedGlobalCountry == 'uk' && userAuthService.hasAddOnPermission('webWiget')">
+                <button class="p-link" [routerLink]="['user-account-info/web-widget']">
+                    <i class="ui-icon-travel_explore c-voilet"></i>
+                    <span class="c-voilet">Web Widget</span>
+                </button>
+            </li>
+            <li pTooltip="Logout" [tooltipDisabled]="isTooltipDisabled">
+                <button class="p-link" (click)="confirmationLogout()">
+                    <i class="pi pi-power-off pi-fw c-red"></i>
+                    <span class="c-red">Logout</span>
+                </button>
+            </li>
+        </ul>
+    </ng-container>
+
+    <p-dialog header="Do you want to Logout?" [modal]="true" [(visible)]="logoutConfirmationDialog" [focusOnShow]="false" appendTo="body" [style]="{ width: '30vw' }" styleClass="text-center logoutConfirmationDialogStyling" [baseZIndex]="10000" [draggable]="false" [blockScroll]="true">	
+		<div class="text-center py-4">
+			<button pButton type="reset" label="Yes" class="p-button-rounded" (click)="logout()"></button>
+			<button pButton type="button" label="No" class="p-button-rounded darkGrey ml-2" (click)="logoutConfirmationDialog = false;"></button>
+		</div>
+	</p-dialog>
+	
+</div>

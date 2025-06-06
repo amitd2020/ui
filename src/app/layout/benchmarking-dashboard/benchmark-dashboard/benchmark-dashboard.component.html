@@ -1,0 +1,84 @@
+<div class="grid">
+    <ng-container *ngFor="let item of globalDataPrepared;">
+        <div class="col-8 pt-0 pb-0">
+            <div class="flex justify-content-between align-items-center bg-teal-500 py-2 px-2 text-white">
+                <div>{{item.header}}</div>
+                <div class="mr-2"><button pButton label="Reset" class="p-button-rounded p-button-sm line-height-1 pb-1 bg-yellow-600 mb-0" icon="pi pi-refresh" (click)="resetTable( item.tableData[0], item, 0 )"></button></div>
+                
+            </div>
+            <div class="card border-noround">
+                <p-table styleClass="p-datatable-gridlines" [columns]="item.tableColumn" [value]="item.tableData" [scrollable]="true" scrollHeight="{{item.tableHandler.tabeHeight}}" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngStyle]="{'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign}">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                        <tr *ngIf="rowData[ 'key' ]">
+                            <td *ngFor="let col of columns" [ngSwitch]="true" [ngStyle]="{'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign}">
+          
+                                <ng-container *ngSwitchCase="col.field == 'key'">
+                                    
+                                      {{  rowData[ col.field ]| titlecase  }}
+                                      <div class="pt-3">
+                                            <a class="text-blue-700 text-xs underline" href="javascript:void(0)" (click)="gotToOtherPage( rowData, col, '/company-search/stats-insights' )">
+                                                Go to Stats
+                                            </a>
+                                            <a class="ml-3 text-blue-700 text-xs underline" href="javascript:void(0)" (click)="gotToOtherPage(rowData, col, '/stats-analysis/growth-analysis')">
+                                                Go to Growth Analysis
+                                            </a>
+                                      </div>
+                                    
+                                </ng-container>
+                                <ng-container *ngSwitchCase="col.field == 'performanceCount'">
+                                    <div class="grid px-3">
+    
+                                        <ng-container *ngFor="let data of rowData[ col.field ]">
+                                            <ng-container *ngIf="data?.key && data.key && data.key != '0.5'">
+                                                <div class="col-6 flex align-items-center">
+                                                    <!-- <div class="w-1rem h-1rem border-circle bg-indigo-200"></div> -->
+                                                    <div class="ml-2 text-sm font-normal text-indigo-700 font-semibold">{{ data.key | titlecase}}:</div>
+                                                    <div class="ml-2">
+                                                        <a class="font-semibold text-blue-500" href="javascript:void(0);" (click)="gotToSearchPage( rowData, data, columns[0].chipGroup)">
+                                                            <span [class]="col?.class">{{ data.doc_count | number}}</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                    <div id="{{item.key + index}}" class="text-right mr-4 text-xs">
+                                        <a *ngIf="activeMap[ item['key'] ] != index" class="text-blue-700 underline" href="javascript:void(0)" (click)="viewAnalytics( rowData, item, index )">
+                                            View Analytics
+                                        </a>
+                                        <a  *ngIf="activeMap[ item['key'] ] == index" class="cursor-auto text-white bg-indigo-600  px-2 p-1 border-round " href="javascript:void(0)">
+                                            Active Analytics
+                                        </a>
+                                    </div>
+                                    
+                                </ng-container>
+          
+                                <ng-container *ngSwitchDefault>
+                                   <div class="text-base font-semibold">{{ rowData[ col.field ] ? rowData[ col.field ] : '-' }}</div>
+                                </ng-container>
+          
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+    
+        </div>
+        <div class="col-4 pt-0 pb-0">
+            <div *ngIf="item?.showGraphHeader" class="bg-indigo-500 p-2 text-white">Performance-based company evaluation</div>
+            <div *ngIf="!item?.showGraphHeader" class="bg-indigo-500 p-2 text-indigo-500">''</div>
+            <div class="card border-noround">
+                <div class="text-base p-2 white-space-nowrap text-overflow-ellipsis overflow-hidden font-semibold">{{ displayGraphCardArray[item['key']]?.graphHeader }}</div>
+                <p-chart type="{{item.chartType}}" [data]="displayGraphCardArray[item['key']]" [options]="item.chartOptions" height="240px" [plugins]="ChartDataPlugins"></p-chart>
+            </div>
+        </div>
+    </ng-container>
+</div>
+

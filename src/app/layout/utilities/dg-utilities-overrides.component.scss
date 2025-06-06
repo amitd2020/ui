@@ -1,0 +1,91 @@
+// Topbar override CSS
+.layout-topbar {
+
+	@media only screen and ( min-width: 992px ) {
+		height: 4.5rem;
+		z-index: 99999999999;
+	}
+	
+	.layout-topbar-left {
+		
+		@media only screen and ( max-width: 992px ) {
+			height: 4.5rem;
+		}
+
+		.layout-topbar-logo {
+			width: 20rem;
+
+			@media only screen and (max-width:280px) {
+				width: 14rem;
+			}
+			.imageStyle {
+				height: 3.25rem;
+
+				@media only screen and (max-width:280px) {
+					height: 2.85rem;
+				}
+			}
+			background-color: #2f4050;
+		}
+
+		.topbar-mobile-menu-button {
+			font-size: 2rem;
+			padding: 1rem;
+		}
+
+	}
+
+	.layout-topbar-end {
+
+		dg-shared-search-bar {
+			max-width: 785px;
+		}
+
+		.selectedCountryLabel {
+			background-color: #fff;
+			font-size: 0.9em;
+			font-weight: 700;
+			color: #2f4050;
+			text-transform: uppercase;
+			letter-spacing: 0.8px;
+			line-height: 1.2;
+			padding: 0.5em 1.2em;
+			border-radius: 2em;
+			border: 2px solid #2f4050;
+			box-shadow: 0px 0px 0px 2px rgb(255, 255, 255);
+			-webkit-user-select: none;
+			user-select: none;
+			cursor: default;
+
+			img.flag {
+				width: 1.5em;
+			}
+		}
+
+	}
+}
+
+::ng-deep {
+
+	.menu-wrapper {
+		.layout-inline-menu {
+			.layout-inline-menu-action-panel {
+				padding-bottom: 0.5rem;
+
+				.layout-inline-menu-action-item {
+
+					&[class*="c-"] {
+						a {
+							color: inherit;
+						}
+					}
+
+					a {
+						padding: 0.45rem 0.75rem;
+					}
+				}
+			}
+		}
+	}
+
+}

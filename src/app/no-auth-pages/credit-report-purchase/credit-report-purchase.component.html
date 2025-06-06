@@ -1,0 +1,400 @@
+<div *ngIf="!selectedReportPlanDetails" class="login-body signUpFormPanel">
+    <div class="login-panel loginPanelRight p-fluid p-input-filled">
+
+        <form #paymentForm="ngForm">
+                <div class="grid justify-center">
+                    <div class="col-12 logo text-center">
+                        <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280">
+                    </div>
+                    <div class="card d-lg-small">
+                        <div class="grid">
+
+                            <div class="col-11 billingDetailsCard">
+
+                                <div class="cardRadius">
+
+                                    <p-messages [style]="{'max-width': '378px',left:'30px'}" [(value)]="msgs"></p-messages>
+
+                                    <h1 class="font-bold">Billing Details</h1>
+
+                                    <div class="grid">
+
+                                        <div class="col-6 pl-0">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText name="first_name" [(ngModel)]="sessionObject.first_name" [disabled]="isLoggedIn">
+                                                <label>First Name</label>
+                                                <span *ngIf="!fieldValidationCheck && !sessionObject.first_name" style="color: red;">
+                                                    <small style="float: left;">
+                                                        First Name is required
+                                                    </small>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="col-6 pr-0">
+                                            <span class="p-float-label">
+                                                <input type="text" pInputText name="last_name" #last_name="ngModel" [(ngModel)]="sessionObject.last_name" [disabled]="isLoggedIn">
+                                                <label>Last Name</label>
+                                                <span *ngIf="!fieldValidationCheck && !sessionObject.last_name && !userAuthService.hasRolePermission( ['Super Admin'] )" style="color: red;">
+                                                    <small style="float: left;">
+                                                        Last Name is required
+                                                    </small>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <span class="p-float-label">
+
+                                                <input type="text" pInputText name="email" #email="ngModel" [(ngModel)]="sessionObject.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$" [disabled]="isLoggedIn" (blur)="checkIfUserEmailAlreadyExists( sessionObject.email )">
+
+                                                <label>Email</label>
+                                                <span *ngIf="!fieldValidationCheck && !sessionObject.email" style="color: red;">
+                                                    <small style="float: left;">
+                                                        Email is required
+                                                    </small>
+                                                </span>
+                                                <small *ngIf="email.errors?.pattern" style="color: red; float: left;">
+                                                    Please enter a valid email
+                                                </small>
+                                                <small *ngIf="userEmailAlreadyExists" class="c-red text-left" style="float: left;">
+                                                    Email already exists, please <a href="javascript:void(0);" class="c-green" [routerLink]="'/login'">click here to login</a> with your email and password.
+                                                </small>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-12 pb-0">
+                                            <h4 class="text-left p-m-0">How did you find us?</h4>
+                                            <div class="grid">
+                                                <div class="col-12 md-6 p-pr-md-3">
+                                                    <span class="p-inputfield text-left">
+                                                        <p-dropdown [options]="foundUsOptions" #referredData="ngModel" [(ngModel)]="sessionObject.referredValue" name="referredValue" (onChange)="selectedData($event, sessionObject.referredValue)" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
+                                                        <span *ngIf="!fieldValidationCheck && referredData.errors?.required" style="color: red;">
+                                                            <small>This option is required</small>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="col-12 md-6 p-pl-md-3" *ngIf="show_refred_by_text">
+                                                    <span class="p-float-label">
+                                                        <input type="text" pInputText name="refered_by" value="refered_by" [(ngModel)]="sessionObject.refered_by"> 
+                                                        <label>Enter text here</label>
+                                                    </span>
+                                                </div>
+                                                <div class="col-12 md-6 p-pl-md-3" *ngIf="show_other_text">
+                                                    <span class="p-float-label">
+                                                        <input type="text" pInputText name="other" value="other" [(ngModel)]="sessionObject.other">
+                                                        <label>Enter text here</label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 px-2">
+                                            <form #stripePaymentForm="ngForm" novalidate (ngSubmit)="buyReports()">
+
+                                                <div class="grid">
+
+                                                    <ngx-stripe-card-group class="col-12 p-0" [elementsOptions]="elementsOptions">
+
+                                                        <div class="grid">
+
+                                                            <div class="col-12 px-2">
+                                                                <ngx-stripe-card-number [options]="cardNumberOptions"></ngx-stripe-card-number>
+                                                            </div>
+
+                                                            <div class="col-6 px-2">
+                                                                <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                                                            </div>
+
+                                                            <div class="col-6 px-2">
+                                                                <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </ngx-stripe-card-group>
+
+                                                    <div class="col-12 pb-0">
+
+                                                        <button pButton type="submit" label="Pay &pound; {{ reportPlanDetails.total_Amount | number:'1.2-2' }}" class="p-button-rounded p-button-lg"></button>
+
+                                                        <span class="powerd-stripe">
+                                                            <small>powerd by </small> <strong>Stripe</strong>
+                                                        </span>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="summary_card orderSummaryCard">
+
+                                <span *ngIf="selectedReportPlanDetails" class="material-icons closeDialogBox" (click)="closeIcon()">close</span>
+
+                                <div class="grid orderSummary">
+
+                                    <h1 class="col-12 summary_border mt-2 pb-2 pl-0 borderSummary">Order Summary</h1>
+
+                                    <div class="col-12 vat_border pl-0 borderSummary">
+                                        <div class="grid mx-0">
+                                            <span class="col-6 pl-0 text-left font-bold">Reports</span>
+                                            <span class="col-6 text-right pr-0">{{ reportPlanDetails.reportCount }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 vat_border pl-0 borderSummary">
+
+                                        <div class="grid mx-0">
+                                            <span class="col-6 pl-0 text-left font-bold">SubTotal</span>
+                                            <span class="col-6 text-right pr-0">
+                                                &pound;{{  reportPlanDetails.sub_total_Amount | number:'1.2-2' }}
+                                            </span>
+                                            <br>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="grid mx-0">
+                                            <span class="col-6 pl-0 text-left font-bold">
+                                                VAT(20%)
+                                            </span>
+                                            <span class="col-6 text-right pr-0">
+                                                &pound;{{ ( 20 * (  reportPlanDetails.sub_total_Amount ) /100)| number:'1.2-2' }}
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 pl-0 total_margin borderSummary">
+                                        <div class="grid mx-0">
+                                            <span class="col-6 pl-0 text-left font-bold">Total</span>
+                                            <span class="col-6 text-right pr-0">
+                                                &pound;{{ reportPlanDetails.total_Amount | number:'1.2-2' }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </form>
+
+    </div>
+</div>
+
+<div *ngIf="selectedReportPlanDetails" class="login-panel p-fluid p-input-filled">
+
+    <form #paymentForm="ngForm">
+
+        <div class="card cardPosition p-4">
+            
+            <div class="grid">
+
+                <div class="col-11 billingDetailsCard">
+
+                    <div class="cardRadius">
+
+                        <p-messages [style]="{'max-width': '378px',left:'30px'}" [(value)]="msgs"></p-messages>
+
+                        <h1 class="text-2xl font-semibold uppercase">Billing Details</h1>
+
+                        <div class="grid">
+
+                            <div class="col-6 pl-0">
+                                <span class="p-float-label">
+                                    <input type="text" pInputText name="first_name" [(ngModel)]="sessionObject.first_name" [disabled]="isLoggedIn">
+                                    <label>First Name</label>
+                                    <span *ngIf="!fieldValidationCheck && !sessionObject.first_name" style="color: red;">
+                                        <small style="float: left;">
+                                            First Name is required
+                                        </small>
+                                    </span>
+                                </span>
+                            </div>
+                            
+                            <div class="col-6 pr-0">
+                                <span class="p-float-label">
+                                    <input type="text" pInputText name="last_name" #last_name="ngModel" [(ngModel)]="sessionObject.last_name" [disabled]="isLoggedIn">
+                                    <label>Last Name</label>
+                                    <span *ngIf="!fieldValidationCheck && !sessionObject.last_name && !userAuthService.hasRolePermission( ['Super Admin'] )" style="color: red;">
+                                        <small style="float: left;">
+                                            Last Name is required
+                                        </small>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="col-12">
+                                <span class="py-4 p-float-label">
+
+                                    <input type="text" pInputText name="email" #email="ngModel" [(ngModel)]="sessionObject.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$" [disabled]="isLoggedIn" (blur)="checkIfUserEmailAlreadyExists( sessionObject.email )">
+
+                                    <label>Email</label>
+                                    <span *ngIf="!fieldValidationCheck && !sessionObject.email" style="color: red;">
+                                        <small style="float: left;">
+                                            Email is required
+                                        </small>
+                                    </span>
+                                    <small *ngIf="email.errors?.pattern" style="color: red; float: left;">
+                                        Please enter a valid email
+                                    </small>
+                                    <small *ngIf="userEmailAlreadyExists" class="c-red text-left" style="float: left;">
+                                        Email already exists, please <a href="javascript:void(0);" class="c-green" [routerLink]="'/login'">click here to login</a> with your email and password.
+                                    </small>
+                                </span>
+                            </div>
+
+                            <div class="col-12 pb-0">
+                                <h4 class="text-left p-m-0">How did you find us?</h4>
+                                <div class="grid">
+                                    <div class="col-12 md-6 p-pr-md-3">
+                                        <span class="p-inputfield text-left">
+                                            <p-dropdown [options]="foundUsOptions" #referredData="ngModel" [(ngModel)]="sessionObject.referredValue" name="referredValue" (onChange)="selectedData($event, sessionObject.referredValue)" [style]="{'width':'100%'}" [required]="true"></p-dropdown>
+                                            <span *ngIf="!fieldValidationCheck && referredData.errors?.required" style="color: red;">
+                                                <small>This option is required</small>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-12 md-6 p-pl-md-3" *ngIf="show_refred_by_text">
+                                        <span class="p-float-label">
+                                            <input type="text" pInputText name="refered_by" value="refered_by" [(ngModel)]="sessionObject.refered_by"> 
+                                            <label>Enter text here</label>
+                                        </span>
+                                    </div>
+                                    <div class="col-12 md-6 p-pl-md-3" *ngIf="show_other_text">
+                                        <span class="p-float-label">
+                                            <input type="text" pInputText name="other" value="other" [(ngModel)]="sessionObject.other">
+                                            <label>Enter text here</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 px-2">
+                                <form #stripePaymentForm="ngForm" novalidate (ngSubmit)="buyReports()">
+
+                                    <div class="grid">
+
+                                        <ngx-stripe-card-group class="col-12 p-0" [elementsOptions]="elementsOptions">
+
+                                            <div class="grid">
+
+                                                <div class="col-12 pt-4 px-2">
+                                                    <ngx-stripe-card-number [options]="cardNumberOptions"></ngx-stripe-card-number>
+                                                </div>
+
+                                                <div class="col-6 px-2">
+                                                    <ngx-stripe-card-expiry [options]="cardOptions"></ngx-stripe-card-expiry>
+                                                </div>
+
+                                                <div class="col-6 px-2">
+                                                    <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+                                                </div>
+
+                                            </div>
+
+                                        </ngx-stripe-card-group>
+
+                                        <div class="col-12 pb-0">
+
+                                            <button pButton type="submit" label="Pay &pound; {{ reportPlanDetails.total_Amount | number:'1.2-2' }}" class="p-button-rounded p-button-lg"></button>
+
+                                            <span class="powerd-stripe">
+                                                <small>powerd by</small> <strong>Stripe</strong>
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="summary_card orderSummaryCard">
+
+                    <span *ngIf="selectedReportPlanDetails" class="material-icons closeDialogBox" (click)="closeIcon()">close</span>
+
+                    <div class="grid orderSummary">
+
+                        <h1 class="col-12 uppercase text-2xl summary_border font-semibold mt-6 pb-2 pl-0 borderSummary">Order Summary</h1>
+
+                        <div class="col-12 vat_border py-3 borderSummary">
+                            <div class="grid mx-0">
+                                <span class="col-6 pl-0 text-left font-bold">Reports</span>
+                                <span class="col-6 text-right pr-0">{{ reportPlanDetails.reportCount }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 vat_border py-3 borderSummary">
+
+                            <div class="grid mx-0">
+                                <span class="col-6 pl-0 text-left font-bold">SubTotal</span>
+                                <span class="col-6 text-right pr-0">
+                                    &pound;{{  reportPlanDetails.sub_total_Amount | number:'1.2-2' }}
+                                </span>
+                                <br>
+                            </div>
+
+                            <br>
+
+                            <div class="grid mx-0">
+                                <span class="col-6 pl-0 text-left font-bold">
+                                    VAT(20%)
+                                </span>
+                                <span class="col-6 text-right pr-0">
+                                    &pound;{{ ( 20 * (  reportPlanDetails.sub_total_Amount ) /100)| number:'1.2-2' }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 pl-0 py-3 total_margin borderSummary">
+                            <div class="grid mx-0">
+                                <span class="col-6 pl-0 text-left font-bold">Total</span>
+                                <span class="col-6 text-right pr-0">
+                                    &pound;{{ reportPlanDetails.total_Amount | number:'1.2-2' }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<p-dialog header="Hi {{ creditReportUsername }}" [modal]="true" [(visible)]="loginConfirmationDialog" [focusOnShow]="false" styleClass="text-center" [style]="{width: '20vw'}" [baseZIndex]="999999998" appendTo="body" [closable]="false">
+    <div class="col-12">
+        <i  class="pi pi-check-circle c-green iconSize"></i>
+        <h3>Payment Successful.</h3>
+        <p>Your account is ready with us!</p>
+        <p>You can login with your email, by default password has been sent your email id. Kindly reset it.</p>
+    </div>
+     <div class="p-pt-2 text-center">
+         <button pButton type="submit" label="Login" class="p-button-inline" [routerLink]="'/login'"></button>
+     </div>
+ </p-dialog>

@@ -1,0 +1,72 @@
+<ng-container *ngIf="layoutService.isSlim() && layoutService.isDesktop(); else isStatic">
+    <ul class="layout-menu">
+        <ng-container *ngFor="let item of filteredMenuItems; let i = index;">
+            <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
+            <li *ngIf="item.separator" class="menu-separator"></li>
+        </ng-container>
+    </ul>
+</ng-container>
+
+<ng-template #isDesktop>
+    <ng-container *ngIf="userAuthService.envServer == 'dev'">
+        <input type="text" id="searchInput" [(ngModel)]="searchText" placeholder="Search...">
+        <div class="card keywordForSearchFilter" *ngIf="searchText.length">
+            <p-scrollPanel *ngIf="searchInFilterInputKeyword?.length" [style]="{ width: '100%', height: searchInFilterInputKeyword.length < 8 ? 'auto' : '200px' }" styleClass="searchAllFilterScroller">
+                <ul>
+                    <li class="mb-1" *ngFor="let val of searchInFilterInputKeyword">
+                        <a href="javascript:void(0);" (click)="goToSelectedFilterItem( val )">
+                            <span [innerHTML]="highlightMatchedWords( ( val.hasOwnProperty( 'displayLabel' ) && !!val.displayLabel ) ? val.displayLabel : val.label, searchText )"></span>
+                            <!-- <p style="font-size: 'x-small'; margin-top: -7px">{{ val.filterGroup }} > {{ ( val.hasOwnProperty( 'displayLabel' ) && !!val.displayLabel ) ? val.displayLabel : val.label }}</p> -->
+                        </a>
+                    </li>
+                    
+                </ul>
+            </p-scrollPanel>
+            <div *ngIf="!searchInFilterInputKeyword?.length">
+                <p class="p-1">No keywords matched.</p>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #isStatic>
+    <div *ngIf="userAuthService.envServer == 'dev'">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+            <input pInputText type="text" placeholder="Find in Menu" class="p-inputtext-sm" [(ngModel)]="searchText">
+            <a href="javascript: void(0);" class="p-inputgroup-addon clear" (click)="searchText = '';" *ngIf="searchText.length">
+                <i class="pi pi-times"></i>
+            </a>
+        </div>
+        <div class="card keywordForSearchFilter" *ngIf="searchText.length">
+            <p-scrollPanel *ngIf="searchInFilterInputKeyword?.length" [style]="{ width: '100%', height: searchInFilterInputKeyword.length < 8 ? 'auto' : '250px' }" styleClass="searchAllFilterScroller">
+                <ul>
+                    <li class="mb-1" *ngFor="let val of searchInFilterInputKeyword">
+                        <a href="javascript:void(0);" (click)="goToSelectedFilterItem( val )">
+                            <span [innerHTML]="highlightMatchedWords( ( val.hasOwnProperty( 'displayLabel' ) && !!val.displayLabel ) ? val.displayLabel : val.label, searchText )"></span>
+                            <!-- <p style="font-size: 'x-small'; margin-top: -7px">{{ val.filterGroup }} > {{ ( val.hasOwnProperty( 'displayLabel' ) && !!val.displayLabel ) ? val.displayLabel : val.label }}</p> -->
+                        </a> 
+                    </li>
+                    
+                </ul>
+            </p-scrollPanel>
+            <div *ngIf="!searchInFilterInputKeyword?.length">
+                <p class="p-1">No keywords matched.</p>
+            </div>
+        </div>
+    </div>
+
+    <ul class="layout-menu">
+        <ng-container *ngFor="let item of filteredMenuItems; let i = index;">
+            <!-- <div class="my-1 mx-1"> -->
+                <p-panel class="p-panel" [header]="item.label" [toggleable]="true" [toggler]="'header'" [(collapsed)]="item['isPanelCollapsed']" (collapsedChange)="collapsedChange(filteredMenuItems, item.label)">
+                    <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true" [parentIndex]="i" [searchText]="searchText" [filteredMenuItems]="filteredMenuItems" [selectedItem]="selectedMenuItem" (sendFilterItemsRawForSearch)="sendFilterItemsRawForSearch( $event )" ></li>
+                    <li *ngIf="item.separator" class="menu-separator"></li>
+                </p-panel>
+            <!-- </div> -->
+        </ng-container>
+    </ul>
+</ng-template>
+
+<!-- old code for click on p-panel -->
+<!-- [collapsed]="!expandedIndex.includes(i)" (click)="panelClicked(i)" -->

@@ -1,0 +1,84 @@
+<div class="login-body">
+    <div class="login-panel p-fluid p-input-filled">
+
+        <form #eduSignUpForm="ngForm" (ngSubmit)="eduSignUpUserFormSubmission( signUpForm )">
+            <div class="grid">
+
+                <div class="col-12 logo">
+                    <h1 class="p-0 m-0">
+                        <img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280">
+                    </h1>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
+    
+                        <h1>Sign Up</h1>
+                        <p-messages [(value)]="msgs"></p-messages>
+    
+                        <div class="grid">
+        
+                            <div class="col-12 pb-0">
+                                <span class="p-float-label">
+                                    <input type="text" pInputText name="first_name" #first_name="ngModel" ngModel required>
+                                    <label>First Name</label>
+                                    <span *ngIf="(first_name.touched || fieldValidate) && first_name.errors?.required" class="c-red">
+                                        <small style="float: left;">
+                                            First Name is required
+                                        </small>
+                                    </span>
+                                </span>
+                            </div>
+        
+                            <div class="col-12 pb-0">
+                                <span class="p-float-label">
+                                    <input type="text" pInputText name="last_name" #last_name="ngModel" ngModel required>
+                                    <label>Last Name</label>
+                                    <span *ngIf="(last_name.touched || fieldValidate) && last_name.errors?.required"
+                                        class="c-red">
+                                        <small style="float: left;">
+                                            Last Name is required
+                                        </small>
+                                    </span>
+                                </span>
+                            </div>
+    
+                            <div class="col-12">
+                                <span class="p-float-label">
+                                    <input type="email" pInputText name="email"
+                                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$" #email="ngModel" [(ngModel)]="emailValue" 
+                                        (ngModelChange)="$event ? emailValue = $event.toLowerCase() : ''"
+                                        required>
+                                    <label>Email Address</label>
+                                    <span *ngIf="(email.touched || fieldValidate) && email.errors?.required" class="c-red">
+                                        <small style="float: left;">
+                                            Email is required
+                                        </small>
+                                    </span>
+                                    <small *ngIf="email.errors?.pattern" style="color: red;float: left;">
+                                        Please enter a valid email
+                                    </small>
+                                </span>
+                            </div>
+    
+                            <div class="col-12 pb-0">
+                                <!-- <div class="grid justify-content-center"> -->
+                                    <!-- <div class="col-fixed"> -->
+                                        <button pButton type="submit" label="Sign Up" icon="ui-icon-arrow-forward" iconPos="right" class="p-button-lg p-button-rounded m-0"></button>
+                                    <!-- </div> -->
+                                <!-- </div> -->
+                            </div>
+
+                            <div class="col-12 fs-small c-light">By clicking on "Sign Up", an auto-generated password will be sent to your email address. You can change your password after signing up.</div>
+        
+    
+                        </div>
+    
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>

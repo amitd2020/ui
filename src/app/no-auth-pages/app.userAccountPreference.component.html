@@ -1,0 +1,227 @@
+<div class="feedback-body">
+
+    <div class="feedback-card">
+
+        <div class="feedback-header">
+            <h1 class="p-0 m-0"><img src="assets/layout/images/dg_logo_new.png" alt="DataGardener logo" width="280"></h1>
+        </div>
+        <div *ngIf="!showThankyouDiv">
+            <p-tabView [(activeIndex)]=index (onChange)="handleChange($event)">
+                <div class="title">
+                    <h1>Welcome to DataGardener!</h1>
+                    <h4>Help us to customize your DataGardener experience to get you started.</h4>
+                </div>
+
+                <p-tabPanel header="Page 1">
+                    <h4 class="title titleMargin">Who are you?</h4>
+                    <div class="feature-content">
+                        <div class="grid buttonBottomMargin"> 
+
+                            <div class="col-6 lg-3">
+                                <button  pButton type="button" class="col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(1)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='FinTech'}">FinTech and Finance
+                                Providers</button>
+                            </div>
+
+                            <div class="col-6 lg-3">
+                                <button  pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(2)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='InsureTech'}">InsureTech and
+                                Business Insurers</button>
+                            </div>
+                            
+                            <div class="col-6 lg-3">
+                                <button  pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(3)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Accountants'}">Accountants and
+                                Bookkeepers</button>
+                            </div>
+                           
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(4)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Insurance'}">Insurance and Mortgage
+                                Brokers</button>
+                            </div>
+
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(5)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Startups'}">Startups and New
+                                Businesses</button>
+                            </div>
+
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(6)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Marketing'}">Marketing and Lead
+                                Generation Companies
+                            </button>
+                            </div>
+                           
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(7)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Solicitors'}">Solicitors, Lawyers
+                                and Law Firms</button>
+                            </div>
+
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(8)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Import'}">Import and Export
+                                Companies</button>
+                            </div>
+                            
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(10)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Commercial'}">Commercial Finance
+                                Brokers</button>
+                            </div>  
+
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(9)"
+                                [ngClass]="{'activeSelectedBox': selectedcategory==='Corporate'}">Corporate
+                                Investors</button>
+                            </div>
+                           
+                            <div class="col-6 lg-3">
+                                <button pButton type="button" class="p-col p-shadow-2 cardSpace buttonRightMargin" (click)="selectIndustryOnClick(11)"
+                                    [ngClass]="{'activeSelectedBox': selectedcategory==='others'}">Others</button>
+                            </div>
+                            
+                        </div>
+
+                        <div id="other" *ngIf="showOtherDiv">
+                            <span class="ui-float-label inputTextMarginTop">
+                                <input id="float-input" type="text" size="30" [(ngModel)]="otherFeature" pInputText
+                                    autocomplete="off">
+                                <label for="float-input">Type here</label>
+                            </span>
+                            <span class="help-block warningMessageSize" style="color: red;" *ngIf="inputTextValidate">
+                                Please input text
+                            </span>
+                        </div>
+                        <span class="help-block warningMessageSize" style="color: red;" *ngIf="validateFirstPage">
+                            Select Atleast One Field!!
+                        </span>
+                    </div>
+
+                    <div class="btns">
+                        <button pButton type="button" label="Next" (click)="openNext()" styleClass="feedbackButtons"></button>
+                    </div>
+
+                </p-tabPanel>
+
+                <p-tabPanel header="Page 2">
+
+                    <div class="title">
+                        <h4 class="titleMargin">Help us personalize your Experience.</h4>
+                    </div>
+                    <form #feedbackForm="ngForm">
+                        <p-card styleClass="backgroundShadow">
+                            <h3>1. Tell us a bit more about yourself:-</h3>
+
+                            <div class="p-fluid p-formgrid p-grid">
+
+                                <div class="p-field col-12 md-4">
+                                    <h5>You are a :-</h5>
+                                    <span class="md-inputfield">
+                                        <p-dropdown  (onChange)="openOtherInput()"
+                                            [options]="profession" [(ngModel)]="selectedProfession" optionLabel="name"
+                                            name="profession_name" placeholder="Choose"
+                                            [filter]="true"></p-dropdown>
+                                        <div id="other" *ngIf="showOtherText">
+                                            <span>
+                                                <input id="input" type="text" size="30" pInputText autocomplete="off"
+                                                     [(ngModel)]="otherProfession"
+                                                     ngModel placeholder="Type here">
+                                            </span>
+                                        </div>
+                                    </span>
+
+                                </div>
+
+                                <div class="p-field col-12 md-4">
+                                    <h5>Working in:-</h5>
+                                    <span class="md-inputfield">
+                                        <p-dropdown 
+                                            (onChange)="openOtherInputOne()" [options]="workingIndustries"
+                                            [(ngModel)]="selectedworkingIndustry" optionLabel="name"
+                                            name="workingIndustries_name" placeholder="Choose" [filter]="true">
+                                        </p-dropdown>
+                                        <div id="other" *ngIf="showOtherTextOne">
+                                            <span>
+                                                <input id="input" type="text" size="30" pInputText autocomplete="off"
+                                                    
+                                                    [(ngModel)]="otherworkingIndustries" placeholder="Type here">
+                                            </span>
+                                        </div>
+                                    </span>
+
+                                </div>
+
+                                <div class="p-field col-12 md-4">
+                                    <h5>Deals in which sector:-</h5>
+                                    <span class="md-inputfield">
+                                        <p-dropdown 
+                                            (onChange)="openOtherInputTwo()" [options]="WorkingSector"
+                                            [(ngModel)]="selectedWorkingSector" optionLabel="name"
+                                            name="WorkingSector_name" placeholder="Choose" [filter]="true"></p-dropdown>
+                                        <div id="other" *ngIf="showOtherTextTwo">
+                                            <span>
+                                                <input id="input" type="text" size="30" pInputText autocomplete="off"
+                                                    
+                                                    [(ngModel)]="otherWorkingSector" placeholder="Type here">
+                                            </span>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <h3>2. Areas you are interested in:-</h3>
+                            <div class="p-fluid p-formgrid p-grid">
+
+                                <div class="p-field col-12 md-4">
+                                    <h5>City you are interested in:-</h5>
+                                    <span class="md-inputfield">
+                                        <p-dropdown [ngModelOptions]="{standalone: true}" [options]="cities"
+                                            [(ngModel)]="selectedCity" name="cities_name" placeholder="Choose"
+                                            [filter]="true"></p-dropdown>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md-4">
+                                    <h5>Industry you are interested in:-</h5>
+                                    <span class="md-inputfield">
+                                        <p-dropdown [ngModelOptions]="{standalone: true}"
+                                            [options]="interestedIndustries" [(ngModel)]="selectedIndustry"
+                                            name="interestedIndustries_name" placeholder="Choose"
+                                            styleClass="setWhiteSpace" [filter]="true">
+                                        </p-dropdown>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </p-card>
+
+                        <div class="btns">
+                            <button pButton type="button" label="Prev" (click)="openPrev()" class="feedbackButtons"></button >
+                            <button pButton type="button" label="Submit" class="feedbackButtons" (click)="UserPreferenceFormSubmit()"></button >
+                        </div>
+                    </form>
+
+                </p-tabPanel>
+
+            </p-tabView>
+        </div>
+
+        <div *ngIf="showThankyouDiv" class="login-body feedbackCard">
+            <div class="login-panel">
+                <div class="grid">
+                    <div class="col-12">
+                        <h1>Thank You!</h1>
+                        <img src="../../assets/layout/images/tick-gif.gif" style="width: 20%;" alt="Sign Up Confirm">
+                        <div class="text-center mb-4">Please click on below button to go to the Dashboard.</div>
+                        <div class="text-center pb-4">
+                            <button pButton type="button" label="Go to Dashboard" (click)="finish()" class="p-button-rounded feedbackButtons"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
