@@ -1,0 +1,60 @@
+.card {
+	&.onlyLinesAround {
+		box-shadow: none;
+		border: 1px solid #d2d2d2;
+	}
+}
+
+// For Rounded Checkbox
+.cbox {
+	::ng-deep {
+		.p-checkbox {
+
+			.p-checkbox-box,
+			.p-checkbox-disabled {
+				&.p-highlight {
+					border-color: var(--surface-a);
+					background-color: #20b2aa;
+				}
+
+				border-radius: 20px;
+				border-color: var(--surface-a);
+			}
+		}
+
+		.select-all-checkbox {
+			.p-checkbox {
+
+				.p-checkbox-box,
+				.p-checkbox-disabled {
+					&.p-highlight {
+						border-color: var(--text-color);
+						background-color: var(--text-color);
+
+						&:hover {
+							background-color: var(--text-color);
+						}
+
+						.p-checkbox-icon.pi-check:before {
+							border-color: var(--surface-a) !important;
+						}
+					}
+
+					border-radius: 20px;
+					border-color: var(--text-color);
+				}
+			}
+		}
+	}
+
+	p-scrollPanel {
+		div {
+			margin-bottom: .5em;
+		}
+	}
+}
+
+.specialCharacters {
+    color: red;
+    font-size: small;
+}

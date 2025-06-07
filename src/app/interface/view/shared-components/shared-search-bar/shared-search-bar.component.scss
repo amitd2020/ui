@@ -1,0 +1,108 @@
+.cardSearchbar {
+
+	::ng-deep {
+		.p-autocomplete {
+			width: 100%;
+
+			.p-inputtext,
+			.p-inputtext:enabled:focus .p-inputtext:enabled:hover {
+				width: 100%;
+				border-radius: 0;
+				max-height: 48px;
+				padding: 0.75em !important;
+				background-image: none;
+				background-color: var(--surface-a);
+
+				@media only screen and (max-width: 992px) {
+					padding: 0.4em !important;
+					overflow: auto;
+					max-height: 34px;
+				}
+			}
+
+			.p-autocomplete-multiple-container .p-autocomplete-input-token {
+				padding: 0;
+
+				input {
+					font-size: inherit;
+				}
+			}
+		}
+
+		.p-dropdown,
+		.p-dropdown:not(.p-disabled):hover {
+			border-radius: 0;
+			// max-height: 45.3px;
+			background-color: var(--surface-a);
+			border-right: 1px solid #bdbdbd;
+			background-image: none;
+			height: 3.2rem;
+
+			.p-inputtext {
+				padding: 0.75em;
+
+				@media only screen and (max-width: 992px) {
+					padding: 6px;
+				}
+			}
+		}
+
+		.p-button {
+			margin: 0;
+			padding: 0;
+			height: 3.2em;
+			border-radius: 0;
+			box-shadow: none;
+			background-color: #145465a1;
+
+			&:hover {
+				background-color: lighten(#145465a1, 5%);
+			}
+
+			@media screen and ( min-width: 768px ) and ( max-width: 992px ) {
+				height: 2.7em;
+			}
+		}
+	}
+
+	@media screen and (max-width: 992px) {
+
+		.cardSearchBarResponsive {
+			width: 100%;
+			margin-bottom: 3px;
+		}
+	}
+
+}
+
+// To Hide Loader For Director AutoComplete Only //
+::ng-deep {
+	.toHideAutoCompleteLoaderStyle {
+		&.p-autocomplete {
+			.p-autocomplete-loader {
+				display: none;
+			}
+		}
+	}
+}
+
+::ng-deep {
+	.p-autocomplete {
+		.p-autocomplete-multiple-container {
+			.p-autocomplete-token {
+				padding: 0.175rem 0.55rem;
+				border-radius: 15px;
+				font-size: 1rem;
+
+				.p-autocomplete-token-icon {
+					margin-left: 0.3rem;
+				}
+			}
+		}
+	}
+	
+	.p-icon {
+		width: 0.9rem;
+		height: 0.9rem;
+	}
+}

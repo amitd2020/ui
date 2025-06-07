@@ -1,0 +1,316 @@
+<!-- <p-dialog header="PROCUREMENT REFERENCE : {{ (noticeIndentifierSummaryData?.notice_identifier) | uppercase }}" [draggable]="false" [modal]="true" [(visible)]="viewNoticeIndentifierModal" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: '75vw', 'overflow-y': 'auto' }" [maximizable]="true">
+
+	<div class="grid">
+
+		<div class="col-12 divider">
+
+			<div class="grid">
+
+				<div class="col-12 md:col-7 lg:col-7">
+		
+					<div class="hideOverflowX">
+		
+						<div class="grid item">
+							<div class="col-4">
+								<span class="text-primary-900 font-bold">BUYER NAME </span>
+							</div>
+							<ng-container *ngIf="noticeIndentifierSummaryData?.buyer_name && noticeIndentifierSummaryData?.organisationReg; else customCmpNo">
+								<div class="col-8">
+									<a class="cName" target="_blank" [href]="'/company/' + noticeIndentifierSummaryData?.organisationReg ? noticeIndentifierSummaryData?.customOrganisationReg : noticeIndentifierSummaryData?.customOrganisationReg  + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?businessType=viewGovernmentEnablerBuyer'">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }} </a>
+								</div>
+							</ng-container>
+							<ng-template #customCmpNo>
+								<div class="col-8">
+									<a class="cName" target="_blank"
+										[href]="'/company/' + noticeIndentifierSummaryData?.customOrganisationReg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?companyType=isBuyer'">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}
+									</a>
+								</div>
+							</ng-template>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">TITLE: </span>
+							</div>
+							<div class="col-8 text-cyan-800 font-medium">
+								{{ noticeIndentifierSummaryData?.title | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">PROCUREMENT STAGE:</span>
+							</div>
+							<div class="col-8">
+								{{ noticeIndentifierSummaryData?.notice_type | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">PROCUREMENT TYPE:</span>
+							</div>
+							<div class="col-8">
+								{{ noticeIndentifierSummaryData?.ojeu_contract_type | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">PROCUREMENT STAGE STATUS:</span>
+							</div>
+							<div class="col-8" [ngClass]="{ 'green': noticeIndentifierSummaryData?.status == 'awarded', 'red': noticeIndentifierSummaryData?.status == 'no'}">
+								{{ noticeIndentifierSummaryData?.status | titlecase  }}
+							</div>
+						</div>
+		
+					</div>
+				</div>
+		
+				<div class="col-12 md:col-5 lg:col-5">
+					<div class="hideOverflowX">
+		
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">VALUE OF CONTRACT:</span>
+							</div>
+							<ng-container *ngIf="noticeIndentifierSummaryData?.awarded_value; else withPound"  >
+								<div class="col-6">
+									&pound; {{ noticeIndentifierSummaryData?.awarded_value | number: '1.0-0' }}
+								</div>
+							</ng-container>
+							<ng-template #withPound>
+								'-'
+							</ng-template>
+						</div>
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">SUITABLE FOR SUB CONTRACT </span>
+							</div>
+							<div class="col-6" [ngClass]="{ 'green': noticeIndentifierSummaryData?.is_sub_contract == 'yes', 'red': noticeIndentifierSummaryData?.is_sub_contract == 'no'}">
+								{{ noticeIndentifierSummaryData?.is_sub_contract | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">CONTRACT IS SUITABLE FOR SME'S </span>
+							</div>
+							<div class="col-6" [ngClass]="{ 'green': noticeIndentifierSummaryData?.suitable_for_SME == 'yes', 'red': noticeIndentifierSummaryData?.suitable_for_SME == 'no'}">
+								{{ noticeIndentifierSummaryData?.suitable_for_SME | titlecase  }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">CONTRACT IS SUITABLE FOR VCSE'S</span>
+							</div>
+							<div class="col-6" [ngClass]="{ 'green': noticeIndentifierSummaryData?.suitable_for_VCO == 'yes', 'red': noticeIndentifierSummaryData?.suitable_for_VCO == 'no'}">
+								{{ noticeIndentifierSummaryData?.suitable_for_VCO | titlecase }}
+							</div>
+						</div>
+		
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class="grid align-items-center my-3">
+		<div class="col-fixed">
+			<span class="text-primary-800 font-semibold	x-big-data-font">Contract Details</span>
+		</div>
+	</div>
+
+	<p-timeline [value]="dateTimelineView" layout="horizontal" align="top" styleClass="timeLineStyle">
+        <ng-template pTemplate="content" let-event>
+			<div class="text-xl font-medium">
+				{{ (event.date && event.date != null && event.date != '') ? event.date : '-' }}
+			</div>
+			{{ event.status }}
+        </ng-template>
+    </p-timeline>
+
+	<div class="grid align-items-center mb-2 mt-5">
+		<div class="col-fixed">
+			<span class="text-primary-800 font-semibold	x-big-data-font">Buyer Contact Details</span>
+		</div>
+	</div>
+			<div class="card h-full widget-topsearchs hideOverflowX">
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_name" class="grid item">
+					<div class="col-4">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contact Name:</span>
+					</div>
+					<div class="col-8">
+						<span>{{ noticeIndentifierSummaryData?.contact_name | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_address_1 || noticeIndentifierSummaryData?.contact_address_2 || noticeIndentifierSummaryData?.contact_town || noticeIndentifierSummaryData?.contact_postcode  || noticeIndentifierSummaryData?.contact_country" class="grid item">
+					<div class="col-4">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Address:</span>
+					</div>
+					<div class="col-8">
+						<span>{{ noticeIndentifierSummaryData?.contact_address_1 | titlecase }} {{ noticeIndentifierSummaryData?.contact_address_2 | titlecase }} {{ noticeIndentifierSummaryData?.contact_town | titlecase }} {{ noticeIndentifierSummaryData?.contact_postcode | uppercase }} {{ noticeIndentifierSummaryData?.contact_country | titlecase}}</span>
+					</div>
+				</div>
+				<div *ngIf="noticeIndentifierSummaryData?.contact_email" class="grid item">
+					<div class="col-4">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contact Email:</span>
+					</div>
+					<div class="col-8">
+						<a class=" text-blue-600" href="mailto:{{ noticeIndentifierSummaryData?.contact_email }}">
+							{{ noticeIndentifierSummaryData?.contact_email }}
+						</a>
+					</div>
+				</div>
+
+			</div>
+	
+	<ng-container *ngIf="contractFinderSuppliersDataValues && contractFinderSuppliersDataValues.length > 0">
+		<div class="grid">
+			<div class="col-12">
+				<p-accordion>
+					<p-accordionTab header="Suppliers" [selected]="true">
+						<dg-user-list [listDataValues]="contractFinderSuppliersDataValues" [listColumns]="contractFinderSupplierColumns" [listPage]="true" [thisPage]="'showSuppliersInNoticeIdentifier'"></dg-user-list>
+					</p-accordionTab>
+				</p-accordion>
+			</div>
+		</div>
+	</ng-container>
+
+
+</p-dialog> -->
+
+<!-- screen 1 ( default ) -->
+<div *ngIf="screenType == 'default'">
+	<div class="grid">
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="card">
+				<h3 class="text-lg font-semibold text-primary-700">PROCUREMENT SUMMARY</h3>
+				<div>
+					<div class="flex justify-content-between align-items-center p-2">
+						<div class="social-icon">
+							<span class="material-icons cardPlaceholderIcons text-cyan-700">emoji_events</span>
+							<span class="font-medium pl-2 text-cyan-700	">Open contracts</span>
+						</div>
+						<div class="info flex flex-column">
+							<span class="font-medium text-cyan-700"> {{ finalDataToDisplay?.procurementSummary?.['totalContracts'] | number : '1.0-0' }} </span>
+						</div> 
+					</div>
+					<div class="flex justify-content-between align-items-center p-2">
+						<div class="social-icon">
+							<span class="text-teal-600 material-icons cardPlaceholderIcons">currency_pound</span>
+							<span class="text-teal-600 font-medium pl-2">Contractual award budget</span>
+						</div>
+						<div class="info flex flex-column">
+							<span class="text-teal-600 font-medium">{{ finalDataToDisplay?.procurementSummary?.['totalAwardedValue'] ? toNumberSuffix.transform(finalDataToDisplay?.procurementSummary?.['totalAwardedValue'], '0', selectedGlobalCurrency ) : '-' }}</span>
+						</div>
+					</div>
+					<div class="flex justify-content-between align-items-center p-2">
+						<div class="social-icon">
+							<span class="material-icons cardPlaceholderIcons text-blue-500">shopping_bag</span>
+							<span class="font-medium text-blue-500 pl-2">Buyers count</span>
+						</div>
+						<div class="info flex flex-column">
+							<span class="font-medium text-blue-500">{{ finalDataToDisplay?.procurementSummary?.['totalBuyers'] | number : '1.0-0' }}</span>
+
+						</div>
+					</div>
+					<div class="flex justify-content-between align-items-center p-2">
+						<div class="social-icon">
+							<span class="material-icons cardPlaceholderIcons text-yellow-500">inventory</span>
+							<span class="font-medium pl-2 text-yellow-500">Suppliers count</span>
+						</div>
+						<div class="info flex flex-column">
+							<span class="font-medium text-yellow-500">{{ finalDataToDisplay?.procurementSummary?.['totalSuppliers'] | number : '1.0-0' }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<dg-shared-procurement-bars [chartData]="rightBarChartData?.['graphData']" [chartOptions]="rightBarChartOptions" [chartHeight]="'180px'"><h3 class="text-lg font-semibold text-primary-700">PROCUREMENT STAGE</h3></dg-shared-procurement-bars>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<dg-shared-procurement-bars [chartData]="contractBarChartValData?.['graphData']" [chartOptions]="rightBarChartOptions" [chartHeight]="'180px'"><h3 class="text-lg font-semibold text-primary-700">PROCUREMENT TYPE</h3></dg-shared-procurement-bars>
+		</div>
+		<div class="col-12 md:col-6 lg:col-3">
+			<div class="card">
+				<h3 class="text-lg font-semibold text-primary-700">PROCUREMENT STAGE STATUS</h3>
+				<dg-shared-echart [dataForGraph]="dataForGraph" [donutChartHeight]="'height: 180px'" [thisPage]="'contractFinderPage'" [chartType]="'doughnut'"></dg-shared-echart>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid">
+		<div class="col-8 pb-0">
+			<div class="grid">
+				<div class="col-12 pb-0">
+					<!-- <div class="card">
+						<dg-shared-echart [dataForGraph]="dataForGraph" [donutChartHeight]="'height: 180px'" [thisPage]="'contractFinderPage'" [chartType]="'bar'"></dg-shared-echart>
+					</div> -->
+					<dg-shared-procurement-bars [chartData]="closingDateBarChartData" [chartOptions]="closingDateBarChartOptions" [chartPlugin]="ChartDataLabelsPlugins" [chartHeight]="'180px'"><h3 class="text-lg font-semibold text-primary-700">CLOSING DATE</h3></dg-shared-procurement-bars>
+				</div>
+				<div class="col-12">
+					<dg-shared-procurement-bars [chartData]="suitableSmeVcseChartData" [chartOptions]="closingDateBarChartOptions" [chartPlugin]="ChartDataLabelsPlugins" [chartHeight]="'180px'"><h3 class="text-lg font-semibold text-primary-700">SUITABLE FOR SME/VCSE</h3></dg-shared-procurement-bars>
+				</div>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="card" style="height: 54vh;">
+				<dg-map-analysis [mapData]="{ region: mapDataVal }" mapId="'contactFinderMap1'" [globalFilterDataObject]="globalFilterDataObject" [selectedFilter]="selectedFilter" [thisPage]="'contractFinderPage'" [listName]="listName" [listPageName]="listPageName"></dg-map-analysis>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- screen 2 -->
+ <div *ngIf="screenType == 'screen2'">
+	<div class="grid">
+		<div class="col-8">
+			<div class="grid">
+				<ng-container  *ngFor="let val of screenGraph">
+					<div class="{{ val.maindivClass }}"> 
+						<dg-shared-procurement-bars [chartData]="val.graphData" [chartOptions]="val.option" [chartPlugin]="ChartDataLabelsPlugins" [chartHeight]="'248px'"><h3 class="text-lg font-semibold text-primary-700">{{ val.header }}</h3></dg-shared-procurement-bars>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="card" style="height: 107vh;">
+				<dg-map-analysis [mapData]="{ region: mapDataVal }" mapId="'contactFinderMap2'" [globalFilterDataObject]="globalFilterDataObject" [selectedFilter]="selectedFilter" [thisPage]="'contractFinderPage'" [listName]="listName" [listPageName]="listPageName"></dg-map-analysis>
+			</div>
+		</div>
+	</div>
+ </div>
+
+<!-- screen 3 -->
+<div *ngIf="screenType == 'screen3'">
+	<div class="grid">
+		<div class="col-8">
+			<div class="grid">
+				<ng-container *ngFor="let val of screenGraph">
+					<div class="col-12">
+						<dg-shared-procurement-bars [chartData]="val[ 'graphData' ]" [chartOptions]="closingDateBarChartOptions" [chartPlugin]="ChartDataLabelsPlugins" [chartHeight]="'200px'"><h3 class="text-lg font-semibold text-primary-700">{{ val['header'] }}</h3></dg-shared-procurement-bars>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+		<div class="col-4">
+			<dg-shared-procurement-bars [chartData]="contractBarChartValData?.['graphData']" [chartOptions]="rightBarChartOptions" [chartHeight]="'210px'"><h3 class="text-lg font-semibold text-primary-700">PROCUREMENT TYPE</h3></dg-shared-procurement-bars>
+
+			<div class="card" style="height: 59vh;">
+				<dg-map-analysis [mapData]="{ region: mapDataVal }" mapId="'contactFinderMap3'" [globalFilterDataObject]="globalFilterDataObject" [selectedFilter]="selectedFilter" [thisPage]="'contractFinderPage'" [listName]="listName" [listPageName]="listPageName"></dg-map-analysis>
+			</div>
+		</div>
+	</div>
+</div>
+
+<dg-admin-record-list [listColumns]="contractFinderColumns" [listDataValues]="contractFinderDataValues" [searchTotalCount]="searchTotalCount"
+	(getNoticeIndentifierData)="getNoticeIndentifierData($event)" [thisPage]="'contractFinderPage'" (updateTableAfterPagination)="requestUpdateTableData( $event )" *ngIf="reInitTableDataValuesForReset">
+</dg-admin-record-list>
+
+<ng-container *ngIf="visibleFilterSidebar">
+	<dg-filter-sidebar [thisPage]="'contractFinderPage'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="contractFinderCommunicator($event)" [resetSelectedFilter]="this.selectedPropValues"></dg-filter-sidebar>
+</ng-container>

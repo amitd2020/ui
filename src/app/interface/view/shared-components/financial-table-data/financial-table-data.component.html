@@ -1,0 +1,777 @@
+<!-- Upgrade Plan Dialog -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+	<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+
+<!-- All Key Financials Data Table -->
+
+<ng-container *ngIf="showFinancialTableInput">
+
+	<!-- Custom Tab View Buttons For Mobile Devices -->
+	<div class="financialTableTabView" *ngIf="windowInnerWidth <= 1024">
+		<div class="financialTableTabs">
+			<ul>
+				<ng-container *ngFor="let finDataGrp of financialTableGroups">
+					<li [ngClass]="{ 'active': selectedFinTabGroup == finDataGrp }">
+						<a href="javascript: void(0);" (click)="switchFinancialTabsData( finDataGrp )">{{ finDataGrp }}</a>
+					</li>
+				</ng-container>
+			</ul>
+		</div>
+		<div class="financialTableYearNavs">
+			<ul>
+				<li [ngClass]="{ 'disabled': financialTableCols.length == 3 }">
+					<a href="javascript: void(0);" (click)="switchFinancialYear( financialTableCols, 'first' )"><i class="material-icons">first_page</i></a>
+				</li>
+				<li [ngClass]="{ 'disabled': financialTableCols.length == 3 }">
+					<a href="javascript: void(0);" (click)="switchFinancialYear( financialTableCols, 'prev' )"><i class="material-icons">navigate_before</i></a>
+				</li>
+				<ng-container *ngFor="let finTableCol of financialTableCols">
+					<li *ngIf="finTableCol.responsiveDisplay && !( finTableCol.field == 'keyToShowOnScreen' || finTableCol.field.split('_').includes('percentage') )">
+						<span>{{ finTableCol.header }}</span>
+					</li>
+				</ng-container>
+				<li [ngClass]="{ 'disabled': financialTableCols.length == 3 }">
+					<a href="javascript: void(0);" (click)="switchFinancialYear( financialTableCols, 'next' )"><i class="material-icons">navigate_next</i></a>
+				</li>
+				<li [ngClass]="{ 'disabled': financialTableCols.length == 3 }">
+					<a href="javascript: void(0);" (click)="switchFinancialYear( financialTableCols, 'last' )"><i class="material-icons">last_page</i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Custom Tab View Buttons For Mobile Devices End -->
+
+	<ng-container *ngFor="let finDataGrp of financialTableGroups; let i = index">
+
+		<div class="text-right" *ngIf="i == 0 && windowInnerWidth >= 1025">
+			<span>
+				<button pButton label="Export Key Financials" icon="ui-icon-insert-drive-file"
+					class="p-button-rounded" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( userDetails?.planId ) }" *ngIf="financeStatutoryAccounts"
+					[disabled]="!( userAuthService.hasAddOnPermission('defaultExportFeature') )"
+					(click)="exportTableToCSV(fullFinancialDataTable,'allYearsData')">
+					<span *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+				</button>
+			</span>
+		</div>
+
+		<!-- <div class="mb-2" *ngIf="windowInnerWidth >= 1025">
+			<span class="x-big-data-font c-darkBlue">{{ finDataGrp }}</span>
+		</div> -->
+
+		<p-accordion [activeIndex]="0">
+			<p-accordionTab header="{{ finDataGrp }}" *ngIf="windowInnerWidth >= 1025">
+				<div class="card financialTableCardContainer" *ngIf="(windowInnerWidth >= 1025) || ( (windowInnerWidth <= 1024) && ( selectedFinTabGroup == finDataGrp ) )">
+					<p-table #fullFinancialDataTable [columns]="financialTableCols" [value]="financeStatutoryAccounts" [scrollable]="true" [exportFilename]="'DG_' + companyName + '-Key Financials'">
+						<ng-template pTemplate="header" let-columns>
+							<tr>
+								<ng-container *ngFor="let col of columns">
+									<th [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign, 'display': col.display }" *ngIf="(windowInnerWidth >= 1025) || ( (windowInnerWidth <= 1024) && ( col.responsiveDisplay ) )">{{ col.header }}</th>
+								</ng-container>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="body" let-rowData let-columns="columns">
+							<tr *ngIf="rowData.group == finDataGrp">
+								<ng-container *ngFor="let col of columns">
+									<td [ngClass]="{ 'percentageColumn': col.field.split('_').includes('percentage') }" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign, 'display': col.display }" [ngSwitch]="true" *ngIf="(windowInnerWidth >= 1025) || ( (windowInnerWidth <= 1024) && ( col.responsiveDisplay ) )">
+										<ng-container *ngIf="!financialKeysToIgnore.includes(col.field)">
+		
+											<ng-container *ngSwitchCase="col.field.split('_').includes('percentage')">
+												<span [ngClass]="{ 'c-green': rowData[col.field] > 0, 'c-red': rowData[col.field] < 0 }" *ngIf="!['-', 'Infinity'].includes(rowData[col.field]) ; else actualDataBlock">
+													<i class="material-icons valign-b">{{ rowData[col.field] > 0 ? 'trending_up' : rowData[col.field] < 0 ? 'trending_down' : 'trending_flat' }}</i>{{ rowData[col.field] | number: '1.0-0' }}%
+												</span>
+												<ng-template #actualDataBlock>
+													{{ rowData[col.field] }}
+												</ng-template>
+											</ng-container>
+		
+											<ng-container *ngSwitchCase="typeOfData(rowData[col.field]) == 'number'">
+		
+												<span *ngIf="rowData['keyName'] !== 'numberOfEmployees'; else noAmountDataBlock">
+													<ng-container *ngIf="rowData[col.field] < 0; else positiveValue">
+														<span class="c-red">( {{ ( rowData[col.field] * -1 ) | currency: selectedGlobalCurrency :
+															'symbol' : '1.0-0' }} )</span>
+													</ng-container>
+													<ng-template #positiveValue>
+														{{ rowData[col.field] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+													</ng-template>
+												</span>
+		
+												<ng-template #noAmountDataBlock>
+													{{ rowData[col.field] | number: '1.0-0' }}
+												</ng-template>
+		
+											</ng-container>
+		
+											<ng-container *ngSwitchCase="col.field == 'keyToShowOnScreen'">
+		
+												<ng-container *ngIf="rowData[col.field] == 'Turnover (Estimate +)'; else anotherFields">
+													{{ rowData[col.field] }}
+													<dg-shared-toolTip [iTagMessage]="iTagMessage" ></dg-shared-toolTip>
+												</ng-container>
+												<ng-template #anotherFields>{{ rowData[col.field] }}</ng-template>
+		
+											</ng-container>
+		
+											<ng-container *ngSwitchDefault>
+												{{ rowData[col.field] | uppercase }}
+											</ng-container>
+		
+										</ng-container>
+									</td>
+								</ng-container>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="emptymessage" let-columns>
+							<tr>
+								<td [attr.colspan]="columns?.length">No records found.</td>
+							</tr>
+						</ng-template>
+					</p-table>
+				</div>
+			</p-accordionTab>
+		</p-accordion>
+
+
+	</ng-container>
+</ng-container>
+
+<!-- ./All Key Financials Data Table -->
+
+<!-- All Ratio Key Financials Data Table -->
+
+<ng-container *ngIf="hasFinancialRatios && showRatiosTableInput">
+
+	<!-- Custom Tab View Buttons For Mobile Devices -->
+	<div class="financialTableTabView" *ngIf="windowInnerWidth <= 1024">
+		<div class="financialTableTabs">
+			<span class="x-big-data-font c-darkBlue">Financial Ratios</span>
+		</div>
+		<div class="financialTableYearNavs">
+			<ul>
+				<li [ngClass]="{ 'disabled': financialRatioTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( financialRatioTableCols, 'first' )"><i
+							class="material-icons">first_page</i></a>
+				</li>
+				<li [ngClass]="{ 'disabled': financialRatioTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( financialRatioTableCols, 'prev' )"><i
+							class="material-icons">navigate_before</i></a>
+				</li>
+				<ng-container *ngFor="let finTableCol of financialRatioTableCols">
+					<li *ngIf="finTableCol.responsiveDisplay">
+						<span>{{ finTableCol.header }}</span>
+					</li>
+				</ng-container>
+				<li [ngClass]="{ 'disabled': financialRatioTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( financialRatioTableCols, 'next' )"><i
+							class="material-icons">navigate_next</i></a>
+				</li>
+				<li [ngClass]="{ 'disabled': financialRatioTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( financialRatioTableCols, 'last' )"><i
+							class="material-icons">last_page</i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Custom Tab View Buttons For Mobile Devices End -->
+
+	<div class="card financialTableCardContainer">
+
+		<div class="grid align-items-center mb-2" *ngIf="windowInnerWidth >= 1025">
+
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">Financial Ratios</span>
+			</div>
+
+			<div class="col-fixed ml-auto">
+				<button pButton label="Export Ratios" icon="ui-icon-insert-drive-file" class="p-button-rounded mb-0" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( userDetails?.planId ) }" [disabled]="!( userAuthService.hasAddOnPermission('defaultExportFeature') )" (click)="financialRatioDataExportToCsv('allYearsData')">
+					<span *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+				</button>
+			</div>
+
+		</div>
+
+		<p-table #financialRatioDataTable [columns]="financialRatioTableCols" [value]="financialRatioRowHeader" [scrollable]="true" [exportFilename]="'DG_' + companyName + '-Ratios'" *ngIf="financialRatioRowHeader">
+			<ng-template pTemplate="header" let-columns>
+				<tr>
+					<th [ngStyle]="{ 'min-width': '300px' }"></th>
+					<th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">{{ col.header }}</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+				<tr *ngIf="rowData.keyName !== 'companyRegistrationNumber'">
+					<td [ngSwitch]="rowData.keyName">
+						{{ rowData.keyLabel }}
+						<ng-container *ngSwitchCase="'preTaxProfitPercentage'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This shows the percentage of Profit in each pound of sales or the equivalent of
+									retailers 'mark-up'.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'currentRatio'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This is an indication of a company's ability to meet short-term debt obligations,
+									the
+									higher the ratio, the more liquid the company is.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'salesPerNetworkingCapital'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									The higher the ratio the higher the volume of Sales made per the companies working
+									capital.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'gearingPercentage'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This is the relationship between the size of the company’s debt in proportion to
+									Equity
+									(Shareholders Funds).
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'equityInPercentage'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This ratio shows the worth of the company (shareholders funds) as a percentage of
+									total
+									current and tangible assets.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'creditorDays'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This is a calculation that predicts the average time taken for the company to settle
+									its
+									invoices for goods and services provided
+									by it suppliers.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'debtorDays'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This is a calculation that predicts the average time taken for the company to
+									collect
+									its invoices for goods and services provided to its customers.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'liquidityPerAcidTest'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This,like the current ratio, measures how quickly in the short term a company can
+									meet
+									its debts. However, this ratio excludes stock as
+									there is no guarantee the value of Stocks can be realized quickly.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'returnOnCapitalEmployedPercentage'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This ratio measures the profits a business yields in return for the money (Capital)
+									invested.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'returnOnTotalAssetsEmployedPercentage'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This shows the 'return' or 'profit' on each pound of Assets used as a percentage.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'currentDebtRatio'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This measures the amount of short term debt in relation to the value of shareholders
+									funds.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'totalDebtRatio'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This shows the relative indebtedness of a company in relation to the worth of the
+									company.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'stockTurnoverRatio'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This shows the number of times the trading stock of a company is turned over in a
+									trading period. If the ratio is low this indicates that relatively little money is
+									tied
+									up in Stocks.
+								</span>
+							</div>
+						</ng-container>
+						<ng-container *ngSwitchCase="'returnNetAssetsEmployedPercentage'">
+							<div class="tooltip">
+								<a style="cursor: pointer;"><i class="ui-icon-info-outline valign-m"></i></a>
+								<span class="tooltiptext">
+									This shows the return in percent on the net assets of the company. The higher the
+									percentage the more profitable the company.
+								</span>
+							</div>
+						</ng-container>
+					</td>
+					<ng-container *ngFor="let col of columns; let colIndex = index">
+						<td class="percentageColumn" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth,'text-align': col.textAlign }"
+							*ngIf="(windowInnerWidth >= 1025) || ( (windowInnerWidth <= 1024) && ( col.responsiveDisplay ) )">
+							<ng-container *ngIf="rowData.keyName !== 'companyRegistrationNumber'">
+								<ng-container *ngIf="colIndex < financialRatioTableData.length - 1">
+									<span
+										[ngClass]="{ 'c-red' : +financialRatioTableData[colIndex][rowData.keyName] < 0 || +financialRatioTableData[colIndex][rowData.keyName] < (+financialRatioTableData[colIndex + 1][rowData.keyName]), 'c-green' : +financialRatioTableData[colIndex][rowData.keyName] > (+financialRatioTableData[colIndex + 1][rowData.keyName]), '' : +financialRatioTableData[colIndex][rowData.keyName] == null }">
+										<i class="material-icons valign-b">{{
+											(+financialRatioTableData[colIndex][rowData.keyName]) >
+											(+financialRatioTableData[colIndex + 1][rowData.keyName]) ? 'trending_up' :
+											(+financialRatioTableData[colIndex][rowData.keyName]) <
+												(+financialRatioTableData[colIndex + 1][rowData.keyName])
+												? 'trending_down' : '' }}</i>
+
+												{{ (+financialRatioTableData[colIndex][rowData.keyName] | number: '1.0-2') || '-'}}
+									</span>
+								</ng-container>
+								<ng-container *ngIf="colIndex == financialRatioTableData.length - 1">
+									<span
+										[ngClass]="{ 'c-red' : +financialRatioTableData[colIndex][rowData.keyName] < 0, 'c-green' : +financialRatioTableData[colIndex][rowData.keyName] > 0, '' : +financialRatioTableData[colIndex][rowData.keyName] == null }">
+										{{ (+financialRatioTableData[colIndex][rowData.keyName] | number: '1.0-2') ||
+										'-'}}
+									</span>
+								</ng-container>
+							</ng-container>
+						</td>
+					</ng-container>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="emptymessage" let-columns>
+				<tr>
+					<td [attr.colspan]="columns?.length">No records found.</td>
+				</tr>
+			</ng-template>
+		</p-table>
+
+	</div>
+
+</ng-container>
+
+<!-- All Ratio Key Financials Data Table -->
+
+<div class="card" *ngIf="hasZscoreData == true">
+	<ng-container *ngIf="zScoreTableData.length > 0">
+		<div class="card">
+			<div class="col mb-2">
+				<div class="col-12">
+					<div class="text-center md:text-left">
+						<span class="fontStyle">Industry Type -</span>
+						<span class="fontStyle green"><b>{{industryType | titlecase}}</b></span>
+					</div>
+					<span class="x-big-data-font c-darkBlue mr-1">Z score</span>
+					<sup><i class="ui-icon-info-outline x-big-data-font c-darkBlue" (mouseenter)="op2.show($event)"
+						(mouseleave)="op2.hide($event)" style="font-size:18px"></i></sup>
+					<p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body" styleClass="onHoverZscore">
+						<span>The term “Altman Z score” refers to the statistical tool that is used to assess how likely
+							is a company to go bankrupt in the near future based on its financial position.</span>
+					</p-overlayPanel>
+				</div>
+			</div>
+
+			<div class="grid">
+				<div class="col-12 md:col-6">
+					<div class="card onlyLinesAround overallScoringCard">
+						<div class="zscoreChartStyle">
+							<p-chart type="bar" height="300" [responsive]="true" [data]="ZData" [options]="zScoringChartOptions" [plugins]="ChartDataLabelsPlugin"></p-chart>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 md:col-6">
+					<div class="card onlyLinesAround overallScoringCard">
+						<h4 class="cardTitle darkBlue mt-0 bold">Z-Score Model</h4>
+
+						<div class="mt-2 mb-2">
+							<span class="label mr-2" style="background-color: orangered;"></span><em><strong
+									class="fontSize">Below 0 to 1.8</strong></em>
+							<span class="label mr-2 ml-2" style="background-color: grey;"></span><em><strong
+									class="fontSize">From 1.8 to 3.0</strong></em>
+							<span class="label ml-2 mr-2" style="background-color: green;"></span><em><strong
+									class="fontSize">> 3.0</strong></em>
+						</div>
+
+						<div class="mt-5">
+							<img src="\assets\layout\images\ZScore.png" alt="" width="400" class="zScoreResponsive">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="grid">
+				<div class="col-12 md:col-12">
+					<p-table #financialRatioDataTable [columns]="zScoreTableCols" [value]="zScoreRowHeader" [exportFilename]="'DG_' + companyName + '-Ratios'" class="forResponsiveTable">
+						<ng-template pTemplate="header" let-columns>
+							<tr>
+								<th [ngStyle]="{ 'min-width': '180px' }"></th>
+								<th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">{{ col.header }}</th>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+							<tr *ngIf="rowData.keyName !== 'companyRegistrationNumber'">
+								<td [ngSwitch]="rowData.keyName" [ngClass]="{ 'bold': rowData.keyName == 'Z' }">
+									Z-Score
+								</td>
+								<ng-container *ngFor="let col of columns; let colIndex = index ; let data of zScoreTableData">
+									<td class="percentageColumn text-right" [ngStyle]="{ 'text-align': right }">
+										<ng-container *ngIf="rowData.keyName == 'Z' || rowData.keyName == 'AVG_ZSCORE'">
+											<ng-container *ngIf="colIndex < zScoreTableData.length && rowData.keyName == 'Z'">												
+												<span [ngClass]="{ 'bold': rowData.keyName == 'Z', 'orange': zScoreTableData[colIndex][rowData.keyName] < 1.8,'grey':(zScoreTableData[colIndex][rowData.keyName] >= 1.8 && zScoreTableData[colIndex][rowData.keyName] < 3 ), 'green': zScoreTableData[colIndex][rowData.keyName] >= 3 }">
+												{{ (+zScoreTableData[colIndex][rowData.keyName] | number: '1.2-2') || '-'}}
+												</span>
+											</ng-container>
+										</ng-container>
+									</td>
+								</ng-container>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="emptymessage" let-columns>
+							<tr>
+								<td [attr.colspan]="columns?.length">No records found.</td>
+							</tr>
+						</ng-template>
+					</p-table>
+
+					<div class="x-big-data-font c-darkBlue mt-5">Year-wise Industry Analysis</div>
+					 <div class="grid mb-2 mt-2" *ngIf="pieChartZScore">
+                        <ng-container *ngFor="let data of pieChartZScore; index as key">
+                            <div class="col-12 md:col-6 xl:col-4">
+								<div class="card min-h-full">
+                                    <h3 class="mt-0 c-darkBlue">{{ data.year }}</h3>
+									<ng-container *ngIf="data['datasets'][0]['data'].length; else other">
+										<p-chart type="pie" [data]="data" [options]="pieChartOptions"
+											[plugins]="ChartDataLabelsPlugin" width="true" height="250px"></p-chart>
+									</ng-container>
+									<ng-template #other>
+										<div class="flex flex-wrap align-items-center justify-content-center" style="min-height: 200px">No records found.</div>
+									</ng-template>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+					<div class="zScoreCls mt-2">
+						<p><strong>Advantage :</strong> The scoring system uses fives financial ratios that are
+							calculated on the basis of seven financial data which is easily available from the balance
+							sheet and income statement of any company.
+							It is a quantitative model that can be mapped with the credit scoring model which is more of
+							a mix of quantitative and qualitative measures.</p>
+						<p><strong>Disadvantage :</strong> One of the major disadvantages of the model is that it can
+							only be forecast the likelihood of failure only if the company is comparable to its
+							database. For instance, a restaurant typically exhibits a negative working capital cycle and
+							as such the model may end up indicating high bankruptcy risk which is not true.
+							The scoring system does not work well for new or emerging companies as their earnings are
+							too low and will end up indicating a high risk.
+							The model fails to incorporate the benefits of good cash flow management.
+							The model works on garbage in garbage out method and so a misleading company financial will
+							result in a misleading Z score.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="zScoreTableData.length <= 0">
+		<h3 class="c-light">No enough data for z score!</h3>
+	</ng-container>
+</div>
+
+<div class="card" *ngIf="hasCAGRData">
+
+    <ng-container *ngIf="CAGRTableData.length > 0">
+
+        <div class="card">
+            <div class="col mb-2">
+                <div class="col-12">
+                    <div class="text-left md:text-center">
+                        <span class="fontStyle">Industry Type -</span>
+                        <span class="fontStyle green"><b>{{industryType | titlecase}}</b></span>
+                    </div>
+                    <span class="x-big-data-font c-darkBlue">CAGR</span>
+
+                    <sup><i class="ui-icon-info-outline x-big-data-font c-darkBlue" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)" style="font: size 18px"></i></sup>
+                    <p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                        <span>Annualized average rate of revenue growth between two given years, assuming growth takes
+                            place at an exponentially compounded rate.</span>
+                    </p-overlayPanel>
+
+                </div>
+            </div>
+
+            <div class="grid mb-5">
+                <div class="col-12">
+                    <div class="chartStyle card onlyLinesAround overallScoringCard" *ngFor="let CAGRkey of cagrChartData | keyvalue : returnZero">
+                        <p-chart type="bar" height="400" [responsive]="true" [data]="CAGRkey.value" [options]="cagrScoringChartOptions" [plugins]="ChartDataLabelsPlugin"></p-chart>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-12">
+                    <p-table [columns]="CAGRTableCols" [value]="CAGRheader" [exportFilename]="'DG_' + companyName + '-Ratios'" class="forResponsiveTable">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th [ngStyle]="{ 'min-width': '150px' }"></th>
+                                <th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">{{ col.header }}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+
+                            <tr *ngIf="rowData.keyName !== 'companyRegistrationNumber'">
+                                <td [ngSwitch]="rowData.keyName" [ngClass]="{ 'bold': rowData.keyName }">
+                                    {{ rowData.keyName | uppercase }}
+                                </td>
+                                <ng-container *ngFor="let col of columns; let colIndex = index ; let data of CAGRTableData">
+                                    <td class="percentageColumn text-right" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">
+                                        <ng-container *ngIf="rowData.keyName === 'CAGR'">
+                                            <ng-container *ngIf="colIndex < CAGRTableData.length">
+                                                <span [ngClass]="{ 'bold': rowData.keyName == 'CAGR', 'orange' : (CAGRTableData[colIndex]['CAGR'] < CAGRTableData[colIndex]['AVG_CAGR']),'green' : (CAGRTableData[colIndex]['CAGR'] > CAGRTableData[colIndex]['AVG_CAGR']) }">
+                                                    {{ (+CAGRTableData[colIndex][rowData.keyName] | number: '1.2-2') || '-'}}
+                                                </span>
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="rowData.keyName === 'status'">
+                                            <ng-container *ngIf="colIndex < CAGRTableData.length">
+                                                <span [ngClass]="{'bold': rowData.keyName == 'status', 'green' : CAGRTableData[colIndex][rowData.keyName] == 'Better_returns' ,'amber' : CAGRTableData[colIndex][rowData.keyName] == 'Reasonable_performance','orange' : CAGRTableData[colIndex][rowData.keyName] == 'Moderate'}">
+                                                    {{ CAGRTableData[colIndex][rowData.keyName].split('_').join(' ') | uppercase }}
+                                                </span>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Joining_League'">
+                                                    <em>( Consistent performer )</em>
+                                                </div>
+
+												<div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Dynamic'">
+                                                    <em>( Sought after company with very good financial indicators )</em>
+                                                </div>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Under_Observation'">
+                                                    <em>( Still hopeful )</em>
+                                                </div>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Under_Lens'">
+                                                    <em>( Still not a good bid for portfolio )</em>
+                                                </div>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Bud'">
+                                                    <em>( Company is launched )</em>
+                                                </div>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Gearing_up'">
+                                                    <em>( After initial slowdown in performance, financial numbers are encouraging )</em>
+                                                </div>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Under_Radar'">
+                                                    <em>( Consistently negative financial indicators )</em>
+                                                </div>
+
+                                                <div *ngIf="CAGRTableData[colIndex][rowData.keyName] == 'Runner'">
+                                                    <em>( Good to be considered for future portfolio )</em>
+                                                </div>
+												
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="columns?.length">No records found.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="CAGRTableData.length <=0">
+        <h3 class="c-light">No records found</h3>
+    </ng-container>
+</div>
+
+<!-- Start UKGAAP IFRS Insurance Financial -->
+<div class="card" *ngIf="showUkgaapIfrsInsuranceFinancialInput && hasUkgaapIfrsInsuranceFinancial">
+	<!-- Custom Tab View Buttons For Mobile Devices -->
+
+	<div class="financialTableTabView" *ngIf="windowInnerWidth <= 1024">
+		<div class="financialTableTabs">
+			<span class="x-big-data-font c-darkBlue">Financial Ratios</span>
+		</div>
+		<div class="financialTableYearNavs">
+			<ul>
+				<li [ngClass]="{ 'disabled': ukGaapIfrsInsuranceFinancialTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( ukGaapIfrsInsuranceFinancialTableCols, 'first' )"><i
+							class="material-icons">first_page</i></a>
+				</li>
+				<li [ngClass]="{ 'disabled': ukGaapIfrsInsuranceFinancialTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( ukGaapIfrsInsuranceFinancialTableCols, 'prev' )"><i
+							class="material-icons">navigate_before</i></a>
+				</li>
+				<ng-container *ngFor="let finTableCol of ukGaapIfrsInsuranceFinancialTableCols">
+					<li *ngIf="finTableCol.responsiveDisplay">
+						<span>{{ finTableCol.header }}</span>
+					</li>
+				</ng-container>
+				<li [ngClass]="{ 'disabled': ukGaapIfrsInsuranceFinancialTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( ukGaapIfrsInsuranceFinancialTableCols, 'next' )"><i
+							class="material-icons">navigate_next</i></a>
+				</li>
+				<li [ngClass]="{ 'disabled': ukGaapIfrsInsuranceFinancialTableCols.length == 1 }">
+					<a href="javascript: void(0);"
+						(click)="switchFinancialRatiosYear( ukGaapIfrsInsuranceFinancialTableCols, 'last' )"><i
+							class="material-icons">last_page</i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Custom Tab View Buttons For Mobile Devices End -->
+
+	<div class="card financialTableCardContainer">
+
+		<div class="grid align-items-center mb-2" *ngIf="windowInnerWidth >= 1025">
+
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">{{ UkgaapHeadingName }}</span>
+			</div>
+			
+			<div class="col-fixed ml-auto">
+				<button pButton label="Export" icon="ui-icon-insert-drive-file" class="p-button-rounded mb-0" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( userDetails?.planId ) }" *ngIf="showUkgaapIfrsTable" [disabled]="!( userAuthService.hasAddOnPermission('defaultExportFeature') )" (click)="financialRatioDataExportToCsv('allYearsDataUkgaapIfrsInsuranceFinancial')">
+					<span *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+				</button>
+			</div>
+
+		</div>
+
+		<p-table #ukgaapIfrsInsurancreFinancialDataTable [columns]="ukGaapIfrsInsuranceFinancialTableCols"
+			[value]="ukGaapIfrsInsuranceFinancialRowHeader" [scrollable]="true" scrollHeight='65vh'
+			[exportFilename]="'DG_' + companyName + '-ukgaap'">
+			<ng-template pTemplate="header" let-columns>
+				<tr>
+					<th [ngStyle]="{ 'min-width': '300px' }"></th>
+					<ng-container *ngFor="let col of columns; let colIndex = index">
+						<th [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">{{ col.header }}</th>
+						<th [ngStyle]="{ 'min-width': '80px', 'max-width': '80px', 'text-align': 'right' }" *ngIf="colIndex < ukGaapIfrsInsuranceFinancialTableData.length - 1">%</th>
+					</ng-container>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+				<tr *ngIf="rowData.keyName !== 'companyRegistrationNumber'">
+					<td [ngSwitch]="rowData.keyName">
+						{{ rowData.keyLabel }}
+					</td>
+					<ng-container *ngFor="let col of columns; let colIndex = index">
+
+						<td class="percentageColumn" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }" *ngIf="(windowInnerWidth >= 1025) || ( (windowInnerWidth <= 1024) && ( col.responsiveDisplay ) )">
+
+							<ng-container *ngIf="typeOfData( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] ) == 'number'; else otherStringValueBlocks">
+
+								<ng-container *ngIf="![ 'numberOfMonths', 'employeeNumbers' ].includes( rowData.keyName ); else normalNumberValueBlocks">
+
+									<ng-container *ngIf="ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] !== null || ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] == 0 ; else noDataInTable">
+
+										<span class="c-red" *ngIf="ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] < 0">( {{ ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] ? ( ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] * -1 ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-2' ) : '-' ) }} )</span>
+	
+										<span *ngIf="ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] >= 0">
+											{{ ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] | currency: selectedGlobalCurrency : 'symbol' : '1.0-2' ) }}
+										</span>
+
+									</ng-container>
+
+								</ng-container>
+								
+								<ng-template #normalNumberValueBlocks>
+									{{ ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] ? ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] | number ) : '-' ) }}
+								</ng-template>
+
+							</ng-container>
+							
+							<ng-template #otherStringValueBlocks>
+								<ng-container *ngIf="rowData.keyName == 'accountStatus'; else elseBlock">
+									{{ ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] ? ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] : '-' ) | titlecase }}
+								</ng-container>
+								<ng-template #elseBlock>
+									{{ ( ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] ? ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName] : '-' ) | uppercase }}
+								</ng-template>
+							</ng-template>
+							
+						</td>
+						<!-- Percentage Column Start-->
+						<td  class="percentageColumn" [ngStyle]="{ 'text-align': 'right' }" *ngIf="( ( windowInnerWidth >= 1025 ) || ( (windowInnerWidth <= 1024) && ( col.responsiveDisplay ) ) ) && colIndex < ukGaapIfrsInsuranceFinancialTableData.length - 1">
+
+							<span [ngClass]="{ 'c-green': ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage'] > 0, 'c-red': ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage'] < 0 }" *ngIf="!['-', 'Infinity'].includes(ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage']) ; else actualDataBlock">
+
+								<ng-container *ngIf="![ 'numberOfMonths', 'currency', 'accountStatus'].includes( rowData.keyName ); else normalNumberValueBlocks">
+
+									<ng-container *ngIf="ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage']; else normalNumberValueBlocks">
+										<i class="material-icons valign-b">{{ ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage'] > 0 ? 'trending_up' : ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage'] < 0 ? 'trending_down' : '' }}</i>
+										{{ +ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage'] | number: '1.0-0' }}%
+									</ng-container>
+
+								</ng-container>
+								<ng-template #normalNumberValueBlocks>
+									-
+								</ng-template>
+							</span>
+
+							<ng-template #actualDataBlock>
+								{{ ukGaapIfrsInsuranceFinancialTableData[colIndex][rowData.keyName + '_percentage'] }}
+							</ng-template>
+						</td>
+						<!-- Percentage Column End-->
+
+						<ng-template #noDataInTable> - </ng-template>
+						
+					</ng-container>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="emptymessage" let-columns>
+				<tr>
+					<td [attr.colspan]="columns?.length">No records found.</td>
+				</tr>
+			</ng-template>
+		</p-table>
+
+	</div>
+</div>
+<!-- End UKGAAP IFRS Insurance Financial -->

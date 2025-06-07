@@ -1,0 +1,3 @@
+<!-- <dg-record-list [listColumns]="otherRelatedCompaniesDataColumn" [listDataValues]="otherRelatedCompaniesData" [searchTotalCount]="relatedCompaniesCount" (pageInput)="pageInput( $event )" [thisPage]="'otherRelatedCompanies'"></dg-record-list> -->
+
+<dg-record-list [listDataValues]="otherRelatedCompaniesData" [searchTotalCount]="relatedCompaniesCount" [thisPage]="'otherRelatedCompanies'" (tableOutputValues)="getTableDataValues($event)"  [listColumns]="otherRelatedCompaniesDataColumn"></dg-record-list>

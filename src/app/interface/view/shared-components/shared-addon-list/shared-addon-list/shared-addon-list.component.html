@@ -1,0 +1,29 @@
+<div class="grid p-3 fluid">
+	<ng-container *ngFor="let rowData of addonList">
+	
+		<ng-container *ngIf="isAdmin && editMode">
+			<div class="col-12 md:col-6 lg:col-3">
+				<p-checkbox type="checkbox" [(ngModel)]="addOnNgModel[rowData.field]" label= {{rowData.label}} [binary]="true" [disabled]="rowData.hasOwnProperty('disable') ? rowData.disable : false" (onChange)="addonCheckCondition( addOnNgModel )"></p-checkbox>
+			</div>
+		</ng-container>
+		<ng-container *ngIf="( !isAdmin || !editMode ) && !rowData.hasOwnProperty('disable') && ( !rowData.hasOwnProperty( 'visibleOnlyForAdmin' ) || ( isAdmin && rowData.hasOwnProperty( 'visibleOnlyForAdmin' ) ) )">
+
+			<ng-container *ngIf="addOnNgModel[rowData.field] == true">
+				<div class="col-12 md:col-6 lg:col-3">
+					<span>
+						<i class="material-icons c-green">check_circle</i>
+						{{rowData.label}}
+					</span>
+					<!-- <ng-template #whenNoFilterOn>
+						<span>
+							<i class="material-icons c-red">cancel</i>
+							{{rowData.label}}
+						</span>
+					</ng-template> -->
+				</div>
+			</ng-container>
+	
+		</ng-container>
+	
+	</ng-container>
+</div>

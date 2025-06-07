@@ -1,0 +1,549 @@
+.imageSettingForIbutton {
+	max-width: 600px;
+}
+
+.infoName {
+	position: relative;
+	display: inline-block;
+	color: #4593bd;
+	cursor: pointer;
+}
+
+i {
+	vertical-align: middle;
+}
+
+.linkedin {
+	fill: #0077b5;
+}
+
+.facebook {
+	fill: #3b5999;
+}
+
+.twitter {
+	fill: #1da1f2;
+}
+
+.blue {
+	color: #1f4599;
+}
+
+.featuredLinks {
+	a {
+		display: inline-block;
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+
+		&+a {
+			margin-left: 5px;
+		}
+
+		@media only screen and (max-width: 767px) {
+			margin-left: 0 !important;
+		}
+
+		img,
+		svg,
+		i {
+			max-height: 20px;
+		}
+
+		i {
+			position: relative;
+			top: 1.5px;
+
+			&:not([class*="c-"]) {
+				color: var(--primary-color);
+			}
+		}
+	}
+}
+
+.card.companyDetailPopup {
+	font-family: 'Roboto', "Helvetica Neue", sans-serif;
+	font-size: 14px;
+	width: 420px;
+	min-height: auto;
+	font-weight: normal;
+	color: #212121;
+	border: 1px solid grey;
+	overflow: auto;
+	margin: 0;
+
+	position: fixed;
+	left: auto;
+	top: auto;
+	z-index: 9;
+
+	max-height: 0;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: all 0.8s ease-in-out;
+	-moz-transition: all 0.8s ease-in-out;
+	-ms-transition: all 0.8s ease-in-out;
+	transition: all 0.8s ease-in-out;
+
+	.popoverListItem {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: flex;
+		margin-bottom: 5px;
+	}
+}
+
+.featuresLinks {
+	a {
+		display: inline-block;
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+
+		&+a {
+			margin-left: 5px;
+		}
+
+		img,
+		svg,
+		i {
+			max-height: 20px;
+		}
+	}
+
+	i {
+		position: relative;
+		top: 1.5px;
+
+		&:not([class*="c-"]) {
+			color: #23b394;
+		}
+	}
+}
+
+.commentry-timeline {
+	[class*="ui-icon-arrow"] {
+		display: inline-block;
+		vertical-align: middle;
+		width: 26px;
+		height: 26px;
+		font-size: 1.2em;
+		line-height: 26px;
+		text-align: center;
+		color: #fff !important;
+		border-radius: 50%;
+
+		&.c-green {
+			background-color: #1ab394;
+		}
+
+		&.c-red {
+			background-color: #df2020;
+		}
+
+		&.amberYellow {
+			background-color: #ffd400;
+		}
+	}
+}
+
+.big-font-size {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.data-font {
+	font-size: 14px !important;
+	font-weight: 400;
+
+}
+
+@media only screen and (max-width: 515px) {
+	.columnToggleSelect {
+		// font-size: smaller;
+		display: contents !important;
+	}
+
+	.card h3 {
+		line-height: 2.5;
+	}
+
+	.responsiveBtnExp {
+		margin-bottom: 11px;
+	}
+
+	.responsiveResetBtn {
+		margin-bottom: 9px;
+	}
+
+	.responsivePageExp {
+		// font-size: xx-small;
+		max-width: 100%;
+	}
+
+	.responsiveBtnExport {
+		display: block;
+		margin-bottom: 9px !important;
+	}
+
+	.responsiveExportBtn {
+		display: inline-flex;
+		margin-bottom: 9px !important;
+	}
+}
+
+.warningRedIconFeature {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.3em;
+	line-height: 0;
+	color: #df2020 !important;
+}
+
+@media only screen and (max-width:991px) {
+	.display-none-checkbox {
+		display: none;
+	}
+
+	.ctps-font {
+		font-size: 0.8rem;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+
+	.fileNameFontSmall {
+		font-size: 10px;
+	}
+
+	.enterFileName {
+		font-size: 12px;
+	}
+
+}
+
+.pi {
+
+	&.pi-info-circle,
+	&.pi-share-alt {
+		font-size: 1.4em;
+	}
+
+}
+
+// Dialog Box Card
+.p-dialog {
+	.card {
+		min-height: auto;
+		padding: 0.5em 0.8em;
+	}
+}
+
+.card {
+	&.onlyLinesAround {
+		box-shadow: none;
+		border: 1px solid #d2d2d2;
+	}
+}
+
+// For Rounded Checkbox
+.cbox {
+	::ng-deep {
+		.p-checkbox {
+
+			.p-checkbox-box,
+			.p-checkbox-disabled {
+				&.p-highlight {
+					border-color: var(--surface-a);
+					background-color: #20b2aa;
+				}
+
+				border-radius: 20px;
+				border-color: var(--surface-a);
+			}
+		}
+
+		.select-all-checkbox {
+			.p-checkbox {
+
+				.p-checkbox-box,
+				.p-checkbox-disabled {
+					&.p-highlight {
+						border-color: var(--text-color);
+						background-color: var(--text-color);
+
+						&:hover {
+							background-color: var(--text-color);
+						}
+
+						.p-checkbox-icon.pi-check:before {
+							border-color: var(--surface-a) !important;
+						}
+					}
+
+					border-radius: 20px;
+					border-color: var(--text-color);
+				}
+			}
+		}
+	}
+
+	p-scrollPanel {
+		div {
+			margin-bottom: .5em;
+		}
+	}
+}
+
+.p-d-flex-forMobileView {
+	@media only screen and (max-width: 992px) {
+		display: flex;
+		font-size: 12px;
+	}
+}
+
+::ng-deep {
+	p-multiselect {
+		&.forPaddingTb {
+			.p-multiselect {
+				.p-multiselect-label {
+					padding: 0.2em 0;
+				}
+			}
+		}
+	}
+
+	p-chip {
+		.p-chip {
+			background-color: transparent;
+
+			.pi {
+				&.pi-facebook {
+					&.p-chip-icon {
+						color: #3b5999;
+					}
+				}
+
+				&.pi-twitter {
+					&.p-chip-icon {
+						color: #1da1f2;
+					}
+				}
+			}
+
+			&.linkedin {
+				background-image: url('../../../../../../assets/layout/images/linkedin_logo.svg');
+				background-repeat: no-repeat;
+				background-position: bottom 7px left 4px;
+				padding-left: 25px;
+				margin-left: 10px;
+			}
+		}
+	}
+
+	p-pickList {
+		.p-picklist {
+			.p-picklist-buttons {
+
+				&.p-picklist-source-controls,
+				&.p-picklist-target-controls {
+					display: none;
+				}
+			}
+
+			.p-picklist-buttons {
+				.p-button {
+					margin-bottom: 1rem;
+
+					.pi {
+						font-size: 1.3em;
+					}
+
+					&.p-button-icon-only {
+						padding: 0.6em;
+					}
+				}
+			}
+		}
+	}
+}
+
+ ::ng-deep {
+	.p-dialog-maximized {
+		margin-top: 8rem !important;
+	}
+ }
+.roundedColoredChipLabel {
+	padding: 0;
+	background-color: #fff;
+}
+
+.roundedColoredChipLabelDirFailure {
+	display: inline-block;
+	letter-spacing: .7px;
+	border: 1px solid;
+	border-radius: 40px;
+	padding: 0.2em 0.8em;
+}
+
+.subscriptionPlanDialogModalForClientUser {
+	.p-dialog-header {
+		padding: 0.457em 1em;
+		display: flex;
+		justify-content: flex-end;
+
+		.p-dialog-header-icons {
+			z-index: 1;
+		}
+	}
+}
+
+.riskRatingLabel {
+	font-size: 0.9rem;
+	margin-bottom: 0;
+	padding: 0.4em 0.8em;
+	border-radius: 5px;
+	margin-right: 0.2em;
+	width: 120px;
+	text-align: center;
+
+	@media only screen and (max-width: 840px) {
+		font-size: 0.9rem;
+		margin-right: 0em;
+		padding: 0.2em 1.1em;
+	}
+
+	&.lightGreen {
+		background-color: #6DC470;
+		color: #fff;
+	}
+
+	&.cyan {
+		background-color: #59BA9B;
+		color: #fff;
+	}
+
+	&.yellow {
+		background-color: #FFC201;
+		color: #fff;
+	}
+
+	&.orange {
+		background-color: #E4790F;
+		color: #fff;
+	}
+
+	&.darkRed {
+		background-color: #D92727;
+		color: #fff;
+	}
+
+	&.light {
+		background-color: #9b9b9b;
+		color: #fff;
+	}
+
+}
+
+.templateEditBtn {
+	position: absolute;
+	right: 0;
+	margin-right: 1rem;
+	margin-top: 0.3rem;
+
+	.editBtnStyleForTemplate {
+		&.p-button.p-button-sm {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+	}
+}
+.headerStyle {
+	position: sticky;
+	top: 0;
+	z-index: 1
+
+}
+
+::ng-deep {
+    .recordListHeaderCard {
+        .p-splitbutton {
+            height: 2.4em !important;
+			position: relative;
+			top: 0.4rem;
+            
+            .p-button .pi {
+                font-size: 1.2rem;
+            }
+
+			button {
+				margin-top: -0.1rem;
+			}
+        }
+    }
+}
+
+::ng-deep {
+    p-sortIcon {
+        .p-icon-wrapper{
+            display: inline;
+            padding: 0.3em;
+        }
+    }
+}
+
+::ng-deep {
+	.hideBlockForMobileView {
+       @media only screen and (max-width: 992px) {
+			display: block !important;
+		}
+	}
+
+	tr>td>.d-inline {
+		@media only screen and (max-width: 992px) {
+			display: inline !important;
+		}
+	}
+}
+
+.riskPieChartLegends {
+    .roundedColoredChipLabel {
+        min-width: 215px;
+        color: white;
+        border-radius: 8px;
+        padding: 0.3rem 0.6rem;
+        margin-right: 0;
+        cursor: pointer;
+		background-color: #59BA9B;
+
+        * {
+            user-select: none;
+            pointer-events: none;
+        }
+
+        &.notScoredLegendBg {
+            background-color: #D92727;
+        }
+
+        &.highRiskLegendBg {
+            background-color: #E4790F;
+        }
+
+        &.moderateRiskLegendBg {
+            background-color: #FFC201;
+        }
+
+        &.lowRiskLegendBg {
+            background-color: #59BA9B;
+        }
+
+        &.veryLowRiskLegendBg {
+            background-color: #6DC470;
+        }
+
+        &.unkownLegendBg {
+            background-color: #b4b4b4;
+        }
+    }
+}

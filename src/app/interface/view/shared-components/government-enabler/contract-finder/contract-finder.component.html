@@ -1,0 +1,761 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" key="crmConfirmationForRecordList"></p-confirmDialog>
+
+<p-dialog header="PROCUREMENT REFERENCE : {{ (noticeIndentifierSummaryData?.notice_identifier) | uppercase }}" [draggable]="false" [modal]="true" [(visible)]="viewNoticeIndentifierModal" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: '75vw', 'overflow-y': 'auto' }" [maximizable]="true">
+
+	<p-messages [(value)]="contractMessage"></p-messages>
+
+	<div class="flex align-items-center justify-content-start">
+
+		<span class="text-primary-800 font-semibold x-big-data-font mr-4">Contract Details</span>
+
+		<i class="text-xl border-circle border-2 p-3 cursor-pointer" [ngClass]="payloadForContractMonitoring['monitoringStatus'] ? 'pi pi-eye-slash bg-green-100 border-green-500 text-cyan-800 hover:text-orange-300 hover:surface-100  hover:border-orange-400' : 'pi pi-eye text-orange-300 surface-100  border-orange-400 hover:bg-green-100 hover:text-cyan-800 hover:border-green-500'" pTooltip=" {{payloadForContractMonitoring['monitoringStatus'] ? 'Click for Demonitoring.' : 'Click to add in Monitoring.'}}" tooltipPosition="right" (click)="monitorContract()"></i>
+
+	</div>
+
+	<p-timeline [value]="dateTimelineView" layout="horizontal" align="top" styleClass="timeLineStyle">
+		<ng-template pTemplate="content" let-event>
+			<div class="text-xl font-medium">
+				{{ (event.date && event.date != null && event.date != '') ? event.date : '-' }}
+			</div>
+			{{ event.status }}
+		</ng-template>
+	</p-timeline>
+
+	<div class="grid mt-3">
+
+		<div class="col-12">
+
+			<div class="grid">
+
+				<div class="col-12 md:col-7 lg:col-7">
+		
+					<div class="hideOverflowX">
+
+						<div class="grid item">
+							<div class="col-4">
+								<span class="text-primary-900 font-bold">BUYER NAME </span>
+							</div>
+							<ng-container *ngIf="noticeIndentifierSummaryData?.buyer_name && noticeIndentifierSummaryData?.organisationReg; else customCmpNo">
+								<div class="col-8">
+									<!-- <a class="cName" target="_blank" [href]="'/company/' + noticeIndentifierSummaryData?.organisationReg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?businessType=viewGovernmentEnablerBuyer'">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }} </a> -->
+
+									<ng-container *ngIf="noticeIndentifierSummaryData?.organisationReg; else withoutOrganisationReg">
+										<a class="cName" target="_blank"
+										[routerLink]="['/company-search/show-contract-details']" [queryParams]="{ companyNo: noticeIndentifierSummaryData?.organisationReg, showDetailHeaderCard: true }">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}
+										</a>
+									</ng-container>
+
+									<ng-template #withoutOrganisationReg>
+										<span>{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}</span>
+									</ng-template>
+								</div>
+							</ng-container>
+							<ng-template #customCmpNo>
+								<div class="col-8">
+									<!-- <a class="cName" target="_blank"
+										[href]="'/company-search/show-contract-details' + noticeIndentifierSummaryData?.customOrganisationReg">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}
+									</a> -->
+
+									<ng-container *ngIf="noticeIndentifierSummaryData?.customOrganisationReg; else withoutCustomOrganisationReg">
+										<a class="cName" target="_blank"
+										[routerLink]="['/company-search/show-contract-details']" [queryParams]="{ companyNo: noticeIndentifierSummaryData?.customOrganisationReg, showDetailHeaderCard: true }">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}
+										</a>
+									</ng-container>
+
+									<ng-template #withoutCustomOrganisationReg>
+										<span>{{ noticeIndentifierSummaryData?.buyer_name ? ( noticeIndentifierSummaryData?.buyer_name | uppercase ) : '-' }}</span>
+									</ng-template>
+								</div>
+							</ng-template>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">TITLE: </span>
+							</div>
+							<div class="col-8 text-cyan-800 font-medium">
+								{{ noticeIndentifierSummaryData?.title | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">PROCUREMENT STAGE:</span>
+							</div>
+							<div class="col-8">
+								{{ noticeIndentifierSummaryData?.notice_type | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">PROCUREMENT TYPE:</span>
+							</div>
+							<div class="col-8">
+								{{ noticeIndentifierSummaryData?.ojeu_contract_type | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-4">
+								<span class="c-grey font-bold">PROCUREMENT STAGE STATUS:</span>
+							</div>
+							<div class="col-8" [ngClass]="{ 'green': noticeIndentifierSummaryData?.status == 'awarded', 'red': noticeIndentifierSummaryData?.status == 'no'}">
+								{{ noticeIndentifierSummaryData?.status | titlecase  }}
+							</div>
+						</div>
+						<div class="grid item" *ngIf="noticeIndentifierSummaryData?.contact_address_1 || noticeIndentifierSummaryData?.contact_address_2 || noticeIndentifierSummaryData?.contact_town || noticeIndentifierSummaryData?.contact_postcode  || noticeIndentifierSummaryData?.contact_country">
+							<div class="col-4">
+								<span class="c-grey font-bold">ADDRESS:</span>
+							</div>
+							<div class="col-8">
+								<span>{{ noticeIndentifierSummaryData?.contact_address_1 | titlecase }} {{ noticeIndentifierSummaryData?.contact_address_2 | titlecase }} {{ noticeIndentifierSummaryData?.contact_town | titlecase }} {{ noticeIndentifierSummaryData?.contact_postcode | uppercase }} {{ noticeIndentifierSummaryData?.contact_country | titlecase}}</span>
+							</div>
+						</div>
+		
+					</div>
+				</div>
+		
+				<div class="col-12 md:col-5 lg:col-5">
+					<div class="hideOverflowX">
+		
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">VALUE OF CONTRACT:</span>
+							</div>
+							<ng-container *ngIf="noticeIndentifierSummaryData?.awarded_value; else withPound"  >
+								<div class="col-6">
+									&pound; {{ noticeIndentifierSummaryData?.awarded_value | number: '1.0-0' }}
+								</div>
+							</ng-container>
+							<ng-template #withPound>
+								'-'
+							</ng-template>
+						</div>
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">SUITABLE FOR SUB CONTRACT </span>
+							</div>
+							<div class="col-6" [ngClass]="{ 'green': noticeIndentifierSummaryData?.is_sub_contract == 'yes', 'red': noticeIndentifierSummaryData?.is_sub_contract == 'no'}">
+								{{ noticeIndentifierSummaryData?.is_sub_contract | titlecase }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">CONTRACT IS SUITABLE FOR SME'S </span>
+							</div>
+							<div class="col-6" [ngClass]="{ 'green': noticeIndentifierSummaryData?.suitable_for_SME == 'yes', 'red': noticeIndentifierSummaryData?.suitable_for_SME == 'no'}">
+								{{ noticeIndentifierSummaryData?.suitable_for_SME | titlecase  }}
+							</div>
+						</div>
+						<div class="grid item">
+							<div class="col-6">
+								<span class="c-grey font-bold">CONTRACT IS SUITABLE FOR VCO'S</span>
+							</div>
+							<div class="col-6" [ngClass]="{ 'green': noticeIndentifierSummaryData?.suitable_for_VCO == 'yes', 'red': noticeIndentifierSummaryData?.suitable_for_VCO == 'no'}">
+								{{ noticeIndentifierSummaryData?.suitable_for_VCO | titlecase }}
+							</div>
+						</div>	
+						<div class="grid item" *ngIf="noticeIndentifierSummaryData?.contact_name">
+							<div class="col-6">
+								<span class="c-grey font-bold">CONTACT NAME</span>
+							</div>
+							<div class="col-6">
+								{{ noticeIndentifierSummaryData?.contact_name | titlecase }}
+							</div>
+						</div>	
+
+						<div class="grid item" *ngIf="noticeIndentifierSummaryData?.contact_email">
+							<div class="col-6">
+								<span class="c-grey font-bold">CONTACT EMAIL</span>
+							</div>
+							<div class="col-6">
+								<a class=" text-blue-600" href="mailto:{{ noticeIndentifierSummaryData?.contact_email }}">
+									{{ noticeIndentifierSummaryData?.contact_email }}
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="my-4">
+		<span class="c-grey font-bold">DESCRIPTION:</span> {{ noticeIndentifierSummaryData?.description | titlecase }}	
+	</div>
+	
+	<ng-container *ngIf="contractFinderSuppliersDataValues && contractFinderSuppliersDataValues.length > 0">
+		<div class="grid">
+			<div class="col-12">
+				<p-accordion>
+					<p-accordionTab header="Suppliers" [selected]="true">
+							<p-dataView [value]="contractFinderSuppliersDataValues" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField" [sortOrder]="sortOrder" layout="grid" paginatorPosition="top" [style]="{ 'max-height': '680px', 'overflow-y': 'auto' }">
+								<ng-template pTemplate="gridItem" let-rowData let-i="rowIndex">
+									<div class="col-fixed col-12 md:col-4 lg:col-4 mb-3">
+										<div class="product-grid-item card h-full mb-0 pb-0" >
+											<div class="grid product-name">
+												<div class="col-12 md:col-4 lg:col-4">
+													<span>Supplier Name:</span>
+												</div>
+												<div class="col-12 md:col-6 lg:col-6">
+														<div #supplierContainer class="limitTextHeight">
+															<div>{{ rowData?.name | titlecase }}</div>
+															<!-- <ng-container *ngFor="let item of rowData">
+																<div>{{ item?.name | titlecase }}</div>
+															</ng-container> -->
+														</div>
+														<a type="button" *ngIf="rowData['suppliers']?.length > 1" href="javascript:void(0);"
+															class="small-data-font c-green" (click)="showText(supplierContainer)">Read More</a>
+												</div>
+											</div>
+				
+											<div class="mt-2">
+												<div class="grid">
+													<div class="col-12">
+														<div class="grid">
+															<div class="col-12 md:col-4 lg:col-4">
+																<span class="key-label">Entity Ref.:</span>
+															</div>
+															
+															<ng-container *ngIf="rowData?.customSupplierReg; else checkOtherCondition">
+																<a class="cName col-12 md:col-6 lg:col-6" target="_blank" [routerLink]="['/company-search/show-contract-details']" [queryParams]="{ companyNo: rowData?.customSupplierReg, showDetailHeaderCard: true }">{{ rowData?.customSupplierReg | uppercase }}
+																</a>
+															</ng-container>
+															<ng-template #checkOtherCondition>
+																<ng-container *ngIf="rowData?.supplierReg; else withoutNumber">
+																	<a class="cName col-12 md:col-6 lg:col-6" target="_blank" [routerLink]="['/company-search/show-contract-details']" [queryParams]="{ companyNo: rowData?.supplierReg, showDetailHeaderCard: true }">{{ rowData?.supplierReg | uppercase }}
+																	</a>
+																</ng-container>
+															</ng-template>
+															<ng-template #withoutNumber>
+																<div class="col-12 md:col-6 lg:col-6">
+																	<strong><span>-</span></strong>
+																</div>
+															</ng-template>
+														</div>
+													</div>
+												</div>				
+												
+											</div>
+											<div class="mt-2">
+												<div class="grid">
+													<div class="col-12 md:col-6 lg:col-6">
+														<div class="grid">
+															<div class="col-12 md:col-6 lg:col-6" >
+																<span class="key-label">VCSE:</span>
+															</div>
+															<div class="col-12 md:col-6 lg:col-6">
+																<span [ngClass]="{ 'text-green-700': rowData?.is_vcse == 'yes', 'red': rowData?.is_vcse == 'no'}"> <strong>{{ rowData?.is_vcse | titlecase }}</strong></span>
+															</div>
+														</div>
+													</div>
+													<div class="col-12 md:col-6 lg:col-6">
+														<div class="grid">
+															<div class="col-12 md:col-6 lg:col-6">
+																<span class="key-label">SME:</span>
+															</div>
+															<div class="col-12 md:col-6 lg:col-6">
+																<span [ngClass]="{ 'text-green-700': rowData?.is_sme == 'yes', 'red': rowData?.is_sme == 'no'}"> <strong>{{ rowData?.is_sme | titlecase }}</strong></span>
+															</div>
+														</div>
+													</div>
+												</div>				
+												
+											</div>
+										</div>
+									</div>
+								</ng-template>
+							</p-dataView>
+					</p-accordionTab>
+				</p-accordion>
+			</div>
+		</div>
+	</ng-container>
+
+
+</p-dialog>
+
+<div *ngIf="showHeaderCard" class="card companyDetailsHeaderCard">
+
+	<div class="grid align-items-center">
+		
+		<div class="col">
+			<div class="grid">
+
+				<div class="col-fixed hidden md:block">
+					<span class="companyLogo">
+						<i class="material-icons defaultCompanyLogo">business</i>
+					</span>
+				</div>
+
+				<div class="col">
+			
+					<div class="grid align-items-center">
+						
+						<div class="col-fixed">
+							<h1 class="cardHeaderTitle my-1">
+								<span><strong>{{ finalDataToDisplay?.buyerOrSupplierData.name | uppercase }} </strong></span>
+							</h1>
+						</div>
+
+					</div>
+	
+					<div class="grid mt-1 md:mt-0">
+						
+						<div class="col-fixed pb-0 xl:mr-4">
+							<div class="companyDetailsLabel">Entity Ref.</div>
+							<ng-container *ngIf=" finalDataToDisplay?.buyerOrSupplierData && finalDataToDisplay?.buyerOrSupplierData?.entityNumber; else checkCmpnyNum">
+								<div class="companyDetailsInfoText">{{ finalDataToDisplay.buyerOrSupplierData.entityNumber | uppercase }}</div>
+							</ng-container>
+							<ng-template #checkCmpnyNum>
+								<ng-container *ngIf=" finalDataToDisplay?.buyerOrSupplierData && finalDataToDisplay?.buyerOrSupplierData?.companyNumber; else noDataBlock">
+									<a class="cName" target="_blank" [href]="'/company/' + finalDataToDisplay?.buyerOrSupplierData?.companyNumber + '/' + formatCompanyNameForUrl( finalDataToDisplay?.buyerOrSupplierData.name | titlecase)">{{ finalDataToDisplay?.buyerOrSupplierData?.companyNumber | uppercase }} </a>
+								</ng-container>
+							</ng-template>
+							<ng-template #noDataBlock>
+								<div class="companyDetailsInfoText">-</div>
+							</ng-template>
+						</div>
+
+						<div class="col-fixed pb-0 xl:mr-4">
+							<div class="companyDetailsLabel">Total Contracts</div>
+							<div class="companyDetailsInfoText">
+								<span class="small-data-font ml-1">{{ finalDataToDisplay?.buyerOrSupplierData?.totalContracts ? ( finalDataToDisplay.buyerOrSupplierData.totalContracts | number: '1.0-0' ): '-' }}</span>
+							</div>
+						</div>
+
+						<div class="col-fixed pb-0 xl:mr-4">
+							<div class="companyDetailsLabel">Amount </div>
+							<div class="companyDetailsInfoText">
+								<span class="small-data-font ml-1">{{ ( finalDataToDisplay?.buyerOrSupplierData?.amount) ? toNumberSuffix.transform( finalDataToDisplay.buyerOrSupplierData?.amount, '2', 'GBP' ) : 0 }}</span>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="search-container">
+    <style>
+        #searchBox::placeholder {
+            font-style: italic;
+        }
+        .note {
+            font-style: italic;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+    </style>
+
+	<input type="text" placeholder="Search keyword" [(ngModel)]="inputSearchKey" id="searchBox">
+
+    <!-- Date Range Picker -->
+    <div class="date-range">
+        <label for="startDate"><strong>Start Date:</strong></label>
+        <input type="date" id="startDate" [(ngModel)]="startDate" [max]="endDate" (change)="updateStartDate()">
+        <label for="endDate"><strong>End Date:</strong></label>
+        <input type="date" id="endDate" [(ngModel)]="endDate" [min]="startDate" (change)="updateStartDate()">
+    </div>
+    <div class="card grid m-4 gap-3">
+		<ng-container *ngFor="let item of radioButtonArray">
+			<label>
+				<input type="radio" name="timeframe" [value]="item.value" [(ngModel)]="selectedRadio" (click)="toggleRadio()">
+				{{ item.lable }}
+			</label>
+		</ng-container>
+    </div>
+    <select id="statusDropdown" class="dropdown" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+        <option value="successful">Successful</option>
+        <option value="unsuccessful">Unsuccessful</option>
+        <option value="awaiting">Awaiting</option>
+    </select>
+
+    <button (click)="performSearch()" [disabled]="!inputSearchKey"><strong>View FOI</strong></button>
+    <button (click)="resetFOI()"><strong>Reset</strong></button>
+	<p class="note">*Note: The Freedom of Information (FOI) provides public access to information held by public authorities.</p>
+</div>
+
+
+<div class="grid pt-3">
+	<div class="col-8">
+		<div class="flex justify-content-start align-items-center">
+			<div class="text-lg font-semibold text-indigo-700 my-3 mr-1">Procurement Summary</div>		
+			<dg-shared-itag-component>A concise overview of key details in a procurement process, including objectives, contract scope, timelines, budget, and awarded vendors.</dg-shared-itag-component>	
+		</div>
+		<div class="card p-0 m-0">
+			<div class="grid">
+				<div class="col-3" *ngFor="let procurementSummary of formattedsummaryDataForcard">
+					<div class="flex p-2 m-2">
+						<div class="card-left">
+							<span class="material-icons text-cyan-700 text-6xl">{{ procurementSummary?.['iconClass'] }}</span>
+						</div>
+						<div class="ml-2 flex-grow-1">
+							<div class="text-xl font-bold text-cyan-700" >{{ +procurementSummary?.['doc_count'] | number: '1.0-0' }}</div> 
+							<div class=" text-sm text-600 mt-1">{{ procurementSummary?.['label'] }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="flex justify-content-start align-items-center">
+			<div class="text-lg font-semibold text-indigo-700 my-3 mr-1">Suitable For SME/VCO</div>
+			<dg-shared-itag-component>SME - An organisation with fewer than 250 employees.<br>VCO - An organisation with a social or environmental purpose, including charities, public service mutuals, social enterprises and many other non-profits.</dg-shared-itag-component>	
+		</div>
+		<div class="card p-0 m-0">
+			<div class="grid">
+				<div class="col-6" *ngFor="let smeVcse of summaryDataForcard?.['SME/VCSE']">
+					<div class="flex p-2 m-2">
+						<div class="ml-2 flex-grow-1">
+							<div class="text-2xl font-bold text-600">
+								<ng-container *ngIf="smeVcse?.['value']; else otherSme">
+									<a class="text-cyan-700 hover:text-blue-500 hover:underline" href="javascript:void(0);"  (click)="gotoTable( 'SME/VCSE', smeVcse?.key, smeVcse, 'Suitable For SME/VCO')">
+										{{ smeVcse?.['value'] != '-' ? ( smeVcse?.['value'] | number: '1.0-0' ) : '-' }}
+									</a>
+								</ng-container>
+								<ng-template #otherSme>
+									-
+								</ng-template>
+							</div>
+							<div class=" text-sm text-600 mt-1">{{ smeVcse?.['label'] }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="grid">
+	<div class="col-4">
+		<div class="flex justify-content-start align-items-center">
+			<div class="text-lg font-semibold text-indigo-700 my-3 mr-1">Procurement Stage</div>
+			<!-- <dg-shared-itag-component>Hello</dg-shared-itag-component>	 -->
+		</div>
+		<div class="card p-0 m-0">
+			<div class="grid">
+				<div class="col-4" *ngFor="let procStage of summaryDataForcard?.['contractStage']">
+					<div class="flex p-2 m-2">
+						<div class="ml-2 flex-grow-1">
+							<div class="text-2xl font-bold text-600">
+								<ng-container *ngIf="procStage?.['doc_count']; else otherProcStage">
+									<a class="text-cyan-700 hover:text-blue-500 hover:underline" href="javascript:void(0);"  (click)="gotoTable( 'contractStage', procStage?.key, procStage, 'Procurement Stage' )">
+										{{ procStage?.['doc_count'] != '-' ? ( procStage?.['doc_count'] | number: '1.0-0' ) : '-' }}
+									</a>
+								</ng-container>
+								<ng-template #otherProcStage>
+									-
+								</ng-template>
+							</div>
+							<div class=" text-sm text-600 mt-1">{{ procStage?.['label']}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="flex justify-content-start align-items-center">
+			<div class="text-lg font-semibold text-indigo-700 my-3 mr-1">Procurement Stage Status</div>		
+			<!-- <dg-shared-itag-component>Hello</dg-shared-itag-component>	 -->
+		</div>
+		<div class="card p-0 m-0">
+			<div class="grid">
+				<div class="col-4" *ngFor="let procStatus of summaryDataForcard?.['contractStageStatus']">
+					<div class="flex p-2 m-2">
+						<div class="ml-2 flex-grow-1">
+							<div class="text-2xl font-bold text-600">
+								<ng-container *ngIf="procStatus?.['doc_count']; else otherProcStatus">
+									<a class="text-cyan-700 hover:text-blue-500 hover:underline" href="javascript:void(0);"  (click)="gotoTable( 'contractStageStatus', procStatus?.key, procStatus, 'Procurement Stage Status')">
+										{{ procStatus?.['doc_count'] != '-' ? ( procStatus?.['doc_count'] | number: '1.0-0' ) : '-' }}
+									</a>
+								</ng-container>
+								<ng-template #otherProcStatus>
+									-
+								</ng-template>
+							</div>
+							<div class=" text-sm text-600 mt-1">{{ procStatus?.['label']}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="flex justify-content-start align-items-center">
+			<div class="text-lg font-semibold text-indigo-700 my-3 mr-1">Procurement Type</div>		
+			<!-- <dg-shared-itag-component>Hello</dg-shared-itag-component>	 -->
+		</div>
+		<div class="card p-0 m-0">
+			<div class="grid">
+				<div class="col-4" *ngFor="let procType of summaryDataForcard?.['contractType']">
+					<div class="flex p-2 m-2">
+						<div class="ml-2 flex-grow-1">
+							<div class="text-2xl font-bold text-600">
+								<ng-container *ngIf="procType?.['doc_count']; else otherProcType">
+									<a class="text-cyan-700 hover:text-blue-500 hover:underline" href="javascript:void(0);"  (click)="gotoTable( 'contractType', procType?.key, procType, 'Procurement Type' )">
+										{{ procType?.['doc_count'] != '-' ? ( procType?.['doc_count'] | number: '1.0-0' ) : '-' }}
+									</a>
+								</ng-container>
+								<ng-template #otherProcType>
+									-
+								</ng-template>
+							</div>
+							<div class=" text-sm text-600 mt-1">{{ procType?.['label']}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="grid mt-2">
+	<ng-container *ngFor="let data of preparedGraphData">
+		<div [ngClass]="{'col-4': buyerData, 'col-6': !buyerData}">
+			<div class="flex justify-content-start align-items-center mb-2">
+				<div class="text-lg font-semibold text-indigo-700 mr-1">{{ data.headerContent | titlecase }} <small>{{ data.meaningfulText }}</small></div>
+				<dg-shared-itag-component>{{ data.iTagContent }}</dg-shared-itag-component>
+			</div>
+			<dg-shared-procurement-bars [chartData]="data.graphData" [chartOptions]="data.graphOption" [chartHeight]="data.height"></dg-shared-procurement-bars>
+		</div>
+	</ng-container>
+	<div *ngIf="buyerData" class="col-4">
+		<div class="flex justify-content-start align-items-center mb-2">
+			<div class="text-lg font-semibold text-indigo-700 mr-1">Top 10 Buyers</div>
+			<!-- <dg-shared-itag-component>Hello</dg-shared-itag-component> -->
+		</div>
+		<div class="card tableCssModify min-height">
+			<dg-table-view [tableColumn]="tableColumn" [headerName]="'top10Buyer'" [tableData]="buyerData" [additionalAttributForTable]="tableAttribute" (updateTableAfterPagination)="updateTable($event)"></dg-table-view>
+		</div>
+	</div>
+</div>
+
+<div class="grid">
+	<ng-container *ngFor="let item of tableColumnData">
+		<div class="{{ item.colClass }}" *ngIf="item?.tableData && item?.tableData.length">
+			<div class="flex justify-content-start align-items-center mb-2">
+				<div class="text-lg font-semibold text-indigo-700 mr-1">{{ item.header | titlecase }} <small>{{ item?.meaningfulText }}</small></div>
+				<ng-container *ngIf="item.showITagContent">
+					<dg-shared-itag-component>{{ item.iTagContent }}</dg-shared-itag-component>
+				</ng-container>
+			</div>
+			<div class="card tableCssModify min-height">
+				<dg-table-view [tableColumn]="item.tableColumn" [headerName]="item.key" [headerData]="item" [tableData]="item.tableData" [additionalAttributForTable]="tableAttribute" (updateTableAfterPagination)="updateTable($event)"></dg-table-view>
+			</div>
+		</div>
+	</ng-container>
+</div>
+<div class="select-none">
+	
+	<p-messages [(value)]="messages" [enableService]="false" [closable]="true" />
+	
+	<!-- <ng-template #otherBlock> -->
+		<div class="card" id="tableView">
+			<ng-container *ngIf="listName; else otherResult">
+				<h4 class="ml-3 mt-3">
+					{{ searchTotalCount | number }} Results Found in the <strong> {{ listName | titlecase }} </strong> from <strong> {{ 'Government Procurement' }}</strong>
+				</h4>
+			</ng-container>
+
+			<ng-template #otherResult>
+				<ng-container *ngIf="clickDataLabel && clickDataHeader; else otherHeader">
+					<h4 class="ml-3 mt-3">{{ searchTotalCount  | number }} Results Found in the <strong> {{ clickDataLabel | titlecase }} </strong> from <strong> {{ clickDataHeader == 'Suitable For SME/VCO' ? 'Suitable For SME/VCO' : clickDataHeader| titlecase }}</strong>.</h4>
+				</ng-container>
+				<ng-template #otherHeader>
+					<h4 class="ml-3 mt-3">{{ searchTotalCount | number }} Results Found</h4>
+				</ng-template>
+			</ng-template>
+
+			<div [ngClass]="activateRouter.snapshot.routeConfig?.path == 'contract-finder' && !listName ? 'flex justify-content-between align-items-center': activateRouter.snapshot.queryParams?.['cListId'] ? 'flex justify-content-between align-items-center' : 'align-items-end'">
+				<ng-container *ngIf="activateRouter.snapshot.routeConfig?.path == 'contract-finder' && !activateRouter.snapshot.queryParams?.['cListId'] && !listName">
+					<dg-add-company-to-list [thisPage]="'contractFinderPage'" [disableButton]="selectedCompany?.length == 0" [selectedCompany]="selectedCompany" [searchTotalCount]="searchTotalCount" [filterSearchArray]="globalFilterDataObject.filterSearchArray" (messageCommunicator)="displayMessage($event)"></dg-add-company-to-list>
+				</ng-container>
+
+				<ng-container *ngIf="activateRouter.snapshot.routeConfig?.path == 'contract-finder' && activateRouter.snapshot.queryParams?.['cListId'] && listName">
+					<button pButton type="button" [disabled]="selectedCompany.length == 0" label="Delete From List" icon="ui-icon-delete" class="p-button-rounded p-button-sm p-button-danger mr-3 hideBlockForMobileView " (click)="deleteCompanyInList()"></button>
+				</ng-container>
+				<p-paginator [first]="first" [rows]="rows" [pageLinkSize]="3" [totalRecords]="searchTotalCount > 10000 ? 10000 : searchTotalCount" [rowsPerPageOptions]="[25,50,100]" (onPageChange)="onPageChange($event)"></p-paginator>
+			
+			</div>
+			
+			<p-dataView [value]="tableData" [paginator]="false" [rows]="rows" filterBy="name" layout="grid" paginatorPosition="top" [style]="{ 'max-height': '680px', 'overflow-y': 'auto' }">
+				<ng-template pTemplate="gridItem" let-rowData let-i="rowIndex">
+					<div class="col-fixed col-12 md:col-6 lg:col-6 pb-3">
+						<div class="product-grid-item card h-full pb-0">
+							<ng-container *ngIf="activateRouter.snapshot.routeConfig?.path == 'contract-finder' && !activateRouter.snapshot.queryParams?.['cListId']  && !listName; else otherCheckBox">
+								<p-table [value]="[rowData]" [(selection)]="selectedCompany">
+									<ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData>
+										<tr [pSelectableRow]="rowData" class="remove-background flex justify-content-between">
+											<td class="table-bordered">
+												<p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+											</td>
+											<a class="border-solid border-cyan-600 font-medium border-round-2xl p-2 text-cyan-500 hover:bg-cyan-500 hover:text-white cursor-pointer" (click)="getNoticeIndentifierData(rowData['id'])">Check Monitoring Status</a>
+										</tr>
+									</ng-template>
+								</p-table>
+							</ng-container>
+							<ng-template #otherCheckBox>
+								<ng-container *ngIf="activateRouter.snapshot.queryParams?.['cListId']  && listName">
+									<p-table [value]="[rowData]" [(selection)]="selectedCompany">
+										<ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData>
+											<tr [pSelectableRow]="rowData">
+												<td>
+													<p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+												</td>
+											</tr>
+										</ng-template>
+									</p-table>
+								</ng-container>
+							</ng-template>
+
+							<div class="mt-4">
+								<div class="grid product-name">
+									<div class="col-12 md:col-3 lg:col-3">
+										<span class="font-semibold font-semibold">Title:</span>
+									</div>
+									<div class="col-12 md:col-9 lg:col-9">
+										<span>
+											<a href="javascript: void(0);" class="cName" (click)="getNoticeIndentifierData(rowData['id'])">
+												{{ rowData?.title | titlecase }}
+											</a>
+										</span>
+									</div>
+								</div>
+	
+								<div class="grid">
+									<!-- <div class="col-12 md:col-6 lg:col-6">
+										<div class="grid">
+											<div class="col-12 md:col-6 lg:col-6">
+												<span class="key-label">Contract end date:</span>
+											</div>
+											<div class="col-12 md:col-6 lg:col-6">
+												<span class="key-value">{{ rowData?.contract_end_date }}</span>
+											</div>
+										</div>
+									</div> -->
+	
+									<div class="col-12 md:col-6 lg:col-6">
+										<div class="grid">
+											<div class="col-12 md:col-6 lg:col-6">
+												<span class="key-label">Supplier Name:</span>
+											</div>
+											<div class="col-12 md:col-6 lg:col-6">
+												<div #suppliersContainer class="limitTextHeight">
+													<ng-container *ngFor="let item of rowData?.suppliers">
+														<div class="key-value">{{ item.name | titlecase }}</div>
+													</ng-container>
+												</div>
+												<a type="button" *ngIf="rowData?.suppliers && (rowData['suppliers']?.length > 1 || rowData['suppliers'][0]['name'].length > 25)" href="javascript:void(0);"
+													class="small-data-font c-green" (click)="showText(suppliersContainer)">Read More</a>
+											</div>
+										</div>
+									</div>
+	
+									<div class="col-12 md:col-6 lg:col-6">
+										<div class="grid">
+											<div class="col-12 md:col-6 lg:col-6">
+												<span class="key-label">Buyer name:</span>
+											</div>
+											<div class="col-12 md:col-6 lg:col-6">
+												<div #buyerContainer class="limitTextHeight">
+													<span class="key-value">{{ rowData?.buyer_name | titlecase }}</span>
+												</div>
+												<a type="button" *ngIf="rowData?.buyer_name?.length > 25" href="javascript:void(0);"
+													class="small-data-font c-green" (click)="showText(buyerContainer)">Read More</a>
+											</div>
+										</div>
+									</div>
+									
+									<!-- <div class="col-12 md:col-6 lg:col-6">
+										<div class="grid">
+											<div class="col-12 md:col-6 lg:col-6">
+												<span class="key-label">Location of contract:</span>
+											</div>
+											<div class="col-12 md:col-6 lg:col-6">
+												<span class="key-value">{{ rowData?.locationOfContract | titlecase }}</span>
+											</div>
+										</div>
+									</div> -->
+								</div>
+	
+								<div class="product-description mt-2">
+									<div class="grid">
+										
+										<div class="col-12 md:col-6 lg:col-6">
+											<div class="grid">
+												<div class="col-12 md:col-6 lg:col-6">
+													<span class="key-label">Contract start date:</span>
+												</div>
+												<div class="col-12 md:col-6 lg:col-6">
+													<span>{{ rowData?.contract_start_date }}</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 md:col-6 lg:col-6">
+											<div class="grid">
+												<div class="col-12 md:col-6 lg:col-6">
+													<span class="key-label">Contract end date:</span>
+												</div>
+												<div class="col-12 md:col-6 lg:col-6">
+													<span>{{ rowData?.contract_end_date }}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+	
+									
+	
+									<div class="grid">
+										<div class="col-12">
+											<div class="grid">
+												<div class="col-12 md:col-3 lg:col-3">
+													<span class="key-label">Industry (CPV codes):</span>
+												</div>
+												<div class="col-12 md:col-9 lg:col-9">
+													<div  #descriptionTextContainer class="limitTextHeight">
+														<ng-container *ngFor="let item of rowData?.code_desc_key">
+															<div >{{ item.code }} {{ (item.desc ? ' - ' + item.desc : '') | titlecase }}</div>
+														</ng-container>
+													</div>
+													<a type="button" *ngIf="rowData['code_desc_key']?.length > 1" href="javascript:void(0);"
+														class="small-data-font c-green" (click)="showText(descriptionTextContainer)">Read More</a>
+												</div>
+												
+											</div>
+										</div>
+										
+									</div>
+									<div class="grid">
+										<div class="col-12">
+											<div class="grid">
+												<div class="col-12 md:col-3 lg:col-3">
+													<span class="key-label">Value of contract:</span>
+												</div>
+												<div class="col-12 md:col-9 lg:col-9">
+													<ng-container *ngIf="rowData?.awarded_value; else otherAwardedValue">
+														<span class="key-value"> &pound;{{ ( rowData?.awarded_value | number: '1.0-0' ) }}</span>
+													</ng-container>
+													<ng-template #otherAwardedValue>-</ng-template>
+												</div>
+											</div>
+										</div>
+	
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</p-dataView>
+		</div>
+</div>
+
+<ng-container *ngIf="visibleFilterSidebar">
+	<dg-filter-sidebar [thisPage]="'contractFinderPage'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="contractFinderCommunicator($event)" [resetSelectedFilter]="this.selectedPropValues"></dg-filter-sidebar>
+</ng-container>

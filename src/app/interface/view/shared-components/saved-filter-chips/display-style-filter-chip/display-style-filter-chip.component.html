@@ -1,0 +1,433 @@
+<ul class="list-none m-0 p-0">
+    <li *ngFor="let chipData of selectedPropValues" [ngClass]="{ 'p-d-lg-block p-d-none' : ( chipData['chip_group'] == 'Preferences' ) }">
+        <span class="chipGroup">
+            <ng-container *ngIf="[ 'Accounts Made Up Date', 'Price', 'Date', 'PostCode', 'Trading Town / City', ' ', 'Trading County', 'Trading Region', 'landCoporateDetailsCounty', 'landCoporateDetailsRegion', 'landCoporateDetailsPostCode', 'landCoporateDetailsPostTown', 'Charges Registered Date', 'IsLead Participant', 'Bands', 'Person Positions', 'Trading Constituency', 'chargesDataMonth', 'SIC Codes', 'SIC Industry', 'Industry Tags', 'Key Financials', 'Charge Month', 'Police Force', 'Charges Create Date','EU Region', 'Charge Year', 'Charge Month', 'esgIndexYearScore', 'Constituency', 'Company Age Filter', 'Advanced Key Financials', 'Furlough Amount Band (In Pounds)', 'Search By Keyword', 'Last 12 Month Imports', 'Last 12 Month Exports', 'Last 60 Month Imports', 'Last 60 Month Exports' ].includes(chipData.chip_group); else chipGroupDefaultText">
+                <!-- <ng-container *ngIf="chipData.chip_group == 'Post Town'"><p><b>Town / City</b></p></ng-container> -->
+                <!-- <ng-container *ngIf="chipData.chip_group == 'Trading Town / City'"><p><b>Town / City</b></p></ng-container> -->
+                <ng-container *ngIf="chipData.chip_group == 'Accounts Made Up Date'"><p><b>Last Made Up Date</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Charges Registered Date'"><p><b>Charges Registered On</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Charges Create Date'"><p><b>Charges Created On</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Price'"><p><b>Transaction Price</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Date'"><p><b>Date of Sale or Transaction</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'PostCode'"><p><b>Post Code</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Trading Town / City'"><p><b>Town / City (Trading Address)</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Trading Post Code'"><p><b>Post Code (Trading Address)</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'EU Region'"><p><b>European Electoral Region</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Police Force'"><p><b>Police Forces</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Constituency'"><p><b>Parliament Constituency</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Trading County' || chipData.chip_group == 'Trading Region'"><p><b> {{ chipData.chip_group.replace("Trading","") }} (Trading Address)</b></p></ng-container>
+    
+                <ng-container *ngIf="chipData.chip_group == 'Trading Constituency'"><p><b> {{ chipData.chip_group.replace("Trading","") }}  (Trading Address)</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'landCoporateDetailsPostTown'"><p><b>Town / City ( Property Register )</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'landCoporateDetailsPostCode'"><p><b>Post Code ( Property Register )</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'landCoporateDetailsCounty' || chipData.chip_group == 'landCoporateDetailsRegion' "><p><b> {{ chipData.chip_group.replace("landCoporateDetails","") }} ( Property Register )</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'IsLead Participant'"><p><b>Is Lead Participant</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Person Positions'"><p><b>Position</b></p></ng-container>
+                <!-- <ng-container *ngIf="chipData.chip_group == 'Total Directorships'"><p><b>Total Directorships</b></p></ng-container> -->
+                <ng-container *ngIf="chipData.chip_group == 'chargesDataMonth'"><p><b>Charge Month</b></p></ng-container>
+    
+                <ng-container *ngIf="chipData.chip_group == 'SIC Industry' && thisPage == 'lendingLandscapePage'"><p><b>Industry</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'SIC Industry' && thisPage !== 'lendingLandscapePage'"><p><b>Industry</b></p></ng-container>
+                <ng-container *ngIf="(chipData.chip_group == 'SIC Codes') && thisPage !== 'lendingLandscapePage'"><p><b>SIC Codes</b><span class="p-1 c-orange" *ngIf="chipData.hasOwnProperty('filter_exclude') && chipData.filter_exclude == true"><small>(Exclude)</small></span></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Industry Tags'"><p><b>Industry Tags</b><span class="p-2 c-orange" *ngIf="chipData.hasOwnProperty('filter_exclude') && chipData.filter_exclude == true"><small>(Exclude)</small></span></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Key Financials' && thisPage == 'lendingLandscapePage'"><p><b>Turnover</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Key Financials' && thisPage !== 'lendingLandscapePage'"><p><b>Key Financials</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Charge Year'"><p><b>Charge Created Year</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Charge Month'"><p><b>Charge Created Month</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Bands'"><p><b>Credit Risk Bands</b></p></ng-container>
+                <!-- <ng-container *ngIf="chipData.chip_group == 'Bands' && thisPage !== 'lendingLandscapePage'"><p><b>Bands</b></p></ng-container> -->
+                <ng-container *ngIf="chipData.chip_group == 'esgIndexYearScore'"><p><b>ESG Year Score</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Company Age Filter'"><p><b>Company Age</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Advanced Key Financials'"><p><b>Financials</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Furlough Amount Band (In Pounds)'"><p><b>Furlough Amount</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Last 12 Months Imports'"><p><b>Last 12 Months Imports</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Last 12 Months Exports'"><p><b>Last 12 Months Exports</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Last 60 Months Imports'"><p><b>Last 60 Months Imports</b></p></ng-container>
+                <ng-container *ngIf="chipData.chip_group == 'Last 60 Months Exports'"><p><b>Last 60 Months Exports</b></p></ng-container>
+    
+                <ng-container *ngIf="(chipData.chip_group == 'Search By Keyword') && ['accountSearch', 'companyDescription', 'chargesDescription', 'companyLinkedIn'].includes(thisPage)"><p><b>Search By Keyword</b></p><p [ngClass]="{'-mt-2' : chipData.filter_exclude == true}"><span class="p-1 c-orange" *ngIf="chipData.hasOwnProperty('filter_exclude') && chipData.filter_exclude == true"><small>(Exclude Businesses)</small></span></p></ng-container>
+                
+            </ng-container>
+            <ng-template #chipGroupDefaultText>
+                <p>
+                    <b>{{ ( chipData?.chip_group == 'Company Name/Number' && !companyNameNumBool ) ? 'Company Name' : chipData.chip_group }}</b>
+                    <span class="p-1 c-orange" *ngIf="chipData?.filter_exclude"><small>(Exclude)</small></span>
+                </p>
+            </ng-template>
+    
+            <ng-container *ngIf="[ 'Charge Year', 'Charge Month', 'chargesDataMonth' ].includes( chipData?.chip_group ); else secondBlock">
+                <span class="chipValue" [ngClass]="{ 'text-transform-normal': [ 'Search by Email', 'Website', 'Charge Year' ].includes( chipData.chip_group ) }">
+    
+                    <ng-container *ngIf="chipData?.chip_group == 'Charge Year'">
+                        <ng-container *ngIf="chipData.chip_values[0] && chipData.chip_values[1]">
+                            {{ chipData.chip_values[0] }} - {{ chipData.chip_values[1] }}
+                        </ng-container>
+                        <ng-container *ngIf=" chipData.chip_values[0] && !chipData.chip_values[1]">
+                            {{ chipData.chip_values[0]  }}
+                        </ng-container>
+                    </ng-container>
+    
+                    <ng-container *ngIf="[ 'Charge Month', 'chargesDataMonth' ].includes( chipData?.chip_group )">
+                        <ng-container *ngIf="chipData.chip_values[0] && chipData.chip_values[1]">
+                            {{ monthsEnum[ +chipData.chip_values[0] ] }} - {{ monthsEnum[ +chipData.chip_values[1] ] }}
+                        </ng-container>
+                        <ng-container *ngIf="chipData.chip_values[0] && !chipData.chip_values[1]">
+                            {{ monthsEnum[ +chipData.chip_values[0] ]  }}
+                        </ng-container>
+                    </ng-container>
+    
+                    <a href="javascript:void(0);" *ngIf="thisPage !== 'statsPage'" class="removeChip" (click)="removeFilterItemFromFilterSideBar(chipData)"><i class="pi pi-times"></i></a>
+                </span>
+            </ng-container>
+    
+            <ng-template #secondBlock>
+                <ng-container *ngFor="let chipVal of chipData?.chip_values; let indx = index">
+                    <span class="chipValue" [ngClass]="{ 'p-text-transform-normal': [ 'Search by Email', 'Website' ].includes( chipData.chip_group ), 'hidden': ( chipData.chip_group == 'Key Financials' && chipVal.key == 'estimated_turnover' ) }">
+    
+                        <ng-container *ngIf="[ 'District Code', 'Buyer Postcode', 'Supplier Postcode', 'Trading District Code', 'Innovate Post Code' ].includes( chipData?.chip_group )">
+                            {{ chipVal | uppercase }}
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData.chip_group === 'Furlough Amount Band (In Pounds)'">
+                            {{ furloughDataFormat(chipVal) }}
+                        </ng-container>
+    
+                        
+                        <ng-container *ngIf="[ 'Business Valuation', 'Grant Offered', 'Export Amount (in £)', 'Trade Debtors', 'Exchange Rate Effect' ].includes( chipData?.chip_group ) && ( chipVal[0] || chipVal[0] == 0 )  && ( chipVal[1] || chipVal[1] == 0 )">
+                            {{ chipVal[0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} - {{ chipVal[1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                        </ng-container>
+                        
+                        <ng-container *ngIf="chipVal?.[0] && chipVal?.[1]">
+                            <ng-container *ngIf="[ 'CCJ Amount' , 'Price' , 'Write-off Amount'].includes( chipData?.chip_group ) && ( chipVal[0] || chipVal[0] == 0 )  && ( chipVal[1] || chipVal[1] == 0 )">
+                                {{ chipVal[0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} - {{ chipVal[1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                            </ng-container>
+                        </ng-container>
+                    
+    
+                        <ng-container *ngIf="[ 'Business Valuation', 'Grant Offered', 'Price', 'Write-off Amount', 'CCJ Amount', 'Trade Debtors' ].includes( chipData?.chip_group ) && chipVal[0] && !chipVal[1]">
+                            Minimum: {{ chipVal[0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                        </ng-container>
+    
+                        <ng-container *ngIf="[ 'Business Valuation', 'Grant Offered', 'Price', 'Write-off Amount', 'CCJ Amount', 'Trade Debtors' ].includes( chipData?.chip_group ) && !chipVal[0] && chipVal[1]">
+                            Maximum: {{ chipVal[1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                        </ng-container>
+    
+    
+                        <ng-container *ngIf="[ 'Export Amount (in £)', 'Exchange Rate Effect' ].includes( chipData?.chip_group ) && !( chipVal[0] || chipVal[0] == 0 )  && ( chipVal[1] || chipVal[1] == 0 )">
+                            &lt; {{ chipVal[1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                        </ng-container>
+                        <ng-container *ngIf="[ 'Export Amount (in £)', 'Exchange Rate Effect' ].includes( chipData?.chip_group ) && ( chipVal[0] || chipVal[0] == 0 ) && !( chipVal[1] || chipVal[1] == 0 )">
+                            &gt; {{ chipVal[0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData.chip_group == 'Return on Equity' && chipVal[0] && chipVal[1]">
+                            {{chipVal[0] | number}}% - {{chipVal[1] | number}}%
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData.chip_group == 'Return on Equity' && chipVal[0] && !chipVal[1]">
+                            Minimum: {{chipVal[0] | number}}%
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData.chip_group == 'Return on Equity' && !chipVal[0] && chipVal[1]">
+                            Maximum: {{chipVal[1] | number}}%
+                        </ng-container>
+    
+                        <ng-container *ngIf="[ 'Number of Employees', 'Number of Shareholdings', 'Number of Shareholdings Desc','Number of Shareholders','Number of Shareholders Desc', 'Number of Employees Desc', 'ECS Site', 'Debtor Days', 'Company Age Filter' ].includes( chipData?.chip_group )">
+                            <ng-container *ngIf="[ 'Number of Employees' , 'Number of Shareholders', 'Number of Shareholdings', 'ECS Site', 'Debtor Days', 'Company Age Filter' ].includes( chipData?.chip_group ); else otherBlock">
+    
+                                <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                 {{ chipVal[0] }} - {{ chipVal[1] }}
+                                </ng-container>
+                                
+                                <ng-container *ngIf="chipVal[0] !== 'not_specified' && !chipVal[1]">
+                                    <ng-container *ngIf="['ECS Site'].includes( chipData?.chip_group ); else otherPage">
+                                        <span *ngIf="!['0'].includes(chipVal[0])">&gt;</span>{{ chipVal[0] | number }}
+                                    </ng-container>
+                                    <ng-template #otherPage>
+                                        <ng-container *ngIf="chipVal[0] == 'not specified'; else withoutUnknown">
+                                            {{ chipVal[0] | titlecase }}
+                                        </ng-container>
+                                        <ng-template #withoutUnknown>
+                                            &gt;{{ chipVal[0] | number }}
+                                        </ng-template>
+                                    </ng-template>
+                                </ng-container>
+    
+                                <ng-container *ngIf="!chipVal[0] && chipVal[1] !== 'not specified'">
+                                    &lt;{{ chipVal[1] | number }}
+                                </ng-container>
+                                
+                                <ng-container *ngIf="chipVal[1] == 'not specified'">
+                                    {{chipVal[1] }}
+                                </ng-container>
+                            </ng-container>	
+    
+                            <ng-template #otherBlock>
+                                <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                {{ chipVal[0] | number }} - {{ chipVal[1] | number }}
+                                </ng-container>		
+    
+                                <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                    1000+
+                                </ng-container>
+                            </ng-template>
+                        </ng-container>
+    
+                        <ng-container *ngIf="[ 'Number of Shareholders Desc', 'Number of Shareholdings Desc' ].includes( chipData?.chip_group )">
+    
+                            <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                {{ chipVal[0] | number }} - {{ chipVal[1] | number }}
+                            </ng-container>		
+    
+                            <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                1000+
+                            </ng-container>
+                            
+                        </ng-container>
+    
+                        <ng-container *ngIf="[ 'Investor Number of Shareholdings' ].includes( chipData?.chip_group )">
+                            <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                {{ chipVal[0] | number }} - {{ chipVal[1] | number }}
+                            </ng-container>
+    
+                            <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                &gt; {{ chipVal[0] | number }}
+                            </ng-container>
+    
+                            <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                &lt; {{ chipVal[1] | number }}
+                            </ng-container>
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData?.chip_group == 'Key Financials'">
+                            
+                            {{ chipVal.key == 'EBITDA' ? 'EBITDA' : commonService.camelCaseToSentence( chipVal.key ) }} | 
+    
+                            <ng-container *ngIf="chipVal.less_than !== 'not specified'; else unknownChip">
+                                {{ !chipVal.less_than ? '&gt; ' : '' }}
+                                
+                                {{ chipVal.greater_than | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+        
+                                {{ chipVal.greater_than && chipVal.less_than ? ' - ' : '' }}
+                                <ng-container *ngIf="chipVal.greater_than !== 0 || chipVal.less_than > 0">
+                                    {{ !chipVal.greater_than ? '&lt; ' : '' }}
+                                </ng-container>
+                                
+                                {{ chipVal.less_than | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                            </ng-container>
+    
+                            <ng-template #unknownChip>
+                                {{ chipVal.less_than | titlecase }}
+                            </ng-template>
+    
+                            <ng-container *ngIf="chipData?.chip_values.length > 1 && chipVal.key == 'turnover' && chipData?.chip_values[ indx + 1 ]['key'] == 'estimated_turnover'">
+                                (Including Estimated Turnover)
+                            </ng-container>
+    
+                        </ng-container>
+    
+                        <ng-container *ngIf="[ 'Advanced Key Financials', 'Financial Ratio', '1 Year Growth', '3 Years Growth', '5 Years Growth' ].includes( chipData?.chip_group )">
+                            
+                            {{ chipVal?.condition && chipVal.condition.charAt(0).toUpperCase() + chipVal.condition.slice(1) }}
+                            {{ chipVal.key == 'EBITDA' ? 'EBITDA' : commonService.camelCaseToSentence( chipVal?.key.split('_').join(' ') ) }} |
+                            <ng-container *ngIf=" chipVal.less_than !== 0 ">
+                                {{ !chipVal.less_than ? '&gt; ' : '' }}
+                            </ng-container>
+                            
+                            {{
+                                chipVal.greater_than | currency
+                                    : ( chipVal.mode == 'currency' ? selectedGlobalCurrency : '' )
+                                    : ( chipVal.mode == 'currency' ? 'symbol' : '' )
+                                    : ( chipVal.fractionDigits ? '1.2-2' : '1.0-0' )
+                            }}{{ chipVal.greater_than ? chipVal.suffix : '' }}
+    
+                            {{ chipVal.greater_than && chipVal.less_than ? ' - ' : chipVal.greater_than == 0 && chipVal.less_than ? ' - ' : chipVal.greater_than && chipVal.less_than == 0 ? ' - ' : ''  }}
+                            <ng-container *ngIf="chipVal.greater_than !== 0 && ( chipVal.less_than !== 'not specified' )">
+                                {{ !chipVal.greater_than ? '&lt; ' : '' }}
+                            </ng-container>
+    
+                            <ng-container *ngIf="chipVal.less_than !== 'not specified'; else unknownChip">
+                                {{
+                                    chipVal.less_than | currency
+                                        : ( chipVal.mode == 'currency' ? selectedGlobalCurrency : '' )
+                                        : ( chipVal.mode == 'currency' ? 'symbol' : '' )
+                                        : ( chipVal.fractionDigits ? '1.2-2' : '1.0-0' )
+                                }}{{ chipVal.less_than ? chipVal.suffix : '' }}
+                            </ng-container>
+                            
+                            <ng-template #unknownChip>
+                                {{ chipVal.less_than | titlecase }}
+                            </ng-template>
+                            
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData?.chip_group == 'Director Age' && !directorAgeCondition">
+    
+                            <ng-container *ngIf="commonService.typeOfData( chipVal ) === 'string'">
+                                {{ chipVal | titlecase }}
+                            </ng-container>
+    
+                            <ng-container *ngIf="commonService.typeOfData( chipVal ) === 'object'; else otherBlockForStr">
+                                
+                                <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                    {{ chipVal[0] }} - {{ chipVal[1] }}
+                                </ng-container>
+    
+                                <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                    &gt; {{ chipVal[0] }}
+                                </ng-container>
+    
+                                <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                    &lt; {{ chipVal[1] }}
+                                </ng-container>
+    
+                            </ng-container>
+    
+                            <ng-template #otherBlockForStr>
+                                <ng-container *ngIf="chipData?.exactAge == false; else otherBlock">
+                                    &gt; {{ chipVal }}
+                                </ng-container>
+                                <ng-template #otherBlock>
+                                    {{ chipVal }}
+                                </ng-template>
+                            </ng-template>
+    
+                        </ng-container>
+    
+                        <ng-container *ngIf="chipData?.chip_group == 'Director Age' && directorAgeCondition">
+    
+                            <ng-container *ngIf="commonService.typeOfData(chipVal) === 'object'; else numberBlock">
+    
+                                <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                    {{ chipVal[0] }}
+                                </ng-container>
+    
+                                <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                    {{ chipVal[1] }}
+                                </ng-container>
+                                <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                    {{ chipVal[0] }}
+                                </ng-container>
+    
+                            </ng-container>
+    
+                            <ng-template #numberBlock>
+                                {{ chipVal }}
+                            </ng-template>
+                            
+                        </ng-container>
+                        
+                        <ng-container *ngIf="( [ 'Active Directors', 'Property Count', 'Properties Count', 'Total Directorships', 'Outstanding Charges Count', 'Active Directorships', 'Trading Address Count', 'Properties Owned', 'Flats Owned', 'Houses Owned' ].includes(chipData?.chip_group) )">
+    
+                            <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                {{chipVal[0] | number}} - {{chipVal[1] | number}}
+                            </ng-container>
+    
+                            <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                Minimum: {{chipVal[0] | number}}
+                            </ng-container>
+    
+                            <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                Maximum: {{chipVal[1] | number}}
+                            </ng-container>
+    
+                        </ng-container>
+
+                        <ng-container *ngIf="[ 'Last 12 Months Imports', 'Last 12 Months Exports', 'Last 60 Months Imports', 'Last 60 Months Exports' ].includes(chipData.chip_group)">
+                            <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                {{ chipVal[0] | number }} - {{ chipVal[1] | number}}
+                            </ng-container>
+                            <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                &gt; {{ chipVal[0] | number}}
+                            </ng-container>
+                            <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                &lt; {{ chipVal[1] | number}}
+                            </ng-container>
+                        </ng-container>
+    
+                        <span *ngIf="[ 'Incorporation Date', 'Project Start Date', 'Project End Date', 'Accounts Due Date', 'Charges Registered Date', 'Filed Date', 'Accounts Made Up Date', 'Confirmation Statement', 'Last Filing Date', 'Date', 'CCJ Date', 'Proprietor Added Date', 'Score Date', 'Company Events', 'Company Commentary', 'Import Date', 'Export Date', 'Import/Export Period', 'Write-off Date', 'Contract Closing Date', 'Charges Create Date' , 'Contract End Date', 'Awarded Date' ].includes(chipData?.chip_group); else otherBlock;">
+                            {{ chipVal[2] }}
+                        </span>
+                        
+                        <ng-template #otherBlock>
+                            
+                            <ng-container *ngIf="['Company must have CCJ', 'Company must not have CCJ', 'Company must have finances', 'Company must not have finances', 'Company must have charges details', 'Company must not have charges details', 'Company must have companymail', 'Company must not have companymail', 'Company must have phone number', 'Company must not have phone number', 'Company must have mobile number', 'Company must not have mobile number', 'Company must have website', 'Company must not have website', 'Include  liquidation companies', 'Exclude  liquidation companies', 'Only  liquidation companies', 'Company must have acquiring', 'Company must not have acquiring', 'Company must have HNW1', 'Company must not have HNW1', 'Company must have Linkedin', 'Company must have Director\'s Linkedin', 'Company must not have Linkedin', 'Company must not have Director\'s Linkedin', 'Person must be preferences_1', 'Person must be preferences_2', 'Person must be preferences_3', 'Company must have supplier', 'Company must have buyer', 'Company must not have buyer', 'Company must not have supplier', 'Person must be preferences_4' ].includes(chipVal); else otherBlock;">
+                                <ng-container *ngIf="chipVal == 'Company must have acquiring'">Company must have acquiring company</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have acquiring'">Company must not have acquiring company</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have CCJ'">Companies with CCJs</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have CCJ'">Companies without CCJs</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have finances'">Company must have financials filed</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have finances'">Company must not have financials filed</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have charges details'">Company must have charge registered</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have charges details'">Company must not have charge registered</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have companymail'">Company must have a generic email address</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have companymail'">Company must not have a generic email address</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have phone number'">Company must have a phone number</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have phone number'">Company must not have a phone number</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have mobile number'">Company must have a mobile number</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have mobile number'">Company must not have a mobile number</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have website'">Company must have a website</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have website'">Company must not have a website</ng-container>
+                                <ng-container *ngIf="chipVal == 'Include  liquidation companies'">Include companies in Liquidation</ng-container>
+                                <ng-container *ngIf="chipVal == 'Exclude  liquidation companies'">Exclude companies in Liquidation</ng-container>
+                                <ng-container *ngIf="chipVal == 'Only  liquidation companies'">Only companies in liquidation</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have HNW1'">Company must have HNWI</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have HNW1'">Company must not have HNWI </ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have Linkedin'">Company Must Have LinkedIn</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have Director\'s Linkedin'">Company Must Have Director's LinkedIn</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have Linkedin'">Company Must Not Have LinkedIn</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have Director\'s Linkedin'">Company Must Not Have Director's LinkedIn</ng-container>
+                                <ng-container *ngIf="chipVal == 'Person must be preferences_1'">Person Must Be Shareholders</ng-container>
+                                <ng-container *ngIf="chipVal == 'Person must be preferences_2'">Person Must Be Highest Shareholders</ng-container>
+                                <ng-container *ngIf="chipVal == 'Person must be preferences_3'">Person Must Be Second Highest Shareholders</ng-container>
+                                <ng-container *ngIf="chipVal == 'Person must be preferences_4'">Person Must Be Possible Director</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have supplier'">Company Is Supplier</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have supplier'">Company Is Not Supplier</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must have buyer'">Company Is Buyer</ng-container>
+                                <ng-container *ngIf="chipVal == 'Company must not have buyer'">Company Is Not Buyer</ng-container>
+                            </ng-container>
+    
+                            <!-- <ng-container *ngIf="thisPage !== 'statsPage'">
+                                <ng-container *ngIf="( '' + chipVal ).includes( 'turnover' ) && tempSimplifiedFinancialChipArray['chip_values'] && tempSimplifiedFinancialChipArray['chip_values'].length > 1">
+                                    <ng-container *ngFor="let finTurnover of tempSimplifiedFinancialChipArray['chip_values']">
+                                        <ng-container *ngFor="let turoverKeys of finTurnover | keyvalue">
+                                            <ng-container *ngIf="turoverKeys['value'] == 'estimated_turnover'">
+                                                (Including Estimated Turnover)
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container> -->
+    
+                            <ng-template #otherBlock>
+    
+                                <ng-container *ngIf="![ 'Innovate Post Code', 'Trading District Code', 'Business Valuation', 'Return on Equity', 'Active Directors', 'Number of Employees Desc','Director Age', 'Grant Offered', 'Number of Shareholders Desc', 'Export Amount (in £)', 'Properties Count', 'Property Count', 'Outstanding Charges Count' , 'Number of Employees', 'Number of Shareholdings', 'Number of Shareholders','Number of Shareholdings Desc', 'CAGR', 'Investor Number of Shareholdings', 'Furlough Amount Band (In Pounds)', 'Total Directorships', 'District Code', 'ECS Site', 'Price', 'Write-off Amount', 'CCJ Amount', 'Buyer Postcode', 'Supplier Postcode', 'Trade Debtors', 'Debtor Days', 'Charge Month', 'Charge Year', 'chargesDataMonth', 'Active Directorships', 'Trading Address Count', 'Company Age Filter', 'Exchange Rate Effect', 'Key Financials', 'Advanced Key Financials', '1 Year Growth', '3 Years Growth', '5 Years Growth', 'Financial Ratio', 'Properties Owned', 'Flats Owned', 'Houses Owned', 'Last 12 Months Imports', 'Last 12 Months Exports', 'Last 60 Months Imports', 'Last 60 Months Exports' ].includes( chipData?.chip_group )">
+                                    {{ chipVal == 'not scored'? 'Not scored /Very High Risk': chipVal }}
+                                </ng-container>
+    
+                                <ng-container *ngIf="['CAGR'].includes( chipData?.chip_group )">
+                                    <ng-container *ngIf="[ 'under_observation', 'under_lens', 'joining_league', 'gearing_up', 'under_radar' ].includes(chipVal); else otherChipValues">
+                                        <ng-container *ngIf="chipVal == 'under_observation'">Under Observation</ng-container>
+                                        <ng-container *ngIf="chipVal == 'under_lens'">Under Lens</ng-container>
+                                        <ng-container *ngIf="chipVal == 'joining_league'">Joining League</ng-container>
+                                        <ng-container *ngIf="chipVal == 'gearing_up'">Gearing Up</ng-container>
+                                        <ng-container *ngIf="chipVal == 'under_radar'">Under Radar</ng-container>
+                                    </ng-container>
+                                    <ng-template #otherChipValues>
+                                        {{ chipVal }}
+                                    </ng-template>
+                                </ng-container>
+    
+                            </ng-template>
+                        </ng-template> 
+    
+                        <a href="javascript:void(0);" *ngIf="thisPage !== 'statsPage'" class="removeChip" (click)="removeFilterChipValue( chipData.chip_group, chipVal )"><i class="pi pi-times"></i></a>
+                        
+                    </span>
+                </ng-container>
+
+            </ng-template>
+            <a href="javascript:void(0);" *ngIf="thisPage !== 'statsPage'" class="removeChipGroup" (click)="removeFilterChipGroup( chipData.chip_group )"><i class="pi pi-times"></i></a>
+        </span>
+    </li>
+</ul>

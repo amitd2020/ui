@@ -1,0 +1,91 @@
+h1 {
+	background: -webkit-linear-gradient(#9e1414, #0bb0f1);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+body {
+	padding: 25px;
+}
+
+pi {
+	font-size: 1.5rem;
+}
+
+.overAllCounts {
+	border-bottom: none !important;
+	padding: 0 !important;
+}
+
+.limitTextHeight {
+	height: 40px;
+	overflow: hidden;
+}
+
+.count-style {
+	padding-top: 3rem !important;
+}
+
+.card {
+	padding: 0;
+
+	.card-header {
+		color: #666;
+		padding: 1rem 1.5rem;
+		border-bottom: 1px solid var(--divider-color);
+		margin: 0;
+
+		h5 {
+			font-size: 1.25rem;
+			text-transform: uppercase;
+		}
+
+		.p-button {
+			&.p-button-rounded {
+				font-size: 0.6rem;
+				width: 2.25rem;
+				height: 2.25rem;
+				margin: 0;
+			}
+		}
+
+	}
+
+	.card-body {
+		padding: 1.5rem;
+	}
+
+	.card-footer {
+		padding: 1rem 1.5rem;
+		border-top: 1px solid var(--divider-color);
+
+		&.hasDivider {
+			.p-grid {
+				&>[class*="p-col"]+[class*="p-col"] {
+					border-left: 1px solid var(--divider-color);
+				}
+			}
+		}
+	}
+}
+
+.cardPlaceholderIcons {
+
+	text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+	font-size: 7rem !important;
+	color: #2a8ce1;
+}
+
+.countFontSize {
+	font-size: 3.2rem !important;
+	color: #000 !important;
+
+	@media only screen and (max-width: 1400px) {
+		font-size: 3rem !important;
+	}
+
+	@media only screen and (max-width: 1280px) {
+		font-size: 2.3rem !important;
+	}
+}

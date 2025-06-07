@@ -1,0 +1,59 @@
+<div class="layout-topbar">
+    <div class="layout-topbar-start">
+        <a class="layout-topbar-logo" routerLink="/">
+            <img src="/assets/layout/images/dg_logo_new.png" alt="DG">
+        </a>
+        <!-- <a #menuButton class="layout-menu-button" (click)="onMenuButtonClick()" pRipple>
+            <i class="pi pi-chevron-right"></i>
+        </a> -->
+    </div>
+
+    <div *ngIf="isLoggedIn" class="layout-topbar-end">
+        <div class="layout-topbar-actions-start">
+            <span class="font-bold mr-4"> Welcome, {{ this.userAuthService?.getUserInfo('username') | titlecase }}! </span>
+
+            <span class="selectedCountryLabel" *ngIf="userAuthService.envServer == 'dev'">
+				<span class="flex align-items-center">
+					<img src="assets/utilities/flags/flag_placeholder.png" alt="{{ selectedGlobalCountry?.name }}" class="flag flag-{{ selectedGlobalCountry?.countryCode }} mr-2" />
+					<span>{{ selectedGlobalCountry?.name }}</span>
+				</span>
+			</span>
+
+            <!-- <div *ngIf="authGuardService?.sessionTimeoutIndicator" class="bg-orange-100 ml-3 py-2 px-4 border-round-3xl">
+				<span class="text-orange-700">Your session is about to expire in {{ authGuardService?.sessionTimeoutIndicator.toString().padStart( 2, '0' ) }} seconds.</span>
+			</div> -->
+        </div>
+
+        <div class="layout-topbar-actions-end">
+            <ul class="layout-topbar-items">
+
+                <li class="layout-topbar-item">
+					<dg-upgrade-plan class="mr-3" [currentPlan]="currentPlan" [buttonOnly]="true" *ngIf="( [subscribedPlanModal['Start'], subscribedPlanModal['Valentine_Special'] ].includes(currentPlan) )" [thisPage]="'topbar'"></dg-upgrade-plan>
+				</li>
+
+                <li class="layout-topbar-item">
+					<dg-shared-search-bar *ngIf="showSearchbarBoolean"></dg-shared-search-bar>
+				</li>
+            </ul>
+        </div>
+
+        <!-- <div class="layout-topbar-actions-right">
+			
+			<ul class="layout-topbar-items">
+
+				<li class="layout-topbar-item">
+					<dg-upgrade-plan class="mr-3" [currentPlan]="currentPlan" [buttonOnly]="true" *ngIf="( [subscribedPlanModal['Start'], subscribedPlanModal['Valentine_Special'] ].includes(currentPlan) )" [thisPage]="'topbar'"></dg-upgrade-plan>
+				</li>
+
+				<li class="layout-topbar-item">
+					<dg-shared-search-bar *ngIf="showSearchbarBoolean"></dg-shared-search-bar>
+				</li>
+
+			</ul>
+
+		</div> -->
+
+
+
+    </div>
+</div>

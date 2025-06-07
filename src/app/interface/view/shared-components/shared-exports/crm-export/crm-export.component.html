@@ -1,0 +1,37 @@
+<!-- Login Modal Dialog Start -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false">
+	<dg-login></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<!-- Upgrade Plan Dialog Start -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: 'auto' }">
+	<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+
+<!-- CRM Export Dialog Start -->
+<p-dialog header="EXPORT{{crmExportMessage}} CSV" [modal]="true" [(visible)]="csvDialog" [style]="{width: '35vw'}" [draggable]="false" [focusOnShow]="false">
+	<div class="text-center">
+		<p>{{exportCSVDialogMessage}}</p>
+	</div>
+
+	<p-footer>
+		<div class="text-center">
+			<button pButton *ngIf="crmExportMessage.length > 0 && exportCondition" class="p-button-rounded"
+				(click)="exportAllCRM()" type="button" label="Yes"></button>
+
+			<button pButton class="p-button-rounded darkGrey" *ngIf="exportCondition" type="button" (click)="closeExportDialog()"
+				label="No"></button>
+
+			<button pButton *ngIf="!exportCondition" type="button" class="p-button-rounded darkGrey" (click)="csvDialog=false" label="Close"></button>
+
+		</div>
+	</p-footer>
+
+</p-dialog>
+<!-- CRM Export Dialog End -->
+
+<button pButton type="button" label="CRM Export All" icon="ui-icon-insert-drive-file" class="p-button-rounded p-button-sm mr-2 hideBlockForMobileView mb-xxl-2" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( userDetails?.planId ) }" (click)="crmLimitCheck()" [disabled]=" thisPage == 'companySearch' && searchTotalCount == 0 " title="Export all companies from the list">
+    <span *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService.featureLockIconPath }}"></span>
+</button>

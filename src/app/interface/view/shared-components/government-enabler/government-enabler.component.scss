@@ -1,0 +1,370 @@
+::ng-deep {
+	.rightSidePanelFilterBar {
+		&.p-sidebar.p-sidebar-right {
+			top: 63px;
+			width: 26rem;
+			height: calc(100% - 63px);
+			background-color: #e5e5e5;
+		}
+	}
+
+	.layout-wrapper {
+		p-multiSelect {
+			.p-multiselect {
+				&.roundedCorners {
+					min-width: 100%;
+					background-color: var(--surface-a);
+					background-image: none;
+					padding: 0;
+					border: 0;
+					border-radius: 20px;
+					box-shadow: none;
+
+
+					@media only screen and (max-width: 280px) {
+						min-width: 255px;
+					}
+
+					.p-inputtext {
+						&.p-inputtext-sm {
+							padding: 0;
+							border-radius: 0;
+							border-width: 0 0 1px 0;
+							border-color: #bdbdbd;
+							font-style: italic;
+							max-width: 100px;
+
+							&.avoidItalic {
+								font-style: normal
+							}
+						}
+
+						&:enabled {
+							&:focus {
+								box-shadow: none;
+								transition: 0.5s ease-in all;
+								border-bottom-color: #212121;
+							}
+						}
+					}
+
+					.p-dropdown-label,
+					.p-multiselect-label {
+						background-color: var(--surface-a) !important;
+						font-weight: 600;
+						color: #898989;
+						padding: 10px 35px 10px 20px;
+						border-radius: 20px;
+						max-width: 300px;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+
+						@media only screen and (max-width: 320px) {
+							max-width: 215px;
+						}
+
+						&.p-inputtext {
+							font-size: 1em;
+						}
+
+					}
+
+					.p-dropdown-trigger,
+					.p-multiselect-trigger {
+						top: 10px;
+						right: 15px;
+					}
+
+					.p-multiselect-label-container {
+						padding: 0;
+					}
+
+					.p-dropdown-panel,
+					.p-dropdown-items-wrapper,
+					.p-multiselect-panel,
+					.p-multiselect-items-wrapper {
+						border-bottom-left-radius: 20px;
+						border-bottom-right-radius: 20px;
+					}
+
+					&.p-dropdown-open,
+					&.p-multiselect-open {
+
+						.p-dropdown-label,
+						.p-multiselect-label {
+							border-bottom-left-radius: 0;
+							border-bottom-right-radius: 0;
+						}
+					}
+
+					.p-multiselect-panel {
+						max-width: 300px;
+
+						.p-multiselect-items-wrapper {
+							.p-multiselect-item {
+								white-space: normal;
+								padding-left: 3em;
+
+								.p-checkbox {
+									position: absolute;
+									left: 1.1em;
+									top: 0.571em;
+								}
+							}
+						}
+					}
+
+				}
+			}
+		}
+	}
+}
+
+.dashboard-view {
+
+
+	.overallScoringCard {
+		text-align: center;
+
+		.margin {
+			margin-top: 4rem;
+
+			h2 {
+				font-size: 4em;
+				line-height: 1;
+				color: #58B19F
+			}
+
+			h4 {
+				text-transform: uppercase;
+				color: #666;
+			}
+		}
+
+		.totalAwardValueIcon {
+			margin-top: 5rem;
+			font-size: 5rem;
+			color: #12c381;
+			text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+		}
+
+	}
+
+	.overallCarbonDetails {
+		padding-bottom: 0.5rem;
+		margin-bottom: 0.5rem;
+
+		&:not( :last-child) {
+			border-bottom: 1px solid #eee;
+		}
+
+		h2,
+		h5 {
+			margin: 0;
+		}
+
+		h5 {
+			font-size: 1.2rem;
+			margin: 0 0 0.5rem;
+			color: #666;
+		}
+
+		h2 {
+			font-size: 1.8rem;
+			color: #444;
+			line-height: 1;
+		}
+
+		p {
+			line-height: 1;
+		}
+	}
+
+}
+
+.overAllCounts {
+	padding-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
+
+	&:not( :last-child) {
+		border-bottom: 1px solid #eee;
+	}
+
+	h2,
+	h5 {
+		margin: 0 0 0.5rem;
+	}
+
+	h5 {
+		font-size: 1.2rem;
+		margin: 0;
+		color: #666;
+	}
+
+	h2 {
+		font-size: 2rem;
+		color: #444;
+		line-height: 1;
+	}
+
+	p {
+		line-height: 1;
+	}
+
+	.icon {
+		font-size: 1.2rem;
+		color: #666;
+		text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+
+		&.totalAwardIcon {
+			color: #009688;
+		}
+
+		&.totalAwardValue {
+			color: #009688;
+			font-size: 4rem;
+		}
+
+		&.totalAwardValueIcon {
+			color: #1f4286;
+		}
+
+		&.contractCount {
+			color: #1f4286;
+			font-size: 4rem;
+		}
+
+		&.averegeAwardValueIcon {
+			color: #673ab7;
+		}
+	}
+}
+
+.card {
+	box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 1rem;
+	overflow: auto;
+	padding: 0;
+
+	.card-header {
+		&.governmentChartLegentAll {
+			display: -webkit-box;
+			display: -ms-box;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+		}
+
+		box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+		padding: 1rem;
+		margin: 0;
+
+		h3 {
+			font-size: 1.3rem;
+			text-transform: uppercase;
+
+			.material-icons {
+				font-size: 1.75rem;
+			}
+		}
+
+		h5 {
+			font-size: 1.2rem;
+			margin: 0 0 0.5rem;
+			color: #666;
+		}
+	}
+
+	.card-body {
+
+		&.count-body,
+		&.chart-body {
+			padding: 1rem;
+		}
+
+		padding: 2rem;
+	}
+}
+
+.governmentChartLegend {
+	display: -webkit-box;
+	display: -ms-box;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	.contractClosingDateLegend,
+	// .contractEndDateLegend,
+	.contractStartDateLegend,
+	.contractsEndingChartData,
+	.contractsWonLegend,
+	.contractsEndingLegend {
+		padding: 0 1rem;
+
+		&>span {
+			display: inline-block;
+			vertical-align: middle;
+			line-height: 15px;
+		}
+
+		.colorBlock {
+			width: 15px;
+			height: 15px;
+			background-color: #bbb;
+			border-radius: 50%;
+			margin-right: 0.8rem;
+			box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
+		}
+
+		.label {
+			color: #a1a1a1;
+		}
+	}
+
+	// .contractEndDateLegend {
+	//     .colorBlock {
+	//         background-color: rgb(0, 134, 214);
+	//     }
+	// }
+	.contractStartDateLegend {
+		.colorBlock {
+			background-color: rgb(77, 170, 226);
+		}
+	}
+
+	.contractsWonLegend,
+	.contractClosingDateLegend {
+		.colorBlock {
+			background-color: rgb(0, 134, 214);
+		}
+	}
+
+	.contractsEndingLegend {
+		.colorBlock {
+			background-color: rgb(5, 89, 91, .5);
+		}
+	}
+}
+
+.customFilterBtn {
+
+	background-color: var(--surface-a) !important;
+	color: var(--primary-color);
+	border: 1px solid #ffff;
+	margin: 0.8rem 0.5rem 1rem 0.5rem;
+
+	&:hover {
+		color: var(--surface-a) !important;
+		background-color: var(--primary-color) !important;
+		border: 1px solid #ffff;
+	}
+}
+
+.limitTextHeight {
+	height: 40px;
+	overflow: hidden;
+}
+
+.divider {
+	border-bottom: 1px solid #616161;
+}

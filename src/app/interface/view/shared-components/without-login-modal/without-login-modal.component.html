@@ -1,0 +1,12 @@
+<!-- Login Modal Dialog -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [draggable]="false">
+    <dg-login (showLoginModal)="checkLogin($event)"></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<div class="text-center">
+    <p>Please login to see the details.</p>
+    <div>
+        <button type="button" pButton label="Login" class="p-button-rounded p-button-lg" (click)="showLoginDialog = true;"></button>
+    </div>
+</div>

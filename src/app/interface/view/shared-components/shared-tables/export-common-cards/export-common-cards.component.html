@@ -1,0 +1,86 @@
+<div class="cbox" [ngClass]="{ 'flex justify-content-between': thisPage == 'exportTemplatePage' }">
+
+	<div class="col-12 flex flex-wrap justify-content-between align-items-center">
+		<div class="grid">
+			<div class="col text-left">
+				<p-checkbox class="select-all-checkbox" [(ngModel)]="selectAllCheckBoxInAllCard" binary="true" (click)="selectAllCardsItems( )" label="Select All"></p-checkbox>
+			</div>
+		</div>
+		<ng-container *ngIf="!['exportTemplatePage', 'showContactScreen'].includes(thisPage) && selectedGlobalCountry == 'uk'">
+			<div class="grid subCardsSelectionContent">
+				<div class="col-fixed text-right align-self-center">
+					<span>Select Sheet Type</span>
+				</div>
+				<div class="col-fixed text-right align-self-center p-input-filled flex" *ngFor="let item of selectSheetTypeOptions">
+					<div *ngIf="item.accessType.includes(selectedGlobalCountry)">
+						<p-radioButton [inputId]="item.value" name="item" [value]="item" [(ngModel)]="selectedSheetType" (onClick)="getSelectedSheetTypeValue(item)"></p-radioButton>
+						<label class="ml-2" [for]="item.value">{{ item.label }}</label>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<div class="grid subCardsSelectionContent" *ngIf="selectedGlobalCountry == 'uk' && thisPage != 'showContactScreen'">
+			<div class="col-fixed text-right align-self-center">
+				<p-checkbox class="select-all-checkbox" [(ngModel)]="excludeListModel" binary="true" label="Exclude List" (click)="getListCount()"></p-checkbox>	
+			</div>
+			<div class="col-fixed text-right align-self-center p-input-filled">
+				<p-multiSelect class="select-all-checkbox" [options]="savedListOptions" [(ngModel)]="selectedSavedList" defaultLabel="Select from Save Lists" optionLabel="listName" selectedItemsLabel="{0} items selected" (onClick)="getSelectedList()" styleClass="multiSelectStyle"  resetFilterOnHide=true ></p-multiSelect>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="grid mt-2 cbox p-input-filled">
+	<ng-container *ngFor="let columnData of showCardDetail">
+		<div [ngClass]="thisPage == 'showContactScreen' ? 'col-6' : 'col-4'">
+			<div class="card cbox" ngClass="{{columnData.colorCard}}">
+				
+				<h3 class="mt-2 mb-2">
+					<span class="mr-3">{{ columnData.cardHeader }}</span>
+					<small>
+						<p-checkbox [(ngModel)]="selectAllCheckBoxForOneCard[ columnData.cardKey  ]" binary="true" (click)="selectAllItemInCard( columnData, columnData.cardKey  )" label="All">
+						</p-checkbox>
+					</small>
+				</h3>
+				<p-scrollPanel [style]="{ height: '200px' }">
+		
+					<div class="p-field-checkbox mt-2" *ngFor="let check of columnData[ 'cardItem' ]">
+						<ng-container>
+							<ng-container *ngIf="thisPage == 'exportTemplatePage'; else otherPage">
+
+								<ng-container *ngIf="!check.editInput; else secondBlock">   
+									<p-checkbox  name="check.cardName" [disabled]="check.disabled" value="check" [value]="check" [(ngModel)]="selectedItemForExport[ check.cardName ]" [inputId]="check.key" (onChange)="onSelectedItemFromCard( columnData, check )"></p-checkbox>
+	
+									<button pButton name="check.cardName" type="button" icon="ui-icon-edit" class="p-button-sm ml-2 mb-0 editBtnStyle" (click)="getInputField(check, check.editInput)"></button>
+	
+									<label class="ml-2" *ngIf="check.userDefinedHeader == ''" [for]="check.key">{{ check.header }}</label>
+									<label class="ml-2" *ngIf="check.userDefinedHeader != ''" [for]="check.key" >{{ check.userDefinedHeader }}</label>
+									<div *ngIf="check.userDefinedHeader != ''">
+										<small>Default Name:&nbsp;</small>
+										<label class="ml-2" [for]="check.key">{{ check.header }}</label>
+									</div>
+								</ng-container>
+								<ng-template #secondBlock>
+									<input type="text" class="p-inputtext-sm p-inputtext-light" pInputText [(ngModel)]="check.userDefinedHeader" placeholder="{{ check.header }}" [pKeyFilter]="noSpecialCharacterAndNumber" pTooltip="Only alphabets are allowed" tooltipPosition="bottom" tooltipEvent="focus">
+									<button pButton name="check.cardName" type="button" icon="{{ ( check.editInput && (check.userDefinedHeader.length > 0) ? 'ui-icon-check' : 'pi pi-times' ) }}" class="p-button-sm ml-2 mb-0 editBtnStyle" (click)="getInputField(check, check.editInput)"></button>
+									<small>Default Name:&nbsp;</small>
+									<label class="ml-2" [for]="check.key">{{ check.header }}</label>
+								</ng-template>
+
+							</ng-container>
+						
+							<ng-template #otherPage>
+							
+								<p-checkbox name="check.cardName" [disabled]="check.disabled" value="check" [value]="check" [(ngModel)]="selectedItemForExport[ check.cardName ]" [inputId]="check.key" (onChange)="onSelectedItemFromCard( columnData, check )"></p-checkbox>
+								<label class="ml-2" [for]="check.key">{{ check.header }}</label>
+							</ng-template>
+						</ng-container>
+
+					</div>
+
+				</p-scrollPanel>
+			</div>
+		</div>
+	</ng-container>
+</div>

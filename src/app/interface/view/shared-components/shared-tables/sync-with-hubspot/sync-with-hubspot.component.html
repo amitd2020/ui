@@ -1,0 +1,9 @@
+<p-dialog [draggable]="false" [header]="'Sync With HubSpot'" [(visible)]="showDialog" [style]="{width: '30vw', height: '30vh'}" [modal]="true" [draggable]="false" [resizable]="false" (onHide)="hideDialog()">
+    <div>
+        <div class="flex justify-content-center align-items-center mt-8">
+            <button pButton>
+                <a [href]="AUTHORIZE_URL" target="_blank" style="color: #fff">Authenticate</a>
+            </button>
+        </div>
+    </div>
+</p-dialog>  

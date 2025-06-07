@@ -1,0 +1,260 @@
+<div class="card h-full">
+	<div class="card-header">
+		<ng-container *ngIf="thisPage != 'financialInfoTab'; else others">
+			<h3> {{ cardData.title === 'estimated_turnover_AI' || cardData.title === 'estimated_turnover_powered_by_AI' ? 'Estimated Turnover (Powered by AI)' : [ 'cagr', 'EBITDA', 'estimated_turnover' ].includes(cardData.title) ? cardData.title === 'estimated_turnover' ? 'Turnover (Estimate +)' : (cardData.title | uppercase) : commonService.camelCaseToTitleCaseStr(cardData.title) }} </h3>
+		</ng-container>
+		
+		<ng-template #others>
+			<h3> {{ cardData.title === 'estimated_turnover_AI' ? 'Estimated Turnover (Powered by AI)' : [ 'cagr', 'EBITDA', 'estimated_turnover' ].includes(cardData.title) ? cardData.title === 'estimated_turnover' ? 'Turnover (Est. +)' : (cardData.title | uppercase) : commonService.camelCaseToTitleCaseStr(cardData.title) }} </h3>
+		</ng-template>
+		<ng-container *ngIf="![ 'grossMarginByNumberOfEmployees', 'grossMarginByTurnoverPercent', 'profitBeforeTaxByTurnoverPercent', 'turnoverByNumberOfEmployees', 'wagesAndSalariesByTurnoverPercent', 'cashRatio', 'quickRatio' ].includes( cardData.title )" >
+			<ng-container *ngIf="[ 'zScore' ].includes( cardData.title ); else forCAGR">
+				<span [ngClass]="{ 'disabled': !financialBool.hasZscore }">
+					<h3><a href="javascript:void(0);" (click)="goToTab( 'viewZscore' )">
+					<span class="material-icons">arrow_circle_right</span></a></h3>
+				</span>
+			</ng-container>
+
+			<ng-template #forCAGR>
+
+				<ng-container *ngIf="[ 'cagr' ].includes( cardData.title ); else otherKeys">
+
+					<span [ngClass]="{ 'disabled': !financialBool.hasCAGR }">
+						<h3><a href="javascript:void(0);" (click)="goToTab( 'viewCagr' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+					</span>
+
+				</ng-container>
+
+				<ng-template #otherKeys>
+					<span *ngIf="financialBool" [ngClass]="{ 'disabled': !financialBool.hasFinances }">
+						<h3><a href="javascript:void(0);"
+						(click)="goToTab( [ 'gearingPercentage', 'creditorDays', 'debtorDays', 'returnOnCapital', 'returnOnTotalAssets', 'currentRatio', 'equityInPercentage', 'totalDebtRatio' ].includes( cardData.title ) ? 'viewFinancialRatios' : 'viewFinancials' )">
+						<span class="material-icons">arrow_circle_right</span></a></h3>
+					</span>
+
+				</ng-template>
+
+			</ng-template>
+
+		</ng-container>
+	</div>
+	<div class="card-body">
+		<div class="grid align-items-end" [pTooltip]="cardData.title === 'estimated_turnover_powered_by_AI' ? 'The absence of bars on the chart for certain years suggests that there is not enough data available for those periods, which makes it difficult to carry out a proper analysis or make informed decisions.' : null" 
+		tooltipPosition="bottom">
+
+			<ng-container *ngIf="[ 'zScore' ].includes( cardData.title ); else forCagr">
+
+				<ng-container *ngIf="financialBool.hasZscore; else noRecordTemplate">
+
+					<div class="col-fixed">
+
+						<ng-container *ngIf="cardData.body.latestYearValue >= 0">
+							<p class="text-4xl m-0">{{ cardData.body.latestYearValue | numberSuffix: '2' :
+								cardData.body.valueType }}</p>
+						</ng-container>
+						<ng-container *ngIf="cardData.body.latestYearValue < 0">
+							<p class="text-4xl m-0 c-red">({{ cardData.body.latestYearValue * -1 | numberSuffix: '2'
+								: cardData.body.valueType }})</p>
+						</ng-container>
+
+						<p class="text-sm m-0" [class.c-light]="cardData.body.previousYearValue >= 0"
+							[class.c-red]="cardData.body.previousYearValue < 0">
+
+							<ng-container *ngIf="cardData.body.previousYearValue >= 0">
+								{{ cardData.body.previousYearValue | numberSuffix: '2' : cardData.body.valueType }}
+							</ng-container>
+							<ng-container *ngIf="cardData.body.previousYearValue < 0">
+								({{ cardData.body.previousYearValue * -1 | numberSuffix: '2' : cardData.body.valueType
+								}})
+							</ng-container>
+
+							<ng-container
+								*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('increased')">
+
+								<span class="text-sm c-green ml-2">
+									<i class="material-icons text-xl">trending_up</i>
+									{{ cardData.body.diffPercentageValue.increased | numberSuffix: '2' }}%
+								</span>
+
+							</ng-container>
+
+							<ng-container
+								*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('decreased')">
+
+								<span class="text-sm c-red ml-2">
+									<i class="material-icons text-xl">trending_down</i>
+									{{ cardData.body.diffPercentageValue.decreased | numberSuffix: '2' }}%
+								</span>
+
+							</ng-container>
+
+							<ng-container
+								*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('equal')">
+
+								<span class="text-sm c-red ml-2">
+									<i class="material-icons text-xl">trending_flat</i>
+									{{ cardData.body.diffPercentageValue.equal | numberSuffix: '2' }}%
+								</span>
+
+							</ng-container>
+
+						</p>
+
+					</div>
+					<div class="col-fixed ml-auto" *ngIf="thisPage != 'financialInfoTab'">
+						<p-chart type="bar" [data]="cardData.body.chartDatasets" [options]="miniBarChartOptions" [plugins]="ChartDataLabelsPlugins" responsive="true" width="160px" height="60px"></p-chart>
+					</div>
+
+				</ng-container>
+
+			</ng-container>
+			<ng-template #forCagr>
+
+				<ng-container *ngIf="[ 'cagr' ].includes( cardData.title ); else otherKeys">
+
+					<ng-container *ngIf="financialBool.hasCAGR; else noRecordTemplate">
+
+						<div class="col-fixed">
+
+							<ng-container *ngIf="cardData.body.latestYearValue >= 0">
+								<p class="text-4xl m-0">{{ cardData.body.latestYearValue | numberSuffix: '2' :
+									cardData.body.valueType }}</p>
+							</ng-container>
+							<ng-container *ngIf="cardData.body.latestYearValue < 0">
+								<p class="text-4xl m-0 c-red">({{ cardData.body.latestYearValue * -1 | numberSuffix:
+									'2' : cardData.body.valueType }})</p>
+							</ng-container>
+
+							<p class="text-sm m-0" [class.c-light]="cardData.body.previousYearValue >= 0"
+								[class.c-red]="cardData.body.previousYearValue < 0">
+
+								<ng-container *ngIf="cardData.body.previousYearValue >= 0">
+									{{ cardData.body.previousYearValue | numberSuffix: '2' : cardData.body.valueType }}
+								</ng-container>
+								<ng-container *ngIf="cardData.body.previousYearValue < 0">
+									({{ cardData.body.previousYearValue * -1 | numberSuffix: '2' :
+									cardData.body.valueType }})
+								</ng-container>
+
+								<ng-container
+									*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('increased')">
+
+									<span class="text-sm c-green ml-2">
+										<i class="material-icons text-xl">trending_up</i>
+										{{ cardData.body.diffPercentageValue.increased | numberSuffix: '2' }}%
+									</span>
+
+								</ng-container>
+
+								<ng-container
+									*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('decreased')">
+
+									<span class="text-sm c-red ml-2">
+										<i class="material-icons text-xl">trending_down</i>
+										{{ cardData.body.diffPercentageValue.decreased | numberSuffix: '2' }}%
+									</span>
+
+								</ng-container>
+
+								<ng-container
+									*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('equal')">
+
+									<span class="text-sm c-red ml-2">
+										<i class="material-icons text-xl">trending_flat</i>
+										{{ cardData.body.diffPercentageValue.equal | numberSuffix: '2' }}%
+									</span>
+
+								</ng-container>
+
+							</p>
+
+						</div>
+						<div class="col-fixed ml-auto" *ngIf="thisPage != 'financialInfoTab'">
+							<p-chart type="bar" [data]="cardData.body.chartDatasets" [options]="miniBarChartOptions" [plugins]="ChartDataLabelsPlugins"
+								responsive="true" width="160px" height="60px"></p-chart>
+						</div>
+
+					</ng-container>
+
+				</ng-container>
+
+				<ng-template #otherKeys>
+
+					<div class="col-fixed">
+
+						<ng-container *ngIf="isString(cardData?.body?.latestYearValue)">
+							<p class="text-3xl m-0">{{ cardData.body.latestYearValue }}</p>
+						</ng-container>
+						  
+						<ng-container *ngIf="cardData.body.latestYearValue >= 0">
+							<p class="text-4xl m-0">{{ cardData.title == 'numberOfEmployees' ? cardData.body.latestYearValue : cardData.body.latestYearValue | numberSuffix: '2' : cardData.body.valueType }}</p>
+						</ng-container>
+						<ng-container *ngIf="cardData.body.latestYearValue < 0">
+							<p class="text-4xl m-0 c-red">({{ cardData.title == 'numberOfEmployees' ? cardData.body.latestYearValue : cardData.body.latestYearValue * -1 | numberSuffix: '2' : cardData.body.valueType }})</p>
+						</ng-container>
+
+						<p class="text-sm m-0" [class.c-light]="cardData.body.previousYearValue >= 0" [class.c-red]="cardData.body.previousYearValue < 0">
+
+							<ng-container *ngIf="( cardData.body.previousYearValue >= 0 ) && ( cardData.title != 'estimated_turnover_AI' )">
+								{{ cardData.title == 'numberOfEmployees' ? cardData.body.previousYearValue :cardData.body.previousYearValue | numberSuffix: '2' : cardData.body.valueType }}
+							</ng-container>
+							<ng-container *ngIf="cardData.body.previousYearValue < 0">
+								({{ cardData.title == 'numberOfEmployees' ? cardData.body.previousYearValue : cardData.body.previousYearValue * -1 | numberSuffix: '2' : cardData.body.valueType
+								}})
+							</ng-container>
+
+							<ng-container
+								*ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('increased')">
+
+								<span class="text-sm c-green ml-2">
+									<i class="material-icons text-xl">trending_up</i>
+									{{ cardData.body.diffPercentageValue.increased | numberSuffix: '2' }}%
+								</span>
+
+							</ng-container>
+
+							<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('decreased')">
+
+								<span class="text-sm c-red ml-2">
+									<i class="material-icons text-xl">trending_down</i>
+									{{ cardData.body.diffPercentageValue.decreased | numberSuffix: '2' }}%
+								</span>
+
+							</ng-container>
+
+							<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('equal')">
+
+								<span class="text-sm c-red ml-2">
+									<i class="material-icons text-xl">trending_flat</i>
+									{{ cardData.body.diffPercentageValue.equal | numberSuffix: '2' }}%
+								</span>
+
+							</ng-container>
+
+						</p>
+
+					</div>
+					<div class="col-fixed ml-auto" *ngIf="thisPage != 'financialInfoTab'">
+						<p-chart type="bar" [data]="cardData.body.chartDatasets" [options]="miniBarChartOptions" [plugins]="ChartDataLabelsPlugins" responsive="true" width="160px" height="60px"></p-chart>
+					</div>
+
+				</ng-template>
+
+
+			</ng-template>
+
+		</div>
+		<ng-template #noRecordTemplate>
+			<div class="showNoRecords">
+				<p>No Records Found</p>
+			</div>
+		</ng-template>
+
+		<ng-template #noRecordTemplate>
+			<div class="norecord">
+				<p>No Records Found</p>
+			</div>
+		</ng-template>
+
+	</div>
+</div>

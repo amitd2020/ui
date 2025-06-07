@@ -1,0 +1,16 @@
+<div class="grid mb-3 p-fluid">
+											
+    <div class="col">
+
+        <h4 class="mt-0 mb-3">From:</h4>
+        <p-calendar placeholder="Select From Year" view="year" dateFormat="yy" inputId="yearpicker" appendTo="body" [showIcon]="true" [readonlyInput]="true" [hideOnDateTimeSelect]="true" [touchUI]="touchUiBool" [maxDate]="maxSelectableDate" [(ngModel)]="yearRange.minYear" (click)="onResizeForCalender()"></p-calendar>
+
+    </div>
+    <div class="col">
+
+        <h4 class="mt-0 mb-3">To:</h4>
+        <p-calendar placeholder="Select To Year" view="year" dateFormat="yy" inputId="yearpicker" appendTo="body" [showIcon]="true" [readonlyInput]="true" [hideOnDateTimeSelect]="true" [touchUI]="touchUiBool" [maxDate]="maxSelectableDate" [(ngModel)]="yearRange.maxYear" (click)="onResizeForCalender()"></p-calendar>
+
+    </div>
+</div>
+<p-button label="Apply" class="p-button-rounded" [disabled]="!( yearRange.minYear && yearRange.maxYear )" (onClick)="selectYear()"></p-button>

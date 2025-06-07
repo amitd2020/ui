@@ -1,0 +1,102 @@
+
+<ng-container *ngIf="hitStatsAPI; else withoutcard">
+    <div class="card">
+        <ng-container [ngTemplateOutlet]="withCardSimilarCompany"></ng-container>
+        <div class="flex justify-content-center align-items-center my-2">
+            <div class="mr-3">
+                <button pButton label="Find Filtered Companies" class="bg-cyan-300" (click)="navigateToFilteredCompanySearch( )" [disabled]="!payloadForSimilarCompaniesArray.length"></button>
+            </div>
+            <div>
+                <button pButton label="Find Similar Companies" class="bg-blue-400" (click)="navigateToSimilarCompanySearch()" [disabled]="!payloadForSimilarCompaniesArray.length"></button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #withoutcard>
+    <ng-container [ngTemplateOutlet]="withCardSimilarCompany"></ng-container>
+</ng-template>
+
+
+<ng-template #withCardSimilarCompany>
+
+    <div class="grid">
+        
+        <ng-container *ngFor="let subFilter of viewCompanyHandler">
+    
+            <div class="{{ subFilter.styleClass }}">
+                
+                <div class="card bg-blue-100 text-blue-800 shadow-2 border-1 border-blue-200 m-0">
+    
+                    <div class="flex align-items-center mb-3">
+                        <div class="text-md font-medium mr-3">{{ subFilter.header }}</div>
+
+                        <p-checkbox *ngIf="[subFilter?.selectionMode].includes('multi')" name="Select All" [inputId]="subFilter.header" binary="true" [(ngModel)]="subFilter.selectAll" (onChange)="selectedAllButton( subFilter )"></p-checkbox>
+
+                        <button pButton icon="pi pi-times" label="Clear" class="p-button-sm p-button-warning mb-0 ml-auto" (click)="removeChipOfFilter( { chipItem: { chip_group: subFilter.chipGrp, growthKey: subFilter?.growthKey, header: subFilter.header } }, subFilter )"></button>
+                    </div>
+                    
+                    <div class="grid p-fluid" *ngIf="subFilter?.rangeInput">
+
+                        <!-- <ng-container *ngFor="let keyItem of subFilter.rangeInput | keyvalue : returnZero; let indx = index"> -->
+                            <div class="col-6">
+                                <div class="card p-0 mb-2">
+                                    <p-inputNumber inputStyleClass="p-inputtext-sm border-0 border-round-2xl px-3" [(ngModel)]="subFilter?.rangeInput[ subFilter.rangeType[0] ]" mode="decimal" [inputId]="indx + subFilter.header + subFilter.rangeType[0]" [useGrouping]="false" [placeholder]="placeholder[0]" (onInput)="inputFieldEntry( $event, subFilter, subFilter.rangeType[0] )"></p-inputNumber>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card p-0 mb-2">
+                                    <p-inputNumber inputStyleClass="p-inputtext-sm border-0 border-round-2xl px-3" [(ngModel)]="subFilter?.rangeInput[ subFilter.rangeType[1] ]" mode="decimal" [inputId]="indx + subFilter.header + subFilter.rangeType[1]" [useGrouping]="false" [placeholder]="placeholder[1]" (onInput)="inputFieldEntry( $event, subFilter, subFilter.rangeType[1] )"></p-inputNumber>
+                                </div>
+                            </div>
+                        <!-- </ng-container> -->
+                    </div>
+    
+                    <div class="overflow-y-auto" [ngClass]="{ 'h-13rem': subFilter?.rangeInput, 'h-17rem': !subFilter?.rangeInput }">
+    
+                        <ng-container *ngFor="let chckBxObj of subFilter['items']; let indx = index" [ngSwitch]="subFilter.selectionMode">
+
+                            <div class="card align-items-start flex shadow-none text-sm cursor-pointer mb-2 border-1" [ngClass]="{ 'border-blue-400': indx !== 0, 'bg-orange-100 border-orange-300 shadow-3': indx === 0 }">
+
+                                <ng-container *ngSwitchCase="'multi'">
+                                    <p-checkbox name="{{ subFilter.header }}" [inputId]="subFilter.header + chckBxObj.field + indx" [value]="subFilter.header == 'SIC Codes' ? chckBxObj : chckBxObj.field" [(ngModel)]="subFilter.ngModelChck" (onChange)="selectedRadioButton( subFilter.chipGrp, subFilter.ngModelChck, undefined, chckBxObj.field, undefined, subFilter )"></p-checkbox>
+                                </ng-container>
+            
+                                <ng-container *ngSwitchCase="'single'">
+                                    <p-radioButton name="{{ subFilter.header }}" [inputId]="subFilter.header + chckBxObj.field + indx" [value]="chckBxObj.value" [(ngModel)]="subFilter.ngModelChck" (onClick)="selectedRadioButton( subFilter.chipGrp, subFilter.ngModelChck, subFilter?.growthKey, undefined, subFilter )"></p-radioButton>
+                                </ng-container>
+                                
+                                <label for="{{ subFilter.header + chckBxObj.field + indx }}" class="flex-1">
+                                    <span class="block max-w-15rem line-height-3 mx-2">
+                                        <ng-container *ngIf="subFilter.header == 'Turnover (£)'; else defaultTextStyle">
+                                            {{ chckBxObj.label }}
+                                        </ng-container>
+                                        <ng-template #defaultTextStyle>
+                                            {{ ( chckBxObj.hasOwnProperty( 'label' ) ? chckBxObj.label : chckBxObj.field ) | titlecase }}
+                                        </ng-template>
+                                    </span>
+                                </label>
+                                
+                                <label for="{{ subFilter.header + chckBxObj.field + indx }}" class="ml-auto text-right">
+                                    <span class="bg-blue-100 text-blue-600 border-1 border-round-2xl fw-500 inline-block line-height-3 mr-2 px-2 text-xs">
+                                        {{ ( chckBxObj?.count || chckBxObj?.count === 0 ) ? ( chckBxObj.count | numberSuffix : '2' : '') : '' }}
+                                    </span>
+                                    <span class="bg-purple-100 text-purple-600 border-1 border-round-2xl fw-500 inline-block line-height-3 px-2 text-xs">
+                                        {{ ( chckBxObj?.count_percentage || chckBxObj?.count_percentage === 0 ) ? ( chckBxObj.count_percentage | numberSuffix : '2' : '' ) : ''}} %
+                                    </span>
+                                </label>
+                                
+                            </div>
+            
+                        </ng-container>
+    
+                    </div>
+        
+                </div>
+    
+            </div>
+            
+        </ng-container>
+        
+    </div>
+</ng-template>

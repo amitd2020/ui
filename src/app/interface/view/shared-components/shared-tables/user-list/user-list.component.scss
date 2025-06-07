@@ -1,0 +1,590 @@
+$primary  : #2b9348;
+$purple   : #662e9b;
+$red      : #ea3546;
+
+
+.activity-list {
+    .ui-icon-notifications-active {
+        margin-left: 10px;
+        vertical-align: bottom;
+    }
+}
+.iconPosition {
+    vertical-align: middle !important;
+}
+
+.featuredLinks {
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+
+        & + a {
+            margin-left: 5px;
+        }
+        img, svg, i {
+            max-height: 20px;
+        }
+        i {
+            position: relative;
+            top: 1.5px;
+            color: #23b394;
+        }
+    }
+}
+
+.OverlayAdmin {
+    padding: 1rem !important;
+}
+
+.infoName {
+    position: relative;
+    display: inline-block;
+    color: #4593bd;
+    cursor: pointer;
+}
+
+.linkedin {
+    fill: #0077b5;
+}
+
+.facebook {
+    fill: #3b5999;
+}
+
+i {
+    vertical-align: bottom;
+}
+
+#directorAppointedDatePick {
+    width: 1em;
+    height: 1em;
+}
+@media only screen and (max-width: 515px) {
+    .columnToggleSelect {
+        display  : contents !important;
+        // line-height: 3.0; 
+    }
+    .responsiveButton {
+        // display  : contents !important;
+        width: max-content !important;
+    }
+
+    .responsiveBtnExp {
+        margin-bottom: 11px;
+    }
+
+    .responsiveBtnWidth {
+        width: 100%;
+
+        &.pad-b-3 {
+            padding-bottom: 0.8em !important;
+        }
+    }
+}
+
+.feature-body {
+    max-height: 320px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.userCountPaid{
+    font-size: 18px;
+    color:darkgreen;
+    margin-left: 5px;
+}
+.userCountFree{
+    font-size: 18px;
+    color:darkgreen;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.userCountTotal{
+    color:black;
+    font-size: 18px;
+}
+
+.liveCompanies{
+    color: $primary;
+    font-size: 18px;
+}
+
+.dissolvedCompanies{
+    color: $red;
+    font-size: 18px;
+}
+
+.pipeSymbol{
+    color: black;
+    font-size: 18px;
+}
+
+.text-small {
+    font-size: 12px;
+    @media only screen and (max-width:991px){
+        font-size: 9px !important;
+    }
+}
+
+.createPlaModal {
+    font-size: 14px;
+
+    .help-block {
+        float: left;
+        font-size: small;
+    }
+}
+
+.featuresBox {
+    border: 1px solid rgb(143, 143, 143);
+    border-radius: 5px;
+    
+    .feature-header {
+        border-right: 1px solid rgb(100, 100, 100);
+    }
+}
+
+.labelMargin {
+    margin: -1rem;
+}
+.disolvedCompanyRow{
+    background-color: #ffc6c4 !important;
+}
+.exmpColorBox {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(0, 0, 0, .2); 
+    vertical-align: top;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.share_holdings {
+    position: relative;
+}
+
+.monitoringIcon {
+    font-size: 1.8em;
+
+    &.c-green {
+        color: #1ab394;
+    }
+    &.c-light {
+        color: #9b9b9b;
+    }
+}
+
+.complianceRatingLabel.roundedColoredChipLabel {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+    padding: 0.2em 1.5em;
+
+    &.darkGreen {
+        background-color: #228b22;
+        color: #fff;
+    }
+
+    &.lightGreen {
+        background-color: #6dc470;
+        color: #fff;
+    }
+
+    &.yellow {
+        background-color: #ffc201;
+        color: #fff;
+    }
+
+    &.amber {
+        background-color: #ff7e00;
+        color: #fff;
+    }
+
+    &.lightRed {
+        background-color: #f03939;
+        color: #fff;
+    }
+
+    &.darkRed {
+        background-color: #ff0000;
+        color: #fff;
+    }
+}
+
+
+// For iPads ( -lg )
+@media only screen and (max-width: 991px) {
+    
+    .td-lg-margin {
+        display: contents;
+        margin-top: 24px;
+    }
+    .text-f-user{
+        font-size: 10px !important;
+    }
+
+}
+@media only screen and (max-width: 360px) {
+
+    .x-small-lh {
+        line-height: 1;
+    }
+
+}
+
+@media only screen and (min-width:1466px) and (max-width:1500px) {
+    .columnToggleSelect {
+        &.responsiveColumnToggleSelect {
+            padding-top: 15px;
+            &>* {
+                vertical-align: middle;
+                &:not(:last-child) {
+                    margin-right: 1em;
+                }
+            }
+        }
+    }
+}
+
+.badge {
+    display      : inline-block;
+    padding      : 0.3rem 0.75rem;
+    font-size    : 0.75rem;
+    font-weight  : bold;
+    border-radius: 0.5rem;
+    border       : 1px solid transparent;
+    margin : 0.25em;
+
+    &.badge-red {
+        background-color: lighten($red, 50%);
+        color           : $red;
+        border-color    : $red;
+
+        &.badge-round {
+            border-radius: 1rem;
+        }
+    }
+}
+
+.limitTextHeight {
+    height: 35px;
+    overflow: hidden;
+}
+
+@media only screen and (max-width:768px) {
+    .shareIconPosition {
+        margin-top: 10px;
+    }
+}
+.companyDetailsIndustryTags {
+
+    display: inline-block;
+    vertical-align: middle;
+
+    .roundedColoredChipLabel {
+        background-color: #cdf0d7;
+        color: #2b9348;
+        border-color: #2b9348;
+        margin-right: 0.5em;
+    }
+    
+}
+::ng-deep {
+    .customDialogButtonSwap {
+        &.p-dialog {
+            &.p-confirm-dialog { 
+                .p-dialog-footer {
+                    display: flex;
+                    justify-content: center;
+                    .p-confirm-dialog-reject {
+                        order: 1;
+                    }
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 2400px) {
+      
+    
+        .responsivePepSanctionTable {
+            .p-datatable {
+                table {
+                    display: block;
+                    width: 100%;
+    
+                    .p-datatable-thead {
+                        display: none;
+                    }
+    
+                    .p-datatable-tbody {
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+        
+                        & > tr {
+                            display: block;
+                            padding: 10px 0px;
+                            margin-bottom: 16px;
+                            border-radius: 5px;
+                            border: 1px solid rgb(29, 29, 29) !important;
+                            position: relative;
+    
+                            & > td {
+                                border: 0;
+                                width: 100%;
+                                display: block;
+                                padding: 8px 10px;
+                                text-align: left !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 200px) {
+        .min-lg-pep {
+            display: inline !important;
+       }
+    }
+}
+
+.tableViewOnHover {
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+    th {
+        border: 1px solid #dddddd !important;
+        text-align: left !important;
+        padding: 8px !important;
+        background-color: #f5f5f5;
+    }
+
+    td {
+        border: 1px solid #dddddd !important;
+        text-align: left !important;
+        padding: 8px !important;
+    }
+}
+
+.infoIconPosition {
+    font-size: 10px;
+    float: right;
+    cursor: pointer;
+}
+
+::ng-deep {
+    @media only screen and (max-width:992px) {
+        .notesResponsive {
+            &.p-dialog {
+                .p-dialog-header {
+                    margin-top: 8em;
+                }
+            }
+        }
+    }
+}
+
+.capitalise{
+    text-transform: capitalize !important;
+}
+
+.roundedCorners {
+    .ui-inputtext {
+        // background: none;
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+    }
+    ::ng-deep {
+        .ui-slider {
+            margin: 0 25px;
+        }
+    }
+}
+
+.buttonPostion {
+    display: flex;
+    top: 16px;
+    left: 9px;
+}
+
+.heading-font {
+    font-weight: 600;
+}
+
+.card.companyDetailPopup {
+    font-family: 'Roboto', "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    width: 220px;
+    min-height: auto;
+    font-weight: normal;
+    color: #212121;
+    border: 1px solid grey; 
+    overflow: auto;
+    margin: 0;
+
+    position: fixed;
+    left: auto;
+    top: auto;
+    z-index: 1;
+    
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all 0.8s ease-in-out;
+    -moz-transition: all 0.8s ease-in-out;
+    -ms-transition: all 0.8s ease-in-out;
+    transition: all 0.8s ease-in-out;
+
+    .popoverListItem {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: flex;
+        margin-bottom: 5px;
+    }
+}
+.roundedColoredChipLabelDirFailure {
+    display: inline-block;
+    letter-spacing: .7px;
+    border: 1px solid;
+    border-radius: 40px;
+    padding: 0.2em 0.8em;
+    &.c-red {
+        background-color: rgba(223,32,32,.05);
+    }
+}
+
+.riskRatingLabel {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    padding: 0.3em 0.8em;
+	border-radius: 25px;
+	margin-right: 0.2em;
+
+	@media only screen and (max-width: 840px) {
+		font-size: 0.9rem;
+		margin-right: 0em;
+		padding: 0.2em 1.1em;
+	}
+
+    &.lightGreen {
+        background-color: #6DC470;
+        color: #fff;
+    }
+
+    &.cyan {
+        background-color: #59BA9B;
+        color: #fff;
+    }
+
+    &.yellow {
+        background-color: #FFC201;
+        color: #fff;
+    }
+
+    &.orange {
+        background-color: #E4790F;
+        color: #fff;
+    }
+
+    &.darkRed {
+        background-color: #D92727;
+        color: #fff;
+    }
+
+	&.light {
+		background-color: #9b9b9b;
+		color: #fff;
+	}
+}
+
+.action {
+    cursor: pointer;
+    border-radius: 100%;
+    padding: 0.2rem;
+    width: 25px;
+    height: 25px;
+    color: white;
+    background-color: var(--primary-color);
+}
+
+p-chip {
+    ::ng-deep {
+        .p-chip {
+            background-color: transparent;
+        }
+    }
+}
+
+.limitDetail.roundedColoredChipLabel {
+    padding: 0;
+    background-color: #fff;
+}
+
+::ng-deep{
+    .p-input-filled .p-dropdown {
+        background-origin: content-box;
+    }
+}
+
+.relatedCompaniesButtonClass {
+	// position: absolute;
+    cursor: pointer;
+    border: 1px solid #0077b5;
+	border-radius: 50%;
+	padding: 5px;	
+	background:#fff;
+	transition: background-size .4s, background-position 0s .4s;
+}
+
+.relatedCompaniesButtonClass:hover {
+    background: #197865;
+    color: #fff;
+	// --_p: 100%;
+	transition: background-position .4s, background-size 0s;
+}
+
+.relatedCompaniesButtonClassDisabled {
+    // cursor: pointer;
+    border: 1px solid #8fb1c2;
+	border-radius: 50%;
+	padding: 5px;	
+	background:#fff;
+	transition: background-size .4s, background-position 0s .4s;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+::ng-deep {
+    p-sortIcon {
+        .p-icon-wrapper{
+            display: inline;
+            padding: 0.3em;
+        }
+    }
+}
+p-timeline {
+
+	::ng-deep {
+		.p-timeline {
+			.p-timeline-event:last-child {
+				flex: 1 !important;
+			}
+
+			.p-timeline-event-marker {
+				background-color: var(--primary-color);
+			}
+		}
+	}
+
+}

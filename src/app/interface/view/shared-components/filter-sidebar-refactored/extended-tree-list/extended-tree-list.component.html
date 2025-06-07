@@ -1,0 +1,36 @@
+<p class="c-red mb-0" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div class="grid mt-2">
+    <div class="col-fixed" *ngIf="treeListFilterInputValue.length > 2">
+        <button pButton type="button" label="Select All" class="p-button-sm p-button-outlined" (click)="selectAllTreeListItems()"></button>
+    </div>
+    <div class="col-fixed" *ngIf="treeListFilterInputValue.length > 2 && selectedTreeListItems.length && selectAllList">
+        <button pButton type="button" label="Add All" class="p-button-sm" (click)="onNodeSelectHandler()"></button>
+    </div>
+    <div class="col-fixed">
+        <button pButton type="button" label="Reset" class="p-button-sm p-button-outlined p-button-danger" (click)="resetAll( treeListTemplate )"></button>
+    </div>
+    <div class="col-fixed ml-auto" *ngIf="treeListFeatures.excludeOptions">
+        <p-checkbox label="Exclude" value="exclude" [(ngModel)]="excludeListOptions" [binary]="true" [disabled]="(errorMessage !== '')" (onChange)="excludeOptionsChangeHandler()"></p-checkbox>
+    </div>
+</div>
+
+<div class="p-inputgroup mb-2 relative">
+    <span class="p-inputgroup-addon absolute left-0 bottom-0 border-none border-bottom-1 border-gray-500"><i class="pi pi-search"></i></span>
+    <input type="text" pInputText placeholder="Enter keywords to find more" class="pl-6 border-none border-bottom-1 border-gray-500" [(ngModel)]="treeListFilterInputValue" (keyup)="onFilterHandler()">
+    <a href="javascript:void(0);" class="p-inputgroup-addon absolute right-0 bottom-0 z-1 border-none border-bottom-1 border-gray-500" (click)="treeListFilterReset()" *ngIf="treeListFilterInputValue"><i class="pi pi-times"></i></a>
+</div>
+
+<p-tree #treeListTemplate [value]="treeListValues" [(selection)]="selectedTreeListItems" [propagateSelectionUp]="false" [propagateSelectionDown]="false" selectionMode="checkbox" (onNodeSelect)="onNodeSelectHandler()" (onNodeUnselect)="onNodeSelectHandler()">
+    <ng-template let-node pTemplate="default">
+        
+        <ng-container *ngIf="treeListFilterInputValue; else defaultLabel">
+            <span [innerHTML]="highlightMatchedWords( node.label, treeListFilterInputValue )"></span>
+        </ng-container>
+
+        <ng-template #defaultLabel>
+            {{ node.label }}
+        </ng-template>
+
+    </ng-template>
+</p-tree>

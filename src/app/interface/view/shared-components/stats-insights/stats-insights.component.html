@@ -1,0 +1,638 @@
+<p-dialog header="Choose Options" [modal]="true" [(visible)]="displayModal" [style]="{width: '90vw', height: '80vh'}" [draggable]="false"
+[focusOnShow]="false">
+    
+    <dg-sub-filter [viewCompanyHandler]="viewCompanyHandler" [statsCriteriaValues]="statsCriteriaValues" [hitStatsAPI]="false" [industryListData]="industryListData" [regionListData]="regionListData" (outputPayload)="getOutputFromSubFilter($event)"></dg-sub-filter>
+
+    <ng-template pTemplate="footer">
+        <div class="my-2">
+            <button pButton label="Find Filtered Companies" class="bg-cyan-300" (click)="navigateToFilteredCompanySearch( )" [disabled]="!this.outputPayloadFromSubFilters.length"></button>
+        </div>
+        <div class="my-2">
+            <button pButton label="Find Similar Companies" class="bg-blue-400" (click)="navigateToSimilarCompanySearch()" [disabled]="!this.outputPayloadFromSubFilters.length"></button>
+        </div>
+    </ng-template>
+    
+</p-dialog>
+
+<div #insightsChartViewContainerId class="insightsChartViewContainer">
+    <p-messages [value]="msgs"></p-messages>
+
+	<div class="card">
+        <div class="grid align-items-center">
+            <div class="col-fixed">
+                <div class="m-0">The Statistics are based on below companies.</div>
+            </div>
+            <span *ngIf="activeRoute.snapshot.queryParams['pageName'] == 'businessWatch'" class="c-blue font-medium">
+                ( <em>The given companies count are based on live companies.</em> )
+            </span>
+            <div class="col text-right">
+                <button *ngIf="selectedGlobalCountry == 'uk'" pButton type="button" label="View Similar Companies" icon="pi pi-building" class="p-button-rounded p-button-sm ml-3 bg-blue-400" title="Download Report"  (click)="displayModal = true "></button>
+                <dg-stats-pdf-report [statsReportDataParam]="statsChartDataValue" [statsCriteriaValues]="statsCriteriaValues" [keyForFinancial]="keyForFinancial" (displayMessage)="getMessage($event)"></dg-stats-pdf-report>
+            </div>
+            <button pButton type="button" *ngIf="userAuthService.hasRolePermission( ['Under Development'] )" label="View Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm ml-3" title="View Report" (click)="captureScreen()"></button>
+            <button pButton type="button" label="Take Snapshot" icon="pi pi-image" class="p-button-rounded p-button-sm ml-3" title="Take Snapshot" (click)="takeSnapshot(insightsChartViewContainerId)"></button>
+        </div>
+
+        <ng-container class="inline-flex">
+            <ng-container *ngFor="let status of statsChartDataValue?.companyCounts; let i = index">
+                <span class="fixed-wrap text-sm" [ngClass]="{'c-green': ['', 'live', 'administration order'].includes(status.key), 'c-red': status.key == 'dissolved' || status.key == 'converted/closed' || status.key == 'in administration' || status.key == 'in receivership / administration' || status.key == 'in receivership' || status.key == 'deleted' || status.key == 'voluntary arrangement' || status.key == 'removed','c-orange':  status.key == 'in liquidation' }">
+                    {{ commonService.camelCaseToTitleCaseStr( (status.key == '' ? 'Other' : status?.key ) ) }}: {{ status?.doc_count | number }}
+                </span>
+                <ng-container class="c-light" *ngIf = "i + 1 != statsChartDataValue?.companyCounts?.length">
+                    &nbsp;|&nbsp;&nbsp;
+                </ng-container> 
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div class="c-light mb-2">
+        <div class="card infoSectionBorder">
+            <div class="mb-1">
+                Total Turnover & Average Turnover are based on <strong [ngStyle]="{ color: 'var(--primary-color)', 'font-size': '1.2rem' }">{{ statsChartDataValue?.turnoverCompanies | number }}</strong> companies.
+            </div>
+            <div class="mb-1" *ngIf="userAuthService.hasRolePermission( ['Under Development'] )">
+                Total Estimated Turnover & Average Turnover are based on <strong [ngStyle]="{ color: 'var(--primary-color)', 'font-size': '1.2rem' }">{{ statsChartDataValue?.turnoverCompanies | number }}</strong> companies.
+            </div>
+            <div *ngIf="userAuthService.hasRolePermission( ['Under Development'] )">
+                Estimated Turnover are based on <strong [ngStyle]="{ color: 'var(--primary-color)', 'font-size': '1.2rem' }">{{ statsChartDataValue?.numberOfEmployeesCompanies | number }}</strong> companies.
+            </div>
+        </div>
+    </div>
+
+	<div class="grid">
+
+		<div [ngClass]="[ this.statsCriteriaValues.length <= 0 ? 'col-12' : 'col-12 xl:col-10' ]">
+
+			<div class="grid">
+                <div class="col-12 sm:col-6 lg:col-3">
+                    <p-card styleClass="greenCard cbox">
+                        <h3 class="text-center">Total Turnover</h3>
+                        <h4 class="font-bold text-center">{{ statsChartDataValue?.totalTurnover ? toNumberSuffix.transform( statsChartDataValue?.totalTurnover, '0', selectedGlobalCurrency ) : 0 }}</h4>
+                    </p-card>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-3">
+                    <p-card styleClass="blueCard cbox">
+                        <h3 class="text-center">Average Turnover</h3>
+                        <h4 class="font-bold text-center">{{ statsChartDataValue?.avgTurnover ? toNumberSuffix.transform( statsChartDataValue?.avgTurnover, '0', selectedGlobalCurrency ) : 0 }}</h4>
+                    </p-card>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-3" *ngIf="userAuthService.hasRolePermission( ['Under Development'] )">
+                    <p-card styleClass="skyBlueCard cbox">
+                        <h3 class="text-center">Total Estimated Turnover</h3>
+                        <h4 class="font-bold text-center">{{ statsChartDataValue?.totalEstimatedTurnover ? toNumberSuffix.transform( statsChartDataValue?.totalEstimatedTurnover, '0', selectedGlobalCurrency ) : 0 }}</h4>
+                    </p-card>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-3" *ngIf="userAuthService.hasRolePermission( ['Under Development'] )">
+                    <p-card styleClass="skyBlueCard cbox">
+                        <h3 class="text-center">Average Estimated Turnover</h3>
+                        <h4 class="font-bold text-center">{{ statsChartDataValue?.avgEstimatedTurnover ? toNumberSuffix.transform( statsChartDataValue?.avgEstimatedTurnover, '0', selectedGlobalCurrency ) : 0 }}</h4>
+                    </p-card>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-3">
+                    <p-card styleClass="voiletCard cbox">
+                        <h3 class="text-center">Total Employees</h3>
+                        <h4 class="font-bold text-center">{{ statsChartDataValue?.totalEmployees ? ( statsChartDataValue?.totalEmployees | number: '1.0-2' ) : 0 }}</h4>
+                    </p-card>
+                </div>
+                <div class="col-12 sm:col-6 lg:col-3">
+                    <p-card styleClass="greenCard cbox">
+                        <h3 class="text-center">Average Employees</h3>
+                        <h4 class="font-bold text-center">{{ statsChartDataValue?.avgEmployees ? ( statsChartDataValue?.avgEmployees | number: '1.0-0' ) : 0 }}</h4>
+                    </p-card>
+                </div>
+            </div>
+
+            <div class="grid">
+
+                <div class="col-12 lg:col-6">
+
+                    <ng-template #LazyLeafletMapContainer></ng-template>
+
+                    <div class="card">
+                        <div class="furloughDataTable industriesList">
+                            <table class="simpleTableUI">
+                                <thead>
+                                    <tr>
+                                        <th>Other Stats</th>
+                                        <th width="30%" class="text-right">Count</th>
+                                        <th width="80" class="text-right">%</th>
+                                    </tr>
+                                </thead>
+                                <ng-container *ngIf="otherMiscArrayData && otherMiscArrayData?.length">
+                                    <tbody>
+                                        <tr *ngFor="let rowData of otherMiscArrayData">
+
+                                            <ng-container *ngIf="rowData.countryAccess.includes( selectedGlobalCountry )">
+                                                
+                                                <td class="font-bold">{{ rowData['label'] }}</td>
+    
+                                                <td widht="30" class="text-right">
+                                                    <ng-container *ngIf="rowData[ 'count' ]">
+                                                        <ng-container *ngIf="rowData['label'] == 'Environment Agency Registered'; else otherLabels">
+                                                            <ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ); else otherPlans">
+                                                                <a href="javascript:void(0);" class="c-blue" (click)="goToSearchForMisc( rowData['label'], rowData['value'] )"><strong>{{ rowData['count'] | number }}</strong></a>
+                                                            </ng-container>
+                                                            <ng-template #otherPlans>{{ rowData['count'] | number }}</ng-template>
+                                                        </ng-container>
+                                                        <ng-template #otherLabels>
+                                                            <a href="javascript:void(0);" class="c-blue" (click)="goToSearchForMisc( rowData['label'], rowData['value'] )"><strong>{{ rowData['count'] | number }}</strong></a>
+                                                        </ng-template>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!rowData[ 'count' ]"> - </ng-container>
+    
+                                                </td>
+    
+                                                <!-- <td width="30%" class="text-right">{{ rowData['count'] ? ( rowData['count'] | number ) : '-' }}</td> -->
+                                                <td width="30%" class="text-right">{{ rowData['count_percentage'] ? ( rowData['count_percentage'] | number: '1.0-2' ) : '-' }}</td>
+
+                                            </ng-container>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </ng-container>
+                            </table>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="statsChartDataValue && statsChartDataValue.hasOwnProperty('minority_companies')">
+
+                        <div class="grid align-items-center my-2 ml-2">
+                            <div class="col-fixed">
+                                <span class="text-base font-medium">Companies Owned By</span>
+                            </div>
+                        </div> 
+                        <div class="grid mb-5">
+                            <ng-container *ngFor="let obj of companiesOwnedObj | keyvalue: stopSefaultSort">
+                                <ng-container *ngIf="obj.value?.count_percentage; else noRedirection">
+                                    <div class="col-6" addOnAccess="ethnicityFilter">
+                                        <a href="javascript:void(0);" class="p-d-block" (click)="goToSearchForMisc( obj.value?.payloadKey )">
+                                            <dg-shared-count-card [subTitle]="obj.value?.label" [dataValue]="obj.value?.count" [dataValuePercentage]="obj.value?.count_percentage" cardColor="PinkCard" [displayPercentageValue]="true"></dg-shared-count-card>
+                                        </a>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noRedirection>
+                                    <div class="col-6">
+                                        <dg-shared-count-card [subTitle]="obj.value?.label" [dataValue]="obj.value?.count" [dataValuePercentage]="obj.value?.count_percentage" cardColor="PinkCard" [displayPercentageValue]="true"></dg-shared-count-card>                                    
+                                    </div>
+                                </ng-template>   
+                            </ng-container>
+                        </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="employeesRangeArrayData.length">
+
+                        <ng-container *ngFor="let emplyKey of [ 'noOfEmployeesArray' ] ">
+
+                            <div class="grid align-items-center my-2 ml-2">
+                                <div class="col-fixed">
+                                    <span class="text-base font-medium">{{ numberOfEmply[ emplyKey ] }}</span>
+                                </div>
+                            </div>
+
+                            <div class="grid mb-5">
+                                <ng-container *ngFor="let employees of statsChartDataValue[ emplyKey ]">
+                                    
+                                    <ng-container *ngIf="employees.count_percentage else noRedirection">
+                                        
+                                        <div class="col-4">
+                                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( employees['value']['rangeFrom'], employees['value']['rangeTo'], 'Number of Employees' )">
+                                                <dg-shared-count-card [subTitle]="employees.label" [dataValue]="employees.count" [dataValuePercentage]="employees.count_percentage" cardColor="Violet" [displayPercentageValue]="true"></dg-shared-count-card>
+                                            </a>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #noRedirection>
+                                        <div class="col-4">
+                                            <dg-shared-count-card [subTitle]="employees.label" [dataValue]="employees?.count" [dataValuePercentage]="employees?.count_percentage" cardColor="Violet" [displayPercentageValue]="true"></dg-shared-count-card>
+                                        </div>
+                                    </ng-template>        
+                                </ng-container>
+                            </div>
+                            
+                        </ng-container>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="encorporationDate.length">
+
+                        <div class="grid align-items-center my-2 ml-2">
+                            <div class="col-fixed">
+                                <span class="text-base font-medium">Companies by Age</span>
+                            </div>
+                        </div>        
+                        <div class="grid mb-5">
+                            <ng-container *ngFor="let companyAge of encorporationDate">
+                                <ng-container *ngIf="companyAge?.count_percentage; else noRedirection">
+                                    <div class="col-4">
+                                        <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( companyAge['value']['rangeFrom'], companyAge['value']['rangeTo'], 'Company Age Filter', undefined, 'Company Age' )">
+                                            <dg-shared-count-card [subTitle]="companyAge?.label" [dataValue]="companyAge?.count" [dataValuePercentage]="companyAge?.count_percentage" [displayPercentageValue]="true"></dg-shared-count-card>
+                                        </a>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noRedirection>
+                                    <div class="col-4">
+                                        <dg-shared-count-card [subTitle]="companyAge?.label" [dataValue]="companyAge?.count" [dataValuePercentage]="companyAge?.count_percentage" [displayPercentageValue]="true"></dg-shared-count-card>                                    
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="standardIndustryTags && standardIndustryTags.length">
+
+                        <div class="grid align-items-center my-2 ml-2">
+                            <div class="col-fixed">
+                                <span class="text-base font-medium">
+                                    Industry Tags
+                                    <small class="text-gray-500 ml-2">( Note: There could be multiple industry tags on a company. )</small>
+                                </span>
+                            </div>
+                        </div>        
+                        <div class="grid mb-5">
+                            <ng-container *ngFor="let industryTag of standardIndustryTags">
+                                <ng-container *ngIf="industryTag?.count_percentage && !isIndustryTagIncluded; else noRedirection">
+                                    <div class="col-6">
+                                        <a href="javascript:void(0);" class="p-d-block" (click)="goToSearchForIndustryTag( industryTag?.field, industryTag?.label, 'Industry' )">
+                                            <dg-shared-count-card [subTitle]="industryTag?.label" [dataValue]="industryTag?.count" [dataValuePercentage]="industryTag?.count_percentage" cardColor="Orange" [displayPercentageValue]="true"></dg-shared-count-card>
+                                        </a>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noRedirection>
+                                    <div class="col-6">
+                                        <dg-shared-count-card [subTitle]="industryTag?.label" [dataValue]="industryTag?.count" [dataValuePercentage]="industryTag?.count_percentage" cardColor="Orange" [displayPercentageValue]="true"></dg-shared-count-card>                                    
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </div>
+
+                    </ng-container>
+
+                </div>
+
+                <div class="col-12 lg:col-6">
+
+                    <div class="grid">
+
+                        <div class="col-12" *ngIf="statsChartDataValue?.msmeStatus.length">
+                            <div class="card">
+                                <div class="text-color-secondary text-base mb-3"><i class="pi pi-building text-color-secondary mr-1"></i>MSME Tags
+                                    <i class="ui-icon-info-outline ml-1 text-primary" (mouseenter)="msmeInfoOverlay.show($event)" (mouseleave)="msmeInfoOverlay.hide($event)"></i>
+                                        <p-overlayPanel #msmeInfoOverlay [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                                            <dg-msme-svg-popup-card></dg-msme-svg-popup-card>
+                                        </p-overlayPanel>
+                                </div>
+                                <div class="grid">
+                                    <ng-container *ngFor="let msmeStatus of statsChartDataValue?.['msmeStatus']">
+                                        <div class="col-fixed align-items-stretch">
+                                            <a href="javascript:void(0);" class="block p-3 text-center font-semibold text-white border-round-2xl" [ngStyle]="{ 'background-color': msmeStatusColor[ msmeStatus.key ] }" [ngClass]="{ 'bg-bluegray-100': !( msmeStatusColor[ msmeStatus.key ] ) }" (click)="goToCompanySearchBymsme( msmeStatus.key )">
+                                                <span class="block">
+                                                    {{ msmeStatus.key | titlecase }}:
+                                                </span>
+                                                <span class="block">
+                                                    {{ msmeStatus.doc_count | number: '1.0-0' }}
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 lg:col-6">
+
+                            <div class="card mb-1">
+                                <div class="flex flex-column">
+                                    <span class=" text-color-secondary text-base mb-3"><i class="ui-icon-people-outline text-color-secondary mr-1"></i>Total Active Director</span>
+                                    <span class="dataValue text-2xl">{{ statsChartDataValue?.totalActiveDirectorCount ? ( statsChartDataValue?.totalActiveDirectorCount | number: '1.0-0' ) : 0 }}</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="col-12 lg:col-6">
+                            
+                            <div class="card mb-1">
+                                <div class="flex flex-column">
+                                    <span class="text-color-secondary text-base mb-3"><i class="ui-icon-people-outline text-color-secondary mr-1"></i>Average Active Director</span>
+                                    <span class="dataValue text-2xl">{{ statsChartDataValue?.averageActiveDirectorCount ? ( statsChartDataValue?.averageActiveDirectorCount | number: '1.0-0' ) : 0 }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card" *ngIf="doughnutChartDatasets.hasOwnProperty('riskChart')">
+                        <div class="furloughDataTable amountBandList">
+                            <div class="flex justify-content-between flex-wrap">
+                                <div class="col-12 lg:col-6">
+                                    <div>
+                                        <h3 class="c-green ml-1">Risk Analysis</h3>
+                                    </div>
+                                </div>
+                                <div class="col-12 lg:col-6 flex justify-content-end flex-wrap" *ngIf="statsChartDataValue?.riskChart?.notSpecified">
+                                    <div class="text-base text-right card surface-500 text-white py-2">
+                                        Not Specified: {{ statsChartDataValue && statsChartDataValue?.riskChart?.notSpecified | number : '1.0-0' }} ({{ statsChartDataValue && statsChartDataValue?.riskChart?.notSpecified_percentage | number : '1.0-2' }}%)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body flex flex-column col justify-content-center">
+                    
+                                <div class="flex align-items-center flex-wrap">
+                                    <div class="col flex align-items-center justify-content-center">
+                                        <p-chart type="doughnut" [data]="doughnutChartDatasets['riskChart']"
+                                            [options]="doughnutChartOptions['riskChart']" [plugins]="ChartDataLabelsPlugins" width="300px" height="300px" [responsive]="true">
+                                        </p-chart>
+                                    </div>
+                                    <div class="col-fixed">
+                                        <div class="flex flex-column justify-content-end riskPieChartLegends">
+                    
+                                            <div class="roundedColoredChipLabel notScoredLegendBg"
+                                                *ngIf="statsChartDataValue && statsChartDataValue?.riskChart?.notScored && statsChartDataValue && statsChartDataValue?.riskChart?.notScored_percentage"
+                                                (click)="goToSearchForMisc( 'Bands', $event)">
+                                                <p class="text-sm mb-0">Not Scored / Very High Risk</p>
+                                                <p class="text-lg mb-0">
+                                                    {{ statsChartDataValue && statsChartDataValue?.riskChart?.notScored | number : '1.0-0' }}
+                                                    ({{ statsChartDataValue && statsChartDataValue?.riskChart?.notScored_percentage | number : '1.0-2' }}%)
+                                                </p>
+                                            </div>
+                    
+                                            <div class="roundedColoredChipLabel highRiskLegendBg"
+                                                *ngIf="statsChartDataValue && statsChartDataValue?.riskChart?.highRisk && statsChartDataValue && statsChartDataValue?.riskChart?.highRisk_percentage"
+                                                (click)="goToSearchForMisc( 'Bands', $event)">
+                                                <p class="text-sm mb-0">High Risk</p>
+                                                <p class="text-lg mb-0">
+                                                    {{ statsChartDataValue && statsChartDataValue?.riskChart?.highRisk | number : '1.0-0' }}
+                                                    ({{ statsChartDataValue && statsChartDataValue?.riskChart?.highRisk_percentage | number : '1.0-2' }}%)
+                                                </p>
+                                            </div>
+                    
+                                            <div class="roundedColoredChipLabel moderateRiskLegendBg"
+                                                *ngIf="statsChartDataValue && statsChartDataValue?.riskChart?.moderateRisk && statsChartDataValue && statsChartDataValue?.riskChart?.moderateRisk_percentage"
+                                                (click)="goToSearchForMisc( 'Bands', $event)">
+                                                <p class="text-sm mb-0">Moderate Risk</p>
+                                                <p class="text-lg mb-0">
+                                                    {{ statsChartDataValue && statsChartDataValue?.riskChart?.moderateRisk | number : '1.0-0' }}
+                                                    ({{ statsChartDataValue && statsChartDataValue?.riskChart?.moderateRisk_percentage | number : '1.0-2' }}%)
+                                                </p>
+                                            </div>
+                                            <div class="roundedColoredChipLabel lowRiskLegendBg"
+                                                *ngIf="statsChartDataValue && statsChartDataValue?.riskChart?.lowRisk && statsChartDataValue && statsChartDataValue?.riskChart?.lowRisk_percentage"
+                                                (click)="goToSearchForMisc( 'Bands', $event)">
+                                                <p class="text-sm mb-0">Low Risk</p>
+                                                <p class="text-lg mb-0">
+                                                    {{ statsChartDataValue && statsChartDataValue?.riskChart?.lowRisk | number : '1.0-0' }}
+                                                    ({{ statsChartDataValue && statsChartDataValue?.riskChart?.lowRisk_percentage | number : '1.0-2' }}%)
+                                                </p>
+                                            </div>
+                    
+                                            <div class="roundedColoredChipLabel veryLowRiskLegendBg"
+                                                *ngIf="statsChartDataValue && statsChartDataValue?.riskChart?.veryLowRisk && statsChartDataValue && statsChartDataValue?.riskChart?.veryLowRisk_percentage"
+                                                (click)="goToSearchForMisc( 'Bands', $event)">
+                                                <p class="text-sm mb-0">Very Low Risk</p>
+                                                <p class="text-lg mb-0">
+                                                    {{ statsChartDataValue && statsChartDataValue?.riskChart?.veryLowRisk | number : '1.0-0' }}
+                                                    ({{ statsChartDataValue && statsChartDataValue?.riskChart?.veryLowRisk_percentage | number : '1.0-2' }}%)
+                                                </p>
+                                            </div>
+
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="financialCard" class="card surface-100">
+                        
+                        <div class="p-fluid flex">
+
+                            <p-dropdown [options]="financialKeys" [(ngModel)]="selectedFinancialKeys" optionLabel="label" optionValue="field" (onChange)="selectFinancialKeys()"></p-dropdown>
+                            <p-progressSpinner [style]="{width: '50px', height: '50px'}" *ngIf="spinnerBoolean"></p-progressSpinner>
+
+                        </div>
+
+                        <!-- <ng-container *ngFor="let val of selectedFinancialKeys"> -->
+
+                            <ng-container *ngIf="selectedFinancialKeys == 'turnover'">
+
+                                <ng-container *ngIf="( keyForFinancial?.[ selectedFinancialKeys + 'Array' ] && keyForFinancial[ selectedFinancialKeys + 'Array' ].length ) || ( keyForFinancial?.[ 'turnoverPlusEstimatedTurnoverArray' ] && keyForFinancial[ 'turnoverPlusEstimatedTurnoverArray' ].length)">
+
+                                    <ng-container *ngFor="let key of [ 'Array', 'Growth1YearInfo', 'Growth3YearsInfo', 'Growth5YearsInfo' ]">
+                                       
+                                        <div class="grid align-items-center my-2 ml-2">
+                    
+                                            <div class="col-fixed">
+                                                <span class="text-base font-medium">{{ financialTableStyle?.[ selectedFinancialKeys + key ] && financialTableStyle[ selectedFinancialKeys + key ]['header'] }}</span>
+                                            </div>
+                            
+                                            <div class="col text-right mr-5" *ngIf="key == 'Array'">
+                                                <label class="mr-3">Include Estimated Turnover</label>
+                                                <p-inputSwitch (onChange)="forEstimatedTurnover($event)" [(ngModel)]="checkEstimatedTurnover"></p-inputSwitch>
+                                            </div>
+                            
+                                        </div>
+
+                                        <ng-container *ngIf="( !checkEstimatedTurnover && keyForFinancial[ selectedFinancialKeys + key ].length || ( key !== 'Array' ) ); else estimateTurnover">
+                                            <div class="grid mb-5" *ngIf="keyForFinancial[ selectedFinancialKeys + key ] && keyForFinancial[ selectedFinancialKeys + key ].length">        
+                                                <ng-container *ngFor="let turnover of keyForFinancial[ selectedFinancialKeys + key ]">
+                                                    <ng-container *ngIf="turnover?.count_percentage; else noRedirection">
+                                                        <div class="col-4">
+                                                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( turnover['value']['greaterThan'], turnover['value']['lessThan'], key, selectedFinancialKeys )">
+                                                                <dg-shared-count-card [subTitle]="turnover?.label" [dataValue]="turnover?.count" [dataValuePercentage]="turnover?.count_percentage"  cardColor="{{financialTableStyle[ selectedFinancialKeys + key ]['color']}}"  [displayPercentageValue]="true"></dg-shared-count-card>
+                                                            </a>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #noRedirection>
+                                                        <div class="col-4">
+                                                            <dg-shared-count-card [subTitle]="turnover?.label" [dataValue]="turnover?.count" [dataValuePercentage]="turnover?.count_percentage"  cardColor="{{financialTableStyle[ selectedFinancialKeys + key ]['color']}}"  [displayPercentageValue]="true"></dg-shared-count-card>
+                                                        </div>
+                                                    </ng-template>            
+                                                </ng-container>            
+                                            </div>  
+                                        </ng-container>
+                                        
+                                        <ng-template #estimateTurnover>
+                                            <div class="grid mb-5">        
+                                                <ng-container *ngFor="let estimatedTurover of keyForFinancial[ 'turnoverPlusEstimatedTurnoverArray' ]">
+                                                    <ng-container *ngIf="estimatedTurover?.count_percentage; else noRedirection">
+                                                        <div class="col-4">
+                                                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( estimatedTurover['value']['greaterThan'], estimatedTurover['value']['lessThan'], key, selectedFinancialKeys  )">
+                                                                <dg-shared-count-card [subTitle]="estimatedTurover?.label" [dataValue]="estimatedTurover?.count" [dataValuePercentage]="estimatedTurover?.count_percentage" cardColor="Blue" [displayPercentageValue]="true"></dg-shared-count-card>
+                                                            </a>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #noRedirection>
+                                                        <div class="col-4">
+                                                            <dg-shared-count-card [subTitle]="estimatedTurover?.label" [dataValue]="estimatedTurover?.count" [dataValuePercentage]="estimatedTurover?.count_percentage" cardColor="Blue" [displayPercentageValue]="true"></dg-shared-count-card>                                
+                                                        </div>
+                                                    </ng-template>            
+                                                </ng-container>            
+                                            </div>
+                                        </ng-template>
+
+                                    </ng-container>
+
+                                </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngFor="let key of [ 'Array', 'Growth1YearInfo', 'Growth3YearsInfo', 'Growth5YearsInfo' ]">
+
+                                <ng-container *ngIf="keyForFinancial?.[ selectedFinancialKeys + key ] && keyForFinancial[ selectedFinancialKeys + key ].length && ( selectedFinancialKeys !== 'turnover' )">
+                                
+                                    <div class="grid align-items-center my-2 ml-2">
+                                        <div class="col-fixed">
+                                            <span class="text-base font-medium">{{ financialTableStyle?.[ selectedFinancialKeys + key ] && financialTableStyle[ selectedFinancialKeys + key ]['header'] }}</span>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="grid mb-5">
+                                        <ng-container *ngFor="let turnoverGrowth of keyForFinancial[ selectedFinancialKeys + key ]">
+                                            <ng-container *ngIf="turnoverGrowth?.count_percentage; else noRedirection">
+                                                <div class="col-4">
+                                                    <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( turnoverGrowth['value']['greaterThan'], turnoverGrowth['value']['lessThan'], key, selectedFinancialKeys )">
+                                                        <dg-shared-count-card [subTitle]="turnoverGrowth?.label" [dataValue]="turnoverGrowth?.count" [dataValuePercentage]="turnoverGrowth?.count_percentage" cardColor="{{financialTableStyle[ selectedFinancialKeys + key ]['color']}}" [displayPercentageValue]="true"></dg-shared-count-card>
+                                                    </a>
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #noRedirection>
+                                                <div class="col-4">
+                                                    <dg-shared-count-card [subTitle]="turnoverGrowth?.label" [dataValue]="turnoverGrowth?.count" [dataValuePercentage]="turnoverGrowth?.count_percentage" cardColor="{{financialTableStyle[ selectedFinancialKeys + key ]['color']}}" [displayPercentageValue]="true"></dg-shared-count-card>                                    
+                                                </div>
+                                            </ng-template>
+                                        </ng-container>
+                                    </div>
+
+                                </ng-container>
+                                
+                            </ng-container>
+
+                        <!-- </ng-container> -->
+
+                    </div>
+
+                    <ng-container *ngIf="industryListData.length && selectedGlobalCountry == 'uk'; else irBlock">
+
+                        <div class="card">
+                            <div class="furloughDataTable industriesList">
+                                <button pButton type="button" [ngClass]="'mb-2'" class="p-button-rounded mr-2 p-button-sm" label="Reset Table" icon="pi pi-replay" (click)="resetFilters( sicIndustryTable )"></button>
+
+                                <p-table #sicIndustryTable [columns]="industryListColumn" [value]="industryListData" [scrollable]="true" scrollHeight="flex">
+	
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <ng-container *ngFor="let col of columns">
+                                                <th [pSortableColumn]="col.isSortable ? col.field : ''" [ngStyle]="{ 'text-align': col.textAlign, 'min-width': col.minWidth, 'max-width': col.maxWidth }">{{col.header | uppercase }}
+                                                    <ng-container *ngIf="col.field == 'label'">
+                                                        <p-sortIcon [field]="col.field" (click)="customSort( $event, sicIndustryTable, col.field )"></p-sortIcon>
+                                                    </ng-container>
+                                                </th>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-template>
+                        
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">       
+                                        <tr>
+                                            <td *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{ 'text-align': col.textAlign, 'min-width': col.minWidth, 'max-width': col.maxWidth }">
+                
+                                                <ng-container *ngSwitchCase="'label'">
+                                                    {{ rowData[ col.field ] | titlecase }}
+                                                </ng-container>
+                
+                                                <ng-container *ngSwitchCase="'count'">
+                                                    <ng-container *ngIf="rowData['count']; else otherBlock">
+                                                        <ng-container *ngIf="isSicCodeIncluded; else other">
+                                                            {{ rowData['count'] | number }}
+                                                        </ng-container>
+                                                        <ng-template #other>
+                                                            <a href="javascript:void(0);" class="c-blue" (click)="goToSearchForIndustry( rowData['label'], rowData['value'] )"><strong>{{ rowData['count'] | number }}</strong></a>
+                                                        </ng-template>
+                                                    </ng-container>
+                
+                                                    <ng-template #otherBlock> - </ng-template>
+                
+                                                </ng-container>
+                
+                                                <ng-container *ngSwitchCase="'count_percentage'">
+                                                    {{ rowData['count_percentage'] ? ( rowData['count_percentage'] | number: '1.0-2' ) : '-' }}
+                                                </ng-container>
+                                                
+                                                <ng-container *ngSwitchDefault>{{ rowData[col.field] }}</ng-container>
+                    
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                    
+                                </p-table>
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+                    <ng-template #irBlock>
+                        <div class="card">
+                            <div class="furloughDataTable industriesList">
+                                <table class="simpleTableUI">
+                                    <thead>
+                                        <tr>
+                                            <th>SIC Industry</th>
+                                            <th width="30%" class="text-right">Count</th>
+                                            <th width="80" class="text-right">%</th>
+                                        </tr>
+                                    </thead>
+                                    <ng-container *ngIf="statsChartDataValue?.industry.length; else noDataValues">
+                                        <tbody>
+                                            <tr *ngFor="let industry of statsChartDataValue?.industry">
+                                                <td><span>{{ industry['code'] }} - </span>{{ industry['industry'] | titlecase }}</td>
+                                                <td class="text-right">
+    
+                                                    <ng-container *ngIf="industry[ 'count' ]">
+                                                        <a href="javascript:void(0);" class="c-blue" (click)="goToSearchForIndustry( undefined, industry['industry'], industry['code'])"><strong>{{ industry['count'] | number }}</strong></a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!industry[ 'count' ]"> - </ng-container>
+    
+                                                </td>
+                                                <td class="text-right">{{ industry['count_percentage'] ? ( industry['count_percentage'] | number: '1.0-2' ) : '-' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </ng-container>
+                                    <ng-template #noDataValues>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                        </tbody>
+                                    </ng-template>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </div>
+
+            </div>
+
+		</div>
+
+		<ng-container *ngIf="statsCriteriaValues.length > 0">
+            <div class="col-12 xl:col-2">
+                <div class="card selectedStatsCriteria">
+    
+                    <h3><strong>Selected criteria for stats</strong></h3>
+    
+                    <!-- <dg-display-style-filter-chip [selectedPropValues]="statsCriteriaValues" [thisPage]="thisPage"></dg-display-style-filter-chip> -->
+                    
+                    <dg-display-filter-chip [rawDataChips]="statsCriteriaValues" [displayType]="'styled'" [removableChips]="false"></dg-display-filter-chip>
+    
+                </div>
+    
+            </div>
+
+        </ng-container>
+
+	</div>
+
+</div>

@@ -1,0 +1,291 @@
+<p-messages [value]="msgs"></p-messages>
+
+<ng-template #showUpgradePlanBlock>
+	<ng-container *ngIf="isClientUser; else otherThanClientUserLoggedIn">
+		<div class="card text-center">
+			To enable this feature, please contact your Administrator.
+		</div>
+	</ng-container>
+	<ng-template #otherThanClientUserLoggedIn>
+		<p-card>
+			<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+		</p-card>		
+	</ng-template>	
+</ng-template>
+
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Upload CSV' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showUpgradePlanBlock"> -->
+<div featureAccess="Upload CSV" optionalTemplate="true">
+	<ng-container *ngIf="!displayUplaodPanel">
+		<div class="grid justify-content-center mt-6">
+			<div class="col-12 md:col-6 lg:col-6">
+				<div class="card shadow-8">
+					<h2 class="p-2 text-center">Select search method to add companies in list</h2>
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<div class="card">
+								<p-radioButton name="searchMethod" value="companyNumber" label="Search by Company Registration Number" binary="true" [(ngModel)]="searchMethod" inputId="number"></p-radioButton>
+							</div>
+						</div>
+						<div class="col-12 md:col-6">
+							<div class="card">
+								<p-radioButton name="searchMethod" value="companyName" label="Search by Company Name" binary="true" [(ngModel)]="searchMethod" inputId="name"></p-radioButton>
+							</div>
+						</div>
+						<div class="col-12 text-left">
+							<i class="ui-icon-info-outline mr-3"></i><strong class="c-light font-italic">Guidance</strong>
+							<ul class="pl-0">
+								<li class="ml-6 c-light font-italic">You can type in or paste list or upload csv of company names or company registration numbers.</li>
+								<li class="ml-6 c-light font-italic">If you prefer to upload CSV with company name then header should be "Company Name" and for company number header should be "Company Number"</li>
+								<li class="ml-6 c-light font-italic">At a time, 1000 companies can be uploaded.</li>
+								<!-- <li class="ml-6 c-light font-italic">This search method is applicable only for Live companies.</li> -->
+							</ul>
+						</div>
+						<div class="col-12 text-center">
+							<button pButton type="button" class="p-button-rounded p-button-lg" label="Next" (click)="next()"></button>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</ng-container>
+</div>
+<!-- </ng-container> -->
+
+<ng-container *ngIf="displayUplaodPanel">
+	<div>
+		<button pButton label="back" type="button" class="p-button-rounded p-button-lg" (click)="back()"></button>
+		<div class="grid">
+			<div class="xl:col-6 lg:col-6 md:col-12">
+				<div class="card mb-0">
+					<ng-container *ngIf="searchMethod == 'companyNumber'; else companyNameBlock">
+						<div class="grid">
+							<div class="col-9">
+								<strong class="c-green">Search by Company Registration Number</strong>. Please upload CSV/input list with company registration number.
+							</div>
+							<div class="col-3 text-pink-500">
+								<p-checkbox [(ngModel)]="includeDissolvedCheckBool" [binary]="true" label="Include Dissolved" inputId="binary"></p-checkbox>
+							</div>
+						</div>
+					</ng-container>
+					<ng-template #companyNameBlock>
+						<strong class="c-green">Search by Company Name</strong>. Please upload CSV/input list with company name.
+						<div class="grid">
+							<div class="col-9">
+								<div class="flex p-ai-center justify-content-between mt-2 onlyLinesAround card">
+									<p-radioButton name="searchType" value="similarMatch" (onClick)="clearListBox()" label="Search similar match" binary="true" [(ngModel)]="searchType" inputId="searchType2"></p-radioButton>
+									<p-radioButton name="searchType" value="exactMatch" (onClick)="clearListBox()" label="Search exact match" binary="true" [(ngModel)]="searchType" inputId="searchType1"></p-radioButton>
+								</div>
+							</div>
+							<div class="onlyLinesAround card col-3 includeDissolved">
+								<p-checkbox [(ngModel)]="includeDissolvedCheckBool" [binary]="true" label="Include Dissolved" inputId="binary"></p-checkbox>
+							</div>
+						</div>						
+					</ng-template>
+					<div class="searchDirectCompanySection">
+						<div class="fixedWidthContainer">
+							<div class="grid">
+								<div class="col-12">
+									<p-card>
+										<input type="text" pInputText name="file_name" [(ngModel)]="file_name" size="30" placeholder="File Name" disabled />
+									</p-card>
+									<small><a class="text-primary-600 cursor-pointer hoveringStyle" (click)="downloadSampleCsvFile()">Click for sample CSV file</a></small>
+								</div>
+								<div class="col-12 text-center">
+									<button pButton type="button" class="p-button-rounded p-button-lg" icon="pi pi-upload" label="Upload Csv" (click)="uploadCsvButton()" [disabled]="companyNameNumberList.length > 0"></button>
+								</div>
+							</div>
+						</div>
+					</div>
+		
+					<div class="text-center mt-1 mb-1">OR</div>
+
+					<ng-container *ngIf="searchMethod == 'companyNumber'; else companyNameNoteBlock">
+						<div class="c-light font-italic"><small>( *Note : Please input company number separated by comma ' , ' or should be on separate line. )</small></div>
+					</ng-container>
+					<ng-template #companyNameNoteBlock>
+						<div class="c-light font-italic"><small>( *Note : Please input company name on separate line. )</small></div>
+					</ng-template>
+					<div *ngIf="showUploadLimitBoolean && userAuthService.hasRolePermission( ['Super Admin'] ); else other" class="c-red font-italic"><small>( Limit exceeds! Please input companies list upto 5000. )</small></div>
+					<ng-template #other>
+						<div *ngIf="showUploadLimitBoolean" class="c-red font-italic"><small>( Limit exceeds! Please input companies list upto 1000. )</small></div>
+					</ng-template>
+
+					<div class="text-sm text-orange-500 mt-2">{{ this.totalSearchedRecords ? this.totalSearchedRecords : 0 }} Company <span *ngIf="searchMethod == 'companyName'; else companyNumber">Name</span><ng-template #companyNumber><span>Number</span></ng-template> <span *ngIf="this.totalSearchedRecords > 1">s</span> Inserted</div>
+		
+					<div class="mt-3">
+						<textarea pInputTextarea rows="19" cols="100" [(ngModel)]="companyNameNumberList" class="textAreaStyle" (keyup)="textRepresentationForNameNumber($event)" (paste)="textRepresentationForNameNumber($event)"></textarea>
+						<div class="col-12 text-center">
+							<button pButton type="button" class="p-button-rounded p-button-lg mr-1" label="Search" (click)="searchInputText()" [disabled]="companyNameNumberList.length === 0"></button>
+
+							<button pButton type="button" class="p-button-rounded p-button-lg ml-1 darkGrey" label="Clear" (click)="clearInputText()"></button>
+						</div>
+					</div>
+		
+				</div>
+			</div>
+			<div class="xl:col-6 lg:col-6 md:col-12">
+				<div class="card h-full sm-mt">
+					<div class="grid h-full">
+
+						<div [ngClass]="searchMethod == 'companyName' ? 'col-4' : 'col-6'">
+							<div class="card onlyLinesAround h-full">
+								<div class="card-header">
+									<ng-container *ngIf="searchType == 'exactMatch'; else similarBlock">
+										<h5>Exact Match</h5>
+									</ng-container>
+									<ng-template #similarBlock>
+										<h5>Similar Match</h5>
+									</ng-template>
+								</div>
+								<div class="m-2" *ngIf="exactMatchListOptions.length > 0 && exactMatchListOptions.length < 2">{{ similarExactMatchCompaniesCount }}  Result Found</div>
+								<div class="m-2" *ngIf="exactMatchListOptions.length > 1">{{ similarExactMatchCompaniesCount }}  Results Found</div>
+								<div class="card-body">
+									<ng-container *ngIf="exactMatchListOptions.length === 0">
+										<div class="c-light font-italic"><small>( *Note : To get the results please use upload CSV or provide company name/number in text area and press search )</small></div>
+									</ng-container>
+									<ng-container *ngIf="exactMatchListOptions.length !== 0; else noRecordTmeplate">
+										<div class="mt-1">
+
+											<!-- <p-listbox [options]="exactMatchListOptions" [filter]="true" [listStyle]="{'max-height':'250px'}" styleClass="p-listboxStyle"></p-listbox> -->
+
+											<p-listbox [options]="exactMatchListOptions" [filter]="true" optionLabel="businessName" styleClass="p-listboxStyle" [listStyle]="{'max-height':'250px'}">
+												<!-- <ng-template pTemplate="header">
+													Header Content
+												</ng-template> -->
+												<!-- <ng-template pTemplate="filter" let-options="options">
+													<div class="p-inputgroup">
+														<span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+														<input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="options.filter($event)">
+													</div>
+													<button pButton icon="pi pi-times" class="ml-3" (click)="myResetFunction(options)"></button>
+												</ng-template> -->
+												<ng-template pTemplate="item" let-matchItem> 
+													<div>
+														<span class="font-medium">{{ matchItem.businessName | titlecase }} | {{ matchItem.companyRegistrationNumber  | titlecase}} | </span> 
+														<span class="status" [ngClass]="{ 'green':  matchItem?.companyStatus == 'live' || matchItem?.companyStatus == 'administration order', 'c-orange':  matchItem?.companyStatus == 'in liquidation' || matchItem?.companyStatus == 'removed', 'c-red': matchItem?.companyStatus == 'converted/closed' || matchItem?.companyStatus == 'dissolved' || matchItem?.companyStatus == 'in administration' || matchItem?.companyStatus == 'in receivership / administration' ||  matchItem?.companyStatus == 'voluntary arrangement' || matchItem?.companyStatus == 'in receivership' || matchItem?.companyStatus == 'deleted'}">{{ matchItem.companyStatus | uppercase }}</span>
+													</div>
+												</ng-template>
+											</p-listbox>
+
+										</div>
+									</ng-container>
+								</div>
+								<div class="flex justify-content-center">
+									<div class="col-fixed">
+										<dg-add-company-to-list [thisPage]="'uploadCsvPage'" (messageCommunicator)="getMessage($event)" [disableButton]="exactMatchListOptions.length === 0" [addAllListOfCompArr]="addAllListOfCompArr"></dg-add-company-to-list>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<ng-container *ngIf="searchMethod == 'companyName'">
+							<div class="col-4">
+								<div class="card onlyLinesAround h-full">
+									<div class="card-header">
+										<ng-container>
+											<h5>Multi Match</h5>
+										</ng-container>
+									</div>
+									<div class="m-2" *ngIf="multiMatchListOptions.length > 0 && multiMatchListOptions.length < 2">{{ multiMatchCompaniesCount }}  Result Found</div>
+									<div class="m-2" *ngIf="multiMatchListOptions.length > 1">{{ multiMatchCompaniesCount }}  Results Found</div>
+									<div class="card-body">
+										<ng-container *ngIf="multiMatchListOptions.length === 0">
+											<div class="c-light font-italic"><small>( *Note : To get the results please use upload CSV or provide company name/number in text area and press search )</small></div>
+										</ng-container>
+										<ng-container *ngIf="multiMatchListOptions.length !== 0; else noRecordTmeplate">
+											<div class="mt-1">
+												<p-listbox [options]="multiMatchListOptions" [filter]="true" optionLabel="businessName" [multiple]="true"
+												[checkbox]="( searchMethod != 'companyNumber' ) ? true : false" [showToggleAll]="false" styleClass="p-listboxStyle" [listStyle]="{'max-height':'250px'}" (onChange)="selectCompanyForList($event)">
+													<ng-template pTemplate="item" let-matchItem> 
+														<div>
+															<span class="font-medium">{{ matchItem.businessName | titlecase }} | {{ matchItem.companyRegistrationNumber  | titlecase}} | </span> 
+															<span class="status" [ngClass]="{ 'green':  matchItem?.companyStatus == 'live' || matchItem?.companyStatus == 'administration order', 'c-orange':  matchItem?.companyStatus == 'in liquidation' || matchItem?.companyStatus == 'removed', 'c-red': matchItem?.companyStatus == 'converted/closed' || matchItem?.companyStatus == 'dissolved' || matchItem?.companyStatus == 'in administration' || matchItem?.companyStatus == 'in receivership / administration' ||  matchItem?.companyStatus == 'voluntary arrangement' || matchItem?.companyStatus == 'in receivership' || matchItem?.companyStatus == 'deleted'}">{{ matchItem.companyStatus | uppercase }}</span>
+														</div>
+													</ng-template>
+												</p-listbox>
+	
+											</div>
+										</ng-container>
+									</div>
+									<div class="flex justify-content-center">
+										<div class="col-fixed">
+											<dg-add-company-to-list [thisPage]="'uploadCsvPage'" (messageCommunicator)="getMessage($event)" [disableButton]="multiMatchListOptions.length === 0" [addAllListOfCompArr]="addAllListForMultiMatch"></dg-add-company-to-list>
+										</div>
+									</div>
+								</div>
+							</div>
+						</ng-container>
+
+						<div [ngClass]="searchMethod == 'companyName' ? 'col-4' : 'col-6'">
+							<div class="card onlyLinesAround h-full">
+								<div class="card-header">
+									<h5>No Match</h5>
+								</div>
+								<div class="card-body">
+									<ng-container *ngIf="noMatchListOptions.length === 0">
+										<div class="c-light font-italic"><small>( *Note : To get the results please use upload CSV or provide company name/number in text area and press search )</small></div>
+									</ng-container>
+									
+									<ng-container *ngIf="noMatchListOptions.length; else noRecordTmeplate">
+									
+										<div class="grid no-gutter align-items-end">
+											<div class="col"><small>{{ noMatchCompaniesCount }} Result{{ noMatchListOptions.length > 1 ? 's' : '' }} Found</small></div>
+											<div class="col-fixed">
+												<button pButton type="button" class="p-button-rounded p-button-sm m-0" label="Copy" icon="pi pi-copy" (click)="copyText( noMatchedTextarea )"></button>
+											</div>
+										</div>
+										
+										<div class="mt-1">
+											<textarea #noMatchedTextarea pInputTextarea rows="19" cols="100" [ngModel]="noMatchListOptions.join('\n')" [readOnly]="true" class="textAreaStyle" ></textarea>
+										</div>
+
+									</ng-container>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</ng-container>
+
+<p-dialog header="Upload Csv" [(visible)]="uploadCsvBool" [draggable]="false" [style]="{width: '500px', height: 'auto'}" [modal]="true" [closable]="true">
+	<form>
+		<div class="col mt-4">
+			<p-fileUpload #fileUploader name="file[]" id="chooseFile" accept=".csv" customUpload="true" maxFileSize="200000" multiple="multiple" (uploadHandler)="onSelectedFile($event)">
+				<ng-template let-file pTemplate='file'>
+					<div class="upload-file">
+						<span>{{ file.name }} </span>
+						<span class="ml-2">{{ file.size }} Kb</span>
+					</div>
+				</ng-template>
+			</p-fileUpload>
+		</div>
+	</form>
+</p-dialog>
+
+<p-dialog header="Add List" [(visible)]="displayModal" [draggable]="false" [style]="{width: '500px', height: 'auto'}" [modal]="true" [closable]="true" (onHide)="listboxReset = !listboxReset">
+	<p-listbox *ngIf="listboxReset" [options]="favList" #Listbox (onClick)="selectList($event)" [(ngModel)]="ListArrayData" optionLabel="name" [listStyle]="{'max-height':'250px'}"></p-listbox>
+	<div *ngIf="recordsAfterFilter">
+		<h4>
+			<p class="pt-2">No records found, Do you want to create
+				<strong>
+					<u>{{ newCreateListName }}</u>
+				</strong> List?
+			</p>
+			<div class="text-center">
+				<button type="button" pButton label="Yes" class="p-button-rounded p-button-sm" (click)="onUploadData()"></button>
+				<button type="button" pButton label="No" class="p-button-rounded p-button-sm p-ml-2" (click)="clearFilterField($event)"></button>
+			</div>
+		</h4>
+	</div>
+</p-dialog>
+
+<ng-template #noRecordTmeplate>
+	<div class="noRecords">
+		<p>No Result Found</p>
+	</div>
+</ng-template>

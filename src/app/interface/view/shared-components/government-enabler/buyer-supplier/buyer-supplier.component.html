@@ -1,0 +1,30 @@
+<div class="card bg-gray-50">
+    <div class="p-inputgroup p-2 pt-0">
+        <p-autoComplete #inputField class="wrapper" [(ngModel)]="selectedItem" [suggestions]="suggestions" optionLabel="label" (completeMethod)="suggestionForBuyerSupplierName($event)">
+
+            <ng-template pTemplate="header">
+                <ng-container *ngIf="!suggestions.length">
+                    <div class="p-4">No records found</div>
+                </ng-container>
+            </ng-template>
+
+            <ng-template let-name pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div class="font-medium text-gray-700">{{ name.label }}</div>
+                </div>
+            </ng-template>
+
+        </p-autoComplete>
+        <button pButton label="Search" icon="pi pi-search piIcon" class="border-round p-button-sm" [disabled]="!selectedItem?.key" (click)="searchEnteredResult(inputField)"></button>
+    </div>
+</div>
+
+<ng-container>
+    <dg-user-list [listColumns]="tableCols" [listDataValues]="tableData" [listPage]="true" [thisPage]="'buyerSupplier'" [totalNumOfRecords]="tableData.length" [serverSidePaginator]="false" (goToContractFinder)="searchCommunicator($event)"></dg-user-list>
+</ng-container>
+
+<p-dialog [modal]="true" [(visible)]="showRawCriteria" [style]="{ width: '105rem', height: '56rem' }" [focusOnShow]="false" [showHeader]="true" [draggable]="false" appendTo="body">
+    <ng-container *ngIf="sendContractData?.['chipGroup']">
+        <dg-contract-finder [rawSearchField]="sendContractData"></dg-contract-finder>
+    </ng-container>
+</p-dialog>

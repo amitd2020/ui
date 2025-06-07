@@ -1,0 +1,263 @@
+<!-- View Notice Identifier Modal Box Start -->
+<div class="flex align-items-center justify-content-start mb-1">
+	<div class="col-fixed py-0">
+		<button pButton label="Reset Filter" (click)="resetGovtEnablerFilters()" class="p-button-sm"></button>
+	</div>
+</div>
+
+<p-dialog header="{{ (noticeIndentifierSummaryData?.noticeIdentifier) | uppercase }}" [draggable]="false" [modal]="true"
+    [(visible)]="viewNoticeIndentifierModal" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false"
+    [style]="{ width: '75vw', 'overflow-y': 'auto' }">
+    <div class="grid">
+        <div class="col-12 md:col-12">
+            <ng-container
+                *ngIf="noticeIndentifierSummaryData?.organisationName && noticeIndentifierSummaryData?.organisation_reg; else elseBlock">
+                <span class="x-big-data-font">
+                    <a class="cName" target="_blank"
+                        [href]="'/company/' + noticeIndentifierSummaryData?.organisation_reg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.organisationName | titlecase)">{{
+                        noticeIndentifierSummaryData?.organisationName | uppercase }}</a>
+                </span>
+            </ng-container>
+            <ng-template #elseBlock>
+                <span class="x-big-data-font">{{ noticeIndentifierSummaryData?.organisationName | uppercase }}</span>
+            </ng-template>
+        </div>
+        <div class="col-12 md:col-12 divider">
+            <span
+                *ngIf="noticeIndentifierSummaryData?.organisationName && noticeIndentifierSummaryData?.organisation_reg">
+                <a class="cName" target="_blank"
+                    [href]="'/company/' + noticeIndentifierSummaryData?.organisation_reg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.organisationName | titlecase)">{{
+                    noticeIndentifierSummaryData?.organisation_reg | uppercase }}</a>
+            </span>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-6 p-lg-6">
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.contactName">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Contact Name:</span>
+                </div>
+                <div class="col-3 md:col-3">
+                    <span>{{ noticeIndentifierSummaryData?.contactName }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.status">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Status:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.status }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.title">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Title:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.title }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.awardedValue">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Award Value:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ toNumberSuffix.transform( noticeIndentifierSummaryData?.awardedValue, '0', selectedGlobalCurrency )
+                        }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.awardedDate">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Award Date:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.awardedDate }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.noticeType">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Notice Type:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.noticeType }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 p-lg-6">
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.contractStartDate">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Contract Start Date:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.contractStartDate }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.contractEndDate">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Contract End Date:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.contractEndDate }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.closingDate">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Closing Date:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.closingDate }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.region">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Region:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <span>{{ noticeIndentifierSummaryData?.region }}</span>
+                </div>
+            </div>
+            <div class="grid mt-3" *ngIf="noticeIndentifierSummaryData?.description">
+                <div class="col-3 md:col-3">
+                    <span class="heading-font p-font-bold">Description:</span>
+                </div>
+                <div class="col-9 md:col-9">
+                    <div #descriptionTextContainer class="limitTextHeight">{{ noticeIndentifierSummaryData?.description
+                        }}</div>
+                    <a type="button"
+                        *ngIf="noticeIndentifierSummaryData?.description && noticeIndentifierSummaryData?.description.length > 100"
+                        href="javascript:void(0);" class="small-data-font c-green"
+                        (click)="showText( descriptionTextContainer )">Read More</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</p-dialog>
+<!-- View Notice Identifier Modal Box Ends -->
+
+<div class="dashboard-view">
+
+    <div class="grid mb-3">
+
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="card widget-social">
+                <div class="card-header">
+                    <h5 class="mb-0 text-uppercase">Contracts</h5>
+                </div>
+                <div class="card-body">
+                    <div class="flex justify-content-between align-items-center p-2">
+                        <div class="social-icon">
+                            <span class="material-icons cardPlaceholderIcons fs-xxlarge">business</span>
+                        </div>
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize">{{ finalDataToDisplay?.counts?.totalContractCounts | number: '1.0-0' }}</span>
+                            <span class="subtext mt-2">Number Of Contracts</span>
+                        </div> 
+                    </div>
+                    <div class="flex justify-content-between align-items-center p-2">
+                        <div class="social-icon">
+                            <span class="material-icons cardPlaceholderIcons fs-xxlarge">emoji_events</span>
+                        </div>
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize">{{ finalDataToDisplay?.counts?.totalAwardedContractCount | number: '1.0-0' }}</span>
+                            <span class="subtext mt-2">Total Awarded Contract</span>
+                        </div> 
+                    </div>
+                    <div class="flex justify-content-between align-items-center p-2">
+                        <div class="social-icon">
+                            <span class="ui-icon-gavel cardPlaceholderIcons fs-xxlarge"></span>
+                        </div>
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize">{{ finalDataToDisplay?.counts?.totalClosedContractCount | number: '1.0-0' }}</span>
+                            <span class="subtext mt-2">Total Closed Contract</span>
+                        </div> 
+                    </div>
+                    <div class="flex justify-content-between align-items-center p-2">
+                        <div class="social-icon">
+                            <span class="material-icons cardPlaceholderIcons fs-xxlarge">business</span>
+                        </div>
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize">{{ finalDataToDisplay?.counts?.totalOpenContractCount | number: '1.0-0' }}</span>
+                            <span class="subtext mt-2">Total Open Contract</span>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="card widget-social">
+                <div class="card-header">
+                    <h5 class="mb-0 text-uppercase">Value</h5>
+                </div>
+                <div class="card-body">
+                    <div class="flex justify-content-end align-items-center p-3">
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize" *ngIf="finalDataToDisplay?.totalContractAmount">{{ toNumberSuffix.transform( finalDataToDisplay?.totalContractAmount, '0', selectedGlobalCurrency ) }}</span>
+                            <span class="subtext mt-2">Total Contract Value</span>
+                        </div>
+                    </div>
+                    <div class="card-body-p">
+                        <p-chart type="bar" [data]="totalContractValueChartData" [options]="totalContractsValueChartOptions" height="210px" [responsive]="true"></p-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="card overview-box flex flex-column">
+                <div class="card-header">
+                    <h5 class="mb-0 text-uppercase">Total Contract Types</h5>
+                </div>
+                <div class="card-body">
+                    <div class="grid">
+                        <div class="sm:col-12 md:col-4 lg:col-4">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="overview-status p-1 mb-2 text-xl servicesColor">Services</div>
+                                    <div class="mb-3 text-2xl">{{ finalDataToDisplay?.counts?.totalContractTypeServices | number: '1.0-0'}}</div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="overview-status p-1 mb-2 text-xl productsColor">Products</div>
+                                    <div class="mb-3 text-3xl">{{ finalDataToDisplay?.counts?.totalContractTypeProducts | number: '1.0-0'}}</div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="overview-status p-1 mb-2 text-xl worksColor">Works</div>
+                                    <div class="mb-3 text-3xl">{{ finalDataToDisplay?.counts?.totalContractTypeWorks | number: '1.0-0'}}</div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="overview-status p-1 mb-2 text-xl unknownColor">Unknown</div>
+                                    <div class="mb-3 text-3xl">{{ finalDataToDisplay?.counts?.totalContractTypeUnknown | number: '1.0-0'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pl- sm:col-12 md:col-8 lg:col-8">
+                            <p-chart type="doughnut" [options]="overallDoughnutOptions" [data]="overallDoughnutData" responsive="true" height="305px"></p-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+	<div class="grid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 text-uppercase">Total Contracts Yearly</h5>
+                </div>
+                <div class="card-body justify-center">
+                    <p-chart type="line" [data]="govtEnablerDashboardChartData" [options]="govtEnablebChartOptions" height="430px" [responsive]="true"></p-chart>
+                </div>
+            </div>
+
+            <dg-admin-record-list [listColumns]="tableDataColumns" [listDataValues]="tableListDataValues" [thisPage]="'buyersDashboard'" [searchTotalCount]="searchTotalCount" (updateTableAfterPagination)="requestUpdateTableData( $event )" (getNoticeIndentifierData)="getNoticeIndentifierData($event)" *ngIf="reInitTableDataValuesForReset"></dg-admin-record-list>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- <dg-filter-sidebar [thisPage]="'buyersDashboard'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="buyersDashboardCommunicator($event)" [isFilterSidebarShow]="isFilterSidebarShow"></dg-filter-sidebar> -->
+<dg-filter-sidebar [thisPage]="'buyersDashboard'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="buyersDashboardCommunicator($event)"></dg-filter-sidebar>

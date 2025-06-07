@@ -1,0 +1,7 @@
+<i class="pl-2 text-xl pi pi-info-circle" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)"></i>
+
+<p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+    <div class="OverlayAdmin">
+        {{ iTagMessage }}
+    </div>
+</p-overlayPanel>

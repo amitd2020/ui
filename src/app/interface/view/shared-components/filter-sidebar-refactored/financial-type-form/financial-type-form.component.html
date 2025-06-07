@@ -1,0 +1,83 @@
+<ng-container *ngIf="andOrInputSwitch">
+    <div class="mb-3"> 
+        <label class="mr-2">AND</label>
+        <p-inputSwitch name="inputSwitch" [(ngModel)]="inputSwitch"></p-inputSwitch>
+        <label class="ml-2">OR</label>
+    </div>
+</ng-container>
+
+<ng-container *ngFor="let control of formControlsContainer; let indx = index;">
+    <div class="card">
+        <ng-container *ngIf="control.canBeNegative && control?.canBeNegative == true">
+            <small class="c-light font-italic text-sm" style="letter-spacing: '0.5px'">*Below 0 value also can be added</small>
+        </ng-container>
+        <div class="grid py-1">
+            <div class="col-6">
+                <p-dropdown [options]="dropDownData" name="key" placeholder="Select Financial Key" [virtualScroll]="false" [virtualScrollItemSize]="5" [filter]="true" appendTo="body" optionLabel="label" optionValue="value" optionDisabled="inactive" [(ngModel)]="control.key" (onChange)="updateInactivityForFinancialKeyDropdown( control )"></p-dropdown>
+            </div>
+            <ng-container *ngIf="control.deleteRowButton">    
+                <div class="col-6 text-right">
+                    <button pButton icon="ui-icon-delete" title="Delete Row" class="p-button-rounded p-button-sm p-button-danger" (click)="deleteRow( indx, control )" ></button>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="grid p-1">
+    
+            <div class="col-6">
+                <p-inputNumber 
+                    [disabled]="control?.key == ''"
+                    [min]="!control.canBeNegative ? '0' : '-99999999999'"
+                    placeholder="Greater Than"
+                    name="greater_than"
+                    [mode]="control.mode"
+                    [currency]="mode=='currency' ? 'GBP' : undefined"
+                    [minFractionDigits]="fractionDigits"
+                    [maxFractionDigits]="fractionDigits"
+                    [prefix]="suffix"
+                    locale="en-GB"
+                    [(ngModel)]="control.greater_than"
+                    (onInput)="compareGtLtValue( $event, control, 'less_than' )"
+                ></p-inputNumber>
+    
+            </div>
+            
+            <div class="col-6">
+                <p-inputNumber
+                    [disabled]="control?.key == ''"
+                    [min]="!control.canBeNegative ? '0' : '-99999999999'"
+                    placeholder="Less Than"
+                    name="less_than"
+                    [mode]="control.mode"
+                    [currency]="mode=='currency' ? 'GBP' : undefined"
+                    [minFractionDigits]="fractionDigits"
+                    [maxFractionDigits]="fractionDigits"
+                    [prefix]="suffix"
+                    locale="en-GB"
+                    [(ngModel)]="control.less_than"
+                    (onInput)="compareGtLtValue( $event, control, 'greater_than' )"
+                ></p-inputNumber>
+
+                
+            </div>
+
+            <div class="c-red col-12">
+                <div>{{ control.errorMessage.gtLtValueCheck }}</div>
+                <div>{{ control.errorMessage.empty }}</div>
+            </div>
+
+        </div>
+
+        <ng-container *ngIf="control.addRowButton">
+            <button pButton type="button" icon="ui-icon-add" title="Add Row" label="Add Row" class="p-button-rounded p-button-sm" (click)="addRow()" *ngIf="formControlsContainer.length <5">
+            </button>
+        </ng-container>            
+    
+    </div>
+</ng-container>
+
+<p-messages [value]="formsControlErrorMessage"></p-messages>
+
+<div class="text-right">
+    <p-button type="submit" class="p-button-rounded mt-1 ml-1" label="Apply" (click)="returnFormValues()"></p-button>
+</div>

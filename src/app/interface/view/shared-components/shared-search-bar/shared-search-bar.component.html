@@ -1,0 +1,52 @@
+
+<div class="cardSearchbar grid grid-nogutter justify-content-center">
+	
+	<div class="col-fixed" [ngClass]="{ 'cardSearchBarResponsive': thisPage == 'dashboardSearch'}" >
+		<p-dropdown [options]="selectedGlobalCountry == 'uk' ? searchForOptions : irelandSearchForOptions" [(ngModel)]="fieldSearchFor"></p-dropdown>
+	</div>
+	
+	<!-- <div class="col-fixed hidden" *ngIf="thisPage != 'breadcrumbpage'">
+		<p-dropdown [options]="selectedGlobalCountry == 'uk' ? searchForOptions : irelandSearchForOptions" [(ngModel)]="fieldSearchFor"></p-dropdown>
+	</div>	 -->
+
+	<div class="col px-0">
+		<ng-container *ngIf="fieldSearchFor == 'company'">
+			<p-autoComplete *ngIf="placeholder !== null" [(ngModel)]="companyNameNumberSearchKey" appendTo="body" [baseZIndex]="999999998" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnter($event, 'company')" (completeMethod)="filteredCompanyName($event)" (onSelect)="searchCompany($event, 'company')" [size]="150" placeholder="eg: Tesco Plc" [minLength]="0">
+				<ng-template let-company pTemplate="item">
+					<h4 class="m-0">{{ company?.key }}
+						<span [ngClass]="{ 'green':  company?.companyStatus == 'Live' || company?.companyStatus == 'Administration Order', 'c-orange':  company?.companyStatus == 'In Liquidation', 'c-red': company?.companyStatus == 'Converted/closed' || company?.companyStatus == 'Dissolved' || company?.companyStatus == 'In Administration' || company?.companyStatus == 'In Receivership / Administration' ||  company?.companyStatus == 'Voluntary Arrangement' || company?.companyStatus == 'In Receivership' || company?.companyStatus == 'Deleted' || company?.companyStatus == 'Removed' }">{{ company?.companyStatus ? '|' : '' }} {{ company?.companyStatus }}</span>
+					</h4>
+					<p class="m-0 c-light"><small>{{ company?.companyNumber | uppercase }}</small> {{
+						company?.companyAddress ? '|' : '' }} <small>{{ company?.companyAddress }}</small></p>
+				</ng-template>
+			</p-autoComplete>
+		</ng-container>
+
+		<ng-container *ngIf="fieldSearchFor == 'director'">
+			<p-autoComplete appendTo="body" [baseZIndex]="999999998" [(ngModel)]="directorNameSearchKey" field="key" [size]="150" placeholder="eg: John Phillips" [minLength]="0" (keyup)="searchOnEnter($event, 'director')" styleClass="toHideAutoCompleteLoaderStyle"></p-autoComplete>
+		</ng-container>
+	
+		<ng-container *ngIf="fieldSearchFor == 'industry'">
+			<p-autoComplete field="key" name="key" [size]="150" [suggestions]="filteredIndustryNameArray" (keyup)="searchOnEnter($event, 'Industry')" (completeMethod)="filteredIndustryName($event)" [placeholder]="!industryNameSearchkey ? 'eg: Construction' : ''" [minLength]="0" [multiple]="true" (onSelect)="searchCompany($event, 'Industry')" (onUnselect)="unselectIndustryTagChip( $event )" [style]="{'min-width': router.url == '/company-search' ? '45rem' : null}"></p-autoComplete>
+		</ng-container>
+
+	</div>
+
+	<div class="col-fixed py-0">
+
+		<ng-container *ngIf="fieldSearchFor == 'company'">
+			<button pButton type="button" icon="ui-icon-search" (click)="searchRouteFor('company')"></button>
+		</ng-container>
+
+		<ng-container *ngIf="fieldSearchFor == 'director'">
+			<button pButton type="button" icon="ui-icon-search" (click)="searchRouteFor('director')"></button>
+		</ng-container>
+
+		<ng-container *ngIf="fieldSearchFor == 'industry'">
+			<button *ngIf="industryArry.length > 0" pButton type="button" icon="ui-icon-search" (click)="searchRouteFor('Industry')"></button>
+			<button *ngIf="industryArry.length == 0" pButton type="button" icon="ui-icon-search" (click)="searchRouteFor('Industry')"></button>
+		</ng-container>
+		
+	</div>
+
+</div>

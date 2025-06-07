@@ -1,0 +1,19 @@
+<div class="my-4">
+    
+    <p class="mb-2">Please select any Post Code to enter the radius <span class="text-gray-500"><em>(in miles)</em></span></p>
+
+    <div class="flex mb-1">
+
+        <div class="card flex-1 shadow-none border-1 border-500 border-round-lg mr-2 mb-0">
+            <p-slider [(ngModel)]="radiusProps.radius" [max]="100" [disabled]="!radiusProps?.postCode || ( radiusProps?.postCode == 'not specified' ) || filterExcludeBoolean"></p-slider>
+        </div>
+
+        <p-inputNumber [(ngModel)]="radiusProps.radius" [min]="0" [max]="100" [maxlength]="3" [maxFractionDigits]="0" [allowEmpty]="false" inputStyleClass="max-w-5rem mr-2 border-gray-500 border-round-lg px-3 py-2" [disabled]="!radiusProps?.postCode || ( radiusProps?.postCode == 'not specified' ) || filterExcludeBoolean"></p-inputNumber>
+
+        <button pButton type="button" label="Add Radius" class="p-button-sm border-round-lg m-0" [disabled]="!(radiusProps?.radius) || radiusProps.radius == 0 || filterExcludeBoolean" (click)="addRadiusLatLonValues()"></button>
+
+    </div>
+
+    <div class="c-red text-sm" *ngIf="errorMessage">{{ errorMessage }} Please try another Post Code.</div>
+
+</div>

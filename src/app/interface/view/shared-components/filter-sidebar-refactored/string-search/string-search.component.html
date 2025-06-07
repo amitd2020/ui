@@ -1,0 +1,93 @@
+<div [ngClass]="disableInputSearch == true ? 'disable-input-search' : null">
+    <div class="p-inputgroup border-1 border-gray-400 border-round-xl">
+        <span class="p-inputgroup-addon border-0 border-round-xl pl-3"><i class="pi pi-search"></i></span>
+    
+        <ng-container [ngSwitch]="fieldTypeSetter">
+    
+            <ng-container *ngSwitchCase="'number'">
+                <p-inputNumber placeholder="Search by keyword" inputStyleClass="py-3 px-1 border-0 border-round-xl" [useGrouping]="false" [(ngModel)]="enteredKeywords" (onInput)="setOnInputEnteredKeywords( $event )"></p-inputNumber>
+            </ng-container>
+            
+            <ng-container *ngSwitchDefault>
+                <input pInputText type="text" placeholder="Search by keyword" class="py-3 px-1 border-0 border-round-xl" [(ngModel)]="enteredKeywords" (keyup)="searchString($event)">
+            </ng-container>
+    
+        </ng-container>
+    
+        <a href="javascript: void(0);" class="p-inputgroup-addon border-0 border-round-xl" (click)="enteredKeywords = null; radioChecked = 'current'" *ngIf="enteredKeywords"><i class="pi pi-times"></i></a>
+    </div>
+    
+    <div class="p-2 text-right" *ngIf="enteredKeywords">
+    
+        <ng-container *ngIf="matchConditionSetter === 'contains'">
+            <ng-container *ngIf="( searchExactValues && containsAndOr ); else defaultBlock">
+                <p-button label="Apply" class="p-button-rounded" (click)="setKeywordValues()"></p-button>
+            </ng-container>
+    
+            <ng-template #defaultBlock>
+                <div *ngIf="radioButtonFunctionality" class="my-2">
+                    <span class="mr-3">
+                        <p-radioButton value="current" name="radio_button" label="Current" binary="true" [(ngModel)]="radioChecked"></p-radioButton>
+                    </span>
+                    <span>
+                        <p-radioButton value="all" name="radio_button" label="All" binary="true" [(ngModel)]="radioChecked"></p-radioButton>
+                    </span>
+                </div>
+
+                <a href="javascript:void(0);" class="flex font-medium align-items-center mt-2" (click)="setKeywordValues('and')">
+                    <span>Contains all of keywords {{ enteredKeywords }}</span>
+                    <span class="material-icons inline-block bg-bluegray-400 text-white text-xl border-round ml-auto">add</span>
+                </a>
+                <a href="javascript:void(0);" class="flex font-medium align-items-center mt-2" (click)="setKeywordValues('or')">
+                    <span>Contains any one of keyword {{ enteredKeywords }}</span>
+                    <span class="material-icons inline-block bg-bluegray-400 text-white text-xl border-round ml-auto">add</span>
+                </a>
+            </ng-template>
+        </ng-container>
+    
+        <ng-container *ngIf="matchConditionSetter === 'equals'">
+            <a href="javascript:void(0);" class="flex font-medium align-items-center mt-2" (click)="setKeywordValues()">
+                <span>Companies with {{ enteredKeywords }}</span>
+                <span class="material-icons inline-block bg-bluegray-400 text-white text-xl border-round ml-auto">add</span>
+            </a>
+        </ng-container>
+    
+        <ng-container *ngIf="listBoxFeatures?.excludeOptions">
+            <div class="grid align-items-center mt-2">
+                <div class="col">
+                    <strong>Exclude businesses that have all the keyword/term in their company name</strong>
+                </div>
+                <div class="col-fixed preferencesRadio flex justify-content-end">
+                    <p-checkbox label="Exclude" value="exclude" [(ngModel)]="excludeListOptions" [binary]="true"></p-checkbox>
+                </div>
+            </div>
+        </ng-container>
+    
+    </div>
+</div>
+
+
+<ng-container *ngIf="listBoxFeatures?.contractPageNote">
+    <div class="mt-4 pb-4 font-italic">
+        <li><small>Can include contract title, description, buyer and supplier.</small></li>
+        <li><small>To search for a phrase or exact match, use quotes. For example, "Partners Procurement".</small></li>
+        <li style="position: relative;"><small style="position: absolute;">To search for any of the keywords, use an OR search. For example, Data Technology.</small></li>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="this.listBoxFeatures?.showCheckBox">
+    <div class="flex justify-content-between align-itmes-center py-3 px-4 shadow-1 mt-4 bg-gray-100 border-round-md">
+
+        <div *ngFor="let category of checkBoxArray; let i = index;" class=" flex align-items-center">
+            <div class="flex align-items-center">
+                <p-checkbox 
+                    [(ngModel)]="category['checked']"
+                    [disabled]="category['defaultSelect'] || !enteredKeywords"
+                    [label]="category.name"
+                    [binary]="true"
+                    [inputId]="i" />
+            </div>
+        </div>
+    
+    </div>
+</ng-container>

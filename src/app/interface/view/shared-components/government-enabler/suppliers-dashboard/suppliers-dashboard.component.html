@@ -1,0 +1,67 @@
+<div class="flex align-items-center justify-content-start mb-1">
+	<div class="col-fixed py-0">
+		<button pButton label="Reset Filter" (click)="resetGovtEnablerFilters()" class="p-button-sm"></button>
+	</div>
+</div>
+
+<div class="dashboard-view">
+
+    <div class="grid mb-3">
+   
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="card widget-social h-full">
+                <div class="card-header">
+                    <h5>Contracts</h5>
+                </div>
+                <div class="card-body">
+                    <div class="flex justify-content-between align-items-center p-3">
+                        <div class="social-icon">
+                            <span class="material-icons cardPlaceholderIcons">business</span>
+                        </div>
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize">{{ finalDataToDisplay?.buyerCount | number: '1.0-0' }}</span>
+                            <span class="subtext mt-2">Number of Contracts</span>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="card widget-social h-full">
+                <div class="card-header">
+                    <h5>Value</h5>
+                </div>
+                <div class="card-body">
+                    <div class="flex justify-content-between align-items-center p-3">
+                        <div class="social-icon">
+                            <span class="material-icons cardPlaceholderIcons">emoji_events</span>
+                        </div>
+                        <div class="info flex flex-column">
+                            <span class="value mb-2 countFontSize" *ngIf="finalDataToDisplay?.awardValueCount">{{ toNumberSuffix.transform( finalDataToDisplay?.awardValueCount, '0', selectedGlobalCurrency ) }}</span>
+                            <span class="subtext mt-2">Total Value of Contracts</span>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="card flex flex-column h-full">
+                <div class="card-header">
+                    <h5>Yearly Contract Closing Trend</h5>
+                </div>
+                <div class="card-body flex flex-column col justify-content-center">
+                    <p-chart type="line" [data]="contractsWonChartData" [options]="contractsWonChartOptions" height="200px" [responsive]="true"></p-chart>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <dg-admin-record-list [listColumns]="buyerDataColumn" [listDataValues]="buyerDashboardDataValues" [searchTotalCount]="searchTotalCount" [thisPage]="'suppliersDashboard'" (updateTableAfterPagination)="requestUpdateTableData( $event )" *ngIf="reInitTableDataValuesForReset"></dg-admin-record-list>
+
+</div>
+
+<!-- <dg-filter-sidebar [thisPage]="'suppliersDashboard'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="suppliersDashboardCommunicator($event)" [isFilterSidebarShow]="isFilterSidebarShow"></dg-filter-sidebar> -->
+<dg-filter-sidebar [thisPage]="'suppliersDashboard'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="suppliersDashboardCommunicator($event)"></dg-filter-sidebar>

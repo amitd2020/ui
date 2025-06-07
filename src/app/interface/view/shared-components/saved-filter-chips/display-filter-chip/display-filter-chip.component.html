@@ -1,0 +1,174 @@
+
+<ng-container *ngIf="restructuredFilterItems?.length == 0">
+    <em>No Criteria Available</em>
+</ng-container>
+
+<ng-container *ngIf="restructuredFilterItems?.length">
+
+    <ng-container *ngFor="let filterItem of restructuredFilterItems; let parentIndx = index">
+    
+        <span class="inline-flex mx-1" *ngIf="displayType == 'inline' && parentIndx !== 0">|</span>
+    
+        <div [ngClass]="{ 'inline-flex': displayType == 'inline', 'bg-white shadow-1 border-round-lg p-2 mb-2': displayType == 'styled' }">
+
+            <strong [ngClass]="{ 'inline-block min-w-max mr-1': displayType !== 'styled', 'flex': displayType == 'styled' }"> 
+
+                {{ ( filterItem.label || filterItem.chip_group ) + ( ( displayType !== 'styled' ) ? ':' : '' ) }}
+                
+                <span class="inline-block c-orange mr-1" *ngIf="filterItem?.filter_exclude">(Exclude)</span>
+                
+
+                <ng-container *ngIf="removableChips">
+                    <ng-container *ngTemplateOutlet="RemoveChipButtonTemplate; context: { $implicit: '', filterLabel: filterItem.chip_group }"></ng-container>
+                </ng-container>
+
+            </strong>
+
+            <ng-container *ngIf="filterItem?.checkboxInChip && filterItem?.checkboxInChip.length">
+                <div class="c-orange py-1">
+                    (
+                        <ng-container  *ngFor="let item of filterItem?.checkboxInChip; let indx=index">
+                            {{item}}
+                            <span *ngIf="filterItem?.checkboxInChip.length > (indx+1)">, </span>
+                        </ng-container>
+                    )
+                    </div> 
+            </ng-container>
+    
+            <span [ngClass]="{ 'inline-block': displayType !== 'styled', 'block': displayType == 'styled' }">
+                
+                <ng-container *ngIf="filterItem?.chip_values?.length == 0">
+                    <em>No Criteria Available</em>
+                </ng-container>
+    
+                <ng-container *ngIf="filterItem?.chip_values?.length">
+    
+                    <ng-container *ngIf="( filterItem.chip_values?.[0]?.hasOwnProperty('firstValue') || filterItem.chip_values?.[0]?.hasOwnProperty('secondValue') ); else defaultChipValueView">
+                        
+                        <ng-container *ngFor="let chipData of filterItem?.chip_values; let indx = index">
+                            <span class="inline-block mr-1" *ngIf="indx !== 0 && displayType !== 'styled'">,</span>
+                            <span [ngClass]="{ 'inline-block': displayType !== 'styled', 'bg-primary border-round font-bold inline-block line-height-3 mr-1 mt-1 px-2 py-1 text-sm': displayType == 'styled' }">
+
+                                {{ ( chipData?.condition && ( chipData?.condition | titlecase ) ) || '' }}
+        
+                                {{ ( chipData?.dataLabel && ( chipData.dataLabel + ' | ' ) ) || '' }}
+        
+                                <ng-container *ngIf="( chipData?.firstValue || chipData?.firstValue == 0 ) && ![ 'not specified', 'unknown' ].includes( chipData?.firstValue ) && !( chipData?.secondValue || chipData?.secondValue == 0 )">
+                                    <span [innerHTML]="( chipData?.minPlaceholder && chipData?.minPlaceholder.includes('Minimum') ) ? 'Minimum' : '&gt;'"></span>
+                                </ng-container>
+        
+                                <ng-container *ngIf="( chipData?.secondValue || chipData?.secondValue == 0 ) && ![ 'not specified', 'unknown' ].includes( chipData?.secondValue ) && !( chipData?.firstValue || chipData?.firstValue == 0 )">
+                                    <span [innerHTML]="( chipData?.maxPlaceholder && chipData?.maxPlaceholder.includes('Maximum') ) ? 'Maximum' : '&lt;'"></span>
+                                </ng-container>
+        
+                                <ng-container *ngIf="( chipData?.firstValue || chipData?.firstValue == 0 )">
+
+                                    <ng-container *ngTemplateOutlet="RangeValuesTemplateView; context: { $implicit: chipData, filterLabel: filterItem.chip_group, chipValueLabel: 'firstValue' }"></ng-container>
+
+                                </ng-container>
+        
+                                {{ ( ( ( chipData?.firstValue || chipData?.firstValue == 0 ) && ( chipData?.secondValue || chipData?.secondValue == 0 ) ) && ' - ' ) || '' }}
+        
+                                <ng-container *ngIf="( chipData?.secondValue || chipData?.secondValue == 0 )">
+        
+                                    <ng-container *ngTemplateOutlet="RangeValuesTemplateView; context: { $implicit: chipData, filterLabel: filterItem.chip_group, chipValueLabel: 'secondValue' }"></ng-container>
+                                    
+                                </ng-container>
+
+                                <ng-container *ngIf="removableChips">
+                                    <ng-container *ngTemplateOutlet="RemoveChipButtonTemplate; context: { $implicit: '', filterLabel: filterItem.chip_group, chipIndex: indx, styleClass: 'text-white' }"></ng-container>
+                                </ng-container>
+        
+                            </span>
+                        </ng-container>
+        
+                    </ng-container>
+        
+                    <ng-template #defaultChipValueView>
+
+                        <ng-container *ngFor="let chipValue of filterItem.chip_values; let indx = index">
+                            
+                            <ng-container *ngIf="chipValue || chipValue == 0">
+                                
+                                <span class="inline-block" *ngIf="indx !== 0 && displayType !== 'styled'">,</span>
+
+                                <span [ngClass]="{ 'bg-primary border-round font-bold inline-block line-height-3 mr-1 mt-1 px-2 py-1 text-sm': ( displayType == 'styled' ) }" [ngSwitch]="true">
+    
+                                    <ng-container *ngSwitchCase="filterItem.chip_group.includes('Post Code')">
+                                        {{ chipValue | uppercase }}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="[ 'not specified', 'unknown' ].includes( chipValue )">
+                                        {{ 'Not Specified' }}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="filterItem?.chipValType == 'number'">
+                                        {{ filterItem.chip_group.includes('Month') ? MonthsEnum[ +chipValue ] : chipValue }}
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        {{ chipValue | titlecase }}
+
+                                    </ng-container>
+
+                                    <ng-container *ngIf="removableChips">
+                                        <ng-container *ngTemplateOutlet="RemoveChipButtonTemplate; context: { $implicit: '', filterLabel: filterItem.chip_group, chipIndex: indx, styleClass: 'text-white' }"></ng-container>
+                                    </ng-container>
+    
+                                </span>
+
+                            </ng-container>
+
+                        </ng-container>
+
+                    </ng-template>
+    
+                </ng-container>
+    
+            </span>
+        </div>
+    
+    </ng-container>
+    
+    <ng-template #RangeValuesTemplateView let-chipDataConfig let-filterLabel="filterLabel" let-chipValueLabel="chipValueLabel">
+    
+        <ng-container [ngSwitch]="true">
+    
+            <ng-container *ngSwitchCase="( filterLabel.includes('Month') && !filterLabel.includes('Months') )">
+                {{ ( MonthsEnum[ chipDataConfig[ chipValueLabel ] ] ) || '' }}
+            </ng-container>
+            
+            <ng-container *ngSwitchCase="[ 'not specified', 'unknown' ].includes( chipDataConfig[ chipValueLabel ] )">
+                {{ 'Not Specified' }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="filterLabel.includes('Year') && !filterLabel.includes('Years') && !filterLabel.includes('Growth')">
+                {{ chipDataConfig[ chipValueLabel ] }}
+           </ng-container>
+
+            <ng-container *ngSwitchCase="chipDataConfig[ chipValueLabel ] < 0">
+                ({{
+                    ( chipDataConfig[ chipValueLabel ] ) | currency
+                    : ( ( chipDataConfig?.mode == 'currency' ) ? selectedGlobalCurrency : '' )
+                    : ( ( chipDataConfig?.mode == 'currency' ) ? 'symbol' : '' )
+                    : ( chipDataConfig?.minFractionDigits ? '1.2-2' : '1.0-0' )
+                }}{{ chipDataConfig?.prefix || '' }})
+            </ng-container>
+    
+            <ng-container *ngSwitchDefault>
+                {{
+                    chipDataConfig[ chipValueLabel ] | currency
+                    : ( ( chipDataConfig?.mode == 'currency' ) ? selectedGlobalCurrency : '' )
+                    : ( ( chipDataConfig?.mode == 'currency' ) ? 'symbol' : '' )
+                    : ( chipDataConfig?.minFractionDigits ? '1.2-2' : '1.0-0' )
+                }}{{ chipDataConfig?.prefix || '' }}
+            </ng-container>
+    
+        </ng-container>
+    
+    </ng-template>
+
+    <ng-template #RemoveChipButtonTemplate let-filterLabel="filterLabel" let-chipIndex="chipIndex" let-styleClass="styleClass"> 
+        <a href="javascript:void(0);" class="ml-auto {{ styleClass ? styleClass : '' }}" (click)="removeFilterChipHandler( filterLabel, chipIndex )">
+            <small><i class="pi pi-times"></i></small>
+        </a>
+    </ng-template>
+    
+</ng-container>

@@ -1,0 +1,26 @@
+<p-dialog header="Select Fields:" styleClass="downloadReportModalDialog" [(visible)]="enterpriseReportButton" [modal]="true" [focusOnShow]="true" [style]="{width: '30vw'}" [baseZIndex]="10000" appendTo="body" [draggable]="false" [resizable]="true">
+
+    <div class="grid">
+        <div class="col-10">
+            <div class="p-field-radiobutton mt-3 mb-2">
+                <label class="mr-2 font-bold">Branding: </label>
+                <p-radioButton class="mr-1" name="Branding" value="DG Branding" [(ngModel)]="checkDgBranding" inputId="DG Branding" (onClick)="getBrandingName($event)"></p-radioButton>
+                <label class="mr-3" for="DG Branding">DG Branding</label>
+                <p-radioButton class="mr-1" name="Branding" value="Custom Branding" [(ngModel)]="checkDgBranding" inputId="Custom Branding" (onClick)="getBrandingName($event)"></p-radioButton>
+                <label for="Custom Branding">Custom Branding</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-orange-600" *ngIf="checkDgBranding == 'Custom Branding' && !showCheckBoxCard">
+        <small><p>Please click on the profile tab and upload your company logo and cover photo to generate the report.</p></small>
+    </div>
+
+    <p-footer>
+        <div class="text-center">
+            <button pButton type="button" label="Download Report" [disabled]="checkDgBranding == 'Custom Branding' && !showCheckBoxCard" icon="pi pi-file-pdf" class="p-button-rounded p-button-inline p-button-sm mr-0 mb-2" title="Download" (click)="checkPdfReportLimit()"></button>
+        </div> 
+    </p-footer>
+</p-dialog>
+<button pButton type="button" label="Download Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm ml-3" title="Download Report" (click)='enterpriseReportButton = true'></button>

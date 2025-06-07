@@ -1,0 +1,135 @@
+.searchDirectCompanySection {
+    padding-top: 3em;
+
+    ::ng-deep {
+        .p-card {
+            box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+            min-height: inherit;
+            border-radius: 40px;
+            overflow: hidden;
+    
+            .p-card-body {
+                padding: 0;
+            }
+    
+            *:not(.p-button-icon-left) {
+                padding: 0;
+                margin: 0;
+            }
+    
+            .p-inputtext {
+                background: #fff;
+                border: 0;
+                font-size: 1.1em;
+                line-height: 1.5;
+                font-style: italic;
+                padding: 0.5em 3em 0.5em 1.3em;
+            }
+            .p-button {
+                font-size: 1.8em;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            
+        }
+    }
+}
+.font-italic {
+    font-style: italic!important;
+}
+
+.fixedWidthContainer {
+    width: 100%;
+    max-width: 120em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.textAreaStyle {
+    width: 100%;
+    z-index: 1;
+    resize: none;
+}
+
+p-listbox {
+    ::ng-deep {
+        .p-listboxStyle {
+            &.p-listbox {
+                .p-listbox-list-wrapper {
+                    background-color: none;
+                    .p-listbox-list {
+                        .p-listbox-item {
+                            background: none;
+                            color: black;
+                            -webkit-pointer-events: none;
+                            pointer-events: none;
+                            -webkit-user-select: auto;
+                            user-select: auto;
+                            
+                            .p-checkbox {
+                                -webkit-pointer-events: auto;
+                                pointer-events: auto;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .card:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.card-body {
+    min-height: 31rem;
+}
+
+.noRecords {
+    text-align: center;
+    padding-top: 9rem;
+    -webkit-pointer-events: none;
+    pointer-events: none;
+
+    p {
+        font-size: 1.5em;
+        font-weight: 300;
+        color: #e2e2e2;
+    }
+}
+
+::ng-deep {
+
+    .p-dialog .p-dialog-content {
+        background: #fff;
+        color: rgba(0,0,0,.87);
+        padding: 0 1.25rem 1.25rem 1.25rem;
+        border-radius: 0 0 5px 5px !important;
+    }
+
+    @media only screen and (max-width: 1024px){
+        body {
+            .p-button {
+                margin-bottom: 1.2rem !important;
+            }
+        }
+
+        .sm-mt {
+            margin-top: 1rem !important;
+        }
+    }
+}
+
+.hoveringStyle:hover {
+    font-weight: 600;
+}
+
+.includeDissolved {
+    height: max-content;
+    margin-top: 1.2rem;
+    padding: 0.9rem;
+}

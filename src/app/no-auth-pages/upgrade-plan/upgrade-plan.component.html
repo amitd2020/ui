@@ -1,0 +1,17 @@
+<div class="m-3 subscriptionPlanDialogModal">
+    <p class="text-lg" *ngIf="!buttonOnly">To enable this feature, please upgrade the plan.</p>
+    <div class="text-center" [ngClass]="{ 'mt-4': !buttonOnly }">
+
+        <ng-container *ngIf="this.subscribedPlanModal['Valentine_Special'].includes(currentPlan); else otherBlock">
+            <p-button styleClass="valentinePlanBtn p-button-rounded p-button {{ thisPage == 'topbar' ? 'my-2' : ''}}" (click)="componentView == 'modal';" (click)="userMailSender()">
+                <span class="valentineLockIcon"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+                <span class="ml-2 pl-1">Upgrade Plan</span>
+            </p-button>
+        </ng-container>
+        <ng-template #otherBlock>
+            <button type="button" pButton label="Upgrade Plan" class="startPlanBtn p-button-rounded p-button yellowColor {{ thisPage == 'topbar' ? 'my-2' : ''}}"
+                (click)="componentView == 'modal'" (click)="userMailSender()"></button>
+        </ng-template>
+
+    </div>
+</div>

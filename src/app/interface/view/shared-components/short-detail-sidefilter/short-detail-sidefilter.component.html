@@ -1,0 +1,65 @@
+<div #filterSearchContainer class="filterSearchWrapper companyDetailsSidePanel" [ngClass]="{ 'showFilters': showCompanySideDetailsInputBool }">
+    
+    <div [@slideSidePanel]="showCompanySideDetailsInputBool" class="fixedSidebarPanel panelRight">
+        
+        <a href="javascript:void(0);" class="closePanel" (click)="closeSidebar()"><i class="material-icons sm-close-btn">clear</i></a>
+
+        <dg-company-details-view *ngIf="overviewName == 'companyOverview'" [companyNumberForFutureGrowth]="companyNumberForFutureGrowth"  [companyNumber]="companySideDetailsParams.companyNumber" [companyOriginalName]="companySideDetailsParams.companyName" [sidePanelView]="true" [tabNameToBeActive]="companySideDetailsParams.tabNameToBeActive"></dg-company-details-view>
+        
+        <ng-container *ngIf="overviewName == 'corporateOverview'">
+            <div class="corporateOverviewWrapper">
+                <h2 class="mb-3">Company Details</h2>
+                <div class="grid">
+                    <div  class="col-6" *ngFor="let data of coporateSideOverviewData.Company_Registration_No | keyvalue" [ngSwitch]="true">
+                        <ng-container class="ml-1 mr-1 " *ngSwitchCase="data.key == '1'">
+                            <div *ngIf = "data.value.length > 1" class="card">
+                                <label ><h4>Company Name 1:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_Name_1 | titlecase}}</p>                        
+                                <label><h4>Category:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietorship_Category_1 | titlecase}}</p>
+                                <label><h4>Address:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_1_Address_1 | titlecase}}</p>
+                            </div>                            
+                        </ng-container>
+                        <ng-container class="ml-1 mr-1 " *ngSwitchCase="data.key == '2'">
+                            <div *ngIf = "data.value.length > 1" class="card">
+                                <label ><h4>Company Name 2:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_Name_2 | titlecase}}</p>                        
+                                <label><h4>Category:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietorship_Category_2 | titlecase}}</p>
+                                <label><h4>Address:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_2_Address_1 | titlecase}}</p>
+                            </div>
+                        </ng-container>
+                        <ng-container class="ml-1 mr-1 " *ngSwitchCase="data.key == '3'">
+                            <div *ngIf = "data.value.length > 1" class="card">
+                                <label ><h4>Company Name 3:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_Name_3 | titlecase}}</p>                        
+                                <label><h4>Category:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietorship_Category_3 | titlecase}}</p>
+                                <label><h4>Address:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_3_Address_1 | titlecase}}</p>
+                            </div>
+                            </ng-container>
+                        <ng-container class="ml-1 mr-1 " *ngSwitchCase="data.key == '4'">
+                            <div *ngIf = "data.value.length > 1" class="card">
+                                <label ><h4>Company Name 4:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_Name_4 | titlecase}}</p>                        
+                                <label><h4>Category:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietorship_Category_4 | titlecase}}</p>
+                                <label><h4>Address:</h4></label>
+                                <p>{{coporateSideOverviewData.Proprietor_4_Address_1 | titlecase}}</p>
+                            </div>
+                        </ng-container>
+                        
+                    </div>
+                    <!-- <label><h4>Company Added Date:</h4></label>
+                    <p>{{coporateSideOverviewData.Date_Proprietor_Added | date }}</p> -->
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+
+    <div [@slideSidePanel]="showCompanySideDetailsInputBool" class="overlay" (click)="closeSidebar()"></div>
+</div>

@@ -1,0 +1,209 @@
+<ng-container *ngIf="[ 'statsInsights', 'investorFinderPage', 'investeeFinderPage', 'internationalTradePage', 'furloughInsights', 'lendingLandscapes', 'corporateRiskLandscape', 'hnwiLandscape', 'femaleFounders', 'ethnicDiversity', 'diversityCalculationStats', 'charities' ].includes( requiredData?.thisPage )">
+    <div class="card mapCard">
+        <div id="{{ mapConfig.primaryMapId }}" class="insightsRegionalMap">
+
+            <div class="grid align-items-center justify-content-center" style="height: 100%;" *ngIf="!currentYearMap || ( currentYearMap && !currentYearMap?._mapPane )">
+                <div class="col-fixed">
+                    <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-fixed lg:col-4" *ngIf="[ 'lendingLandscapes' ].includes( requiredData?.thisPage )">
+                    <span style="background-color: rgba(255, 255, 255, 0.7); font-size: xx-large; color: #21c3b5; position: relative; z-index: 401;">{{ requiredData?.selectedYearOfCharge ? requiredData?.selectedYearOfCharge[0] : '' }} {{ requiredData?.selectedYearOfCharge.length > 1 ? '- ' + requiredData?.selectedYearOfCharge[ requiredData?.selectedYearOfCharge.length - 1 ] : '' }}</span>
+                </div>
+                <div class="col-fixed ml-auto text-right">
+                    <ng-container *ngIf="[ 'hnwiLandscape' ].includes( requiredData?.thisPage ); else otherPage">
+                        <div class="p-2 text-left c-light"  style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                            <span class="big-bold-data-font"><i>This map is not clickable.</i></span>
+                        </div>
+                    </ng-container>
+                    <ng-template #otherPage>
+                        <div class="py-2 text-base text-right c-light"
+                            style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                            <ng-container *ngIf="itag?.icon">
+                                <dg-shared-itag-component><span>{{itag?.message}}</span></dg-shared-itag-component>
+                            </ng-container>
+                            <em> Click a region to drill down.</em>
+                        </div>
+                        <div class="text-base text-right card surface-500 text-white py-2 ml-auto" *ngIf="unknownResultOnMap.length && ( requiredData.thisPage == 'diversityCalculationStats' || requiredData.thisPage == 'diversityCalculationStats' )">
+                            Not Specified: {{ unknownResultOnMap[0]?.count  | number : '1.0-0' }} ({{ unknownResultOnMap[0]?.count_percentage | number : '1.0-0' }}%)
+                        </div>
+                        <!-- <a href="javascript:void(0);" class="text-base text-right card surface-500 text-white py-2 ml-auto" *ngIf="unknownResultOnMap.length && ( requiredData.thisPage == 'statsInsights' )" (click)="goToCompanyPage( event, 'not specified')"
+                            style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                            <em>Not Specified: {{ unknownResultOnMap[0]?.count  | number : '1.0-0' }} ({{ unknownResultOnMap[0]?.count_percentage | number : '1.0-0' }}%)</em>
+                        </a> -->
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="[ 'insightsYearly', 'insightsMonthly' ].includes( requiredData?.thisPage )">
+    <div class="card mb-3 flex-1">
+        <div class="grid">
+            <div class="col-6 md:col-6">
+
+                <div id="{{ mapConfig.primaryMapId }}" class="insightsRegionalMap">
+
+                    <div class="grid align-items-center justify-content-center" style="height: 100%;"
+                        *ngIf="!currentYearMap || ( currentYearMap && !currentYearMap?._mapPane )">
+                        <div class="col-fixed">
+                            <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+                        </div>
+                    </div>
+
+                    <div class="grid" *ngIf="currentYearMap">
+                        <div class="col-fixed lg:col-4">
+
+                            <span *ngIf="[ 'insightsYearly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: xx-large; color: #21c3b5; position: relative; z-index: 401;">{{
+                                requiredData?.currentYear }}</span>
+
+                            <span *ngIf="[  'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                <span *ngIf="requiredData?.currentMonthName">{{ requiredData?.currentMonthName }} - </span>{{
+                                requiredData?.currentYear }}</span>
+                            <div *ngIf="[  'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                Total : {{ currentMonthMapTotal | number: '1.0-0' }}</div>
+
+                        </div>
+                        <div class="col-fixed ml-auto">
+                            <div class="p-1 text-right c-light"
+                                style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                                <em>Click a region to drill down.</em>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+            <div class="col-6 md:col-6">
+
+                <div id="{{ mapConfig.secondaryMapId }}" class="insightsRegionalMap">
+
+                    <div class="grid align-items-center justify-content-center" style="height: 100%;"
+                        *ngIf="!previousYearMap || ( previousYearMap && !previousYearMap?._mapPane )">
+                        <div class="col-fixed">
+                            <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+                        </div>
+                    </div>
+
+                    <div class="grid" *ngIf="previousYearMap">
+                        <div class="col-fixed lg:col-4">
+                            <span *ngIf="[ 'insightsYearly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: xx-large; color: #63acbd; position: relative; z-index: 401;">{{
+                                requiredData?.previousYear }}</span>
+
+                            <span *ngIf="[ 'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                <span *ngIf="requiredData?.previousMonthName">{{ requiredData?.previousMonthName }} - </span>{{
+                                requiredData?.previousYear }}</span>
+                            <div *ngIf="[ 'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                Total : {{previousMonthMapTotal | number: '1.0-0'}}</div>
+                        </div>
+                        <div class="col-fixed ml-auto">
+                            <div class="p-1 text-right c-light"
+                                style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                                <em>Click a region to drill down.</em>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="[ 'esgIndex' ].includes( requiredData?.thisPage )">
+
+    <div class="grid">
+        <div class="col-6 md-6">
+
+            <div class="card mb-3">
+                <div id="{{ mapConfig.primaryMapId }}" class="insightsRegionalMap">
+    
+                    <div class="grid align-items-center justify-content-center" style="height: 100%;"
+                        *ngIf="!currentYearMap || ( currentYearMap && !currentYearMap?._mapPane )">
+                        <div class="col-fixed">
+                            <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+                        </div>
+                    </div>
+    
+                    <div class="grid" *ngIf="currentYearMap">
+                        <div class="col-fixed">
+    
+                            <span *ngIf="[ 'insightsYearly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: xx-large; color: #21c3b5; position: relative; z-index: 401;">{{
+                                requiredData?.currentYear }}</span>
+    
+                            <span *ngIf="[ 'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                <span *ngIf="requiredData?.currentMonthName">{{ requiredData?.currentMonthName }} - </span>{{
+                                requiredData?.currentYear }}</span>
+                            <div *ngIf="[  'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                Total : {{ currentMonthMapTotal | number: '1.0-0' }}</div>
+    
+                        </div>
+                        <div class="col-fixed">
+                            <div class="p-1 text-right c-light"
+                                style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                                <em>Click a region to drill down.</em>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-6 p-md-6">
+            <div class="card p-mb-3">
+
+                <div id="{{ mapConfig.secondaryMapId }}" class="insightsRegionalMap">
+    
+                    <div class="grid align-items-center justify-content-center" style="height: 100%;"
+                        *ngIf="!previousYearMap || ( previousYearMap && !previousYearMap?._mapPane )">
+                        <div class="p-col-fixed">
+                            <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+                        </div>
+                    </div>
+    
+                    <div class="grid" *ngIf="previousYearMap">
+                        <div class="col">
+                            <span *ngIf="[ 'insightsYearly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: xx-large; color: #63acbd; position: relative; z-index: 401;">{{
+                                requiredData?.previousYear }}</span>
+    
+                            <span *ngIf="[ 'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                <span *ngIf="requiredData?.previousMonthName">{{ requiredData?.previousMonthName }} - </span>{{
+                                requiredData?.previousYear }}</span>
+                            <div *ngIf="[ 'insightsMonthly' ].includes( requiredData?.thisPage )"
+                                style="background-color: rgba(255, 255, 255, 0.7); font-size: large; color: #21c3b5; position: relative; z-index: 401;">
+                                Total : {{previousMonthMapTotal | number: '1.0-0'}}</div>
+                        </div>
+                        <div class="col ml-auto">
+                            <div class="p-1 text-right c-light"
+                                style="background-color: rgba(255, 255, 255, 0.7); position: relative; z-index: 401;">
+                                <em>Click a region to drill down.</em>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</ng-container>

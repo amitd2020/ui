@@ -1,0 +1,80 @@
+<ng-container *ngIf="searchInFilterOptions">
+
+    <div class="card p-2">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+            <input pInputText type="text" placeholder="Search Filter Name" class="p-inputtext-sm" [(ngModel)]="searchInFilterInputKeyword" (keyup)="searchInFiltersByKeywords( $event );">
+            <a href="javascript: void(0);" class="p-inputgroup-addon clear" (click)="searchInFilterInputKeyword = '';" *ngIf="searchInFilterInputKeyword.length">
+                <i class="pi pi-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card keywordForSearchFilter" *ngIf="searchInFilterInputKeyword.length">
+        <p-scrollPanel *ngIf="filterItemsRawForSearch?.length" [style]="{ width: '100%', height: filterItemsRawForSearch.length < 8 ? 'auto' : '200px' }" styleClass="searchAllFilterScroller">
+            <ul>
+                <li class="mb-1" *ngFor="let val of filterItemsRawForSearch">
+                    <a href="javascript:void(0);" (click)="goToSelectedFilterItem( val )">
+                        <span [innerHTML]="highlightMatchedWords( ( val.hasOwnProperty( 'displayLabel' ) && !!val.displayLabel ) ? val.displayLabel : val.label, searchInFilterInputKeyword )"></span>
+                        <p style="font-size: 'x-small'; margin-top: -7px">{{ val.filterGroup }} > {{ ( val.hasOwnProperty( 'displayLabel' ) && !!val.displayLabel ) ? val.displayLabel : val.label }}</p>
+                    </a> 
+                </li>
+                
+            </ul>
+        </p-scrollPanel>
+        <div *ngIf="!filterItemsRawForSearch?.length">
+            <p class="p-1">No keywords matched.</p>
+        </div>
+    </div>
+
+</ng-container>
+
+<!-- Filter Items Without Accordion -->
+<ng-container *ngIf="filterOptionsItems?.individual?.length">
+    <div class="card p-2 mb-2 border-round-md">
+        <ul>
+            <ng-container *ngFor="let filterItem of filterOptionsItems?.individual">
+                <li [ngClass]="{ active: ( filterItem?.displayLabel && selectedFilterOptionItem?.displayLabel === filterItem?.displayLabel ) || ( selectedFilterOptionItem?.label === filterItem?.label ) }">
+                    <a href="javascript:void(0)" class="block fw-500 p-2" (click)="filterItemClickHandler( filterItem )">
+                        <span class="flex align-items-center">
+                            <span>{{ filterItem?.displayLabel ? filterItem?.displayLabel : filterItem?.label }}</span>
+                            <span class="ml-auto pi pi-{{ filterItem?.locked ? 'lock' : 'chevron-right' }}"></span>
+                        </span>
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</ng-container>
+<!-- /Filter Items Without Accordion -->
+
+<!-- Filter Items With Accordion -->
+<ng-container *ngIf="filterOptionsItems?.grouped?.length">
+    <p-accordion [multiple]="true" (onClose)="activeDeactiveBgColor()" (onOpen)="activeDeactiveBgColor()">
+
+        <ng-container *ngFor="let filterItem of filterOptionsItems?.grouped">
+
+            <p-accordionTab header="{{ filterItem?.displayLabel ? filterItem?.displayLabel : filterItem.label }}" [(selected)]="filterItem.selected" >
+                
+                <ul>
+                    <ng-container *ngFor="let childItem of filterItem.items">
+
+                        <li [ngClass]="{ 'active': ( _JSON.stringify( selectedFilterOptionItem ) === _JSON.stringify( childItem ) ) }">
+                            <a href="javascript:void(0)" class="block fw-500 p-2" (click)="filterItemClickHandler( childItem, filterItem )">
+                                <span class="flex align-items-center">
+                                    <span>{{ childItem?.optionalLabel ? childItem?.optionalLabel : childItem.label }}</span>
+                                    <span *ngIf="childItem['labelInfo']" class="ml-1 text-cyan-800 pi pi-info-circle" pTooltip="{{childItem['labelInfo']}}"></span>
+                                    <span class="ml-auto pi pi-{{ childItem?.locked ? 'lock' : 'chevron-right' }}"></span>
+                                </span>
+                            </a>
+                        </li>
+
+                    </ng-container>
+                </ul>
+                
+            </p-accordionTab>
+
+        </ng-container>
+
+    </p-accordion>
+</ng-container>
+<!-- /Filter Items With Accordion -->

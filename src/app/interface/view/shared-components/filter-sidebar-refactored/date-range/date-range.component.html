@@ -1,0 +1,20 @@
+<div class="grid mb-3 p-fluid">
+											
+    <div class="col">
+
+        <h4 class="mt-0 mb-3">From:</h4>
+        <p-calendar placeholder="Select From Date" [(ngModel)]="selectionDaterange.minDate" hideOnDateTimeSelect="true" [showIcon]="true"
+        [maxDate]="dateRange?.fromMaxDate" [minDate]="dateRange?.fromMinDate" [numberOfMonths]="1" dateFormat="dd-mm-yy" [readonlyInput]="true"
+        appendTo="body" (click)="onResizeForCalender()" [touchUI]="touchUiBool"></p-calendar>
+
+    </div>
+    <div class="col">
+
+        <h4 class="mt-0 mb-3">To:</h4>
+        <p-calendar placeholder="Select From Date" [(ngModel)]="selectionDaterange.maxDate" hideOnDateTimeSelect="true" [showIcon]="true"
+        [minDate]="selectionDaterange.minDate" [maxDate]="dateRange?.toMaxDate" [numberOfMonths]="1" dateFormat="dd-mm-yy" [readonlyInput]="true"
+        appendTo="body" (click)="onResizeForCalender()" [touchUI]="touchUiBool"></p-calendar>
+
+    </div>
+</div>
+<p-button label="Apply" class="p-button-rounded" [disabled]="!( selectionDaterange.maxDate && selectionDaterange.minDate )" (onClick)="setDateRange()"></p-button>

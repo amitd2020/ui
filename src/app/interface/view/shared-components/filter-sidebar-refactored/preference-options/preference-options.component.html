@@ -1,0 +1,35 @@
+<div>
+
+    <ng-container *ngFor="let prefItem of optionListItems; let itemIndex = index">
+
+        <!-- Divider -->
+        <hr class="border-bluegray-300 mt-4" *ngIf="itemIndex && itemIndex < optionListItems?.length">
+        <!-- /Divider -->
+    
+        <div class="flex">
+            <p class="mb-3" [ngClass]="{ 'mt-4': itemIndex }"><strong>{{ prefItem.header }}</strong></p>
+            <ng-container *ngIf="prefItem?.componentFeatures && prefItem?.componentFeatures.includes('info-icon')">
+                <span class="ml-1">
+                    <dg-shared-itag-component><div [innerHTML]="prefItem?.iTagContent"></div></dg-shared-itag-component>
+                </span>
+            </ng-container>
+        </div>
+
+        <ng-container *ngFor="let childItem of prefItem.items">
+            
+            <div class="grid align-items-center">
+                <span class="col-fixed">{{ childItem.label }}</span>
+                <span class="col-fixed ml-auto">
+
+                    <ng-container *ngFor="let controller of childItem.controllers">
+                        <p-checkbox class="mr-3" label="{{ controller.label }}" value="{{ controller.label }}" [(ngModel)]="controller.value" [binary]="true" [disabled]="disabledItems.includes( childItem?.controlLabel )" (onChange)="checkboxChangeHandler( controller, childItem )"></p-checkbox>
+                    </ng-container>
+
+                </span>
+            </div>
+    
+        </ng-container>
+
+    </ng-container>
+
+</div>

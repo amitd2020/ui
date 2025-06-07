@@ -1,0 +1,72 @@
+:host {
+    ::ng-deep {
+        .p-listbox {
+            border: none;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+
+            .p-listbox-header {
+                padding: 0;
+            }
+            
+            .p-listbox-list {
+                .p-listbox-item {
+                    padding: 0.5rem;
+                    margin-bottom: 2px;
+                }
+                .p-listbox-empty-message {
+                    color: var( --gray-600 );
+                    padding: 0.5rem 0;
+                }
+            }
+
+            &:not(.p-disabled) {
+                .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
+                    background-color: transparent;
+                    color: var( --teal-400 );
+                }
+            }
+        }
+    }
+
+    .sortDropdownContainer {
+        font-size: 0.9rem;
+
+        ::ng-deep {
+            .p-dropdown {
+                background-image: none;
+
+                .p-dropdown-label {
+                    min-width: 4rem;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    color: var( --purple-400 );
+                    text-transform: uppercase;
+                    padding: 0 0 0 0.5rem;
+                }
+                
+                .p-dropdown-trigger {
+                    width: 2rem;
+                    font-size: 0.85rem;
+                    color: var( --purple-400 );
+                }
+                
+                .p-dropdown-items {
+                    font-size: 0.9rem;
+                    
+                    .p-dropdown-item {
+                        padding: 0.2rem 0.5rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .disable-list {
+        opacity: 0.35;
+        background-image: none;
+        cursor: auto !important;
+        -webkit-pointer-events: none;
+        pointer-events: none;
+    }
+}

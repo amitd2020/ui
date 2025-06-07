@@ -1,0 +1,51 @@
+<!-- Upgrade Plan Dialog -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+	<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+
+<p-dialog header="Email Export" [(visible)]="customEmailOrNotdialog" [modal]="true" appendTo="body" [baseZIndex]="999999998" [style]="{width: '30vw'}" [draggable]="false" [focusOnShow]="false" [blockScroll]="true" (onHide)="customEmailOrNotdialog=false; customEmailId=''; customEmail=false">
+	
+	<div class="text-center" *ngIf="!customEmail">
+		<p>{{ constantMessages['confirmation']['sendToOtherEmail'] }}</p>
+
+		<ng-container>
+			<button pButton type="button" class="p-button-rounded mr-2 p-button-lg" label="Yes" (click)="customEmail=true"></button>
+			<button pButton type="button" class="p-button-rounded p-button-lg darkGrey" label="No" (click)="exportCSVToMail()"></button>	
+		</ng-container>
+
+	</div>
+	<div *ngIf="customEmail">
+		<div class="p-input-filled col-12 md:col-3 lg:col-12">
+			<span class="p-float-label">
+				<input type="email" pInputText name="email" (keyup)="validateEmail(customEmailId)"  [(ngModel)]="customEmailId" autocomplete="off"  [pattern]="emailPattern" #offEmail="ngModel" placeholder="Email" style="width: 100%;">
+			</span>
+			<div *ngIf="offEmail.errors">
+				<div style="color: red;" *ngIf="offEmail.errors.pattern">Email not valid.</div>	
+			 </div>
+		</div>
+	</div>
+	<p-footer>
+		<div class="text-center">
+			<button pButton type="button" class="p-button-rounded darkGrey" label="Back" *ngIf="customEmail" (click)="customEmail=false" ></button>
+			<button pButton type="button" class="p-button-rounded" *ngIf="customEmail"   label="Send"  (click)="exportCSVToMail()" [disabled]="customEmailId === undefined ||  emailValidateBool == false || customEmailId.length == 0 || this.listDataValues.length === 0"></button>
+			<button pButton type="button" class="p-button-rounded darkGrey" label="Close" (click)="customEmailOrNotdialog=false; customEmailId=''; customEmail=false"></button>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<ng-container *ngIf="![ 'environmentComplianceScoreTable','contactListPage', 'companyListPage', 'exportListPage', 'crmExportListPage', 'userFilterListPage', 'watchListPage', 'user-suggestions', 'create-new-plans', 'lineData', 'iScorePortfolioListPage', 'companyChargesListPage', 'pdfReportListPage', 'exportedEmails', 'showSuppliersInNoticeIdentifier', 'epcTabListData', 'cbfExportListPage', 'isBuyerNonREGScreen', 'isSupplierNonREGScreen', 'supplierPage', 'buyerPage' ].includes( thisPage )">
+    
+    <button pButton type="button" class="p-button-rounded mr-2 mb-2 p-button-sm hideBlockForMobileView" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( currentPlan ) }" label="Export" [disabled]="listDataValues && listDataValues.length === 0" icon="ui-icon-insert-drive-file" (click)="exportLimitCheck()">
+        <span *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+    </button>
+
+</ng-container>
+
+<ng-container *ngIf="!( [ 'environmentComplianceScoreTable', 'companyListPage','contactListPage','exportListPage', 'crmExportListPage', 'userFilterListPage', 'notesListPage', 'watchListPage', 'directorDetails', 'user-suggestions', 'create-new-plans', 'lineData', 'iScorePortfolioListPage', 'companyChargesListPage', 'pdfReportListPage', 'exportedEmails', 'importantEmails', 'showSuppliersInNoticeIdentifier','buyerPage', 'epcTabListData', 'cbfExportListPage', 'isBuyerNonREGScreen', 'isSupplierNonREGScreen', 'supplierPage' ].includes( thisPage ) || dialogBoolean['viewImpactedCreditorsModal'] == true || dialogBoolean['salePurchasePropertyDialog'] == true || dialogBoolean['viewShareholdingsModal'] == true || dialogBoolean['viewHnwiShareholdingsModal'] == true )">
+
+    <button pButton type="button" class="p-button-rounded mr-2 mb-2 p-button-sm hideBlockForMobileView" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( currentPlan ) }" label="Export To Email" [disabled]="listDataValues && listDataValues.length === 0" icon="ui-icon-insert-drive-file" (click)="exportCSVToMailDialog()">
+        <span *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+    </button>
+
+</ng-container>

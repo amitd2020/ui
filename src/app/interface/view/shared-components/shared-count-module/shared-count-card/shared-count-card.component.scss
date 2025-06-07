@@ -1,0 +1,435 @@
+:host {
+	display: block;
+
+	// CSS Variables 
+	--blueRGB: 101 116 196;
+	--amberRGB: 255 191 0;
+	--greenRGB: 26 179 148;
+	--violetRGB: 102 46 155;
+	--skyblueRGB: 71 165 220;
+	--darblueRGB: 87 90 137;
+	--orangeRGB: 214 90 49;
+	--lightpurpleRGB: 34 166 179;
+	--pinkRGB: 235 59 90;
+	--lightgreenRGB: 145 199 62;
+	--lightblueRGB: 60 213 255;
+}
+
+.specialUIDesignCard {
+	background-color: #fff;
+	display: flex;
+	padding: 0.8rem;
+	padding-right: 2.3rem;
+	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+	border-radius: 1.5rem;
+	align-items: center;
+	position: relative;
+	transform: scale(1);
+	transition: transform 0.3s ease-in-out;
+
+	&:hover {
+		transform: scale(1.02);
+	}
+
+	.cardNavigationIcon {
+		display: inline-block;
+		vertical-align: middle;
+		position: absolute;
+		right: 0.8rem;
+		top: 0.8rem;
+		width: 20px;
+		height: 20px;
+		background-color: rgb(var(--greenRGB));
+		color: #fff;
+		font-size: 0.7rem;
+		line-height: 20px;
+		text-align: center;
+		border-radius: 100%;
+	}
+
+	.iconWithPercentageCircle {
+		display: flex;
+		width: 4.5rem;
+		height: 4.5rem;
+		border-radius: 100%;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.7rem;
+		margin-right: 0.3rem;
+		position: relative;
+
+		&::after {
+			content: attr(data-percent);
+			display: flex;
+			position: absolute;
+			width: 3.2rem;
+			height: 3.2rem;
+			background-color: #f8f8f8;
+			border-radius: 100%;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0px 20px 30px 5px rgb(var(--greenRGB) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+		}
+
+		&.iconOnly {
+			&::before {
+				display: flex;
+				position: absolute;
+				width: 3.2rem;
+				height: 3.2rem;
+				border-radius: 100%;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5rem;
+				color: rgb(var(--greenRGB));
+				z-index: 1;
+			}
+		}
+
+		.materialIconOnly {
+			display: flex;
+			position: absolute;
+			width: 3.2rem;
+			height: 3.2rem;
+			border-radius: 100%;
+			align-items: center;
+			justify-content: center;
+			font-size: 2rem;
+			color: rgb(var(--greenRGB));
+			z-index: 1;
+		}
+
+		svg {
+
+			circle {
+				transform: rotate(-90deg);
+				transform-origin: 50% 50%;
+				stroke: rgb(var(--greenRGB));
+			}
+		}
+
+	}
+
+	.cardBody > * {
+		display: block;
+	}
+
+	.cardBody {
+		max-width: calc(100% - 5rem);
+		
+		.subTitle {
+			font-size: 0.9rem;
+			line-height: 1.3;
+			color: #aaa;
+			margin-bottom: 3px;
+		}
+
+		.dataValue {
+			font-size: 1.3rem;
+			font-weight: 100;
+			color: #444;
+		}
+
+	}
+
+	&.spclUIBlueCard {
+
+		.cardNavigationIcon {
+			background-color: rgb(var(--blueRGB));
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var(--blueRGB) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--blueRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--blueRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb(var(--blueRGB));
+				}
+			}
+		}
+
+	}
+
+	&.spclUIAmberCard {
+
+		.cardNavigationIcon {
+			background-color: rgb(var(--amberRGB));
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var(--amberRGB) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--amberRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--amberRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb(var(--amberRGB));
+				}
+			}
+		}
+
+	}
+
+	&.spclUIVioletCard {
+
+		.cardNavigationIcon {
+			background-color: rgb(var(--violetRGB));
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var(--violetRGB) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--violetRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--violetRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb(var(--violetRGB));
+				}
+			}
+		}
+
+	}
+
+	&.spclUISkyBlueCard {
+
+		.cardNavigationIcon {
+			background-color: rgb(var(--skyblueRGB));
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var(--skyblueRGB) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--skyblueRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--skyblueRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb(var(--skyblueRGB));
+				}
+			}
+		}
+
+	}
+
+	&.spclUIDarkBlueCard {
+
+		.cardNavigationIcon {
+			background-color: rgb(var(--darblueRGB));
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var(--darblueRGB) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--darblueRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--darblueRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb(var(--darblueRGB));
+				}
+			}
+		}
+
+	}
+
+	&.spclUIOrangeCard {
+
+		.cardNavigationIcon {
+			background-color: rgb( var( --orangeRGB ) );
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var( --orangeRGB ) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--orangeRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--orangeRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb( var( --orangeRGB ) );
+				}
+			}
+		}
+
+	}
+
+	&.spclUILightPurpleCard {
+
+		.cardNavigationIcon {
+			background-color: rgb( var( --lightpurpleRGB ) );
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var( --lightpurpleRGB ) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--lightpurpleRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--lightpurpleRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb( var( --lightpurpleRGB ) );
+				}
+			}
+		}
+
+	}
+
+	&.spclUIPinkCard {
+
+		.cardNavigationIcon {
+			background-color: rgb( var( --pinkRGB ) );
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var( --pinkRGB ) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--pinkRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--pinkRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb( var( --pinkRGB ) );
+				}
+			}
+		}
+
+	}
+
+	&.spclUILightGreenCard {
+
+		.cardNavigationIcon {
+			background-color: rgb( var( --lightgreenRGB ) );
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var( --lightgreenRGB ) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--lightgreenRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--lightgreenRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb( var( --lightgreenRGB ) );
+				}
+			}
+		}
+
+	}
+
+	&.spclUILightBlueCard {
+
+		.cardNavigationIcon {
+			background-color: rgb( var( --lightblueRGB ) );
+		}
+
+		.iconWithPercentageCircle {
+			&::after {
+				box-shadow: 0px 20px 30px 5px rgb(var( --lightblueRGB ) / 40%), inset 0px 5px 5px 0px rgb(0 0 0 / 10%), inset 0px 0px 0px 2px #fff;
+			}
+
+			&.iconOnly {
+				&::before {
+					color: rgb(var(--lightblueRGB));
+				}
+			}
+
+			.materialIconOnly {
+				color: rgb(var(--lightblueRGB));
+			}
+
+			svg {
+				circle {
+					stroke: rgb( var( --lightblueRGB ) );
+				}
+			}
+		}
+
+	}
+
+}

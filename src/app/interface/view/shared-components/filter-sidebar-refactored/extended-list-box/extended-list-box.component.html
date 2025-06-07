@@ -1,0 +1,77 @@
+<p class="c-red mb-0" *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
+
+<div [ngClass]="{ 'disable-list': disableList }">
+    <div class="grid mt-2 -mb-3" *ngIf="( listBoxFeatures.multiSelect && listItemOptionsSliced.length ) || sortEnabled">
+        <ng-container *ngIf="listBoxFeatures.multiSelect && listItemOptionsSliced.length">
+            <div class="col-fixed">
+                <button pButton type="button" label="Select All" class="p-button-sm p-button-outlined" (click)="selectAllListItems( listBoxTemplate )"></button>
+            </div>
+            <div class="col-fixed" *ngIf="listBoxFeatures.addAllEnabled">
+                <button pButton type="button" label="Add All" class="p-button-sm" (click)="listBoxChangeHandler()"></button>
+            </div>
+            <div class="col-fixed">
+                <button pButton type="button" label="Reset" class="p-button-sm p-button-outlined p-button-danger" (click)="resetAll( listBoxTemplate )"></button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="sortEnabled">
+            <div class="col-fixed">
+                <!-- <button pButton type="button" label="A-Z Sort" class="p-button-sm p-button-outlined p-button-help" (click)="sortByKey('label')"></button> -->
+                <div class="sortDropdownContainer flex align-items-center">
+                    <label class="pr-2">Sort By</label>
+                    <p-dropdown [options]="sortByOptions" [(ngModel)]="sortBySelected" optionLabel="label" optionValue="value" styleClass="border-round-xl border-purple-400 text-purple-400" (onChange)="sortByKey()"></p-dropdown>
+                </div>
+            </div>
+        </ng-container>
+        <div class="col-fixed ml-auto" *ngIf="listBoxFeatures.excludeOptions">
+            <p-checkbox label="Exclude" value="exclude" [(ngModel)]="excludeListOptions" [binary]="true" [disabled]="(errorMessage !== '') || !selectedListItem?.length || postCodesSelectedRadius > 0" (onChange)="excludeOptionsChangeHandler()"></p-checkbox>
+        </div>
+    </div>
+    
+    <p-listbox #listBoxTemplate [options]="listItemOptionsSliced" [(ngModel)]="selectedListItem" optionLabel="label" filterBy="label" [multiple]="listBoxFeatures.multiSelect" [checkbox]="true" [showToggleAll]="false" [filter]="listBoxFeatures.filter" (onChange)="listBoxChangeHandler()" scrollHeight="100%">
+        
+        <ng-template pTemplate="filter" let-listItemTemplateOptions="options">
+            
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon border-0"><i class="pi pi-search"></i></span>
+                <ng-container *ngIf="listBoxFeatures.serverSideSearch; else defaultFilterField">
+                    <input type="text" pInputText placeholder="Enter keywords to find more" class="border-0" [(ngModel)]="listBoxFilterValue" (input)="serverSideFilterHandler()">
+                </ng-container>
+                <ng-template #defaultFilterField>
+                    <input type="text" pInputText placeholder="Enter keywords to find more" class="border-0" [(ngModel)]="listBoxFilterValue" (input)="clientSideFilterHandler()">
+                </ng-template>
+                <a href="javascript:void(0);" class="p-inputgroup-addon border-0" (click)="listBoxFilterReset( listItemTemplateOptions )" *ngIf="listBoxFilterValue"><i class="pi pi-times"></i></a>
+            </div>
+
+        </ng-template>
+
+        <ng-template pTemplate="item" let-listItem>
+            <div class="pr-2">
+
+                <ng-container *ngIf="listBoxFilterValue; else defaultListLabel">
+                    <span class="mr-1" [innerHTML]="highlightMatchedWords( listItem.label, listBoxFilterValue )"></span>
+                </ng-container>
+                
+                <ng-template #defaultListLabel>
+                    
+                    <ng-container *ngIf="filterOptionLabel.toLowerCase().includes('code'); else defaultListLabelTextFormat">
+                        <span class="mr-1">{{ listItem.label | uppercase }}</span>
+                    </ng-container>
+                    
+                    <ng-template #defaultListLabelTextFormat>
+                        <span class="mr-1">{{ listBoxFeatures.textUppercase ? listItem.label : listBoxFeatures?.noFormat ? ( listItem.label ) : ( listItem.label | titlecase ) }}</span>
+                    </ng-template>
+                    
+                </ng-template>
+
+                <ng-container *ngIf="listItem?.doc_count || listItem?.doc_count == 0">
+                    <strong>({{ listItem.doc_count | number }})</strong>
+                </ng-container>
+
+            </div>
+            <div class="ml-auto">
+                <span class="material-icons inline-block bg-bluegray-400 text-white text-xl border-round">add</span>
+            </div>
+        </ng-template>
+
+    </p-listbox>
+</div>

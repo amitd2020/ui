@@ -1,0 +1,47 @@
+<p class="c-red mb-0" *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
+
+<div class="grid mt-2 -mb-3" *ngIf="( listBoxFeatures.multiSelect && listItemOptionsSliced.length )">
+    <ng-container *ngIf="listBoxFeatures.multiSelect && listItemOptionsSliced.length">
+        <div class="col-fixed">
+            <button pButton type="button" label="Select All" class="p-button-sm p-button-outlined" (click)="selectAllListItems( listBoxTemplate )"></button>
+        </div>
+        <div class="col-fixed" *ngIf="listBoxFeatures.addAllEnabled">
+            <button pButton type="button" label="Add All" class="p-button-sm" (click)="listBoxChangeHandler()"></button>
+        </div>
+        <div class="col-fixed">
+            <button pButton type="button" label="Reset" class="p-button-sm p-button-outlined p-button-danger" (click)="resetAll( listBoxTemplate )"></button>
+        </div>
+    </ng-container>
+
+    <div class="col-fixed ml-auto" *ngIf="listBoxFeatures.excludeOptions">
+        <p-checkbox label="Exclude" value="exclude" [(ngModel)]="excludeListOptions" [binary]="true" [disabled]="(errorMessage !== '') || !selectedListItem?.length" (onChange)="excludeOptionsChangeHandler()"></p-checkbox>
+    </div>
+</div>
+
+<p-listbox #listBoxTemplate [options]="listItemOptionsSliced" [(ngModel)]="selectedListItem" optionLabel="label" filterBy="label" [multiple]="listBoxFeatures.multiSelect" [checkbox]="true" [showToggleAll]="false" [group]="true" optionGroupChildren="items" (onChange)="listBoxChangeHandler()" scrollHeight="100%">
+
+    <ng-template pTemplate="group" let-item>
+
+        <div class="pr-2">
+            <span class="mr-1 font-medium">{{ ( item.label | titlecase ) }}</span> 
+        </div>
+
+    </ng-template>
+
+    <ng-template let-listItem pTemplate="item">
+
+        <div class="pr-2">
+            <span class="mr-1">{{ listBoxFeatures.textUppercase ? listItem.label : listBoxFeatures?.noFormat ? ( listItem.label ) : ( listItem.label | titlecase ) }}</span>
+        </div>
+
+        <ng-container *ngIf="listItem?.doc_count || listItem?.doc_count == 0">
+            <strong>({{ listItem.doc_count | number }})</strong>
+        </ng-container>
+
+        <div class="ml-auto">
+            <span class="material-icons inline-block bg-bluegray-400 text-white text-xl border-round">add</span>
+        </div>
+
+    </ng-template>
+
+</p-listbox>

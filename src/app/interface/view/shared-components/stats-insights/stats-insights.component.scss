@@ -1,0 +1,227 @@
+.insightsChartViewContainer {
+	flex: 1;
+
+	@media only screen and (max-width: 991px) {
+		padding: 1rem;
+	}
+
+	.card {
+		box-shadow: none;
+
+		.furloughDataTable {
+			text-align: left;
+
+		}
+
+		table {
+			width: 100%;
+			font-size: 1em;
+			border-spacing: 0;
+			border: 1px solid #e4e4e4;
+
+			tr {
+				th {
+					border-bottom: 1px solid #e4e4e4;
+				}
+
+				&:not( :last-child) {
+
+					th,
+					td {
+						border-bottom: 1px solid #e4e4e4;
+					}
+				}
+
+				th,
+				td {
+					padding: 5px 8px;
+
+					&:not( :last-child) {
+						border-right: 1px solid #e4e4e4;
+					}
+				}
+
+				td {
+					font-size: 0.9em;
+				}
+			}
+		}
+
+		&.selectedStatsCriteria {
+			height: calc(100vh - 215px);
+			font-size: 0.82rem;
+			overflow-y: auto;
+
+			::ng-deep {
+
+				@media only screen and (min-width: 1024px) {
+					position: sticky;
+					top: 6.5em;
+				}
+
+				.chipGroup {
+					display: block;
+					background-color: #fff;
+					padding: 0.3em 0.5em;
+					margin: 0 0.5em 0.5em 0;
+					border: 1px solid #bbb;
+					border-radius: 0.4rem;
+					position: relative;
+
+					-webkit-transition: all 0.2s ease-in-out;
+					-moz-transition: all 0.2s ease-in-out;
+					-ms-transition: all 0.2s ease-in-out;
+					transition: all 0.2s ease-in-out;
+
+					&:hover {
+						box-shadow: none;
+					}
+
+					p {
+						margin: 0 0 0.2em 0;
+					}
+
+					.chipValue {
+						display: inline-block;
+						background-color: var(--primary-color);
+						font-size: 0.9em;
+						font-weight: 600;
+						line-height: 1.2;
+						color: #fff;
+						text-transform: capitalize;
+						vertical-align: top;
+						border-radius: 4px;
+						box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.3);
+						padding: 0.3em 0.5em;
+						margin-right: 0.3em;
+						margin-bottom: 0.3em;
+
+						position: relative;
+						overflow: hidden;
+
+						-webkit-transition: all 0.2s ease-in-out;
+						-moz-transition: all 0.2s ease-in-out;
+						-ms-transition: all 0.2s ease-in-out;
+						transition: all 0.2s ease-in-out;
+					}
+				}
+
+			}
+		}
+
+		.dataValue {
+			font-weight: 100;
+			color: #444;
+		}
+
+	}
+
+	.infoSectionBorder {
+		border-left: 8px solid var(--primary-dark-color);
+	}
+
+	&.captureSnapshotActive {
+		background-color: var(--surface-d);
+		padding: 1rem;
+
+		::ng-deep {
+			* {
+				box-shadow: none !important;
+			}
+
+			.p-button {
+				display: none !important;
+			}
+		}
+
+	}
+
+	::ng-deep {
+		dg-lazy-leaflet-map {
+			max-height: 560px;
+		}
+	}
+
+	.riskPieChartLegends {
+		.roundedColoredChipLabel {
+			min-width: 215px;
+			color: white;
+			border-radius: 8px;
+			padding: 0.3rem 0.6rem;
+			margin-right: 0;
+			cursor: pointer;
+
+			* {
+				user-select: none;
+				pointer-events: none;
+			}
+
+			&.notScoredLegendBg {
+				background-color: #D92727;
+			}
+
+			&.highRiskLegendBg {
+				background-color: #E4790F;
+			}
+
+			&.moderateRiskLegendBg {
+				background-color: #FFC201;
+			}
+
+			&.lowRiskLegendBg {
+				background-color: #59BA9B;
+			}
+
+			&.veryLowRiskLegendBg {
+				background-color: #6DC470;
+			}
+
+			&.unkownLegendBg {
+				background-color: #b4b4b4;
+			}
+		}
+	}
+
+	.circle {
+		color: #fff;
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+		// display: grid;
+		line-height: 50px;
+		text-align: center;
+		// align-items: center;
+		// text-align: center;
+		// line-height: 54px;
+	}
+
+	.riskGender {
+		cursor: pointer;
+
+		* {
+			user-select: none;
+			pointer-events: none;
+		}
+
+	}
+
+	::ng-deep {
+		dg-lazy-leaflet-map {
+			.card.mapCard {
+				padding: 1rem;
+				margin-bottom: 1rem;
+			}
+		}
+	}
+
+}
+.red {
+    color: #df2020;
+}
+.amberYellow {
+    color: #ffd400;
+}
+.roundedColoredChipLabel {
+	font-size: small;
+	background-color: #fff;
+}

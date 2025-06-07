@@ -1,0 +1,133 @@
+<ng-container *ngIf="inputItem['andOrInputSwitch']">
+    <div class="my-3"> 
+        <label class="mr-2">AND</label>
+        <p-inputSwitch name="inputSwitch" [(ngModel)]="inputSwitch"></p-inputSwitch>
+        <label class="ml-2">OR</label>
+    </div>
+</ng-container>
+
+<ng-container *ngFor="let control of formControlsContainer; let indx = index;">
+
+    <hr class="my-2" *ngIf="indx">
+
+    <ng-container *ngIf="( inputItem['dropdown']  || control.deleteRowButton )">
+            
+        <ng-container *ngIf="control.canBeNegative && control?.canBeNegative == true">
+            <small class="c-light font-italic text-sm" style="letter-spacing: '0.5px'">*Below 0 value also can be added</small>
+        </ng-container>
+        
+        <div class="grid py-1">
+            <ng-container *ngIf="this.inputItem['key'].includes( 'propensity_score' ); else other">
+                <div class="col-6" *ngIf="financialDropdownData[ inputItem['key'] ].length">
+                    <p-dropdown [options]="financialDropdownData[ inputItem['key'] ]" name="key" placeholder="Select Readiness Key" [virtualScroll]="false" [virtualScrollItemSize]="5" [filter]="true" appendTo="body" optionLabel="value" optionValue="key" optionDisabled="inactive" [(ngModel)]="control.key" (onChange)="updateInactivityForFinancialKeyDropdown( control )"></p-dropdown>
+                </div>
+            </ng-container>
+            <ng-template #other>
+                <div class="col-6" *ngIf="financialDropdownData[ inputItem['key'] ].length">
+                    <!-- <p-dropdown [options]="financialDropdownData[ inputItem['key'] ]" name="key" placeholder="Select Financial Key" [virtualScroll]="false" [virtualScrollItemSize]="5" [filter]="true" appendTo="body" optionLabel="label" optionValue="value" optionDisabled="inactive" [(ngModel)]="control.key" (onChange)="updateInactivityForFinancialKeyDropdown( control )"></p-dropdown> -->
+
+                    <p-dropdown
+                    [options]="financialDropdownData[ inputItem['key'] ]"
+                    [(ngModel)]="control.key"
+                    filter="true"
+                    filterBy="label"
+                    [placeholder]="control?.key && control.key !== '' ? control.label : 'Select Financial Key'"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    optionDisabled="inactive"
+                    [resetFilterOnHide]="true"
+                    (onChange)="updateInactivityForFinancialKeyDropdown( control )"
+                  >
+                  </p-dropdown>
+                </div>
+            </ng-template>
+
+            <ng-container *ngIf="control.deleteRowButton">    
+                <div class="col-6 text-right">
+                    <button pButton icon="ui-icon-delete" title="Delete Row" class="p-button-rounded p-button-sm p-button-danger" (click)="deleteRow( indx, control )" ></button>
+                </div>
+            </ng-container>
+            
+        </div>
+    </ng-container>
+
+    <div class="mb-1 mt-4 flex" *ngIf="control?.dirAgeToggle">
+       <span class="ml-auto">
+            <label class="mr-2">Range</label>
+            <p-inputSwitch name="inputswitch" [(ngModel)]="checkDirAge" (onChange)="setDirAgeToggle( )"></p-inputSwitch>
+            <label class="ml-2">Exact Age</label>
+       </span>
+    </div>
+
+    <h6 class="mb-1 mt-4 flex" *ngIf="control?.keyLabel || control?.estimatedToggle">
+       <span *ngIf="control?.keyLabel">{{ control.keyLabel }}</span>
+       <span class="ml-auto" *ngIf="control?.estimatedToggle">
+            <p-inputSwitch [(ngModel)]="checkEstimatedTurnover"></p-inputSwitch>
+            <label class="ml-2">Estimated Turnover</label>
+       </span>
+    </h6>
+
+    <div class="grid p-fluid">
+
+        <div class="{{ numOfInputfield == 'multi' ? 'col-6' : 'col-12' }}">
+            <p-inputNumber
+                [disabled]="control.disable"
+                [min]="control?.['canBeNegative'] ? null : this.inputItem['key'].includes( 'propensity_score' ) ? control.greater_than : control.minValue"
+                [max]="this.inputItem['key'].includes( 'propensity_score' ) ? control.greater_than : control.maxValue"
+                [placeholder]="control.minPlaceholder"
+                [mode]="control.mode"
+                [currency]="control.currencyCode"
+                [minFractionDigits]="control.minFractionDigits"
+                [maxFractionDigits]="control.maxFractionDigits"
+                locale="en-GB"
+                [(ngModel)]="control.greater_than"
+                addPercent
+                [addPercentage]="control.prefix ? true : false"
+                [inputValue]="control.greater_than"
+                (onInput)="compareGtLtValue( $event, control, 'less_than' )"
+                class="p-inputtext-sm"
+            >
+            </p-inputNumber>
+        </div>
+
+        <div *ngIf="numOfInputfield == 'multi'" class="col-6">
+            <p-inputNumber 
+                [disabled]="control.disable"
+                [min]="control?.['canBeNegative'] ? null : this.inputItem['key'].includes( 'propensity_score' ) ? control.less_than : control.minValue"
+                [max]="this.inputItem['key'].includes( 'propensity_score' ) ? control.less_than : control.maxValue"
+                [placeholder]="control.maxPlaceholder"
+                [mode]="control.mode"
+                [currency]="control.currencyCode"
+                [minFractionDigits]="control.minFractionDigits"
+                [maxFractionDigits]="control.maxFractionDigits"
+                locale="en-GB"
+                [(ngModel)]="control.less_than"
+                (onInput)="compareGtLtValue( $event, control, 'greater_than' )"
+                addPercent
+                [addPercentage]="control.prefix ? true : false"
+                [inputValue]="control.less_than"
+                class="p-inputtext-sm"
+            ></p-inputNumber>
+        </div>
+    
+        <div class="c-red col-12">
+            <div>{{ control.errorMessage.gtLtValueCheck }}</div>
+            <div>{{ control.errorMessage.empty }}</div>
+        </div>
+
+    </div>
+
+    <ng-container *ngIf="control.addRowButton">
+        <button pButton type="button" icon="ui-icon-add" title="Add Row" label="Add Row" class="p-button-rounded p-button-sm" (click)="addRow()" *ngIf="formControlsContainer.length <5">
+        </button>
+    </ng-container>   
+
+
+</ng-container>
+
+<p-messages [value]="formsControlErrorMessage"></p-messages>
+
+<div class="text-right">
+    <p-button [disabled]=" this.inputItem['key'].includes( 'propensity_score' ) && formControlsContainer[0].errorMessage.gtLtValueCheck !=''" type="submit" class="p-button-rounded mt-1 ml-1" label="Apply" (click)="returnFormValues()"></p-button>
+</div>

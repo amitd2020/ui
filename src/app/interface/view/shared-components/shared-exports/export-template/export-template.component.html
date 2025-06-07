@@ -1,0 +1,263 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [baseZIndex]="999999999"></p-confirmDialog>
+<button pButton type="button" label="Export Template" icon="ui-icon-insert-drive-file" class="p-button-rounded p-button-sm mr-3 hideBlockForMobileView mb-xxl-2" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( currentPlan ) }" (click)="selectDataToExportDialog()" title="Export template" 
+[disabled]="thisPage == 'companySearch' && ( !appliedFilters.length && selectedCompany.length == 0 && !( activeRoute.snapshot.queryParams['cListId'] ) ) || searchTotalCount == 0 || disabledButton"></button>
+<!-- Export Template Modal Starts -->
+<p-dialog header="Export Template" styleClass="downloadReportModalDialog" [(visible)]="exportTemplateDialog" [modal]="true" [style]="{width: '75vw'}" [baseZIndex]="99999999" appendTo="body" [draggable]="false" [resizable]="true" [focusOnShow]="false" [blockScroll]="true" (onHide)="closeExportTemplateDialog()">
+
+	<p-messages [value]="msgs"></p-messages>
+	<p-toast position="top-center" key="tc"></p-toast>
+
+	<div class="flex flex-wrap justify-content-between align-items-center">
+		<div class="grid">
+			<div class="col text-right">
+				<div class="card mb-0">
+					<p class="m-0"><span [ngClass]="{ 'c-green': userLimitCountForExport > 100, 'c-red': userLimitCountForExport < 101 }">{{ userLimitCountForExport | number : '1.0-0'}}</span></p>
+					<span><small><em>Available limits</em></small></span>
+				</div>
+			</div>
+			<div class="col-fixed text-right">
+				<div class="card mb-0">
+					<ng-container *ngIf="!exportAllCondition; else other">
+						<p class="m-0"><span class="c-voilet">{{ toBeExportedCount | number : '1.0-0'}}</span></p>
+						<span><small><em>Companies ready to Export</em></small></span>
+					</ng-container>
+					<ng-template #other>
+						<p class="c-voilet m-0 p-2"><strong>{{ toBeExportedCount | number : '1.0-0'}}</strong> out of <strong>{{ searchTotalCount | number : '1.0-0'}}</strong> companies are prepared to export.</p>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<p-messages [value]="msgs1"></p-messages>
+
+	<p-accordion>
+		<p-accordionTab header="Create Template" [selected]="true" id="createTemplateAccordion">
+			
+			<p-messages [(value)]="createTempmsgs"></p-messages>
+
+			<form #createUserTemplateForm="ngForm" (ngSubmit)="submitUserTemplateInfo( createUserTemplateForm )" autocomplete="off">
+				<span class="specialCharacters">Punctuation marks or special characters are not allowed (e.g., #, *, &#64;, /, -)</span>
+				<div class="grid p-input-filled">
+					<div class="col-12 p-3">
+						<div class="grid">
+							<div class="col-12 md:col-3">
+								<div class="p-float-label">
+									<input pInputText name="checkTemplate_name" [pKeyFilter]="noSpecialCharacter" #checkTemplate_name="ngModel" type="text" [(ngModel)]="template_name" required> 
+									<label for="checkTemplate_name">Template Name</label>
+									<span *ngIf="fieldValidateForm && (checkTemplate_name.touched || createUserTemplateForm.submitted) && checkTemplate_name?.errors?.required" class="c-red">
+										<small style="float: left;">
+											Template Name is required
+										</small>
+									</span>
+								</div>
+							</div>
+		
+							<div class="col-12 md:col-3">
+								<div class="p-float-label">
+									<input pInputText name="companyNumber" type="text" [(ngModel)]="userDefinedCompanyNumber" readonly> 
+									<label for="companyNumber">Company Number</label>
+								</div>
+							</div>
+		
+							<div class="col-12 md:col-3">
+								<div class="p-float-label">
+									<input pInputText name="companyName" type="text" [(ngModel)]="userDefinedCompanyName" readonly> 
+									<label for="companyName">Company Name</label>
+								</div>
+							</div>
+
+							<ng-container *ngIf="userAuthService.hasRolePermission(['Super Admin'])">
+								<div class="col-3 mt-2">
+									<p-checkbox [(ngModel)]="fetchVerifyEmail" binary="true" label="Fetch Verify Email" name="fetchVerifyEmail"></p-checkbox>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</div>
+				
+				<dg-export-common-cards *ngIf="exportTemplateDialog" [thisPage]="'exportTemplatePage'" [savedListArray]="savedListArray" [editTemplateData]="editTemplateData" [deleteSuccessMessage]="msgs" [successMessage]="createTempmsgs" [resetCheckbox]="resetCheckbox" resetCheckbox (selectedCardForExport)="selectedCardForExport($event)" (selectedSavedListForExport)="selectedSavedListForExport($event)" [selectAllCheckBoxCard] = "selectAllCheckBoxCard"></dg-export-common-cards>
+
+				<div class="text-center">
+					<button pButton type="submit" label="{{ templateEditMode ? 'Save' : 'Create' }}" class="p-button-rounded p-button-lg" (click)="createExportTemplate()"></button>
+					<button *ngIf="templateEditMode" pButton type="button" label="Cancel" class="p-button-rounded p-button-lg darkGrey ml-2" (click)="cancelEditTemplate()"></button>
+				</div>
+			</form>
+			
+		</p-accordionTab>
+	</p-accordion>
+
+	<p-accordion>
+		<p-accordionTab header="Templates" [selected]="true">
+			<p-messages [value]="templateMsgs"></p-messages>
+
+			<p-table #exportTemplateTable [columns]="templateJsonCols" [value]="templateJsonData" [(selection)]="selectTemplateJson" [scrollable]="true" scrollHeight="65vh" *ngIf="exportTemplateDialog && templateJsonData && templateJsonData.length">
+
+				<ng-template pTemplate="header" let-columns>
+					<tr>
+						<th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }" [ngSwitch]="col.field">
+							{{ col.header }}
+						</th>
+					</tr>
+					<tr>
+						<th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }"> 
+							<input pInputText type="text" [(ngModel)]="searchTemplateName" (input)="exportTemplateTable.filter($event.target.value, 'templateName', 'contains')" [value]="exportTemplateTable.filters[col.field] ? exportTemplateTable.filters[col.field].value : ''" [hidden]="[ 'downloadTemplate', 'templateJson', 'deleteTemplate' ].includes( col.field )" placeholder="Search Keyword">
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-rowData let-columns="columns">
+					<tr>
+						<td *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">
+							
+							<ng-container *ngSwitchCase="'templateJson'">
+								<ng-container *ngIf="rowData['templateName'].includes( 'ignite' ) || rowData['templateName'].includes( 'bespoke template' ) || rowData['templateName'].includes( 'mj capital' ) || rowData['templateName'].includes( 'abl advisory template' ) || rowData['templateName'].includes( 'customized template 1' ) || rowData['templateName'].includes( 'customized template 2' ) || rowData['templateName'].includes( 'customized template 3' ) || rowData['templateName'].includes( 'customized template 4' ) || rowData['templateName'].includes( 'bbx world' ); else otherBlock">
+									{{ rowData?.templateForIgniteAndMj }}
+								</ng-container>
+								<ng-template #otherBlock>
+									<div [dgReadMore]="exportTemplateDialog" [numberOfLines]="1">
+										{{ rowData?.templateJsonDataForm }}
+									</div>
+								</ng-template>
+							</ng-container>
+
+							<ng-container *ngSwitchCase="'downloadTemplate'">
+								<p-tableRadioButton [value]="rowData"></p-tableRadioButton>
+							</ng-container>
+							<ng-container *ngSwitchCase="'deleteTemplate'">
+								<ng-container *ngIf="!(rowData['templateName'].includes( 'customized template 1' ) || rowData['templateName'].includes( 'customized template 2' ) || rowData['templateName'].includes( 'customized template 3' ) || rowData['templateName'].includes( 'customized template 4' ) )">
+									<button pButton type="button" icon="pi pi-pencil" class="mr-2 p-button-rounded p-button-lg" (click)="editUserTemplate( rowData )" title="Edit"></button>
+									<button pButton type="button" icon="ui-icon-content-copy" class="mr-2 p-button-rounded p-button-lg" (click)="copyTemplate( templateJsonData, rowData.templateName )" title="Duplicate"></button>
+									<button pButton type="button" icon="ui-icon-delete" class="mr-2 p-button-rounded p-button-lg p-button-danger" (click)="deleteUserTemplate( rowData.templateId )" title="Delete"></button>
+								</ng-container>
+							</ng-container>
+
+							<ng-container *ngSwitchDefault>{{ rowData[col.field] | titlecase }}</ng-container>
+
+						</td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage" let-columns>
+					<tr>
+						<td [attr.colspan]="columns?.length">No records found.</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</p-accordionTab>
+	</p-accordion>
+
+	<p-footer>
+		<div class="text-center p-2">
+
+			<button pButton type="button" label="Download" class="p-button-rounded" [disabled]="selectTemplateJson == undefined" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( currentPlan ) }" *ngIf="!exportAllCondition" icon="ui-icon-insert-drive-file" (click)="customExportLimitCheck('exportTemplate')">
+				<span *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+			</button>
+
+			<button pButton type="button" label="Download All" class="p-button-rounded" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( currentPlan ) }" *ngIf="exportAllCondition" icon="ui-icon-insert-drive-file" (click)="customExportLimitCheck('exportTemplateAll')" [disabled]="selectTemplateJson == undefined">
+				<span *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+			</button>
+
+			<button pButton type="button" label="Cancel" class="p-button-rounded p-button-lg ml-2 darkGrey" (click)="closeExportTemplateDialog()"></button>
+
+		</div>
+	</p-footer>
+
+</p-dialog>
+<!-- Export Template Modal End -->
+
+<!-- Export All Limit Zero on Show Charges Table  -->
+<p-dialog header="Let's Go!" [(visible)]="exportDialogNoLimit" [modal]="true" [baseZIndex]="999999998" appendTo="body" [style]="{width: '25vw'}" [draggable]="false" [focusOnShow]="false">
+    <div class="text-center">
+        <p>{{ exportCSVDialogMessage }} </p>
+    </div>
+    <p-footer>
+        <div class="text-center">
+            <button pButton type="button" class="ui-button-inline darkGrey" (click)="exportDialogNoLimit=false" label="Close"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+<!-- Export All Limit Zero on Show Charges Table End -->
+
+<!-- Upgrade Plan Dialog -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: 'auto' }" (onHide)="closeDialogBox()">
+    <dg-upgrade-plan [currentPlan]="currentPlan" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+
+<p-dialog header="Let's Go!" [(visible)]="csvDialogCustomForUserTemplate" [modal]="true" [style]="{width: '25vw'}" [draggable]="false" [focusOnShow]="false">
+	
+	<ng-container *ngIf="[ 'companySearch' ].includes( this.thisPage ); else other">
+		<div class="grid">
+			<div class="col">
+				<div class="card onlyLinesAround mb-0">
+					<p class="m-0"><span [ngClass]="{ 'c-green': userLimitCountForExport > 100, 'c-red': userLimitCountForExport < 101 }">{{ userLimitCountForExport | number : '1.0-0'}}</span></p>
+					<span><small>Available limits</small></span>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card onlyLinesAround mb-0">
+					<p class="m-0"><span class="c-voilet">{{ toBeExportedCount | number : '1.0-0'}}</span></p>
+					<span><small> Credits to be used</small></span>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<ng-template #other>
+		<div class="text-center">
+			<p>{{ exportCSVDialogMessage }}</p>
+		</div>
+	 </ng-template>
+
+	<p-footer>
+		<div class="text-center">
+			<button pButton class="p-button-rounded" (click)="downloadUserTemplateCSV()" type="button" label="Yes"></button>
+			<button pButton class="p-button-rounded darkGrey" type="button" (click)="csvDialogCustomForUserTemplate=false" label="No"></button>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<p-dialog header="Let's Go!" [(visible)]="userTemplateLimitUpgrade" [modal]="true" [style]="{width: '25vw'}" [draggable]="false" [focusOnShow]="false">
+	<div class="text-center">
+		<p>You Don't Have Enough Export Limit !! Please Contact For Limit Upgrade</p>
+	</div>
+	<p-footer>
+		<div class="text-center">
+			<button pButton type="button" class="p-button-rounded darkGrey" (click)="userTemplateLimitUpgrade = false" label="Close"></button>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<p-dialog header="Export Template Confirmation" [(visible)]="exportAllTemplateDialog" [modal]="true" [style]="{width: '25vw'}" [draggable]="false" [focusOnShow]="false" styleClass="logoutConfirmationDialogStyling">
+	<!-- <div class="text-center">
+		<i class="pi pi-info-circle"></i> <span class="ml-2">Are you sure that you want to perform this action?</span>
+	</div> -->
+	<ng-container *ngIf="[ 'companySearch' ].includes( this.thisPage ); else other">
+		<div class="grid">
+			<div class="col">
+				<div class="card onlyLinesAround mb-0">
+					<p class="m-0"><span [ngClass]="{ 'c-green': userLimitCountForExport > 100, 'c-red': userLimitCountForExport < 101 }">{{ userLimitCountForExport | number : '1.0-0'}}</span></p>
+					<span><small>Available limits</small></span>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card onlyLinesAround mb-0">
+					<p class="m-0"><span class="c-voilet">{{ toBeExportedCount | number : '1.0-0'}}</span></p>
+					<span><small> Credits to be used</small></span>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<ng-template #other>
+		<div class="text-center">
+			<div class="text-center">
+				<i class="pi pi-info-circle"></i> <span class="ml-2">Are you sure that you want to perform this action?</span>
+			</div>
+		</div>
+	</ng-template>
+	<p-footer>
+		<div class="text-center">
+			<button pButton type="button" class="p-button-rounded" (click)="exportAllTemplate()" label="Yes"></button>
+			<button pButton type="button" class="p-button-rounded" (click)="exportAllTemplateDialog = false" label="No"></button>
+		</div>
+	</p-footer>
+</p-dialog>

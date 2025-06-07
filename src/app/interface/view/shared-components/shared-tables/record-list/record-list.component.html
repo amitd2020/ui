@@ -1,0 +1,1795 @@
+<p-messages [value]="msgs"></p-messages>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" key="crmConfirmationForRecordList"></p-confirmDialog>
+<p-confirmDialog *ngIf="selectedGlobalCountry != 'uk'" header="Confirmation" icon="pi pi-exclamation-triangle" [baseZIndex]="999999999"></p-confirmDialog>
+
+<p-dialog header="Add List" [modal]="true" [(visible)]="displayModal" [style]="{width: '50vw'}" [draggable]="false"
+	[focusOnShow]="false">
+
+	<p-listbox *ngIf="listboxReset" [options]="favList" #Listbox (keyup)="keyupSearch(Listbox)"
+		(onClick)="selectList(ListArrayData)" [(ngModel)]="ListArrayData" filter="filter" optionLabel="name"
+		[listStyle]="{'max-height':'250px'}"></p-listbox>
+	<div *ngIf="recordsAfterFilter">
+		<h4>
+			<p>No records found, Do you want to create
+				<strong>
+					<u>{{newCreateListName}}</u>
+				</strong> List?
+			</p>
+			<div class="text-center">
+				<button class="btn btn-md btn-primary mx-2" (click)="createNewList()" type="button">Yes</button>
+				<button class="btn btn-md btn-reset mx-2" type="button" (click)="clearFilterField(Listbox)">No</button>
+			</div>
+		</h4>
+	</div>
+</p-dialog>
+
+<p-dialog header="Benchmarking Insights" [modal]="true" [(visible)]="scoreDisplayModal" [style]="{ width: '80vw', height: '40vw' }" [draggable]="false" [maximizable]="true">
+
+	<ng-container *ngIf="scoreDisplayModal">
+		<dg-new-feature-growth [activeModelForApiHit] ='activeModelForApiHit' [companyNumberToGrowthInsights]="companyNumberToGrowthInsights" [benchmarkingDialog]="true"></dg-new-feature-growth>
+	</ng-container>
+</p-dialog>
+
+<p-dialog header="Merger and Acquisition Insights" [modal]="true" [(visible)]="mAndADisplayModal" [style]="{ width: '80vw', height: '40vw' }" [draggable]="false" [maximizable]="true">
+	<ng-container *ngIf="mAndADisplayModal">
+		<dg-m-and-a [companyNumberToGrowthInsights]="companyNumberToGrowthInsights"></dg-m-and-a>
+	</ng-container>
+</p-dialog>
+
+<p-dialog header="Stats" [modal]="true" [(visible)]="showEstimateTotalBox" [style]="{ width: '50vw' }"
+	[draggable]="false" [focusOnShow]="false">
+
+	<div class="grid">
+
+		<div class="col-12 md-4">
+			<p-card styleClass="greenCard cbox">
+				<h3 class="text-center">Estimated Turnover Total</h3>
+				<h4 class="font-bold text-center">&pound;{{ estimated_turnover_total }}</h4>
+			</p-card>
+		</div>
+		<div class="col-12 md-4">
+			<p-card styleClass="blueCard cbox">
+				<h3 class="text-center">Net Worth Total</h3>
+				<h4 class="font-bold text-center">&pound;{{ netWorth_total }}</h4>
+			</p-card>
+		</div>
+		<div class="col-12 md-4">
+			<p-card styleClass="voiletCard cbox">
+				<h3 class="text-center">Turnover Total</h3>
+				<h4 class="font-bold text-center">&pound;{{ turnover_total }}</h4>
+			</p-card>
+		</div>
+
+	</div>
+</p-dialog>
+
+<!-- Login Modal Dialog -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998"
+	appendTo="body" [focusOnShow]="false">
+	<dg-login></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<!-- Upgrade Plan Dialog -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog"
+	[baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: 'auto' }"
+	(onHide)="closeDialogBox()">
+	<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+
+<!-- Upgrade Plan Dialog For Client User -->
+<p-dialog styleClass="subscriptionPlanDialogModalForClientUser" [modal]="true" [draggable]="false"
+	[(visible)]="showUpgradePlanDialogForClientuser" [baseZIndex]="999999998" appendTo="body"
+	[style]="{ width: '30vw', 'overflow-y': 'auto' }">
+	<div class="text-center">
+		To enable this feature, please contact your Administrator.
+	</div>
+</p-dialog>
+<!-- Upgrade Plan Dialog For Client User End -->
+
+<!-- check limit Dialogue -->
+<p-dialog header="Title Register Limits" [(visible)]="titileRegisterDialog" styleClass="downloadReportModalDialog"
+	[style]="{width:'45vh'}" [modal]="true" [baseZIndex]="999999998" [focusOnShow]="false" appendTo="body"
+	[draggable]="false" [resizable]="true">
+
+	<div class="grid align-center">
+		<div class="col">
+			<small class="c-light mr-2"><em>Available credits:</em></small>
+			<span [ngClass]="{ 'c-green': hasTitleRegisterLimit > 100, 'c-red': hasTitleRegisterLimit < 101 }"> {{ hasTitleRegisterLimit ? (hasTitleRegisterLimit | number: '1.0-0') : 0}} </span>
+		</div>
+	</div>
+	<div class="grid">
+		<div class="col">
+			<em class="data-font">Note: For any support please email grow&#64;datagardener.com <!-- &#64; = '@' --></em>
+		</div>
+	</div>
+
+	<p-footer class="mt-4">
+		<div class="text-center">
+			<button pButton type="button" label="Cancel" icon="pi pi-times"
+				class="p-button-rounded p-button-lg darkGrey mr-0 mb-2"
+				(click)="titileRegisterDialog = false"></button>
+		</div>
+	</p-footer>
+</p-dialog>
+
+<div class="card">
+
+	<p-table #recordListTable [columns]="listColumns" [scrollable]="true" [value]="listDataValues" (sortFunction)="customSort($event)" [(selection)]="selectedCompany" [exportFilename]="exportListDynamicName" dataKey="{{ obj }}" responsiveLayout="scroll" scrollHeight="65vh">
+
+		<ng-template pTemplate="caption">
+			<div class="grid align-items-end text-left">
+
+				<div class="col-12 hideBlockForMobileView">
+					<div class="flex align-items-center">
+						<ng-container *ngIf="isLoggedIn && !['diversityInclusion', 'businessMonitor', 'businessMonitorPlus', 'businessWatch', 'diversityCalculation'  ].includes(preparedPayloadBody.pageName) && activeRoute.snapshot.queryParams['listPageName'] != 'diversityCalculation'">
+							<ng-container *ngIf="( thisPage == 'companySearch' && searchTotalCount > 0 && searchCompanyService.showStatsButton && activeRoute.snapshot.queryParams.listPageName != 'exportedBucket' ) || ( thisPage=='otherRelatedCompanies' && searchCompanyService.showStatsButton )">
+								<button type="button" pButton class="p-button-rounded p-button-sm ml-2 mb-0 hasFeatureLockIcon"  label="Stats" icon="pi pi-chart-line" (click)="clickStatsButton()">
+									<span *ngIf="!isFeatureAccessCompanyStatus">
+										<span class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+									</span>
+									
+								</button>
+								<button type="button" *ngIf="selectedGlobalCountry == 'uk'" pButton class="p-button-rounded p-button-sm ml-2 mb-0 hasFeatureLockIcon bg-blue-600"  label="Growth Anaysis" icon="pi pi-chart-line" (click)="showGrowthAnalysis()"></button>
+							</ng-container>
+
+						</ng-container>
+
+						<!-- <ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasFeaturePermission('Company Stats'); else secondBlock">
+							<ng-container *ngIf="!['diversityInclusion', 'businessMonitor', 'businessMonitorPlus', 'businessWatch'].includes(preparedPayloadBody.pageName)">
+								<a pButton target="_blank" *ngIf="( thisPage == 'companySearch' && searchTotalCount > 0 && searchCompanyService.showStatsButton && activeRoute.snapshot.queryParams.listPageName != 'exportedBucket' ) || thisPage=='otherRelatedCompanies'" type="button" class="p-button-rounded p-button-sm ml-2 mb-0" label="Stats" icon="pi pi-chart-line"  [routerLink]="['/company-search/stats-insights']" [queryParams]="statsListPageUrl"></a>
+							</ng-container>
+						</ng-container>
+						
+						<ng-template #secondBlock>
+							<button type="button" pButton *ngIf="thisPage == 'companySearch' && ( userAuthService.isLoggedInSubject$ | async ) && preparedPayloadBody.filterData.length && searchTotalCount > 0" class="p-button-rounded p-button-sm ml-2 mb-0 hasFeatureLockIcon" label="Stats" icon="pi pi-chart-line" (click)="userAuthService.hasRolePermission( [ 'Client User' ] ) ? showUpgradePlanDialogForClientuser = true : showUpgradePlanDialog = true">
+								<span class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+							</button>
+						</ng-template> -->
+
+						<ng-container *ngIf="activeRoute.snapshot.queryParams['cListId'] && !['Exported Bucket', 'Favourites'].includes(activeRoute.snapshot.queryParams.listName) && activeRoute.snapshot.queryParams.listPageName !== 'otherRelatedCompanies' && !['related_Directors', 'related_Companies'].includes( thisPage ); else otherResult">
+							<h4 *ngIf="( listDataValues && listDataValues.length > 0 ) && showRecordCount && no_show_user_management && thisPage !== 'watchListPage'" class="ml-3 mt-3">
+								{{ searchTotalCount | number }} Results Found in the <strong> {{ showHeaderObj.listName ? showHeaderObj.listName : showHeaderObj.listPageName | titlecase }}</strong> 
+								<ng-container *ngIf="!showHeaderObj.listPageName"> from <strong> >>{{ showHeaderObj.listPageName | titlecase }}</strong></ng-container>.
+							</h4>
+						</ng-container>
+
+						<ng-template #otherResult>
+							<h4 *ngIf="( listDataValues && listDataValues.length > 0 ) && showRecordCount && no_show_user_management && thisPage !== 'watchListPage'" class="ml-3 mt-3">{{ searchTotalCount | number }} Results Found</h4>
+						</ng-template>
+
+					</div>
+						
+				</div>
+				<div class="col-12" *ngIf="(thisPage == 'companySearch' || thisPage == 'exportedBucket') && ( userAuthService.isLoggedInSubject$ | async ) && preparedPayloadBody.filterData.length && !activeRoute.snapshot.queryParams['cListId'] && socialNetworkCounts !== undefined">
+					<div class="flex flex-column">
+						<div class="flex align-items-center flex-wrap">
+							<div class="roundedColoredChipLabel">
+								<p-chip label="{{ socialNetworkCounts?.all_email_count | number : '1.0-0'}}  Total" icon="pi pi-envelope" pTooltip="Total Email Count" tooltipPosition="top"></p-chip>|
+								<p-chip label="{{ socialNetworkCounts?.director_email_count | number : '1.0-0' }} Director" pTooltip="Director Email Count" tooltipPosition="top"></p-chip>
+							</div>
+							<div class="roundedColoredChipLabel">
+								<p-chip label="{{ socialNetworkCounts?.all_linkedin_url_count | number : '1.0-0' }} Total" styleClass="linkedin" pTooltip="Total LinkedIn Count" tooltipPosition="top"></p-chip>|
+								<p-chip label="{{ socialNetworkCounts?.director_linkedin_url_count | number : '1.0-0' }} Director" pTooltip="Director LinkedIn Count" tooltipPosition="top"></p-chip>
+							</div>
+							<div class="roundedColoredChipLabel">
+								<p-chip label="{{ socialNetworkCounts?.company_phone_number | number : '1.0-0' }} Total" icon="pi pi-phone" pTooltip="Total Phone Numbers Count" tooltipPosition="top"></p-chip>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="col-12 xl:col-8">
+
+					<div class="mb-2">
+
+						<p-multiSelect *ngIf="columnToggleData && ( ( [ subscribedPlanModal['Monthly_Expand'], subscribedPlanModal['Expand_Annual_One_Year'], subscribedPlanModal['Expand_Trial_48_Hours'], subscribedPlanModal['Expand_Annual_Two_Year'], subscribedPlanModal['Expand_New_Monthly'], subscribedPlanModal['Monthly_Expand_Paid_Test'], subscribedPlanModal['Monthly_Enterprise'], subscribedPlanModal['Enterprise_Annual_One_Year'], subscribedPlanModal['Enterprise_Annual_Two_Year'], subscribedPlanModal['Enterprise_New_Monthly'], subscribedPlanModal['Monthly_Enterprise_Paid_Test'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Monthly_Enterprise_Trial'], subscribedPlanModal['Annually_Expand'], subscribedPlanModal['Annually_Enterprise'], subscribedPlanModal['Annually_Enterprise_Trial'], subscribedPlanModal['Enterprise_Conversion_For_Ravi'], subscribedPlanModal['Annually_Expand_Trial'], subscribedPlanModal['Monthly_Expand_Trial'], subscribedPlanModal['Expand_Weekly_Trial'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Premium_New_Monthly'], subscribedPlanModal['Premium_Annual_One_Year'], subscribedPlanModal['Premium_Trial_48_Hours'], subscribedPlanModal['Premium_Annual_Two_Year'], subscribedPlanModal['Valentine_Special'], subscribedPlanModal['Compliance_Plan'] ].includes( userDetails?.planId ) && userDetails?.isSubscriptionActive ) || userAuthService.hasRolePermission( ['Super Admin'] ) )" [options]="columnToggleData" [(ngModel)]="listColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" defaultLabel="Choose Columns" [optionDisabled]="disabled" (onChange)="changeColumnPreference( columnToggleData, listColumns )" styleClass="mb-3 mr-3" class="hideBlockForMobileView forPaddingTb" (onSelectAllChange)="onSelectAllChange($event)" [selectAll]="selectAll"></p-multiSelect>
+						
+						<button pButton class="p-button-rounded p-button-sm mr-2 hideBlockForMobileView mb-xxl-2" *ngIf="!defaultSearchData &&  !['otherRelatedCompanies'].includes( thisPage )" type="button" label="Reset Table" icon="ui-icon-loop" (click)="resetFilters(recordListTable)" [disabled]="searchTotalCount == 0 && filterSearchArray.length == 0"></button>
+
+						<span class="recordListHeaderCard" *ngIf="( selectedGlobalCountry == 'uk' && !defaultSearchData || userDetails?.isTrial ) && ( ![ 'workflowListPage', 'relatedPartyIntel', 'otherRelatedCompanies', 'related_Companies', 'related_Directors' ].includes( thisPage ) )" style="margin-right: 0.4rem;">
+							<ng-container *ngIf="thisPage != 'companySearchWithAI'">
+								<p-splitButton label="Push to CRM" [model]="moreButtonListItems" [disabled]="searchTotalCount <= 0" styleClass="p-button-rounded"></p-splitButton>
+							</ng-container>
+						</span>
+							<ng-container *ngIf=" ![ 'companySearchWithAI', 'workflowListPage', 'relatedPartyIntel', 'otherRelatedCompanies' ].includes(thisPage)">
+
+								<ng-container *ngIf="listDataValues && !defaultSearchData && !['businessMonitor', 'businessMonitorPlus', 'businessWatch', 'exportedBucket'].includes( activeRoute.snapshot.queryParams['listPageName'] ) ">
+									<dg-export-record-list [tableData]="recordListTable" [appliedFilters]="preparedPayloadBody.filterData" [selectedCompany]="selectedCompany" [searchTotalCount]="searchTotalCount" [thisPage]="thisPage" [listDataValues]="listDataValues" [filterSearchArray]="filterSearchArray" (successMessage)="successMessageForExport( $event )" [exportListDynamicName]="exportListDynamicName" [listId]="listId"></dg-export-record-list>
+								</ng-container>
+								<ng-container *ngIf="selectedGlobalCountry == 'uk'">
+									<ng-container *ngIf="thisPage == 'companySearch' && !defaultSearchData && ( userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasFeaturePermission('Export Template') ) && !['businessMonitor', 'businessMonitorPlus', 'businessWatch', 'exportedBucket'].includes( activeRoute.snapshot.queryParams['listPageName'] )">
+										<ng-container *ngIf="![ 'landCorporate', 'landRegistry', 'related_Directors', 'related_Companies', 'companySearchWithAI' ].includes( thisPage )">
+											<dg-export-template [tableData]="recordListTable" [selectedCompany]="selectedCompany" [disabledButton]="!selectedCompany.length && !preparedPayloadBody.filterData.length && activeRoute.snapshot.queryParams['cListId'] == undefined" [searchTotalCount]="searchTotalCount" [thisPage]="thisPage" [appliedFilters]="preparedPayloadBody.filterData" [filterSearchArray]="filterSearchArray" [exportFilteredDataBool]="exportFilteredDataBool" (successMessage)="successMessageForExport( $event )" [tableName]="'recordList'" [listId]="listId" (thisPageExportTemplate)="thisPageExportTemplate($event)"></dg-export-template>
+										</ng-container>
+									</ng-container>
+		
+									<ng-container *ngIf="thisPage == 'companySearch' && !defaultSearchData && ( preparedPayloadBody.filterData.length || activeRoute.snapshot.queryParams['cListId'] ) != undefined && userAuthService.hasAddOnPermission('crmExport') && !['businessMonitor', 'businessMonitorPlus', 'businessWatch', 'exportedBucket'].includes( activeRoute.snapshot.queryParams['listPageName'] )">
+										<dg-crm-export [tableData]="recordListTable" [searchTotalCount]="searchTotalCount" [appliedFilters]="preparedPayloadBody.filterData" [thisPage]="thisPage" (successMessage)="successMessageForExport( $event )"></dg-crm-export>
+									</ng-container>
+		
+									<ng-container *ngIf="thisPage == 'companySearch' && !defaultSearchData && ( preparedPayloadBody.filterData.length || activeRoute.snapshot.queryParams['cListId'] != undefined ) && ( userAuthService.hasRolePermission( ['Super Admin'] ) || userDetails?.companyNumber == '12351197' ) && !['businessMonitor', 'businessMonitorPlus', 'businessWatch'].includes( activeRoute.snapshot.queryParams['listPageName'] )">
+										<dg-cbf-export [tableData]="recordListTable" [searchTotalCount]="searchTotalCount" [appliedFilters]="preparedPayloadBody.filterData" [thisPage]="thisPage" (successMessage)="successMessageForExport( $event )"></dg-cbf-export>
+									</ng-container>
+								</ng-container>
+
+							</ng-container>
+
+						<ng-container *ngIf="activeRoute.snapshot.queryParams['listPageName'] != 'exportedBucket'">
+							<button pButton type="button" *ngIf="[ 'companySearch', 'workflowListPage' ].includes( thisPage ) && showDeleteButton" [disabled]="selectedCompany.length == 0" label="Delete From List" icon="ui-icon-delete" class="p-button-rounded p-button-sm p-button-danger mr-3 hideBlockForMobileView " (click)="deleteCompanyInList()"></button>
+						</ng-container>
+						<ng-container *ngIf="activeRoute.snapshot.queryParams['listPageName'] != 'exportedBucket'">
+							<button pButton type="button" *ngIf="['workflowListPage' ].includes( thisPage ) && showDeleteButton" [disabled]="listDataValues.length == 0" label="Add To Monitor" icon="ui-icon-add" class="btn p-button-sm hideBlockForMobileView" (click)="MonitorForWorkflow( selectedCompany, true )"></button>
+							<button pButton type="button" *ngIf="['workflowListPage' ].includes( thisPage ) && showDeleteButton" [disabled]="listDataValues.length == 0" label="Remove From Monitor" icon="ui-icon-add" class="btn p-button-sm p-button-danger hideBlockForMobileView ml-2" (click)="MonitorForWorkflow( selectedCompany, false)"></button>
+						</ng-container>
+
+						<button pButton type="button" *ngIf="thisPage == 'landCorporate' && !defaultSearchData" label="Title Register Sample PDF" icon="ui-icon-insert-drive-file" class="p-button-rounded p-button-sm hideBlockForMobileView " (click)="downloadLrmSamplePdf()"></button>
+
+						<dg-sync-with-hubspot [showDialog]="showDialog" (resetDialog)="hideDialog($event)"></dg-sync-with-hubspot>
+
+						<p-dialog header="Header" [(visible)]="showDialogForListName" [modal]="true" [style]="{width: '25vw'}">
+							<ng-template pTemplate="header">
+								<span class="text-xl font-bold">Required List Name</span>
+							</ng-template>
+							<label htmlFor="username">Enter your list name</label>
+							<input pInputText id="username" aria-describedby="username-help" [(ngModel)]="listNameForHubSpot" />
+							<ng-template pTemplate="footer">
+								<p-button (click)="pushCompaniesToHubSpot()" label="Create" [disabled]="!listNameForHubSpot"></p-button>
+							</ng-template>
+						</p-dialog>
+					
+						<ng-container *ngIf="!['businessMonitor', 'businessMonitorPlus', 'businessWatch', 'businessCollaborators'].includes( activeRoute.snapshot.queryParams['listPageName'] )">
+							<ng-container *ngIf="!activeRoute.snapshot.queryParams['hideList']">
+								<dg-add-company-to-list *ngIf="[ 'otherRelatedCompanies', 'companySearch' ].includes( thisPage )" [selectedCompany]="selectedCompany" [thisPage]="thisPage" (messageCommunicator)="getMessage($event)" [disableButton]="selectedCompany.length == 0 || exportAllButton" [appliedFilters]="preparedPayloadBody.filterData" [defaultSearchData]="defaultSearchData" [searchTotalCount]="searchTotalCount" [selectedSavedListDataObj]="selectedSavedListDataObj"></dg-add-company-to-list>
+							</ng-container>
+						</ng-container>
+
+					</div>
+
+					<div *ngIf="searchTotalCount >= messageCountForTable && ![ 'landCorporate', 'landRegistry' ].includes( thisPage ) && (!activeRoute.snapshot.queryParams['hideList'])" class="c-light font-italic">
+						<small>( *Note : Max {{messageCountForTable}} records can be exported and 10,000 can be added in list. )</small>
+					</div>
+
+				</div>
+				<div class="col xl:col-4 paginatorResponsiveness" *ngIf="searchTotalCount > 25 && userDetails?.isSubscriptionActive && !defaultSearchData && !userDetails?.isTrial">
+					<p-paginator #recordListPaginator [first]="first" [rows]="rows" pageLinkSize="3" [totalRecords]="totalNumOfRecords" [rowsPerPageOptions]="[25,50,100]" (onPageChange)="pageChange($event, recordListTable)"></p-paginator>
+				</div>
+			</div>
+		</ng-template>
+
+		<ng-template pTemplate="header" let-columns>
+			<tr>
+				<th style="min-width: 32px;" *ngIf="showCheckBox && thisPage !== 'related_Directors' && thisPage !== 'related_Companies' && !activeRoute.snapshot.queryParams['hideList']">
+					<p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+				</th>
+				<th [pSortableColumn]="col.isSortable ? col.field : ''" *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign }" [hidden]="col.field == 'id'" [style.display]="['companySearch', 'otherRelatedCompanies'].includes(thisPage) && !col.visible ? 'none' : ''">
+					{{ col.header }}
+					<ng-container *ngIf="col.header == 'CTPS Registered'">
+						<sup><b>*</b></sup>
+					</ng-container>
+
+                    <ng-container *ngIf="preparedPayloadBody.filterData != undefined && preparedPayloadBody.filterData.length">
+						<p-sortIcon [field]="col.field" *ngIf="![ 'otherFeatures', 'RegAddress', 'sicCode07', 'NumMortCharges', 'CCJCount', 'numberOfEmployees', 'turnover_latest', 'totalAssets_latest', 'totalLiabilities_latest', 'netWorth_latest', 'grossProfit_latest', 'tradeDebtors', 'address', 'Address', 'Property_Address', 'dAddress2', 'industryGroupTag', 'estimated_turnover', 'RegAddress_Modified', 'industryTag', 'companyStatus', 'companyAge','directorName', 'internationalScoreDescription','Building_Name_No', 'numLandCorporate', 'latestFinancialYear', 'resignedStatus', 'appointmentDate', 'linkedDirector', 'companyName', 'role', 'nationality', 'dAddress', 'dAddress2', 'companyNumber', 'totalDirectors', 'appointedOn', 'chargesCount', 'incorporationDate', 'category', 'sic_code', 'Date_Proprietor_Added', 'transferDate', 'Address', 'paon', 'Price_Paid', 'growth_scores', 'propensity_scores' ].includes( col.field ) && showSortingIcon"></p-sortIcon>
+					</ng-container>
+
+					<ng-container *ngIf="col.header == 'Features'">
+
+						<i class="pi pi-info-circle" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)"
+							style="font-size:18px"></i>
+						<p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+							<span class="featuresLinks">
+								<div>
+									<i class="material-icons mb-1">phone</i><span class="ml-1">Phone</span>
+								</div>
+								<div>
+									<i class="material-icons mb-1">language</i><span class="ml-1">Website</span>
+								</div>
+								<div>
+									<a>
+
+										<svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+											<path
+												d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+										</svg>
+									</a> <span class="ml-1">LinkedIn</span>
+								</div>
+								<div>
+									<i class="material-icons mb-1">account_balance</i><span class="ml-1">Charges</span>
+								</div>
+								<div>
+									<i class="material-icons mb-1">assessment</i><span class="ml-1">Financial</span>
+								</div>
+							</span>
+						</p-overlayPanel>
+					</ng-container>
+
+					<ng-container *ngIf="col.header == 'Benchmarking'">
+						<i class="pi pi-info-circle" (click)="dialogForBenchmarking=true;"></i>
+						<p-dialog [(visible)]="dialogForBenchmarking" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" [dismissableMask]="true">
+							<img src="/assets/layout/images/benchMarkingChart.svg"/>
+						</p-dialog>
+					</ng-container>
+
+					<ng-container *ngIf="col.header == 'M & A'">
+						<i class="pi pi-info-circle" (click)="dialogForMAndA=true;"></i>
+						<p-dialog [(visible)]="dialogForMAndA" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" [dismissableMask]="true">
+							<img src="/assets/layout/images/mAndA.svg"/>
+						</p-dialog>
+					</ng-container>
+
+					<ng-container *ngIf="col.header == 'Turnover'">
+						<i class="pi pi-info-circle" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)"
+							style="font-size:18px"></i>
+						<p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+							<div class="OverlayAdmin pb-2">
+								<i class="pi pi-circle-fill pr-2" style="color: #1ab394;"></i><strong>Turnover</strong>						
+							</div>
+							<div class="OverlayAdmin">
+								<i class="pi pi-circle-fill pr-2" style="color: #03a9f4;"></i><strong>Estimated Turnover (*)</strong>						
+							</div>
+						</p-overlayPanel>
+					</ng-container>
+					<ng-container *ngIf="col.header == 'Turnover (Estimate+)'">
+						<i class="pi pi-info-circle" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)"
+							style="font-size:18px"></i>
+						<p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+							<div class="OverlayAdmin">
+								<strong>Estimated Turnover</strong> = 7.3 times Trade Debtors.						
+							</div>
+						</p-overlayPanel>
+					</ng-container>
+				</th>
+			</tr>
+			<ng-container *ngIf="!defaultSearchData && thisPage !== 'otherRelatedCompanies' && !['relatedPartyIntel', 'workflowListPage'].includes(thisPage)">
+                <tr *ngIf="( ( [ subscribedPlanModal['Monthly_Expand'], subscribedPlanModal['Expand_Annual_One_Year'], subscribedPlanModal['Expand_Annual_Two_Year'], subscribedPlanModal['Expand_New_Monthly'], subscribedPlanModal['Monthly_Expand_Paid_Test'], subscribedPlanModal['Monthly_Enterprise'], subscribedPlanModal['Enterprise_Annual_One_Year'], subscribedPlanModal['Enterprise_Annual_Two_Year'], subscribedPlanModal['Enterprise_New_Monthly'], subscribedPlanModal['Monthly_Enterprise_Paid_Test'], subscribedPlanModal['Annually_Expand'], subscribedPlanModal['Annually_Enterprise'], subscribedPlanModal['Enterprise_Conversion_For_Ravi'], subscribedPlanModal['Premium_New_Monthly'], subscribedPlanModal['Premium_Annual_One_Year'], subscribedPlanModal['Premium_Annual_Two_Year'], subscribedPlanModal['Valentine_Special'], subscribedPlanModal['Expand_Weekly_Trial'], subscribedPlanModal['Monthly_Expand_Trial'], subscribedPlanModal['Annually_Expand_Trial'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Monthly_Enterprise_Trial'], subscribedPlanModal['Annually_Enterprise_Trial'] ].includes( userDetails?.planId ) && userDetails?.isSubscriptionActive ) || userAuthService.hasRolePermission( ['Super Admin'] ) )" class="filterSearchRow">
+                    <th style="width: 32px;" *ngIf="showCheckBox && thisPage !== 'related_Directors' && thisPage !== 'related_Companies'">&nbsp;</th>
+                    <th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign }" [ngSwitch]="col.field" [hidden]="col.field == 'id'" [style.display]="['companySearch', 'otherRelatedCompanies'].includes(thisPage) && !col.visible ? 'none' : ''">
+
+						<input class="mt-3" pInputText type="text" placeholder="Search Keyword"
+						(input)="applyFilter($event, recordListTable, col.field, 'contains')"
+							[value]="recordListTable.filters[ col.field ]?.value"
+							*ngSwitchDefault [hidden]="[ 'edit', 'otherFeatures', 'RegAddress_Modified', 'RegAddress', 'industryTag', 'sicCode07', 'Property_Address', 'companyno_2', 'companyno_3', 'companyno_4', 'Address', 'companyAge', 'tradeDebtors','turnover_latest', 'numLandCorporate', 'latestFinancialYear', 'directorName', 'resignedStatus', 'appointmentDate', 'linkedDirector', 'companyName', 'role', 'nationality', 'dAddress', 'dAddress2', 'companyNumber', 'totalDirectors', 'appointedOn', 'chargesCount', 'incorporationDate', 'category', 'sic_code', 'address', 'naceCodeInfo', 'growth_scores', 'propensity_scores' ].includes(col.field)" (keypress)="validateSearchField($event, col.field)">
+						<span *ngIf="col.field == tempField && showInputFieldMessage == true" style="color: red;">
+							<small style="float: left;">
+								Please enter value according to the field.
+							</small>
+						</span>
+    
+                        <p-multiSelect id="companyStatus" [options]="companyStatusArray" [(ngModel)]="companyStatusModel"
+                            appendTo="body" [baseZIndex]="999999998" *ngSwitchCase="'companyStatus'" optionLabel="label"
+                            selectedColumnsLabel="{0} companyStatus selected" defaultLabel="Choose Status"
+                            (ngModelChange)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'in')"
+                            (focus)="fetchTableData(recordListTable)" resetFilterOnHide=true >
+                        </p-multiSelect>
+                        <p-multiSelect id="propertyType" [options]="PropertyTypeArray" [(ngModel)]="PropertyTypeModel"
+                            appendTo="body" [baseZIndex]="999999998" *ngSwitchCase="'propertyType'" optionLabel="value"
+                            selectedColumnsLabel="{0} propertyType selected" defaultLabel="Choose Property Type"
+                            (ngModelChange)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'PropertyTypeFilter')"
+                            (focus)="fetchTableData(recordListTable)" resetFilterOnHide=true >
+                        </p-multiSelect>
+                        <p-multiSelect id="duration" [options]="landTenureArray" [(ngModel)]="landTenureModel"
+                            appendTo="body" [baseZIndex]="999999998" *ngSwitchCase="'duration'" optionLabel="value"
+                            selectedColumnsLabel="{0} duration selected" defaultLabel="Choose Land Tenure"
+                            (ngModelChange)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'landTenureFilter')"
+                            (focus)="fetchTableData(recordListTable)" resetFilterOnHide=true >
+                        </p-multiSelect>
+                        <p-multiSelect id="oldOrNew" [options]="buildTypeArray" [(ngModel)]="buildTypeModel"
+                            appendTo="body" [baseZIndex]="999999998" *ngSwitchCase="'oldOrNew'" optionLabel="value"
+                            selectedColumnsLabel="{0} oldOrNew selected" defaultLabel="Choose Build Type"
+                            (ngModelChange)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'buildTypeFilter')"
+                            (focus)="fetchTableData(recordListTable)" resetFilterOnHide=true >
+                        </p-multiSelect>
+    
+                        <p-calendar id="companyRegistrationDatePick" #companyRegistrationDatePicker [monthNavigator]="true" [yearNavigator]="true" [numberOfMonths]="1" [maxDate]="todayDate" yearRange="1800:{{maxYear}}" placeholder="dd-mm-yyyy" [(ngModel)]="companyRegistrationDatePickValue" appendTo="body" dateFormat="dd-mm-yy" *ngSwitchCase="'companyRegistrationDate'" (onSelect)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'companyRegistrationDatePickFilters')"></p-calendar>
+                        <p-calendar id="subscriptionStart_data" #SubscriptionStartDatePicker [monthNavigator]="true" [yearNavigator]="true" [numberOfMonths]="1" [maxDate]="todayDate" yearRange="1900:{{maxYear}}" placeholder="dd-mm-yyyy" [(ngModel)]="SubscriptionStartDateValue" appendTo="body" selectionMode="range" dateFormat="dd-mm-yy" *ngSwitchCase="'subscription_data_startDate'" (onSelect)="applyFilter($event, userListTable, col.field, col.filterMatchMode, 'SubscriptionStartDateFilters')"></p-calendar>
+                        <p-calendar id="last_login" #LastLoginDatePicker [monthNavigator]="true" [yearNavigator]="true" [numberOfMonths]="1" [maxDate]="todayDate" yearRange="1900:{{maxYear}}" placeholder="dd-mm-yyyy" [(ngModel)]="LastLoginDateValue" appendTo="body" selectionMode="range" dateFormat="dd-mm-yy" *ngSwitchCase="'logInTime'" (onSelect)="applyFilter($event, userListTable, col.field, col.filterMatchMode, 'LastLoginDateFilters')"></p-calendar>
+                        <p-calendar id="subscriptionEnd_data" #SubscriptionEndDatePicker [monthNavigator]="true" [yearNavigator]="true" [numberOfMonths]="1" [maxDate]="todayDate" yearRange="1900:{{maxYear}}" placeholder="dd-mm-yyyy" [(ngModel)]="SubscriptionEndDateValue" appendTo="body" selectionMode="range" dateFormat="dd-mm-yy" *ngSwitchCase="'subscription_data_endDate'" (onSelect)="applyFilter($event, userListTable, col.field, col.filterMatchMode, 'SubscriptionEndDateFilters')"></p-calendar>
+                        <p-calendar id="dateProprietorAddedPick" #dateProprietorAddedPicker [monthNavigator]="true" [yearNavigator]="true" [numberOfMonths]="1" [maxDate]="todayDate" yearRange="1900:{{maxYear}}" placeholder="dd-mm-yyyy" [(ngModel)]="dateProprietorAddedPickValue" appendTo="body" dateFormat="dd-mm-yy" *ngSwitchCase="'Date_Proprietor_Added'" (onSelect)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'dateProprietorAddedPickFilters')"></p-calendar>
+                        <p-calendar id="landRegistryDatePick" #landRegistryDatePicker [monthNavigator]="true" [yearNavigator]="true" [numberOfMonths]="1" [maxDate]="todayDate" yearRange="1900:{{maxYear}}" placeholder="dd-mm-yyyy" [(ngModel)]="landRegistryDatePickValue" appendTo="body" dateFormat="dd-mm-yy" *ngSwitchCase="'transferDate'" (onSelect)="applyFilter($event, recordListTable, col.field, col.filterMatchMode, 'landRegistryDatePickFilters')"></p-calendar>
+                    </th>
+                </tr>
+            </ng-container>
+		</ng-template>
+
+		<ng-template #getCompanyDetailScrollPosition pTemplate="body" let-rowData let-columns="columns">
+			<tr [pSelectableRow]="rowData">
+				<td style="width: 32px;" *ngIf="showCheckBox && thisPage !== 'related_Directors' && thisPage !== 'related_Companies' && !activeRoute.snapshot.queryParams['hideList']" [ngClass]="{ 'hideBlockForMobileView' : thisPage == 'landCorporate' || thisPage == 'landRegistry' }">
+					<p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+				</td>
+				<td *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign, 'vertical-align': col.verticalAlign }" [hidden]="col.field == 'id'" [ngClass]="{ 'requiredTableFields': ( col.field == 'businessName' || col.field == 'otherFeatures' || col.field == 'companyRegistrationNumber' || col.field == 'companyStatus' || col.field == 'companyType' || col.field == 'RegAddress' || col.field == 'sicCode07' || col.field == 'companyno_1' || col.field == 'Proprietor_Name_1' || col.field == 'Price_Paid' || col.field == 'Tenure' || col.field == 'Property_Address' || col.field == 'Postcode' || col.field == 'propertyType' || col.field == 'duration' || col.field == 'Cost' || col.field == 'oldOrNew' || col.field == 'Address' || col.field == 'totalDirectors' || col.field == 'chargesCount' || col.field == 'companyNumber' || col.field == 'linkedDirector' || col.field == 'category' || col.field == 'sic_code' || col.field == 'address' || col.field == 'directorName' || col.field == 'companyName' || col.field == 'dAddress' || col.field == 'resignedStatus'), 'hideDirectorNameFromSearchCompany': ( thisPage == 'companySearch' && col.field == 'directorName' ), 'd-lg-none' : ( col.field != 'businessName' && col.field != 'otherFeatures' && col.field != 'companyRegistrationNumber' && col.field != 'companyStatus' && col.field != 'companyType' && col.field != 'RegAddress' && col.field != 'sicCode07' && col.field != 'companyno_1' && col.field != 'Proprietor_Name_1' && col.field != 'Price_Paid' && col.field != 'Tenure' && col.field != 'Property_Address' && col.field != 'Postcode' && col.field != 'propertyType' && col.field != 'duration' && col.field != 'Cost' &&  col.field != 'oldOrNew' && col.field != 'Address' &&  col.field != 'companyName' && col.field != 'companyNumber' && col.field != 'linkedDirector' && col.field != 'category' && col.field != 'sic_code' && col.field != 'address' && col.field != 'directorName' && col.field != 'totalDirectors' && col.field != 'chargesCount' && col.field != 'companyName' && col.field != 'dAddress' && col.field != 'resignedStatus'), 'td-lg-mt': col.field == 'businessName', 'hideBlockForMobileView': ( col.field == 'directorName' || col.field == 'RegAddress_Modified' || col.field == 'RegAddress_Modified'  || col.field == 'RegAddress_Modified' || col.field == 'companyAge'  || col.field == 'grossProfit_latest' || col.field !== 'tradeDebtors'  || col.field == 'netWorth_latest' || col.field == 'totalLiabilities_latest' || col.field == 'totalAssets_latest' || col.field == 'CCJCount' || col.field == 'active_directors_count' || col.field == 'NumMortCharges' || col.field == 'turnover_latest' || col.field == 'estimated_turnover' || col.field == 'companyRegistrationDate' || col.field == 'numberOfEmployees' || col.field == 'companyno_4' || col.field == 'companyno_3' || col.field == 'companyno_2' || col.field == 'County' || col.field == 'District' || col.field == 'Region' || col.field == 'Date_Proprietor_Added' || col.field == 'Title_Number' || col.field == 'Building_Name_No' || col.field == 'PostCode' || col.field == 'County' || col.field == 'District' || col.field == 'Town' || col.field == 'Locality' || col.field == 'Street' || col.field == 'Date' || col.field == 'SecondaryName' ) }"
+					[ngSwitch]="true" [style.display]="['companySearch', 'otherRelatedCompanies'].includes(thisPage) && !col.visible ? 'none' : ''">
+					
+					<span class="p-column-title" [ngClass]="{ 'hideBlockForMobileView': ( col.header == 'Director Name' || col.header == 'Phone/Mobile' || col.header == 'Website'  || col.header == 'CTPS Registered' || col.header == 'Gross Profit' || col.header == 'Net Worth' || col.header == 'Total Liabilities' || col.header == 'Total Assets' || col.header == 'CCJ Count' || col.header == 'Active Directors Count' || col.header == 'Mortgages Charge' || col.header == 'Turnover (Estimate+)' || col.header == 'Incorporation Date' || col.header == 'Region' || col.header == 'District' || col.header == 'County' || col.header == 'Company No.2' || col.header == 'Company No.3' || col.header == 'Company No.4' || col.header == 'Proprietor Added On' || col.header == 'Title Number' || col.header == 'County' || col.header == 'District' || col.header == 'Town or City' || col.header == 'Locality' || col.header == 'Street' || col.header == 'Date' ) }">{{ col.header }}:</span>
+
+					<ng-container *ngSwitchDefault>{{ rowData[col.field] }}</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'username' || col.field == 'referenceName'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'directorEmail'">
+						{{ rowData[col.field] ? rowData[col.field] : '-'}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'directorLinkedIn'">
+						<span class="featuredLinks">
+							<ng-container
+								*ngIf="rowData?.directorLinkedIn && rowData?.directorLinkedIn && rowData?.directorLinkedIn !== '' && rowData?.directorLinkedIn !== ' ' && rowData?.directorLinkedIn !== 'null'; else noLinkedinURL">
+								<a target="_blank" [href]="rowData.directorLinkedIn">
+									<svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+										<path
+											d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+									</svg>
+								</a>
+							</ng-container>
+							<ng-template #noLinkedinURL>
+								<a href="javascript: void(0);"
+									(click)="checkSubscriptionAuth( true, goToDirectorNameLinkedIn(rowData) )">
+									<svg class="svg-fill-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+										<path
+											d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+									</svg>
+								</a>
+							</ng-template>
+						</span>   
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'occupation'">
+					  {{ rowData[col.field] | titlecase }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'safealertdescription'">
+						<div class="grid mb-0" *ngIf="rowData['alertDetail1'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 1: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail1']}}</span>
+							</div>
+						</div>
+
+						<div class="grid mb-0" *ngIf="rowData['alertDetail2'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 2: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail2'] | titlecase }}</span>
+							</div>
+						</div>
+					
+						<div class="grid mb-0" *ngIf="rowData['alertDetail3'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 3: </strong>
+							</div>
+							<div  class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail3'] | titlecase }}</span>
+							</div>
+						</div>
+					
+						<div class="grid mb-0" *ngIf="rowData['alertDetail4'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 4: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail4'] | date: 'dd-MM-yyyy'}}</span>
+							</div>
+						</div>
+					
+						<div class="grid mb-0" *ngIf="rowData['alertDetail5'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 5: </strong>
+							</div>
+							<div  class="col-8 md:col-8 lg:col-8">
+								<span class="data-font"> {{ rowData['alertDetail5'] | titlecase}}</span>
+							</div>
+						</div>
+						<div class="grid mb-0" *ngIf="rowData['alertDetail6'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 6: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail6'] | date: 'dd-MM-yyyy'}}</span>
+							</div>
+						</div>
+						<div class="grid mb-0" *ngIf="rowData['alertDetail7'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 7: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail7'] | titlecase}}</span>
+							</div>
+						</div>
+						<div class="grid mb-0" *ngIf="rowData['alertDetail8'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 8: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail8'] | date: 'dd-MM-yyyy'}}</span>
+							</div>
+						</div>
+						<div class="grid mb-0" *ngIf="rowData['alertDetail9'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 9: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail9'] | titlecase}}</span>
+							</div>
+						</div>
+						<div class="grid mb-0" *ngIf="rowData['alertDetail10'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 10: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail10'] | date: 'dd-MM-yyyy'}}</span>
+							</div>
+						</div>
+						<div class="grid mb-0" *ngIf="rowData['alertDetail11'] != null">
+							<div class="col-4 md:col-4 lg:col-4"><strong>Detail 11: </strong>
+							</div>
+							<div class="col-8 md:col-8 lg:col-8">
+								<span class="data-font">{{ rowData['alertDetail11'] | date: 'dd-MM-yyyy'}}</span>
+							</div>
+						</div>
+									 
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'monitorForRecord'">
+						<ng-container *ngIf="rowData.isMonitored;  else noMonitor">
+							<a href="javascript: void(0);" title="Remove from Monitor" (click)="selectedCompanyMonitorForRow( rowData, 'monitoring' )">
+								<i class="pi pi-eye monitoringIcon c-green"></i>
+							</a>
+						</ng-container>
+						
+						<ng-template #noMonitor>
+							<a href="javascript: void(0);" title="Add to Monitor" (click)="selectedCompanyMonitorForRow( rowData, 'demonitoring' )">
+								<i class="pi pi-eye-slash monitoringIcon"></i>
+							</a>
+						</ng-template>
+
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'commentaryText'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'commentaryImpact'">
+						<span class="commentry-timeline">
+							<ng-container *ngIf="rowData[col.field] == '+'">
+								<i class="ui-icon-arrow-upward c-green"></i>
+							</ng-container>
+							<ng-container *ngIf="rowData[col.field] == '-'">
+								<i class="ui-icon-arrow-downward c-red"></i>
+							</ng-container>
+							<ng-container *ngIf="rowData[col.field] == null">
+								<i class="ui-icon-arrow-forward c-orange"></i>
+							</ng-container>
+						</span>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'ccjAmount'">
+						&pound; {{ rowData[col.field] | number:'1.2-2' }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'numberOfEmployees'">
+						{{ rowData[col.field] ? (rowData[col.field] | number:'1.0-0') :"-"}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'numLandCorporate'">
+						{{ rowData[col.field] ? rowData[col.field] :"-" }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'borrowAmount'">
+						&pound; {{ rowData[col.field] | number:'1.2-2' }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'caseNumber'">
+						{{ rowData[col.field] | uppercase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'incomingRecordDetails'">
+						{{ rowData[col.field] | uppercase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'acquiringCompanyName'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'acquiredCompanyName'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'enquiryContact1'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'enquiryContact2'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'industryGroupTag'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>                 
+					<ng-container *ngSwitchCase="col.field == 'share_holders_details'">
+						{{ rowData[col.field].shareholderForename | titlecase }} {{  rowData[col.field].shareholderSurname | titlecase }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'currency'">
+						{{ rowData[col.field] | uppercase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'shareType'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'kind'">
+						<div *ngIf="checkKey(rowData,col.field) && rowData[col.field].length > 0">
+							{{removeHyphen(rowData[col.field]) | titlecase }}
+						</div>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'court'">
+						{{ rowData[col.field] | uppercase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'ccjStatus'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'plan'">
+						{{ rowData['subscription_data'].name}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'isEmailVerified'">
+						{{ rowData[col.field] }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'emailSubscription'">
+						{{ rowData[col.field] }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'advancedLimit'">
+						{{ rowData[col.field] }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'landLimit'">
+						{{ rowData[col.field] }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'editDetails'">
+						<a type="button" icon="ui-icon-edit" pButton (click)="editCbilsDetails(rowData)"></a>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'corpLandLimit'">
+						{{ rowData[col.field] }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'postalCode'">
+						{{ rowData[col.field] | uppercase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'logInTime'">
+						{{ rowData['login_data'].logInTime }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'subscription_data_startDate'">
+						{{ rowData['subscription_data'].startDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'subscription_data_endDate'">
+						{{ rowData['subscription_data'].endDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'subscription_data_cost'">
+						<span *ngIf="rowData['subscription_data'].cost > '0' ">
+							Paid
+						</span>
+						<span *ngIf="rowData['subscription_data'].cost == '0' ">
+							Free
+						</span>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'companyAge'">
+							{{ rowData['companyAge'] !== undefined && rowData['companyAge'] !== null && rowData['companyAge'] !== '' ? rowData['companyAge'] : '-' }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'companyRegistrationDate'">
+						{{rowData['companyRegistrationDate'] !== undefined && rowData['companyRegistrationDate'] !== null && rowData['companyRegistrationDate'] !== '' ? (changeToDate(rowData["companyRegistrationDate"]) | date: 'dd-MM-yyyy') : '-'}}                        
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'companyType'">
+						{{ (rowData[col.field] ? rowData[col.field]:'-') | titlecase }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'companyStatus'">
+						<span *ngIf="rowData['companyStatus']; else noCompanyStatus" class="status" [ngClass]="{ 'green': [ 'live', 'administration order' ].includes( rowData['companyStatus'] ), 'c-orange': [ 'in liquidation' ].includes( rowData['companyStatus'] ), 'c-red': [ 'converted/closed', 'dissolved', 'in administration', 'in receivership / administration', 'voluntary arrangement', 'in receivership', 'deleted', 'removed' ].includes( rowData['companyStatus'] ) }">{{ rowData['companyStatus'] | uppercase }}
+						</span>
+						<ng-template #noCompanyStatus>
+							-
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'businessName'">
+
+						<span class="mr-1" *ngIf="activeRoute.snapshot.queryParams['cListId']">
+                            <span class="companyLogoAlign" *ngIf="rowData?.logo_url; else noCompanyLogo">
+                                <img class="companyLogoSize" *ngIf="rowData?.logo_url else defaultLogo" src="{{ rowData?.logo_url }}"/>
+                            </span>
+                        </span>
+                        <span class="mr-1" *ngIf="!activeRoute.snapshot.queryParams['cListId']">
+                            <span class="companyLogoAlign" *ngIf="rowData?.company_contact_info_latest && rowData?.company_contact_info_latest?.logo_url; else noCompanyLogo">
+								<span class="companyLogoAlign" *ngIf="rowData?.company_contact_info_latest && rowData?.company_contact_info_latest?.logo_url.includes('https://'); else defaultlogo">
+									<img class="companyLogoSize" src="{{ rowData?.company_contact_info_latest?.logo_url }}"/>
+								</span>
+								<ng-template #defaultlogo>
+									<!-- <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="companyLogoSize" id="company-accent-4" data-supported-dps="128x128">
+										<g>
+										  <g>
+											<path fill="#e9e5de" d="M0 0h128v128H0z"/>
+											<path fill="#9eb3c8" d="M48 16h64v112H48z"/>
+											<path fill="#788fa5" d="M16 80h32v48H16z"/>
+											<path fill="#56687a" d="M48 80h32v48H48z"/>
+										  </g>
+										</g>
+									  </svg></span> -->
+									  <span>
+										<i class="material-icons c-blue">business</i>
+									</span>
+								</ng-template>
+                            </span>
+                        </span>
+                        <ng-template #noCompanyLogo>
+                            <span>
+                                <i class="material-icons c-blue">business</i>
+                            </span>
+                        </ng-template>
+
+						<a *ngIf="thisPage != 'workflowListPage'" class="cName ml-1 hidden xl:inline" target="_blank" [href]="'/company/' + rowData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['businessName'] | titlecase)" (click)="showCompanySideDetailsPanel($event, rowData['companyRegistrationNumber'], rowData['businessName'])">{{ rowData[col.field] | uppercase }}
+						</a>
+						<a *ngIf="thisPage == 'workflowListPage'" class="cName" target="_blank" [href]="'/company/' + rowData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['businessName'] | titlecase)"> {{ rowData[col.field] | uppercase }}
+						</a>
+
+						<a class="cName mr-1 inline xl:hidden" target="_blank" [href]="'/company/' + rowData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['businessName'] | titlecase)">{{ rowData[col.field] | uppercase }}</a>
+
+						<span class="infoName mr-1 hidden lg:inline" (mouseover)="showCompanyQuickInfoPopover($event, rowData)" (mouseout)="hideCompanyQuickInfoPopover()">
+							<i class="pi pi-info-circle"></i>
+						</span>
+						
+						<span *ngIf="rowData['total_directors_count'] > 0">
+							<a href="javascript:void(0)" class="c-green small-data-font" (click)="checkSubscriptionAuth( ( userAuthService.hasFeaturePermission( 'See Relations' ) || userAuthService.hasRolePermission( ['Super Admin'] ) ), [ '/relations', formatCompanyNameForUrl(rowData['businessName'].trim()), rowData['companyRegistrationNumber'], 'company' ] )"><i class="pi pi-share-alt mr-1"></i>Link</a>
+						</span>
+
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'sourceCompanyRegistrationNumber'  ">
+						<ng-container *ngIf="rowData[col.field]; else dashShownInsideTable">
+							<a class="cName" target="_blank"
+								[href]="'/company/' + rowData['sourceCompanyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['sourceBusinessName'] | titlecase)">
+								{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'destinationCompanyRegistrationNumber'  ">
+						<ng-container *ngIf="rowData[col.field]; else dashShownInsideTable">
+							<a class="cName" target="_blank"
+								[href]="'/company/' + rowData['destinationCompanyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['destinationBusinessName'] | titlecase)">
+								{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'sourceBusinessName'">
+						<ng-container *ngIf="rowData[col.field]; else dashShownInsideTable">
+							<a class="cName ml-1 hidden xl:inline"
+								[href]="'/company/' + rowData['sourceCompanyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['sourceBusinessName'] | titlecase)" target="_blank">{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'destinationBusinessName'">
+						<ng-container *ngIf="rowData[col.field]; else dashShownInsideTable">
+							<a class="cName ml-1 hidden xl:inline"
+								[href]="'/company/' + rowData['destinationCompanyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['destinationBusinessName'] | titlecase)" target="_blank">{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'relationDirectorName'">
+						<ng-container *ngIf="rowData[col.field]; else dashShownInsideTable">
+							<a class="cName" [href]="'/director/' + formatDirectorNameForUrl(rowData['relationDirectorName']?.trim() | titlecase) + '/' + rowData['relationDirectorPnr'] " target="_blank"> {{ rowData['relationDirectorName'] | titlecase }}</a>
+						</ng-container>
+					</ng-container>
+					<ng-template #dashShownInsideTable>
+						<span class="text-lg font-semibold text-cyan-600">-</span>
+					</ng-template>
+
+					<ng-container *ngSwitchCase="col.field == 'otherFeatures'">
+
+						<span class="featuredLinks">
+							
+							<ng-container *ngIf="rowData?.company_contact_info_latest && rowData?.company_contact_info_latest?.telephone && rowData?.company_contact_info_latest?.telephone !== 'null'">
+									<a href="javascript:void(0);" title="phone"  (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'viewAboutCompany', 'classForContactInfo' )">
+										<i class="material-icons">phone</i>
+									</a>
+							</ng-container>
+							<!-- <ng-template #defaultTelephone>
+								<span *ngIf="rowData['RegAddress_Modified'] && rowData['RegAddress_Modified']['telephone']">
+									<a href="javascript:void(0);"  title="phone"  (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'AboutComponent', 'classForContactInfo' )">
+										<i class="material-icons">phone</i>	</a>
+								</span>
+							</ng-template> -->
+							<!-- <ng-container *ngIf="rowData?.companyContactDetails && rowData?.companyContactDetails[0]?.website && rowData?.companyContactDetails[0]?.website !== 'null'; else defaultWebsites">
+								<a href="javascript:void(0);" title="Website" (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'AboutComponent', 'classForContactInfo' )">
+									<i class="material-icons">language</i></a>
+							</ng-container>
+							<ng-template #defaultWebsites>
+								<span *ngIf="rowData['RegAddress_Modified'] && rowData['RegAddress_Modified']['website']">
+									<a href="javascript:void(0);" title="Website" (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'AboutComponent', 'classForContactInfo' )">
+										<i class="material-icons">language</i></a>
+								</span>
+                    		</ng-template> -->
+
+							<ng-container *ngIf="rowData?.company_contact_info_latest && rowData?.company_contact_info_latest?.website && rowData?.company_contact_info_latest?.website !== 'null'">
+								<a href="javascript:void(0);" title="Website" (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'viewAboutCompany', 'classForContactInfo' )">
+									<i class="material-icons">language</i></a>
+							</ng-container>
+
+							<!-- <ng-container *ngIf="( userAuthService.hasAddOnPermission('contactInformation') || userAuthService.hasRolePermission( ['Super Admin'] ) )"> -->
+								<span addOnAccess="contactInformation">
+									<ng-container *ngIf="( rowData?.company_contact_info_latest && rowData?.company_contact_info_latest?.linkedin_url != '' )">
+								
+										<ng-container *ngIf="rowData?.company_contact_info_latest && rowData?.company_contact_info_latest?.linkedin_url">
+											<a target="_blank" [href]="rowData?.company_contact_info_latest?.linkedin_url">
+												<svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+													<path d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+												</svg>
+											</a>
+										</ng-container>
+									
+										<!-- <ng-template #otherBlock>
+											<ng-container *ngIf="rowData?.RegAddress_Modified && rowData?.RegAddress_Modified.linkedin_url">
+												<a target="_blank" [href]="rowData.RegAddress_Modified.linkedin_url">
+													<svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+														<path d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+													</svg>
+												</a>
+											</ng-container>
+										</ng-template> -->
+					
+									</ng-container>
+									<!-- <ng-template #noLinkedinURL>
+										<a href="javascript: void(0);" (click)="checkSubscriptionAuth( true, linkedinURLForCompany(rowData.businessName) )">
+											<svg class="svg-fill-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+												<path d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+											</svg>
+										</a>
+									</ng-template> -->
+								</span>
+							<!-- </ng-container> -->
+							<span>
+								<a href="javascript:void(0);" title="Charges" *ngIf="rowData['hasCharges']" (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'viewCharges') ">
+									<i class="material-icons">account_balance</i>
+								</a>
+								<a href="javascript:void(0);" title="Financial" *ngIf="rowData['hasFinances']" (click)="showCompanySideDetailsPanel( $event, rowData['companyRegistrationNumber'], rowData['businessName'], undefined, 'viewFinancials' )">
+									<i class="material-icons">assessment</i>
+								</a>								
+							</span>
+							
+						</span>
+						
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'sicCode'">
+						<div>{{ rowData[col.field].sicCode1 }}</div>
+						<div>{{ rowData[col.field].sicCode2 }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'Returns'">
+						<div>{{ rowData[col.field].LastMadeUpDate }}</div>
+						<div>{{ rowData[col.field].NextDueDate }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'pin'">
+						<div>{{ rowData[col.field].company_location.lon }}</div>
+						<div>{{ rowData[col.field].company_location.lat }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'SICCode_4'">
+						<div>{{ rowData[col.field].SicText_3 }}</div>
+						<div>{{ rowData[col.field].SicNumber_2 }}</div>
+						<div>{{ rowData[col.field].SicText_4 }}</div>
+						<div>{{ rowData[col.field].SicNumber_1 }}</div>
+						<div>{{ rowData[col.field].SicText_1 }}</div>
+						<div>{{ rowData[col.field].SicNumber_4 }}</div>
+						<div>{{ rowData[col.field].SicText_2 }}</div>
+						<div>{{ rowData[col.field].SicNumber_3 }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'SICCode_2'">
+						<div>{{ rowData[col.field].SicText_3 }}</div>
+						<div>{{ rowData[col.field].SicNumber_2 }}</div>
+						<div>{{ rowData[col.field].SicText_4 }}</div>
+						<div>{{ rowData[col.field].SicNumber_1 }}</div>
+						<div>{{ rowData[col.field].SicText_1 }}</div>
+						<div>{{ rowData[col.field].SicNumber_4 }}</div>
+						<div>{{ rowData[col.field].SicText_2 }}</div>
+						<div>{{ rowData[col.field].SicNumber_3 }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'sicCode07'">
+					  
+						<ng-container *ngIf="rowData[col.field] && getSICCodeInArrayFormat(rowData[col.field]!==undefined); else noSicCode">
+							<span *ngFor="let item of getSICCodeInArrayFormat(rowData[col.field])">
+								{{ item | titlecase }}
+							</span>
+						</ng-container>
+						<ng-template #noSicCode>Not Provided</ng-template>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'naceCodeInfo'">
+						<ng-container *ngIf="rowData[col.field] && rowData[col.field]?.length; else noNaceCode">
+							<span *ngFor="let item of (rowData[col.field])">
+								{{ item.naceCode }} - {{ item.naceCodeDescription | titlecase }}
+							</span>
+						</ng-container>
+						<ng-template #noNaceCode>Not Provided</ng-template>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'LimitedPartnerships'">
+						<div>{{ rowData[col.field].NumGenPartners }}</div>
+						<div>{{ rowData[col.field].NumLimPartners }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'LimitedPartnerships'">
+						<div>{{ rowData[col.field].AccountRefDay }}</div>
+						<div>{{ rowData[col.field].AccountRefMonth }}</div>
+						<div>{{ rowData[col.field].AccountCategory }}</div>
+						<div>{{ rowData[col.field].NextDueDate }}</div>
+					</ng-container>
+				   
+					<ng-container *ngSwitchCase="col.field == 'NumMortOutstanding'">
+						<div *ngFor="let mortgages of rowData['Mortgages']">
+							<div>{{ mortgages.NumMortOutstanding }}</div>
+						</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'NumMortPartSatisfied'">
+						<div *ngFor="let mortgages of rowData['Mortgages']">
+							<div>{{ mortgages.NumMortPartSatisfied }}</div>
+						</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'companyRegistrationNumber'">
+						<a class="cName" target="_blank"
+							[href]="'/company/' + rowData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['businessName'] | titlecase)">
+							{{ rowData[col.field] | uppercase }}</a>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'companyNumber'  ">
+						<a class="cName" target="_blank"
+							[href]="'/company/' + rowData['companyNumber'] + '/' + formatCompanyNameForUrl(rowData['companyName'] | titlecase)">
+							{{ rowData[col.field] | uppercase }}</a>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'NumMortSatisfied'">
+						<div *ngFor="let mortgages of rowData['Mortgages']">
+							<div>{{ mortgages.NumMortSatisfied }}</div>
+						</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'Accounts'">
+						<div>{{ rowData[col.field].AccountRefDay }}</div>
+						<div>{{ rowData[col.field].AccountRefMonth }}</div>
+						<div>{{ rowData[col.field].LastMadeUpDate }}</div>
+						<div>{{ rowData[col.field].AccountCategory }}</div>
+						<div>{{ rowData[col.field].NextDueDate }}</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'active_directors'">
+						<div *ngFor="let address of rowData[col.field]">
+							<div>{{ address?.occupation }}</div>
+							<div>{{address?.address?.country}}, {{address?.address?.premises}},
+								{{address?.address?.locality}}, {{address?.address?.postal_code}},
+								{{address?.address?.address_line_1}}, {{address?.address?.address_line_2}}</div>
+							<div>{{ address?.officer_role }}</div>
+							<div>{{ address?.nationality }}</div>
+							<div>{{ address?.country_of_residence }}</div>
+							<div>{{ address?.date_of_birth?.month}}, {{ address?.date_of_birth?.year }}</div>
+							<div>{{ address?.name }}</div>
+							<div>{{ address?.links?.officer?.appointments }}</div>
+							<div>{{ address?.appointed_on }}</div>
+						</div>
+					</ng-container>
+
+                    <ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'Website'">
+
+						<ng-container *ngIf="rowData?.companyContactDetails && rowData?.companyContactDetails[0]?.website && rowData?.companyContactDetails[0]?.website !== 'null'; else defaultWebsite">
+							<a target="_blank" class="cName" href="http://www.{{formatWebsite(rowData?.companyContactInformation[0]?.website)}}">{{ (formatWebsite(rowData?.companyContactDetails[0]?.website)) }}</a>
+						</ng-container>
+
+					</ng-container>
+                    
+                    <ng-template #defaultWebsite>
+
+                        <span *ngIf="rowData['RegAddress_Modified'] && rowData['RegAddress_Modified']['website']; else noWebsiteAvailable">
+							<a target="_blank" class="cName" href="http://www.{{formatWebsite(rowData['RegAddress_Modified']['website'])}}">
+								{{ ( formatWebsite(rowData['RegAddress_Modified']['website'] ) ) }}
+							</a>
+						</span>
+
+                        <ng-template #noWebsiteAvailable>
+							-
+						</ng-template>
+                        
+                    </ng-template>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'Phone/Mobile'">
+
+						<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ); else otherPlans">
+							<img class="lockIconForFilters" src="{{ userAuthService?.featureLockIconPath }}">
+						</ng-container>
+						<ng-template #otherPlans>
+							<ng-container *ngIf="rowData?.companyContactInformation && rowData?.companyContactInformation[0]?.tel_1 && rowData?.companyContactInformation[0]?.tel_1 !== 'null'; else defaultTelephone">
+								{{ rowData?.companyContactInformation[0]?.tel_1 }}												
+							</ng-container>
+	
+							<ng-template #defaultTelephone>
+	
+								<span *ngIf="rowData['RegAddress_Modified'] && rowData['RegAddress_Modified']['telephone']; else noTelephoneAvailable">
+									{{ rowData['RegAddress_Modified']['telephone'] }}
+								</span>
+		
+								<ng-template #noTelephoneAvailable>
+									-
+								</ng-template>
+								
+							</ng-template>
+						</ng-template>
+
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'CTPS Registered'">
+
+						<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ); else otherPlans">
+							<img class="lockIconForFilters" src="{{ userAuthService?.featureLockIconPath }}">
+						</ng-container>
+						<ng-template #otherPlans>
+							<ng-container *ngIf="rowData?.companyContactInformation && rowData?.companyContactInformation[0]?.tel_1 && rowData?.companyContactInformation[0]?.tel_1 !== 'null' && rowData?.companyContactInformation[0]?.ctps && rowData?.companyContactInformation[0]?.ctps !== 'null'; else defaultCTPS">
+								<span [ngClass]="{ 'c-red': rowData?.companyContactInformation[0]?.ctps == 'y', 'green': ( !rowData?.companyContactInformation[0]?.ctps || rowData?.companyContactInformation[0]?.ctps !== 'y') }" class="status">
+									{{ rowData?.companyContactInformation[0]?.ctps == 'y' ? 'Yes' : 'No' }}
+								</span>					
+							</ng-container>
+	
+							<ng-template #defaultCTPS>
+	
+								<ng-container *ngIf="rowData['RegAddress_Modified'] && rowData['RegAddress_Modified']['telephone'] && rowData['RegAddress_Modified']['ctps']; else noCtpsAvailable">
+									<span [ngClass]="{ 'c-red': rowData['RegAddress_Modified']['ctps'] == 'y', 'green': ( !rowData['RegAddress_Modified']['ctps'] || rowData['RegAddress_Modified']['ctps'] !== 'y') }" class="status">
+										{{ rowData['RegAddress_Modified']['ctps'] == 'y' ? 'Yes' : 'No' }}
+									</span>
+								</ng-container>
+		
+								<ng-template #noCtpsAvailable>
+									-
+								</ng-template>
+								
+							</ng-template>
+						</ng-template>
+
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'Ward'">
+						{{ (rowData[col.field]?.ward_name  ? rowData[col.field]?.ward_name :'-') | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'Region'">
+						{{ (rowData[col.field]?.region ? rowData[col.field]?.region:'-')| titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'Constituency'">
+						{{ (rowData[col.field]?.parliament_constituency_name ? rowData[col.field]?.parliament_constituency_name:'-') | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'Trust Name'">
+						{{ (rowData[col.field]?.primary_trust_name ? rowData[col.field]?.primary_trust_name:'-') | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'RegAddress_Modified' && col.header == 'District Code'">
+						{{ rowData[col.field]?.district_code ? rowData[col.field]?.district_code:'-' }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'growth_scores'">
+						<ng-container *ngIf="rowData[col.field] && rowData[col.field].length; else noScoreBlock">
+							<a href="javascript: void(0);" class="cName" (click)="openDiaglogueForScoreDashBoard( rowData, 'growthScore' )">{{ rowData[col.field][0]['total_score']  }}</a>
+						</ng-container>
+						<ng-template #noScoreBlock>
+							-
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'propensity_scores'">
+						<ng-container *ngIf="rowData[col.field] && rowData[col.field].length; else noScoreBlock">
+							<a href="javascript: void(0);" class="cName" (click)="openDiaglogueForScoreDashBoard( rowData, 'mAndA' )">{{ rowData[col.field][0]['total'] }}</a>
+						</ng-container>
+						<ng-template #noScoreBlock>
+							-
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'internationalScoreDescription' && col.header == 'Risk Band'">
+						<ng-container *ngIf="!isLoggedIn">
+							<span><img [ngStyle]="{ 'width': '1rem', 'height': '1rem', 'font-size': '1rem'}" src="{{ userAuthService?.featureLockIconPath }}"></span>
+						</ng-container>
+						<ng-container *ngIf="isLoggedIn">
+							<div class="riskRatingLabel d-inline" [ngClass]="{'lightGreen' : rowData.internationalScoreDescription == 'very low risk', 'cyan' : rowData.internationalScoreDescription == 'low risk', 'yellow' : rowData.internationalScoreDescription == 'moderate risk', 'orange' : rowData.internationalScoreDescription == 'high risk', 'darkRed': rowData.internationalScoreDescription == 'not scored' }">
+								{{ ( rowData.internationalScoreDescription ? rowData.internationalScoreDescription == 'not scored'? 'Not Scored /Very High Risk': rowData.internationalScoreDescription : '-' ) | titlecase }}
+							</div>
+						</ng-container>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="[ 'tradeDebtors' ].includes( col.field )">
+						<ng-container *ngIf="!isLoggedIn">
+							<span><img [ngStyle]="{ 'width': '1rem', 'height': '1rem', 'font-size': '1rem'}" src="{{ userAuthService?.featureLockIconPath }}"></span>
+						</ng-container>
+						<ng-container *ngIf="isLoggedIn">
+							<ng-container *ngIf="rowData?.statutoryAccounts && rowData.statutoryAccounts[0][col.field] !== '' ; else noDataBlock">
+								<span class="c-green"> 
+									{{ ( rowData.statutoryAccounts[0][col.field] ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} 
+								</span>
+                            </ng-container>
+                            <ng-template #noDataBlock>
+							    -
+                            </ng-template>
+					    </ng-container>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="[ 'turnover_latest', 'estimated_turnover' ].includes( col.field )">
+						<ng-container *ngIf="rowData?.estimated_turnover !== '-' || rowData?.turnover_latest !== '-'; else noDataBlock">
+							<ng-container *ngIf=" ((rowData?.turnover_latest && rowData?.turnover_latest !== '-') || (rowData?.estimated_turnover && rowData?.estimated_turnover !== '-') ); else noDataBlock">
+								<ng-container *ngIf="rowData?.turnover_latest || rowData?.estimated_turnover">
+									<ng-container *ngIf="rowData.turnover_latest < 0" >
+										<span class="c-red"> 
+											( {{ ( rowData.turnover_latest * -1 ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} ) 
+										</span>
+									</ng-container>
+									<ng-container *ngIf="rowData.estimated_turnover < 0">
+											<span class="c-red">
+												* ( {{  ( rowData.estimated_turnover * -1 ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} )
+											</span>
+									</ng-container>
+
+									<ng-container *ngIf="rowData.turnover_latest >= 0">
+										<span class="c-green"> 
+												{{ rowData.turnover_latest | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} <br>
+										</span>
+									</ng-container>
+									<ng-container *ngIf="rowData.estimated_turnover >= 0">
+											<span class="c-blue"> 
+												* {{ rowData.estimated_turnover | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} <br>
+										    </span>
+									</ng-container>
+								</ng-container>
+								<!-- <ng-template #positiveValue>
+									<ng-container *ngIf="rowData.turnover_latest >= 0">
+										<span class="c-green"> 
+												Turnover: {{ rowData.turnover_latest | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} <br>
+										</span>
+									</ng-container>
+									<ng-container *ngIf="rowData.estimated_turnover >= 0">
+										<span class="c-green"> 
+												Turnover: {{ rowData.turnover_latest | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} <br>
+										</span>
+									</ng-container>
+								</ng-template> -->
+							</ng-container>
+							<!-- <ng-container *ngIf="(rowData.estimated_turnover && rowData.estimated_turnover !== '-')">
+								<ng-container *ngIf="rowData.estimated_turnover < 0; else positiveValue">
+									{{rowData.estimated_turnover}}
+									<span class="c-red">
+										Turnover (Estimate+): ( {{  ( rowData.estimated_turnover * -1 ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} )
+									</span>
+								</ng-container>
+								<ng-template #positiveValue>
+									<span class="c-green"> 
+										<ng-container *ngIf="rowData.estimated_turnover >= 0">
+											Turnover (Estimate+): {{ rowData.estimated_turnover | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} 
+										</ng-container>
+									</span>
+								</ng-template>
+							</ng-container> -->
+						</ng-container>
+						
+                        <ng-template #noDataBlock>
+                            -
+                        </ng-template>
+                    </ng-container>
+					
+					<ng-container *ngSwitchCase="[ 'totalAssets_latest', 'totalLiabilities_latest', 'netWorth_latest', 'grossProfit_latest' ].includes( col.field )">
+
+                        <ng-container *ngIf="rowData[col.field] && rowData[col.field] !== '-' ; else noDataBlock">
+                            <ng-container *ngIf="rowData[col.field] < 0; else positiveValue">
+                                <span class="c-red"> 
+									( {{ ( rowData[col.field] * -1 ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} ) 
+								</span>
+                            </ng-container>
+                            <ng-template #positiveValue>
+                                <span class="c-green"> 
+									{{ rowData[col.field] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} 
+								</span>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #noDataBlock>
+                            -
+                        </ng-template>
+
+                    </ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'dName'">
+						{{ rowData[col.field]?.name | titlecase }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'pscName'">
+						<span class="featuredLinks">
+							<a class="mr-2" target="_blank" [href]="GoogleURLCompanyURLwithoutWordCompany(rowData[col.field]?.name)">
+								<img tooltip="Search on google"
+									src="https://img.icons8.com/color/48/000000/google-logo.png" id="google-image">
+							</a>
+						</span>
+						<a class="cName" [href]="'/director/' + formatDirectorNameForUrl(rowData[col.field]?.name?.trim() | titlecase) + '/' + rowData[col.field]?.link?.split('/')[2] " target="_blank">{{ rowData[col.field]?.name | titlecase }}</a>
+					</ng-container>
+			  
+					<ng-container *ngSwitchCase="col.field == 'directorOccupation'">
+						{{ rowData[col.field] | titlecase }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'directorRole'">
+						{{ rowData[col.field] | titlecase }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'nationality'">
+						<ng-container *ngIf="rowData['countryCode']; else noCountryCode">
+							<span> <img src="assets/utilities/flags/flag_placeholder.png" alt="Flag" class="flag flag-{{ rowData['countryCode'] }}"> </span>
+							{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+						</ng-container>
+						<ng-template #noCountryCode>							
+							{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'country_of_residence'">
+						<span
+							class="flag-icon flag-icon-{{ rowData['countryResidenceCode'] }} flag-icon-squared"></span>
+						<!-- <span class="flag-icon flag-icon-gb flag-icon-squared"></span> -->
+						{{ rowData[col.field] | titlecase }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'date_of_birth'">
+						{{ rowData[col.field]?.date }}
+						{{rowData[col.field]?.month == 1 ? 'Jan,' : rowData[col.field]?.month == 2 ? 'Feb,' :rowData[col.field]?.month == 3 ? 'Mar,' : rowData[col.field]?.month == 4 ? 'Apr,' :rowData[col.field]?.month == 5 ? 'May,' : rowData[col.field]?.month == 6 ? 'Jun,' :rowData[col.field]?.month == 7 ? 'Jul,' : rowData[col.field]?.month == 8 ? 'Aug,' :rowData[col.field]?.month == 9 ? 'Sept,' : rowData[col.field]?.month == 10 ? 'Oct,' :rowData[col.field]?.month == 11 ? 'Nov,' : rowData[col.field]?.month == 12 ? 'Dec,' : "-"}}
+						<!-- {{ rowData[col.field]?.month }} -->
+						{{ rowData[col.field]?.year }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'fromdate'">
+						{{ rowData[col.field] | date: 'dd-MM-yyyy' }}
+					</ng-container>                 
+					<ng-container *ngSwitchCase="col.field == 'status'">
+						<!-- {{ rowData[col.field] | titlecase }} -->
+						<span
+							[ngClass]="{ 'green': rowData['status'] != undefined &&  rowData['status'] == 'active', 'c-orange': rowData['status'] == undefined || rowData['status'] != 'active' }"
+							class="status">{{ rowData['status'] | titlecase }}</span>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'natures_of_control'">
+						<div *ngFor="let nature of rowData[col.field]" class="mb-1">
+							{{nature | titlecase}}
+						</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'pscAddress'">
+						{{ formatPscAddress(rowData[col.field]) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'persons_entitled'">
+						<div *ngFor="let person of rowData[col.field]">
+							<div>{{ person.name }}</div>
+						</div>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'secured_details'">
+						{{ rowData[col.field]?.description | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'particulars'">
+						{{ rowData[col.field]?.description | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'classification'">
+						{{ rowData[col.field]?.description | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'description'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'created_on'">
+						{{rowData[col.field] | date: 'dd-MM-yyyy'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'delivered_on'">
+						{{rowData[col.field] | date: 'dd-MM-yyyy'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'category'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'Proprietor_Name_1'">
+						<ng-container *ngIf="isLoggedIn; else withoutuserLogin">
+							<span class="companyLogoAlign mr-2" *ngIf="rowData?.logo_url && rowData?.logo_url; else noCompanyLogo">
+								<img class="companyLogoSize" *ngIf="rowData?.logo_url" src="{{rowData?.logo_url}}" alt="Company Logo" />
+							</span> 
+							<ng-template #noCompanyLogo>
+								<span>
+									<i class="material-icons c-blue mr-2">business</i>
+								</span>
+							</ng-template>
+							<ng-container *ngIf="rowData['companyno_1']; else withoutURL">
+
+								<a [href]="'/company/' + rowData['companyno_1'] + '/' + formatCompanyNameForUrl(rowData['Proprietor_Name_1'] | titlecase)" class="cName hidden xl:inline" (click)="showCompanySideDetailsPanel($event, rowData['companyno_1'], rowData[ col.field ])">{{ rowData[col.field].replace('£','') | uppercase }}</a>
+
+								<a [href]="'/company/' + rowData['companyno_1'] + '/' + formatCompanyNameForUrl(rowData['Proprietor_Name_1'] | titlecase)" class="cName inline xl:hidden" target="_blank">{{ rowData[col.field].replace('£','') | uppercase }}</a>
+
+							</ng-container>
+							<ng-template #withoutURL>{{ rowData[col.field] | uppercase }}</ng-template>
+						</ng-container>
+						<ng-template #withoutuserLogin>
+							<a href="javascript:void(0);" (click)="showLoginDialog=true;" class="cName">{{ rowData[col.field] | uppercase }}</a>
+						</ng-template>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'Proprietor_Name_2'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'Property_Address'">
+						{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase}} 
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'creditsafeGlobalId'">                   
+						   {{ rowData[col.field] | uppercase}}                      
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertCode'">
+						{{ rowData[col.field] | uppercase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertCodeTitle'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					 <ng-container *ngSwitchCase="col.field == 'ccjPaidDate'">
+						{{ formatDate(rowData[col.field])}}
+					</ng-container>
+					 <ng-container *ngSwitchCase="col.field == 'ccjDate'">
+						{{ formatDate(rowData[col.field]) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'dateLogged'">
+						{{ formatDate(rowData[col.field]) }}
+					</ng-container> 
+					<ng-container *ngSwitchCase="col.field == 'alertDate'">
+						{{ formatDate(rowData[col.field]) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertDetail4'">
+						{{ formatDate(rowData[col.field])}}
+					</ng-container> 
+					<ng-container *ngSwitchCase="col.field == 'alertDetail6'">
+						{{ formatDate(rowData[col.field]) }}
+					</ng-container> 
+				   
+					<ng-container *ngSwitchCase="col.field == 'Date'">
+						{{ formatDate(rowData[col.field]) }}
+					</ng-container> 
+
+					<ng-container *ngSwitchCase="col.field == 'alertDetail2'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertDetail3'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertDetail7'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'alertDetail8'">-</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertDetail9'">-</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertDetail10'">-</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'alertDetail11'">-</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'statusCode'">
+						{{ rowData[col.field] | uppercase }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'statusCodeDesc'">
+						{{ rowData[col.field] | titlecase }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'Title_Number'">
+						{{ ( rowData[col.field] ? rowData[col.field] : '-' ) | uppercase }}
+						<a href="javascript:void(0)" (click)="onTitleNumber(rowData)"><i class="pi pi-download" style="font-size: 1rem; color: green;"></i></a>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Tenure'">
+						{{ ( rowData[col.field] ? rowData[col.field] : '-' ) | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Postcode'">
+						{{ ( rowData[col.field] ? rowData[col.field]: '-' ) | uppercase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Price_Paid'">
+						<span *ngIf = "rowData[col.field] !== undefined && rowData[col.field] !== null && rowData[col.field] !== ''; else otherBlock "> 
+							{{ rowData[col.field] | currency:selectedGlobalCurrency:'symbol':'1.0-0' }}
+						</span>
+						<ng-template #otherBlock>
+							-
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Date_Proprietor_Added'">
+						<span *ngIf = "rowData[col.field] !== undefined && rowData[col.field] !== null && rowData[col.field] !== ''; else otherBlock "> 
+							{{ rowData[col.field] }}
+						</span>
+						<ng-template #otherBlock>
+							-
+						</ng-template>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'Region' || col.field == 'region'">
+						{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'County' || col.field == 'county'">
+						{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'propertyType' || col.field == 'PropertyType'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'duration' || col.field == 'EstateType'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'oldOrNew' || col.field == 'NewBuild'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'paon' || col.field == 'Building_Name_No'">
+						{{ (rowData[col.field] ? rowData[col.field]:"-") | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'saon' || col.field == 'SecondaryName'">
+						{{ (rowData[col.field] ? rowData[col.field]:"-") | titlecase}}
+					</ng-container>
+				   
+					<ng-container *ngSwitchCase="col.field == 'PostCode' || col.field == 'postcode'">
+						<div *ngIf="rowData[col.field] !== undefined && rowData[col.field] !== null && rowData[col.field] !== ''; else nextBlock "> 
+							{{ (rowData[col.field]) | uppercase}}
+						</div>
+						<ng-template #nextBlock>
+							-
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Cost' || col.field == 'price'">
+						{{ rowData[col.field] | currency:selectedGlobalCurrency:'symbol':'1.0-0' }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'industryTag'">
+						<ng-container *ngIf="!isLoggedIn">
+							<span><img [ngStyle]="{ 'width': '1rem', 'height': '1rem', 'font-size': '1rem'}" src="{{ userAuthService?.featureLockIconPath }}"></span>
+						</ng-container>
+						<ng-container *ngIf="isLoggedIn">
+							{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase}}
+						</ng-container>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'District' || col.field == 'district'">
+						{{ (rowData[col.field] ? rowData[col.field] : '-')| titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Street' || col.field == 'street'">
+						{{ (rowData[col.field] ? rowData[col.field]:'-') | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Town' || col.field == 'townOrCity'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'Locality' || col.field == 'locality'">
+						{{ (rowData[col.field] ? rowData[col.field]:'-') | titlecase}}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'Address'">
+						{{ (rowData[col.field] ? rowData[col.field]:'-') }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'companyno_1'">
+						<ng-container *ngIf="isLoggedIn; else withoutuserLogin">
+							<ng-container *ngIf="rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' && rowData[col.field].length < 9; else withoutURL">
+								<a class="cName" target="_blank"
+									[href]="'/company/' + rowData['companyno_1'] + '/' + formatCompanyNameForUrl(rowData['Proprietor_Name_1'] | titlecase)">
+									{{ rowData[col.field] | uppercase}}
+								</a>
+							</ng-container>
+							<ng-template #withoutURL>-</ng-template>
+						</ng-container>
+					</ng-container>
+					<ng-template #withoutuserLogin>
+						<a class="cName" href="javascript:void(0);" (click)="showLoginDialog=true;">
+							{{ rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' ? rowData[col.field] : '-' }}
+						</a>
+					</ng-template>
+					
+					<ng-container *ngSwitchCase="col.field == 'companyno_2'">
+						<ng-container *ngIf="rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' && rowData[col.field].length < 9; else withoutURL">
+							<a [href]="'/company/' + rowData['companyno_2'] + '/' + formatCompanyNameForUrl(rowData['Proprietor_Name_2'] | titlecase)" class="cName" target="_blank">
+								{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+						<ng-template #withoutURL>{{ rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' ? rowData[col.field] : '-' }}</ng-template>
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'companyno_3'">
+						<ng-container *ngIf="rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' && rowData[col.field].length < 9; else withoutURL">
+							<a [href]="'/company/' + rowData['companyno_3'] + '/' + formatCompanyNameForUrl(rowData['Proprietor_Name_2'] | titlecase)" class="cName" target="_blank">
+								{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+						<ng-template #withoutURL>{{ rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' ? rowData[col.field] : '-' }}</ng-template>
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'companyno_4'">
+						<ng-container *ngIf="rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' && rowData[col.field].length < 9; else withoutURL">
+							<a [href]="'/company/' + rowData['companyno_4'] + '/' + formatCompanyNameForUrl(rowData['Proprietor_Name_2'] | titlecase)" class="cName" target="_blank">
+								{{ rowData[col.field] | uppercase }}
+							</a>
+						</ng-container>
+						<ng-template #withoutURL>{{ rowData[col.field] !== null && rowData[col.field] !== undefined && rowData[col.field] !== '' ? rowData[col.field] : '-' }}</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'companyName' || col.field == 'mainRelatedCompanyName'">
+						<span class="companyLogoAlign" *ngIf="rowData?.companyContact?.logo  ; else noCompanyLogo">
+                            <img class="companyLogoSize"  src="{{ rowData['companyContact']['logo'] }}" alt="Company Logo" />
+                        </span>
+                        <ng-template #noCompanyLogo>
+                            <span>
+                                <i class="material-icons c-blue">business</i>
+                            </span>
+                        </ng-template>
+                        
+                        <a *ngIf="col.field == 'companyName'" class="cName ml-2" target="_blank"
+                            [href]="'/company/' + rowData['companyNumber'] + '/' + formatCompanyNameForUrl(rowData['companyName'] | titlecase)">{{ rowData[col.field] | uppercase }}
+                        </a>
+
+                        <a *ngIf="col.field == 'mainRelatedCompanyName'" class="cName ml-2" target="_blank"
+						[href]="'/company/' + rowData['mainRelatedCompanyNumber'] + '/' + formatCompanyNameForUrl(rowData['mainRelatedCompanyName'] | titlecase)">{{ rowData[col.field] | uppercase }}
+                        </a>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'appointedOn'">
+						{{changeToDate(rowData[col.field]) | date: 'dd-MM-yyyy'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'appointmentDate'">
+						{{ changeToDate(rowData[col.field]) | date: 'dd-MM-yyyy'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'role'">
+						{{ rowData[col.field].replace('-',' ') | titlecase }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'resignedStatus'">
+						<span class='status'
+							[ngClass]="{ 'c-red': checkKey(rowData,'resignedOn') == true, 'c-green': checkKey(rowData,'resignedOn') == false}">
+							{{ rowData.resignedOn?  'Resigned' : 'Active' | titlecase }}
+						</span>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'resignedOn'">
+						<div *ngIf = "rowData[col.field] !== undefined && rowData[col.field] !== null && rowData[col.field] !== ''; else secondBlock "> 
+							{{ changeToDate(rowData[col.field]) | date: 'dd-MM-yyyy'}}
+						</div>
+						<ng-template #secondBlock>
+							-
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'toDate'">
+						{{ rowData[col.field] }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'preFixed_linkedDirector_Name'">
+
+						<ng-container *ngIf="isLoggedIn; else withoutuserLogin">
+							 <a class="cName" [href]="'/director/' + formatDirectorNameForUrl(rowData[col.field]?.trim() | titlecase) + '/' + rowData['linkedDirectorPnr']" target="_blank">{{ rowData['preFixed_linkedDirector_Name'] | titlecase }}</a> 
+							<ng-container *ngIf="rowData['linkedDirectorFailure'] && rowData['linkedDirectorFailure'] == true">
+								<span class="roundedColoredChipLabelDirFailure c-red ml-2">FAILURE</span>
+							</ng-container>
+						</ng-container>
+
+						<ng-template #withoutuserLogin>
+							<a class="cName" href="javascript: void(0);"
+						   (click)="showLoginDialog = true">{{rowData[col.field] | titlecase }}</a>  
+						</ng-template>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'directorName'">
+
+						<ng-container *ngIf="thisPage == 'companySearch'">
+							<ng-container *ngIf="rowData['searchedDirectorsData']; else defaultDirectorsData">
+								
+								<ng-container *ngFor="let director of rowData['searchedDirectorsData']">
+									<div>
+										<a class="cName" [href]="'/director/' + formatDirectorNameForUrl( director.detailedInformation.fullName.trim() | titlecase ) + '/' + director?.directorPnr" target="_blank">{{ director?.detailedInformation?.fullName.trim() | titlecase }} </a>
+										<small>| Director</small>
+									</div>
+								</ng-container>
+								
+							</ng-container>
+							
+							<ng-template #defaultDirectorsData>
+								<ng-container *ngIf="rowData['directorsData']; else noDirectorsBlock">
+									<ng-container *ngFor="let director of rowData['directorsData']; let i = index">
+										<ng-container *ngIf="i < 4">
+											<span>{{ director['directorTitle'] | titlecase }}</span> {{ director?.detailedInformation?.fullName.trim() | titlecase }}<ng-container *ngIf="rowData['directorsData'].length && ( i < rowData['directorsData'].length - 1 ) && i < 3">, </ng-container><ng-container *ngIf="rowData['directorsData'].length && i == 3">...</ng-container>
+										</ng-container>
+									</ng-container>
+								</ng-container>
+								
+							</ng-template>
+
+							<ng-template #noDirectorsBlock>-</ng-template>
+							
+
+						</ng-container>
+
+						<ng-container *ngIf="thisPage == 'related_Directors'">
+							<ng-container *ngIf="isLoggedIn; else withoutuserLogin">
+
+								<a class="cName" [href]="'/director/' + formatDirectorNameForUrl(rowData['detailedInformation'].fullName?.trim() | titlecase) + '/' + rowData['director'] " target="_blank"> {{ ( rowData['directorTitle'] ? rowData['directorTitle'] : '' ) + ' ' + rowData['detailedInformation'].fullName | titlecase }}</a>
+
+							</ng-container>
+
+							<ng-template #withoutuserLogin>
+								<a class="cName" href="javascript: void(0);"
+								(click)="checkSubscriptionAuth( ( ( [ subscribedPlanModal['Monthly_Expand'], subscribedPlanModal['Expand_Annual_One_Year'], subscribedPlanModal['Expand_Trial_48_Hours'], subscribedPlanModal['Expand_Annual_Two_Year'], subscribedPlanModal['Expand_New_Monthly'], subscribedPlanModal['Monthly_Expand_Paid_Test'], subscribedPlanModal['Monthly_Enterprise'], subscribedPlanModal['Enterprise_Annual_One_Year'], subscribedPlanModal['Enterprise_Annual_Two_Year'], subscribedPlanModal['Enterprise_New_Monthly'], subscribedPlanModal['Monthly_Enterprise_Paid_Test'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Monthly_Enterprise_Trial'], subscribedPlanModal['Annually_Expand'], subscribedPlanModal['Annually_Enterprise'], subscribedPlanModal['Annually_Enterprise_Trial'], subscribedPlanModal['Enterprise_Conversion_For_Ravi'], subscribedPlanModal['Annually_Expand_Trial'], subscribedPlanModal['Monthly_Expand_Trial'], subscribedPlanModal['Expand_Weekly_Trial'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Premium_New_Monthly'], subscribedPlanModal['Premium_Annual_One_Year'], subscribedPlanModal['Premium_Trial_48_Hours'], subscribedPlanModal['Premium_Annual_Two_Year'], subscribedPlanModal['Compliance_Plan'] ].includes( userDetails?.planId ) && userDetails?.isSubscriptionActive ) || userAuthService.hasRolePermission( ['Super Admin'] ) ))">{{ rowData['detailedInformation'].fullName | titlecase }}</a>  
+							</ng-template>
+							
+						</ng-container>
+
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'RegAddress'">
+					   
+						{{ (rowData[col.field]!= null && rowData[col.field]!= undefined && rowData[col.field]!= "" ? rowData[col.field] : 'Not Provided') }}
+
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'address'">
+						{{ formatCompanyAddress(rowData[col.field]) !== null && formatCompanyAddress(rowData[col.field]) !== undefined ? formatCompanyAddress(rowData[col.field]) : 'Not Provided' }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'dAddress'">
+						{{ formatDirectorAddress(rowData['detailedInformation']) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'dAddress2'">
+						{{ formatDirectorAddress(rowData['serviceAddress']) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'IncorporationDate'">
+						{{ changeToDate(rowData[col.field]) | date: 'dd-MM-yyyy' }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'incorporationDate'">
+						{{ changeToDate(rowData[col.field]) | date: 'dd-MM-yyyy' }}
+					</ng-container> 
+					<ng-container *ngSwitchCase="col.field == 'cbiladdress'">
+						{{ rowData['cbiladdress'] != undefined && rowData['cbiladdress'] != null && rowData['cbiladdress'] != "" ? rowData['cbiladdress'] : "-" }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'contactPerson'">
+						{{ rowData[col.field] | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'cbilStatus'">
+						{{ (rowData['companyStatus'] =='live' ? 'active' : rowData['companyStatus']) | titlecase}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'turnover'">
+						{{ (rowData['turnover'] != null && rowData['turnover'] != undefined ? rowData['turnover'] : 0 ) | number:'1.2-2' }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'netWorth'">
+						{{ (rowData['netWorth'] != null && rowData['netWorth'] != undefined ? rowData['netWorth'] : 0 ) | number:'1.2-2' }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'noOfCcj'">
+						{{ (rowData['noOfCcj'] != null && rowData['noOfCcj'] != undefined ? rowData['noOfCcj'] : 0 ) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'noOfCharges'">
+						{{ (rowData['noOfCharges'] != null && rowData['noOfCharges'] != undefined ? rowData['noOfCharges'] : 0 ) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'noOfLandCorp'">
+						{{ (rowData['noOfLandCorp'] != null && rowData['noOfLandCorp'] != undefined ? rowData['noOfLandCorp'] : 0 ) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'noOfShareHolders'">
+						{{ (rowData['noOfShareHolders'] != null && rowData['noOfShareHolders'] != undefined ? rowData['noOfShareHolders'] : 0 ) }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'totalDirectorsCount'">
+						{{ (rowData['totalDirectorsCount'] != null && rowData['totalDirectorsCount'] != undefined ? rowData['totalDirectorsCount'] : 0 ) }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'totalDirectors'">{{ (rowData[col.field] != null && rowData[col.field] != undefined ? rowData[col.field] : '-' )  }}
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'chargesCount'">{{ (rowData[col.field] != null && rowData[col.field] != undefined ? rowData[col.field] : '-' )  }}
+					</ng-container>
+					
+					<ng-container *ngSwitchCase="col.field == 'lastmade'">
+						{{ changeToDate(rowData['accountsMadeUpDate']) | date: 'dd-MM-yyyy' }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'personEmail'">
+						{{ rowData['personEmail'] != undefined && rowData['personEmail'] != null && rowData['personEmail'] != "" ? rowData['personEmail'] : "-"  }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'cWebsite'">
+						{{ rowData['cWebsite'] != undefined && rowData['cWebsite'] != null && rowData['cWebsite'] != "" ? rowData['cWebsite'] : "-"  }}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'sic_code'">
+						<span>
+							<ng-container
+								*ngIf="getSICCodeInArrayFormat(rowData[col.field]!==undefined && rowData[col.field]).length; else noSicCode">
+								<span class="mb-1" *ngFor="let item of getSICCodeInArrayFormat(rowData[col.field])">
+									{{ item | titlecase }}<br>
+								</span>
+							</ng-container>
+							<ng-template #noSicCode>Not Provided</ng-template>
+						</span>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'date'">
+						{{rowData[col.field] | date: 'dd-MM-yyyy'}}
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'download'">
+						<button pButton
+							(click)="downloadDocumentIntoNextPage(rowData[col.field]['description'],rowData[col.field]['metadata'],rowData[col.field]['companyNumber'])"
+							type="button" label="Download" class="ui-button-raised ui-button-rounded float-r"></button>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'otherRelations'">
+						<a href="javascript:void(0)"
+							class="c-green small-data-font" target="_blank"><i class="pi pi-share-alt"></i> See
+							Relations</a>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'changes'">
+						<div *ngIf="checkKey(rowData,col.field) && rowData[col.field].length > 0">
+							{{removeHyphen(rowData[col.field][0]?.description) | titlecase }}
+						</div>
+						<div *ngIf="!checkKey(rowData,col.field) || rowData[col.field].length == 0">
+							-
+						</div>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'filedDate'">
+						<div *ngIf="checkKey(rowData,'changes') && rowData['changes'].length > 0">
+							{{rowData["changes"][0]?.statusFiledDate | date: 'dd-MM-yyyy'}}
+						</div>
+						<div *ngIf="!checkKey(rowData,'changes') || rowData['changes'].length == 0">
+							-
+						</div>
+					</ng-container>
+
+					<ng-container *ngSwitchCase="col.field == 'registrationDate'">
+						<div *ngIf="checkKey(rowData,'changes') && rowData['changes'].length > 0">
+							{{rowData["changes"][0]?.statusRegistrationDate | date: 'dd-MM-yyyy'}}
+						</div>
+						<div *ngIf="!checkKey(rowData,'changes') || rowData['changes'].length == 0">
+							-
+						</div>
+					</ng-container>
+					  
+					<ng-container *ngSwitchCase="col.field =='edit'">
+						<button pButton type="button" icon="ui-icon-edit" (click)="userUpdateDialog(rowData)" [disabled]="rowData['subscription_data'].cost > '0'"></button>
+					</ng-container>
+					<ng-container *ngSwitchCase="col.field == 'notification'">
+						<div *ngIf="checkKey(rowData,'changesBoolean')">
+							<button pButton *ngIf="no_show_user_management" type="button"
+								icon="ui-icon-notifications-off" class="p-button-rounded p-pb-0 ml-0"
+								(click)="watchlistNotification(rowData,recordListTable)" [disabled]="!rowData['changesBoolean']">
+							</button>
+						</div>
+					</ng-container>
+				</td>
+			</tr>
+		</ng-template>
+
+		<ng-template pTemplate="emptymessage" let-columns>
+			<tr>
+				<td [attr.colspan]="columns?.length + (showCheckBox ? 1 : 0)">No records found.</td>
+			</tr>
+		</ng-template>
+		
+	</p-table>
+</div>
+
+<!-- Company Quick Info Block -->
+<div #companyQuickInfoPopover class="card companyDetailPopup" *ngIf="quickInfoData">
+	<div class="mb-2">
+		<h4 class="mt-0 mb-1">
+			<strong>{{ quickInfoData['businessName'] | uppercase }}</strong>
+		</h4>
+		<div>{{ quickInfoData['RegAddress'] }}</div>
+	</div>
+	<hr>
+	<div class="mb-3">
+		<span [ngClass]="{ 'green': [ 'live', 'administration order' ].includes( quickInfoData['companyStatus'] ), 'c-orange': [ 'in liquidation', 'removed' ].includes( quickInfoData['companyStatus'] ), 'c-red': [ 'converted/closed', 'dissolved', 'in administration', 'in receivership / administration', 'voluntary arrangement', 'in receivership', 'deleted' ].includes( quickInfoData['companyStatus'] ) }" class="status">{{ quickInfoData['companyStatus'] | uppercase }}</span>
+	</div>
+	<div class="popoverListItem" *ngIf="quickInfoData['companyRegistrationNumber']">
+		<i class="ui-icon-label-outline mr-2"></i>
+		<span>Company No.: {{ quickInfoData['companyRegistrationNumber'] | uppercase }}</span>
+	</div>
+	<div class="popoverListItem" *ngIf="quickInfoData['companyType']">
+		<i class="ui-icon-folder-open mr-2"></i>
+		<span>{{ quickInfoData['companyType'] | titlecase }}</span>
+	</div>
+	<div class="popoverListItem" *ngIf="quickInfoData['IncorporationDate']">
+		<i class="ui-icon-perm-contact-calendar mr-2"></i>
+		<span>{{ changeToDate( quickInfoData['IncorporationDate'] ) | date : "dd-MM-yyyy" }} ( {{ calculateCompanyAge(quickInfoData['companyRegistrationDate']) }} years old )</span>
+	</div>
+	<div class="popoverListItem" *ngIf="quickInfoData['active_directors_count']">
+		<i class="ui-icon-font-download mr-2"></i>
+		<span>No. of Active Directors: {{ quickInfoData['active_directors_count'] }}</span>
+	</div>
+	<div class="popoverListItem" *ngIf="quickInfoData['sicCode07']">
+		<i class="ui-icon-cloud-done mr-2"></i>
+		<span>
+			SIC Code:
+			<ng-container *ngFor="let item of getSICCodeInArrayFormat(quickInfoData['sicCode07'])">
+				<div>{{ item }}</div>
+			</ng-container>
+		</span>
+	</div> 
+	<div class="popoverListItem" *ngIf="quickInfoData.NumMortCharges > 0">
+		<i class="ui-icon-perm-contact-calendar mr-2"></i>
+		<span>Mortgages: {{ quickInfoData.NumMortCharges }}</span>
+	</div>
+	<div class="popoverListItem" *ngIf="quickInfoData?.accountsMadeUpDate">
+		<i class="pi pi-chart-bar mr-2"></i>
+		<span>Last Financial Update: {{ quickInfoData?.accountsMadeUpDate }}</span>
+	</div>
+</div>
+<!-- ./Company Quick Info Block -->
+
+<ng-container *ngIf="![ 'relatedPartyIntel', 'workflowListPage', 'diversityCalculation' ].includes( thisPage )">
+	<div class="grid">
+		<div class="col-12">
+			<sup>*</sup> The Corporate Telephone Preference Service (CTPS) is the central opt-out register for organisations wishing to opt out from receiving sales and marketing calls.
+		</div>
+		<div class="col-12">
+			<sup>*</sup> In general, you must not make marketing calls to any number listed on the Telephone Preference Service (TPS) or Corporate TPS (CTPS), unless that person has specifically consented to your calls. You can call a number if it is not listed on the TPS or CTPS and you are not marketing claims management services.
+		</div>
+	</div>
+</ng-container>
