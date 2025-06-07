@@ -1,0 +1,299 @@
+// $offset: 187;
+// $duration: 1.4s;
+
+$bounce-delay: 0.15s;
+$bounce-duration: 0.8s;
+$bounce-scale-up: 1.2;
+$bounce-scale-down: 0.9;
+
+// .splash-screen {
+//     width: 100%;
+//     min-height: 100%;
+//     background-color: #3F51B5;
+//     position: fixed;
+//     z-index: 9999999999;
+// }
+
+// .splash-loader-container {
+//     text-align: center;
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     margin-left: -32px;
+//     margin-top: -32px;
+// }
+
+// .splash-loader {
+//   animation: rotator $duration linear infinite;
+// }
+
+// @keyframes rotator {
+//   0% { transform: rotate(0deg); }
+//   100% { transform: rotate(270deg); }
+// }
+
+// .splash-path {
+//   stroke-dasharray: $offset;
+//   stroke-dashoffset: 0;
+//   transform-origin: center;
+//   animation:
+//     dash $duration ease-in-out infinite, 
+//     colors ($duration*4) ease-in-out infinite;
+// }
+
+// @keyframes colors {
+// 	0% { stroke: #4285F4; }
+// 	25% { stroke: #DE3E35; }
+// 	50% { stroke: #F7C223; }
+// 	75% { stroke: #1B9A59; }
+//   100% { stroke: #4285F4; }
+// }
+
+// @keyframes dash {
+//  0% { stroke-dashoffset: $offset; }
+//  50% {
+//    stroke-dashoffset: $offset/4;
+//    transform:rotate(135deg);
+//  }
+//  100% {
+//    stroke-dashoffset: $offset;
+//    transform:rotate(450deg);
+//  }
+// }
+
+// Custom DG Loader Implemented Starts //
+.splash-screen-new {
+
+	width: 100%;
+	height: 100vh;
+	min-height: 100%;
+	text-align: center;
+	background-color: rgba(47, 66, 80, 0.98);
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	z-index: 9999999999;
+
+	.splashContent {
+		width: 280px;
+	}
+
+}
+
+.svgPath {
+	animation: bounce $bounce-duration infinite;
+	transform-origin: bottom;
+}
+
+// Iteration Of Messages Para //
+@for $i from 1 through 2 {
+	.tree#{$i} {
+		animation-delay: $i * $bounce-delay;
+	}
+}
+
+@keyframes bounce {
+	0% {
+		transform: scaleY(1)
+	}
+
+	10% {
+		transform: scaleY($bounce-scale-up)
+	}
+
+	30% {
+		transform: scaleY($bounce-scale-down)
+	}
+
+	40% {
+		transform: scaleY(1)
+	}
+}
+
+#messagesContent {
+
+	font-family: sans-serif;
+	width: 100%;
+	height: 1.5em;
+	color: #fff;
+	font-size: 20px;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+
+	p {
+		animation: fadeInUp 3s ease-in-out infinite;
+		-ms-animation: fadeInUp 3s ease-in-out infinite;
+		-webkit-animation: fadeInUp 3s ease-in-out infinite;
+		color: #fff;
+		text-align: center;
+		opacity: 0;
+		overflow: hidden;
+		margin-bottom: 0;
+		line-height: 1.5;
+		min-width: 130px;
+		position: absolute;
+
+		&::before {
+			content: 'Please Wait';
+			animation: textSwitch 6s ease-in-out infinite;
+			-ms-animation: textSwitch 6s ease-in-out infinite;
+			-webkit-animation: textSwitch 6s ease-in-out infinite;
+		}
+	}
+
+}
+
+// Message Animation Effect Starts //
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(200%);
+    }
+    30%, 70% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
+    }	
+}
+@-webkit-keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(200%);
+    }
+    30%, 70% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
+    }	
+}
+@-moz-keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(200%);
+    }
+    30%, 70% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
+    }	
+}
+@-ms-keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(200%);
+    }
+    30%, 70% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200%);
+    }	
+}
+/* Text Switching Animation */
+@keyframes textSwitch {
+    0% {
+		content: 'Please Wait';
+    }
+    100% {
+		content: 'We are preparing your data';
+    }	
+}
+@-webkit-keyframes textSwitch {
+    0% {
+		content: 'Please Wait';
+    }
+    100% {
+		content: 'We are preparing your data';
+    }	
+}
+@-moz-keyframes textSwitch {
+    0% {
+		content: 'Please Wait';
+    }
+    100% {
+		content: 'We are preparing your data';
+    }	
+}
+@-ms-keyframes textSwitch {
+    0% {
+		content: 'Please Wait';
+    }
+    100% {
+		content: 'We are preparing your data';
+    }
+}
+// Message Animation Effect Starts //
+
+// Outer Pulse Effect Animation Starts //
+.splashInnerContentView {
+	display: inline-block;
+	width: 140px;
+	height: 140px;
+	background-color: #fff;
+	border-radius: 100%;
+	padding: 1.6rem;
+	animation: pulse 1s infinite;
+	margin-bottom: 2.5rem;
+	box-shadow: 10px 20px 60px 10px rgb(0 0 0 / 70%);
+}
+
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 10px #189A80;
+	}
+
+	100% {
+		box-shadow: 0 0 0 30px transparent;
+	}
+}
+
+@-moz-keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 10px #189A80;
+	}
+
+	100% {
+		box-shadow: 0 0 0 30px transparent;
+	}
+}
+
+@-webkit-keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 10px #189A80;
+	}
+
+	100% {
+		box-shadow: 0 0 0 30px transparent;
+	}
+}
+
+@-ms-keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 10px #189A80;
+	}
+
+	100% {
+		box-shadow: 0 0 0 30px transparent;
+	}
+}
+
+// Outer Pulse Effect Animation Ends //
+
+
+// Custom DG Loader Implemented Starts //

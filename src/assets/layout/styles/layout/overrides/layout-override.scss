@@ -1,0 +1,15 @@
+@import "topbar";
+// @import "_layout_styles";
+// @import "_layout_variables";
+// @import "_theme_styles";
+// @import "_theme_variables";
+
+img {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 1440px) {
+    .smallScreen {
+      width: 50%;
+    }
+}
