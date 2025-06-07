@@ -1,0 +1,28 @@
+.otp-box {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s;
+}
+  
+.otp-box:focus {
+    border-color: black;
+}
+  
+.otp-box:not(:last-child) {
+    margin-right: 0.5rem;
+}
+
+.highlight {
+    border: 1px solid gray;
+    box-shadow: 1px 1px 8px var(--primary-500);
+}
+
+.disableCard {
+    opacity: 0.5;
+    pointer-events: none;
+}

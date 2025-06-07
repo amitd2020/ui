@@ -1,0 +1,282 @@
+<div class="p-col card-pt-ForMobileView">
+	<div class="col-12">
+		<div class="card">
+		
+			<p-dialog header="{{ constantMessages['confirmation']['updateProfile'] }}" [(visible)]="display" [draggable]="false" [resizable]="false" [style]="{ width: '30vw' }" [baseZIndex]="10000" [blockScroll]="true" closeIcon="pi pi-times" [closeOnEscape]="true" [modal]="true" class="text-center">
+				<ng-template pTemplate="footer" class="text-center">
+					<button pButton pRipple type="button" label="Yes" class="p-button-rounded" (click)="updateProfile()"></button>
+					<button pButton pRipple type="button" label="No" class="p-button-rounded darkGrey" (click)="onNoButtonClicked()"></button>
+				</ng-template>
+			</p-dialog>
+		
+			<p-messages [value]="alertMsgs"></p-messages>
+
+			<div class="flex justify-content-between align-items-center">
+				<h3 class="ml-3 uppercase text-3xl">Profile Info</h3>
+			</div>
+			
+			<ng-container *ngIf="[ 'Client Admin Master', 'Client Admin', 'Client User' ].includes( userRole )">
+				<div style="color: rgba(0,0,0,.6);">
+					Company Name:
+				</div>
+				<div class="mb-3">
+					<span class="c-darkBlue x-big-data-font">{{ updateProfileData?.company_name }}</span>
+				</div>
+			</ng-container>
+		
+			<form #updateProfileForm="ngForm">
+		
+				<div class="grid p-fluid">
+		
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input pInputText id="name" type="text" name="name" #name="ngModel" [(ngModel)]="updateProfileData.name" required> 
+							<label for="name">Name</label>
+							<div *ngIf="name.invalid && (name.dirty || name.touched)" style="color: red;float: left;font-size: small;">
+								<div *ngIf="name.errors.required"> Name is required.</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input type="text" pInputText name="mobilenumber" [(ngModel)]="updateProfileData.phone" pattern="^[0-9]{0,15}$" #phone="ngModel" maxlength="13" (keypress)="contactNumOnly($event)" required>
+							<label for="phoneNumber">Phone Number</label>
+							<div *ngIf="(phone.touched || updateProfileForm.submitted) && phone.errors?.required"
+								style="color: red;">
+								<span style="float: left;font-size: small;">
+									Phone Number is required
+								</span>
+							</div>
+							<div *ngIf="phone.errors?.maxlength || showContactNumbMsg" style="color: red;">
+								<span style="float: left;font-size: small;">
+									Please enter Numeric Value, + and - Character only, max 13 digits.
+								</span>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-4 md:col-4">
+						<div class="p-float-label">
+							<input id="email" type="text" pInputText name="email" [(ngModel)]="updateProfileData.email" #email="ngModel" readonly> 
+							<label for="email">Email</label>
+						</div>
+					</div>
+
+					<ng-container *ngIf="[ 'Super Admin', 'Individual' ].includes( userRole )">
+						<div class="col-4 md:col-4">
+							<div class="p-float-label">
+							<input id="companyname" type="text" pInputText name="companyname" [(ngModel)]="updateProfileData.company_name">
+							<label for="companyname">Company Name</label>
+							</div>
+						</div>
+	
+						<div class="col-4 md:col-4">
+							<div class="p-float-label">
+								<!-- <input id="companynumber" type="text" pInputText name="companynumber" [(ngModel)]="updateProfileData.company_number" required="true" minlength="8" maxlength="8"> -->
+								<p-autoComplete id="companynumber" name="companynumber" (completeMethod)="filteredCompanyName($event)" [suggestions]="filteredCompanyNameArray" [(ngModel)]="updateProfileData.company_number" maxlength="8" (onSelect)="selectCompany( $event )" (keyup)="searchCompanyNumber( updateProfileData.company_number )" #companynumber="ngModel"></p-autoComplete>
+								<label for="companynumber">Company Number *</label>
+								<!-- <span class="help-block" style="color: red;" *ngIf="companynumber.invalid || !validate">
+									Company Number is required
+								</span> -->
+							</div>
+			
+						</div>
+
+					</ng-container>
+
+		<!--
+					<div class="col-6 md:col-6" *ngIf="[ 'Super Admin', 'Individual' ].includes( userRole )">
+		
+						<!~~ <div class="grid" *ngIf="[ 'Super Admin', 'Individual' ].includes( userRole )"> ~~>
+							<!~~ <div class="col-6 md:col-6"> ~~>
+								<div class="p-float-label">
+									<!~~ <input id="companyname" type="text" pInputText name="companyname" [(ngModel)]="updateProfileData.company_name"> ~~>
+									<p-autoComplete id="companyname" name="companyname" (completeMethod)="filteredCompanyName($event)" [suggestions]="filteredCompanyNameArray" [(ngModel)]="updateProfileData.company_name" ></p-autoComplete>
+									<label for="companyname">Company Name</label>
+								</div>
+		
+							<!~~ </div> ~~>
+		
+							<!~~ <div class="col-6 md:col-6">
+		
+								<div class="p-float-label">
+									<input id="companynumber" type="text" pInputText name="companynumber" [(ngModel)]="updateProfileData.company_number">
+									<label for="companynumber">Company Number</label>
+								</div>
+		
+							</div> ~~>
+		
+						<!~~ </div> ~~>
+		
+					</div>-->
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input id="PostTown" type="text" pInputText name="PostTown" [(ngModel)]="updateProfileData.BillingAddress.PostTown">
+							<label for="PostTown">City</label>
+						</div>
+
+					</div>
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input id="Country" type="text" pInputText name="Country" [(ngModel)]="updateProfileData.BillingAddress.Country">
+							<label for="Country">Country</label>
+						</div>
+
+					</div>
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input id="County" type="text" pInputText name="County" [(ngModel)]="updateProfileData.BillingAddress.County">
+							<label for="County">County</label>
+						</div>
+
+					</div>
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input id="lastname2" type="text" pInputText name="address" [(ngModel)]="updateProfileData.BillingAddress.AddressLine1">
+							<label for="lastname2">Address</label>
+						</div>
+
+					</div>
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<input id="postCode" type="text" pInputText name="postCode" [(ngModel)]="updateProfileData.BillingAddress.PostCode" [readonly]="[ 'Client Admin Master', 'Client Admin', 'Client User' ].includes( userDetails?.userRole )">
+							<label for="postCode">Post Code</label>
+						</div>
+
+					</div>
+
+					<div class="col-6 md:col-6">
+
+						<div class="p-float-label">
+							<p-dropdown [options]="companyMonitorEmailOptions" [(ngModel)]="updateProfileData.consolidatedEmailNotification" [ngModelOptions]="{standalone: true}" [virtualScroll]="false" [itemSize]="5" [filter]="false"></p-dropdown>
+							<label for="company_monitor_email">Company Monitor Email Option</label>
+						</div>
+
+					</div>
+		
+				</div>
+		
+				<div>
+					<button pButton type="button" label="Update Profile" class="p-button-rounded button-lg" [disabled]="!validate" (click)="updateProfileButton()"></button>
+				</div>
+		
+			</form>
+		
+		</div>
+	</div>
+</div>
+
+<div class="grid m-2 card-pt-ForMobileView">
+	<div *ngIf="!['public', 'private', 'combined'].includes(accountTypes)" class="col-6">
+		<div class="card h-full">
+			<dg-company-branding-image [isLogoAndCoverDisabled]="isLogoAndCoverDisabled"></dg-company-branding-image>
+		</div>
+	</div>
+
+	<div [ngClass]="!['public', 'private', 'combined'].includes(accountTypes) ? 'col-6' : 'col-12'">
+		<div class="card h-full">
+			<h3 class="m-2 p-text-uppercase"><strong>API Access Details</strong></h3>	
+			<div class="grid mt-6 p-6 p-fluid">
+				<div class="col-12 m-2">
+					<button pButton type="button" class="p-button-rounded p-button-lg" label="Get API Access Token" (click)="getAPIToken()"></button>
+				</div>
+				<div class="col-12">
+					<input type="text" readonly pInputText placeholder="API Access Token" [(ngModel)]="api_access_token">       
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+	<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+
+<div class="p-col card-pt-ForMobileView">
+	<div class="col-12">
+		<div class="card">
+		
+			<p-dialog header="{{ constantMessages['confirmation']['changePassword']}}" [(visible)]="displayPasswordDialog" [modal]="true" [focusOnShow]="false" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false" [baseZIndex]="10000" [blockScroll]="true" closeIcon="pi pi-times" [closeOnEscape]="true">
+				<ng-template pTemplate="footer" class="text-center">
+					<button pButton pRipple type="button" label="Yes" class="p-button-rounded" (click)="updatePassword(updatePasswordForm)"></button>
+					<button pButton pRipple type="button" label="No" class="p-button-rounded p-button-secondary" (click)="onNoPasswordClicked()"></button>
+				</ng-template>
+			</p-dialog>
+		
+			<form #updatePasswordForm="ngForm">
+		
+				<h3 class="uppercase text-left">Change Password</h3>
+		
+				<div class="p-fluid grid">
+					
+					<div class="p-field col-4 md:col-4">
+						<span class="p-float-label p-input-icon-right">
+							<i class="pi pi-{{ hide ? 'eye-slash': 'eye' }}" (click)="hide = !hide"></i>
+							<input [type]="hide ? 'password' : 'text'" pInputText name="currentPassword" [(ngModel)]="updateProfileData.old_password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$" #currentPassword="ngModel" ngModel required>
+							<label for="currentPassword">Current password</label>
+						</span>
+						<span *ngIf="currentPassword.invalid && (currentPassword.dirty || currentPassword.touched)"
+							style="color: red;text-align: left;font-size: small;">
+							<span *ngIf="currentPassword.errors.required">
+								Current password is required.
+							</span>
+						</span>
+					</div>
+		
+					<div class="p-field col-4 md:col-4">
+						<span class="p-float-label p-input-icon-right">
+							<i class="pi pi-{{ hide1 ? 'eye-slash' : 'eye' }}" (click)="hide1 = !hide1"></i>
+							<input [type]="hide1 ? 'password' : 'text'" pInputText name="newPassword" [(ngModel)]="updateProfileData.password1" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$" #newPassword="ngModel" ngModel required>
+							<label for="inputtext-left">New Password</label>
+						</span>
+						<span *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)"
+							style="color: red;text-align: left;font-size: small;">
+							<span *ngIf="newPassword.errors.required">
+								New password is required.
+							</span>
+						</span>
+						<span *ngIf="newPassword.errors?.pattern" style="color: red;text-align:left;font-size: small;">
+							Password must have a minimum of eight characters with atleast one
+							number,one small letter and one capital letter
+						</span>
+					</div>
+		
+					<div class="p-field col-4 md:col-4">
+						<span class="p-float-label p-input-icon-right">
+							<i class="pi pi-{{ hide2 ? 'eye-slash' : 'eye' }}" (click)="hide2 = !hide2"></i>
+							<input [type]="hide2 ? 'password' : 'text'" pInputText name="confirmpassword" [(ngModel)]="updateProfileData.password2" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{8,}$" #confirmPassword="ngModel" ngModel required>
+							<label for="inputtext-right">Confirm Password</label>
+						</span>
+						<span *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" style="color: red;text-align: left;font-size: small;">
+							<span *ngIf="confirmPassword.errors.required">
+								Confirm password is required.
+							</span>
+						</span>
+					</div>
+		
+				</div>
+		
+					<div>
+					<button pButton type="button" class="p-button-rounded p-button-lg my-1" [disabled]="!updatePasswordForm.form.valid" label="Change Password" (click)="updatePasswordButton()"></button>
+				</div>
+			
+			</form>
+		
+		</div>
+	</div>
+</div>

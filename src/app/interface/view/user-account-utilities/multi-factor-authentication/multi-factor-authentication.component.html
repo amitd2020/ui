@@ -1,0 +1,129 @@
+<p-messages [(value)]="msgs" [enableService]="false" [closable]="false" />
+
+<div class="flex justify-content-between align-items-center">
+    <h3 class="ml-3 text-2xl">Multi-factor Authentication</h3>
+    <div class="mb-1 flex gap-3">
+        <div>
+            <h2 class="mb-2 text-xl">🔒 Secure your account with 2FA</h2>
+            <p class="p-text-secondary mb-2">
+            Enable Two-Factor Authentication to add an extra layer of protection during login.
+            </p>
+        </div>
+
+        <div>
+            <div class="flex align-items-center mb-2">
+              <p-inputSwitch [ngModel]="is2FAEnabled" (onChange)="onToggle2FA()"></p-inputSwitch>
+              <div class="ml-2">{{ is2FAEnabled ? 'Enabled' : 'Disabled' }}</div>
+            </div>
+          
+            <!-- <p *ngIf="is2FAEnabled" class="p-text-success mt-3">✅ Two-Factor Authentication is enabled.</p>
+            <p *ngIf="!is2FAEnabled" class="p-text-danger mt-3">❌ Two-Factor Authentication is disabled.</p> -->
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-6" [ngClass]="{ 'disableCard': !is2FAEnabled }">
+        <div class="card h-30rem" [ngClass]="{ 'highlight': ( primaryModeForApp ) || ( !activeStatusForEmail && activeStatusForApp ) }">
+            <div class="border-none border-gray-600 h-full">
+                <div class="flex justify-content-between align-items-center">
+                    <h6 class="font-medium px-2 py-2 text-gray-600 mb-0">Two-factor Authentication</h6>
+                    <button pButton label="Make Primary" class="p-button-sm p-button-rounded mb-0" [disabled]="!verifyStatusForApp" (click)="makePrimaryMode('app2FA')"></button>
+                </div>
+                <hr>
+
+                <ng-container *ngIf="!verifyStatusForApp; else otpAuthenticatorBlock">
+                    <div class="text-center">
+                        <ng-container *ngIf="is2FAEnabled; else no2FAEnabledBlock">
+                            <img [src]="QRCode" alt="qr code" width="150" height="130">
+                        </ng-container>
+
+                        <ng-template #no2FAEnabledBlock>
+                            <img src="assets/layout/images/qr-code.png" alt="qr code" width="150" height="130">
+                        </ng-template>
+                    </div>
+    
+                    <div>
+                        <ul>
+                            <li class="my-3">Scan the QR code using any authentication application on your phone(eg. Google Authenticator, Authy).</li>
+    
+                            <li class="my-3">Enter the 6 figure confirmation code shown on the app:</li>
+                        </ul>   
+    
+                        <div class="flex justify-content-center">
+                            <div class="flex gap-2 h-3rem">
+                                <input *ngFor="let digit of otpDigits; let i = index"
+                                  #otpInput
+                                  type="text"
+                                  maxlength="1"
+                                  class="otp-box"
+                                  name="otp{{i}}"
+                                  [(ngModel)]="otp[i]"
+                                  (input)="onInput($event, i)"
+                                  (keydown)="onKeyDown($event, i)"
+                                  (paste)="onPaste($event)"
+                                  required />
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="text-center my-4">
+                        <button pButton label="Verify" class="p-button-rounded" (click)="verifyOTPFromAuthenticator()"></button>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6" [ngClass]="{ 'disableCard': !is2FAEnabled }">
+        <div class="card h-30rem" [ngClass]="{ 'highlight': primaryModeForEmail }">
+            <div class="border-none border-gray-600 h-full">
+                <div class="flex justify-content-between align-items-center">
+                    <h6 class="font-medium px-2 py-2 text-gray-600 mb-0">Email Verification</h6>
+                    <button pButton label="Make Primary" class="p-button-sm p-button-rounded mb-0" (click)="makePrimaryMode('emailOTP')"></button>
+                </div>
+                <hr>
+
+                <div class="flex justify-content-center">
+                    <div class="m-auto">
+                        <img src="assets/layout/images/email.png" alt="Email" width="120" height="110">
+                    </div>
+                    <div class="mr-3" *ngIf="activeStatusForEmail && activeStatusForApp">
+                        <i class="pi pi-trash text-2xl text-red-600 cursor-pointer" (click)="deleteMFA('emailOTP')"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <ul>
+                        <li class="my-3">Use your email account as a multi-factor authentication method.</li>
+                        <li class="my-3">Email <span class="font-medium">{{ emailAddress }}</span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #otpAuthenticatorBlock>
+    <div>
+
+        <div class="flex align-items-center justify-content-between ml-4">
+            <div class="flex align-items-center gap-4">
+                <img src="assets/layout/images/phone.png" alt="phone" width="80" height="70">
+                <h6 class="text-lg font-medium">Authenticator App</h6>
+            </div>
+
+            <div class="flex align-items-center mr-3" *ngIf="activeStatusForEmail && activeStatusForApp">
+                <i class="pi pi-trash text-2xl text-red-600 cursor-pointer" (click)="deleteMFA('app2FA')"></i>
+            </div>
+        </div>
+
+        <ul>
+            <li class="my-4">Authenticator Apps ensure that only you can access your account, even if someone knows your password. The app generates secure, time-sensitive codes for login, offering an added layer of protection against unauthorized access.</li>
+    
+            <li class="my-4">By using an Authenticator App, you're securing your account with time-sensitive one-time codes, which are far less vulnerable than traditional passwords.</li>
+        </ul>
+    </div>
+</ng-template>
