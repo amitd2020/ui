@@ -1,0 +1,23 @@
+<ng-container *ngIf="companyData?.hasCompanyCommentary || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData.companyRegistrationNumber ) )">
+            
+    <!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Commentary' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData.companyRegistrationNumber ) ); else showCommentaryInfoTab"> -->
+        <span featureAccess="Commentary" optionalTemplate="true">
+            <dg-user-list [listColumns]="companyCommentaryColumn" [listDataValues]="companyCommentryData" [listPage]="true" [thisPage]="'companyCommentary'"></dg-user-list>
+        </span>
+    <!-- </ng-container> -->
+
+    <!-- <ng-template #showCommentaryInfoTab>
+        <p-card>
+            <ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+                <div class="text-center">
+                    To enable this feature, please contact your Administrator.
+                </div>
+            </ng-container>
+            <ng-template #otherThanClientUserLoggedIn>
+                <dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+                <dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+            </ng-template>
+        </p-card>
+    </ng-template> -->
+
+</ng-container>

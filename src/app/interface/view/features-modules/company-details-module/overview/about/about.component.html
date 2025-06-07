@@ -1,0 +1,1334 @@
+<p-overlayPanel #vcseHoverInfo [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+    <div class="p-2 text-blue-500 font-semibold">Voluntary, Community & Social Enterprises</div>
+</p-overlayPanel>
+
+<ng-container *ngIf="companyData">
+    <p-toast position="top-center" key="tc"></p-toast>
+
+    <p-messages [(value)]="msgs"></p-messages>
+
+    <!-- Important Email Dialog Start -->
+    <!-- <p-dialog header="Important Email" [(visible)]="importantEmailsModal" [modal]="true" appendTo="body"
+        [baseZIndex]="999999998" [style]="{width: '30vw'}" [draggable]="false" [focusOnShow]="false"
+        [blockScroll]="true" (onHide)="importantEmailsModal=false; customEmailId='';customEmail=false">
+
+        <div>
+            <span><small><em>Available limits: <span [ngClass]="{ 'c-green': emailSpotterLimit > 100, 'c-red': emailSpotterLimit < 101 }">{{emailSpotterLimit
+                            | number : '1.0-0'}}</span></em></small></span><span class="ml-2 font-bold">( {{ constantMessages['infoMessage']['importantEmailDeductionMessage'] }} )</span>
+        </div>
+        <div class="mb-4">
+            <span><small><em>( {{ constantMessages['infoMessage']['upgradeLimitMessage'] }} )</em></small></span>
+        </div>
+
+
+        <div class="text-center">
+            <p>{{ constantMessages['confirmation']['populateEmail'] }}</p>
+            <button pButton type="button" class="p-button-rounded mr-2 p-button-lg" label="Yes" [disabled]="emailSpotterLimit <= 0" (click)="showImportantEmails()"></button>
+            <button pButton type="button" class="p-button-rounded p-button-lg darkGrey" label="No" (click)="importantEmailsModal=false"></button>
+        </div>
+    </p-dialog> -->
+    <p-dialog header="Email" [(visible)]="importantEmailsModal" [modal]="true" appendTo="body"
+        [baseZIndex]="999999998" [style]="{width: '30vw'}" [draggable]="false" [focusOnShow]="false"
+        [blockScroll]="true" (onHide)="importantEmailsModal=false; customEmailId='';customEmail=false">
+
+        <p-table [columns]="emailColumn" [value]="emailData" responsiveLayout="scroll">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }">
+                        <span>{{ col.header }}</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }"
+                        [ngSwitch]="true">
+                        
+
+                        <ng-container *ngSwitchCase="col.field == 'name'">
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'email'">
+                            <span *ngIf="[ 'verified' ].includes( rowData['emailStatus'] )">
+                                <i class="material-icons valign-m c-green mr-1" pTooltip="Verified" tooltipPosition="top">check</i>
+                            </span>
+                            <span *ngIf="[ 'not_verified' ].includes( rowData['emailStatus'] )">
+                                <i class="material-icons valign-m c-orange mr-1" pTooltip="Not Verified" tooltipPosition="top">check</i>
+                            </span>
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') }} 
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                                {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns?.length">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-dialog>
+
+    <p-dialog header="Email" [(visible)]="importantFetchEmailsModal" [modal]="true" appendTo="body"
+        [baseZIndex]="999999998" [style]="{width: '60vw'}" [draggable]="false" [focusOnShow]="false"
+        [blockScroll]="true" (onHide)="importantFetchEmailsModal=false; customEmailId='';customEmail=false">
+
+        <p-table [columns]="emailFetchColumn" [value]="emailData" responsiveLayout="scroll">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }">
+                        <span>{{ col.header }}</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }"
+                        [ngSwitch]="true">
+                        
+
+                        <ng-container *ngSwitchCase="col.field == 'name'">
+                            <span class="featuredLinks mr-2">
+                                <ng-container *ngIf="rowData?.cleaned_linkedin_url">
+                                    <a class="pointer" target="_blank" [href]="rowData?.cleaned_linkedin_url">
+                                    <svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path
+                                            d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                    </svg>
+                                    </a>
+                                </ng-container>
+                            </span>
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'position'">
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase  }} 
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'updatedDate'">
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') }} 
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'email'">
+                            <span *ngIf="[ 'verified' ].includes( rowData['emailStatus'] )">
+                                <i class="material-icons valign-m c-blue mr-1" pTooltip="Verified" tooltipPosition="top">check</i>
+                            </span>
+                            <span *ngIf="[ 'not_verified' ].includes( rowData['emailStatus'] )">
+                                <i class="material-icons valign-m c-orange mr-1" pTooltip="Not Verified" tooltipPosition="top">check</i>
+                            </span>
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') }} 
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                                {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns?.length">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-dialog>
+
+    <p-dialog header="Fetch Other Email" [(visible)]="importantOtherEmailsModal" [modal]="true" appendTo="body"
+        [baseZIndex]="999999998" [style]="{width: '60vw'}" [draggable]="false" [focusOnShow]="false"
+        [blockScroll]="true" (onHide)="importantOtherEmailsModal=false; customEmailId='';customEmail=false">
+        <p-messages [(value)]="message"></p-messages>
+
+        <button pButton type="button" icon="ui-icon-add" class="p-button-rounded p-button-sm " label="Fetch Email" (click)="addCompanyToFatchEmail(selectedCompany)" [disabled]="!selectedCompany?.['length']">
+        </button>
+        
+		<p-table [columns]="otherEmailColumn" [value]="otherEmailData" responsiveLayout="scroll" [(selection)]="selectedCompany">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 35px;">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }">
+                        <span>{{ col.header }}</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td style="width: 35px;">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }"
+                        [ngSwitch]="true">
+
+                        <ng-container *ngSwitchCase="col.field == 'full_name'">
+                            <span class="featuredLinks mr-2">
+                                <ng-container *ngIf="rowData?.linkedeni_url">
+                                    <a class="pointer" target="_blank" [href]="rowData?.linkedeni_url">
+                                    <svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path
+                                            d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                    </svg>
+                                    </a>
+                                </ng-container>
+                            </span>
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'position'">
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase  }} 
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'linkedeni_url'">
+                            <a href="{{ rowData?.['linkedeni_url'] }}" target="_blank" class="text-blue-600 hover:underline">
+                                {{ (rowData[col.field] ? rowData[col.field] : '-') }}
+                            </a>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'website'">
+                            <a href="https://www.{{ rowData?.['website'] }}" target="_blank" class="text-blue-600 hover:underline">{{ (rowData[col.field] ? rowData[col.field] : '-') }} 
+                            </a>
+                            
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col.field == 'updatedDate'">
+                            {{ (rowData[col.field] ? rowData[col.field] : '-') }} 
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                                {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns?.length">No records found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        
+    </p-dialog>
+    <!-- Important Email Dialog Ends -->
+
+    <!-- Important Emails List Table -->
+    <p-dialog header="Email Lists" [draggable]="false" [modal]="true" [(visible)]="emailsListModal"
+        [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: '75vw' }"
+        (onHide)="unSubscribeImportantEmailsModalModal()" [closable]="false">
+
+        <dg-user-list [listColumns]="importantEmailsColumns" [listDataValues]="importantEmailsDataValue ? importantEmailsDataValue : []" [thisPage]="'importantEmails'" [searchTotalCount]="totalCountForEmails" [emailsForSingleCompanyDomain]="importantEmailsList" [emailsListModalBoolean]="emailsListModal" [creditLimitForEmailSpotter]="creditLimitForEmailSpotter"></dg-user-list>
+
+        <p-footer>
+            <button pButton type="button" class="p-button-rounded mr-2 p-button-lg darkGrey" label="Close" (click)="confirmEmailDialog()"></button>
+        </p-footer>
+
+    </p-dialog>
+    <!-- Important Emails List Table Ends -->
+
+    <!-- Confirmation Dialog for Important Email List Table -->
+    <p-dialog header="Confirmation Dialog" [draggable]="false" [modal]="true" [(visible)]="closeModal"
+        [baseZIndex]="9999999999" appendTo="body" [focusOnShow]="false"
+        [style]="{ width: '40vw', 'overflow-y': 'auto' }" [closable]="false">
+
+        <div class="card text-center">
+
+            <p class="font-bold">{{ constantMessages['confirmation']['closeExportDialog'] }}</p>
+            <button pButton type="button" class="p-button-rounded mr-2 p-button-lg mt-2" label="Yes"
+                (click)="closeDialog()"></button>
+            <button pButton type="button" class="p-button-rounded mr-2 p-button-lg darkGrey" label="No"
+                (click)="closeModal = false"></button>
+
+        </div>
+
+    </p-dialog>
+    <!-- Confirmation Dialog for Important Email List Table Ends -->
+
+    <!-- Upgrade Plan Dialog -->
+    <p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog"
+        [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+        <dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+    </p-dialog>
+    <!-- Upgrade Plan Dialog End -->
+
+    <!-- Upgrade Plan Dialog For Client User -->
+    <p-dialog styleClass="subscriptionPlanDialogModalForClientUser" [modal]="true" [draggable]="false"
+        [(visible)]="showUpgradePlanDialogForClientuser" [baseZIndex]="999999998" appendTo="body"
+        [style]="{ width: '40vw', 'overflow-y': 'auto' }">
+        <div class="text-center">
+            To enable this feature, please contact your Administrator.
+        </div>
+    </p-dialog>
+    <!-- Upgrade Plan Dialog For Client User End -->
+
+    <p-dialog header="Update Info" [(visible)]="showOrHideContactInfoModal" [modal]="true" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false  " [draggable]="false" [style]="{'max-width': 'max-content'}">
+        <form>
+            <div class="flex flex-column justify-conten-center align-items-center pt-0">
+                <div class="col-12">
+                    <div class="p-inputgroup inputarea mb-3">
+                        <span class="p-inputgroup-addon iconcolor"><i class="material-icons">language</i></span>
+                        <input class="inputtext" type="text" pInputText placeholder="Domain (Website)"
+                            [(ngModel)]="domain" [ngModelOptions]="{standalone: true}">
+                    </div>
+
+
+                    <div class="p-inputgroup xyz mb-3">
+                        <span class="p-inputgroup-addon" style="color: #2589ff;"><i
+                                class="material-icons">local_phone</i></span>
+                        <input class="inputtext" type="text" pInputText placeholder="Contact Number"
+                            [(ngModel)]="contact_number" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="p-inputgroup xyz mb-3">
+                        <span class="p-inputgroup-addon iconcolor"><i class="material-icons">mail</i></span>
+                        <input class="inputtext" type="text" pInputText placeholder="Email Address"
+                            [(ngModel)]="email_address" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="p-inputgroup xyz mb-3">
+                        <span class="p-inputgroup-addon iconcolor"><i class="material-icons">turned_in</i></span>
+                        <input class="inputtext" type="text" pInputText placeholder="Trading As"
+                            [(ngModel)]="company_tradingAs" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="p-inputgroup xyz mb-3">
+                        <span class="p-inputgroup-addon iconcolor" style="width: 43px"><i
+                                class="pi pi-linkedin"></i></span>
+                        <input class="inputtext" style="width: 245px" type="text" pInputText
+                            placeholder="LinkedIn Profile" [(ngModel)]="linkedin_profile"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button style="width:290px" pButton type="button" label="Submit"
+                    class="p-button-rounded p-button-lg" (click)="onUpdateInformation()"></button>
+            </div>
+        </form>
+    </p-dialog>
+
+    <div class="grid">
+        <div class="col-6 "> <!--Industry and SIC Code-->
+            <div class="card h-full">
+                <div class="x-big-data-font c-darkBlue py-2">Industry and SIC Code</div>
+                <div class="grid">
+                    <div class="col-9">
+                        <ng-container *ngIf="getSICCodeInArrayFormat( companyData.sicCode07 !== undefined && companyData.sicCode07 ).length; else noSicCode">
+                            <div class="companyDetailsInfoText" *ngFor="let item of getSICCodeInArrayFormat( companyData?.sicCode07 )">{{ item | titlecase }}</div>
+                        </ng-container>
+                        <ng-template #noSicCode>Not Provided</ng-template>
+                    </div>
+                    <div class="col-3 text-right" *ngIf="isLoggedIn && selectedGlobalCountry == 'uk'">
+                        <ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ); else otherPlans">
+                            <button pButton type="button" label="Update Tags" icon="ui-icon-edit" class="valign-m p-button-rounded p-button-sm hasFeatureLockIcon" (click)="showUpgradePlanDialog = true">
+                                <span class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+                            </button>
+                        </ng-container>
+                        <ng-template #otherPlans>
+                            <dg-bulk-tag [multiple]="false" [companyData]="companyData" (messageCommunicator)="showMessage($event)"></dg-bulk-tag>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <ng-container *ngIf="companyData?.industryTagList && companyData?.industryTagList.length > 0"
+                            [ngTemplateOutlet]="industryTagsViewTemplate"
+                            [ngTemplateOutletContext]="{ $implicit:  companyData?.industryTagList  }"></ng-container>
+                        <span class="c-light" *ngIf="!companyData?.industryTagList">No Tags Available</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-6"> <!--Risk Assesment Card-->
+            <div class="card hidden md:block h-full" *ngIf="companyData?.internationalScoreDescription" addOnAccess="riskFilter">
+                <div class="grid">
+                    <div class="col-12 xl:col-5">
+                        <span class="x-big-data-font c-darkBlue mr-2">Risk Assessment</span>
+                        <sup><i class="ui-icon-info-outline x-big-data-font c-darkBlue "
+                                (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)"
+                                style="font: size 18px"></i></sup>
+                        <p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                            <svg viewBox="0 0 400 242 " width="400" height="242" fill="#fff" class="svgViewBox">
+                                <rect x="0" y="0" width="400" height="46" fill="#6dc470"></rect>
+                                <rect x="0" y="48" width="400" height="46" fill="#59ba9b"></rect>
+                                <rect x="0" y="96" width="400" height="46" fill="#ffcc00"></rect>
+                                <rect x="0" y="144" width="400" height="46" fill="#ee9512"></rect>
+                                <rect x="0" y="192" width="400" height="46" fill="#D92727"></rect>
+                                <text x="10" y="30">Very Low Risk</text><text x="220" y="30">A</text><text x="340"
+                                    y="30">70-100</text>
+                                <text x="10" y="78">Low Risk</text><text x="220" y="78">B</text><text x="340"
+                                    y="78">50-70</text>
+                                <text x="10" y="126">Moderate</text><text x="220" y="126">C</text><text x="340"
+                                    y="126">30-50</text>
+                                <text x="10" y="174">High Risk</text><text x="220" y="174">D</text><text x="340"
+                                    y="174">20-30</text>
+                                <text x="10" y="222">Not scored /Very High Risk</text><text x="220"
+                                    y="222">E</text><text x="340" y="222">0-20</text>
+                            </svg>
+                        </p-overlayPanel>
+                    </div>
+
+                    <div class="col-12 xl:col-7 text-right">
+                        <span class="riskRatingLabel" [ngClass]=" { 'lightGreen' : companyData?.internationalScoreDescription == 'very low risk', 'cyan' : companyData?.internationalScoreDescription == 'low risk', 'yellow' : companyData?.internationalScoreDescription == 'moderate risk', 'orange' : companyData?.internationalScoreDescription == 'high risk', 'darkRed': companyData?.internationalScoreDescription == 'not scored' }">
+                            {{ companyData?.internationalScoreDescription == 'not scored'? 'Not scored / Very High Risk': companyData?.internationalScoreDescription | titlecase }}
+                        </span>
+                    </div>
+                </div>
+
+                <p-timeline [value]="modifiedRiskBandArr" layout="horizontal" align="top">
+                    <ng-template pTemplate="marker" let-event>
+                        <span class="custom-marker" [style.color]="event.color"></span>
+                    </ng-template>
+                    <ng-template pTemplate="content" let-event>
+                        <div class="text-sm">
+                            {{ (event.date && event.date != null && event.date != '') ? event.date : '-' }}
+                        </div>
+                        <span class="riskRatingLabel text-sm" [style.backgroundColor]="event.color">
+                            {{ event.riskBand == 'Not Scored'? 'N.S / V. High Risk': event.riskBand | titlecase }}
+                        </span>
+                    </ng-template>
+                </p-timeline>
+            </div>
+        </div>
+
+        <div class="col-12" *ngIf="showFinancialcard"> <!--Finacial Cards-->
+            <div class="grid">
+                <ng-container *ngFor="let financialKey of financialCardDatasets.statutoryAccounts | keyvalue : returnZero">
+                    <div class="col-2">
+                        <ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: financialKey.key, body: financialKey.value } }"></ng-container>
+                    </div>
+                </ng-container>
+            </div>
+            <ng-template #financialCardDisplayTemplate let-cardData>
+                <dg-shared-financial-card [cardData]="cardData" [financialBool]="financialBool"></dg-shared-financial-card>
+            </ng-template>
+        </div>
+
+        <div class="grid col-12">
+            <div class="col-6">
+                <div id="classForContactInfo" [ngClass]="{'card': !isLoggedIn}">  <!--Contact Information-->
+                    <div *ngIf="!isLoggedIn" class="x-big-data-font c-darkBlue card" [ngClass]="{'text-center': !isLoggedIn}">Contact Information</div>
+                    <div [loginAccessModal]="{companyNumber}">
+                        <div class="card" *ngIf="companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.about_us">
+                            <div class="x-big-data-font c-darkBlue">About the company</div>
+                            <div class="data-font my-3"> {{ companyAboutUsFirstLetterCapital }} </div>
+                        </div>
+                        <div [loginAccessModal]="{companyNumber}" class="card">
+                            <div class="grid">
+                                <div class="col-12 xl:col-5 ">
+                                    <span class="x-big-data-font c-darkBlue">Contact Information</span>
+                                </div>
+    
+                                <div class="col-12 xl:col-7 text-right hidden md:block"
+                                    *ngIf="![ '05109207', '06525948', '07737364', '03090923' ].includes( companyNumber ) && selectedGlobalCountry == 'uk'">
+                                    <div addOnAccess="contactInformation">
+                                        <ng-container
+                                            *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ) ; else otherPlans">
+                                            <button pButton type="button" label="Update"
+                                                class="p-button-inline p-button-sm p-button-rounded hasFeatureLockIcon"
+                                                icon="ui-icon-email" iconPos="left" (click)="showUpgradePlanDialog = true">
+                                                <span class="featureLockIconForDetailsPage"><img
+                                                        src="{{ userAuthService?.featureLockIconPath }}"></span>
+                                            </button>
+    
+                                            <button pButton type="button" label="Important Email"
+                                                class="p-button-inline p-button-sm p-button-rounded hasFeatureLockIcon"
+                                                icon="ui-icon-email"
+                                                [disabled]="!((companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.about_us.website ))"
+                                                iconPos="left" (click)="showUpgradePlanDialog = true">
+                                                <span class="featureLockIconForDetailsPage"><img
+                                                        src="{{ userAuthService?.featureLockIconPath }}"></span>
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                    <ng-template #otherPlans>
+                                        <button pButton type="button" label="Update"
+                                            class="p-button-inline p-button-sm p-button-rounded mr-2" icon="ui-icon-email"
+                                            iconPos="left" (click)="onUpdateInfo()"></button>
+                                        <span addOnAccess="emailSpotter" *ngIf="userAuthService.hasRolePermission( ['Super Admin'] )">
+                                            <button pButton type="button" label="Fetch Email"
+                                                class="p-button-inline p-button-sm p-button-rounded" icon="ui-icon-email"
+                                                [disabled]="!(( companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.website ))"
+                                                iconPos="left" (click)="dialogBoxForImpotantEmails()"></button>
+                                            <button pButton type="button" label="Fetch Other Email"
+                                                class="p-button-inline p-button-sm p-button-rounded mr-2" icon="ui-icon-email"
+                                                [disabled]="!(( companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.website ))"
+                                                iconPos="left" (click)="dialogBoxForImpotantOtherEmails()"></button>
+                                        </span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="grid mb-2">
+                                <div class="col-fixed">
+                                    <i class="ui-icon-location-on"></i><span
+                                        class="heading-font ml-2"><strong>Address</strong></span>
+                                </div>
+                                <div class="col">
+                                    <span class="data-font">{{ finalRegAddress || "Not Provided" }}</span>
+                                </div>
+                            </div>
+                            <div class="grid mb-2" *ngIf="companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.website && companyData?.company_contact_info_latest?.website !== null ; else defaultWebsiteFromCreditSafe">
+                                <div class="col-fixed">
+                                    <i class="ui-icon-language"></i>
+                                    <span class="heading-font ml-2"><strong>Website</strong></span>
+                                </div>
+                                <div class="col">
+                                    <span><strong><a target="_blank" class="cName" href="http://www.{{formatWebsite(companyData?.company_contact_info_latest?.website)}}">{{
+                                                (formatWebsite(companyData?.company_contact_info_latest?.website)) }}</a></strong></span>
+                                </div>
+                            </div>
+    
+                            <div class="grid" addOnAccess="contactInformation">
+                                <div class="col-fixed">
+                                    <i class="ui-icon-connect-without-contact"></i>
+                                    <span class="heading-font ml-2"><strong>Social Media Links</strong></span>
+                                </div>
+                                <div class="col social-link">
+                                    <a target="_blank"
+                                        [href]="GoogleURLCompanyURLwithoutWordCompany(companyData.businessName)">
+                                        <img tooltip="Search on google"
+                                            src="https://img.icons8.com/color/48/000000/google-logo.png" id="google-image">
+                                    </a>
+                                    <ng-container
+                                        *ngIf="( companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.linkedin_url ); else noLinkedInURL">
+                                        <ng-container
+                                            *ngIf="companyData?.company_contact_info_latest && companyData?.company_contact_info_latest?.linkedin_url; else otherBlock">
+                                            <a href="javascript: void(0);"
+                                                (click)="checkSubscriptionAuth( addOnContactInformation, companyData?.company_contact_info_latest?.linkedin_url )">
+                                                <svg class="linkedin" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                                </svg>
+                                            </a>
+                                        </ng-container>
+    
+                                        <ng-template #otherBlock>
+                                            <a href="javascript: void(0);"
+                                                (click)="checkSubscriptionAuth( addOnContactInformation , companyData?.company_contact_info_latest?.linkedin_url )">
+                                                <svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <path
+                                                        d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                                </svg>
+                                            </a>
+                                        </ng-template>
+                                    </ng-container>
+    
+                                    <ng-template #noLinkedInURL>
+                                        <a href="javascript: void(0);" (click)="checkSubscriptionAuth( addOnContactInformation, linkedinURLForCompany(companyData.businessName) )">
+                                            <svg class="svg-fill-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                <path d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                            </svg>
+                                        </a>
+                                    </ng-template>
+    
+                                    <!-- </ng-container> -->
+                                </div>
+                            </div>
+                            <div addOnAccess="contactInformation">
+                                <ng-container *ngIf="companyData['company_contact_info_latest'] && (companyData?.company_contact_info_latest?.telephone && companyData?.company_contact_info_latest?.telephone !== ''); else forRegAddresModifiedData">
+    
+                                    <div class="grid mb-2 align-items-center">
+                                        <div class="col-fixed">
+                                            <i class="ui-icon-local-phone"></i>
+                                            <span class="heading-font ml-2"><strong>Contact Number</strong></span>
+                                        </div>
+                                        <ng-container
+                                            *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ); else otherPlans">
+                                            <span class="lockIconForFilters"><img
+                                                    src="{{ userAuthService?.featureLockIconPath }}"></span>
+                                        </ng-container>
+                                        <ng-template #otherPlans>
+                                            <div class="col">
+    
+                                                <span class="data-font">{{
+                                                    companyData?.company_contact_info_latest?.telephone }}</span>
+                                                <ng-container *ngIf=" companyData['company_contact_info_latest'] && ( companyData?.company_contact_info_latest?.telephone && companyData?.company_contact_info_latest?.telephone !== '') ">
+    
+                                                    <ng-container *ngIf="companyData?.company_contact_info_latest?.ctps && companyData?.company_contact_info_latest?.ctps !== ''; else ctpsFromRegAdress">
+    
+                                                        <span class="heading-font ml-2">| CTPS<sup>*</sup></span>
+                                                        <span class="data-font status ml-2"
+                                                            [ngClass]="{ 'c-red': companyData?.company_contact_info_latest?.ctps == 'y', 'green': companyData?.company_contact_info_latest?.ctps == 'n' } ">{{
+                                                            companyData?.company_contact_info_latest?.ctps === "y" ? "Yes" :
+                                                            "No"
+                                                            }}</span>
+    
+                                                    </ng-container>
+                                                </ng-container>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+    
+                                </ng-container>
+    
+                                <div class="grid mb-2">
+                                    <div class="col-fixed">
+                                        <i class="ui-icon-email"></i><span
+                                            class="heading-font ml-2"><strong>Email</strong></span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="data-font">{{ ( companyData?.company_contact_info_latest?.email?.length
+                                            ?
+                                            companyData?.company_contact_info_latest?.email?.join(', ') : "Not Provided" )
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="grid mb-2" *ngIf="companyData?.['statutoryAccounts']">
+                                <div class="col-fixed">
+                                    <i class="ui-icon-people"></i>
+                                    <span class="heading-font ml-2"><strong>No. of Employees</strong></span>
+                                </div>
+                                <div class="col">
+                                    <span class="data-font">{{ contactInfoNumberOfEmployees == null ? 'Not Provided' : contactInfoNumberOfEmployees }}</span>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="companyData?.company_contact_info_latest?.company_tradingAs">
+                                <div class="grid mb-2">
+                                    <div class="col-fixed">
+                                        <i class="material-icons">turned_in</i>
+                                        <span class="heading-font ml-2">Trading As</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="data-font">{{
+                                            companyData?.company_contact_info_latest?.company_tradingAs |
+                                            titlecase }}</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+    
+                    <ng-template #showContactInfo>
+                        <ng-container
+                            *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+                            <div class="card text-center">
+                                To enable this feature, please contact your Administrator.
+                            </div>
+                        </ng-container>
+                        <ng-template #otherThanClientUserLoggedIn>
+                            <dg-upgrade-plan [currentPlan]="userDetails?.planId" *ngIf="isLoggedIn"></dg-upgrade-plan>
+                        </ng-template>
+                    </ng-template>
+                </div>
+                <div class="card" *ngIf="companyData?.directorsData?.length > 0 || debtorsInfoData"> <!--Directors Card-->
+                    <span class="x-big-data-font c-darkBlue">Directors</span>
+    
+                    <div class="grid directorCountsCards mt-2 mb-1 flex">
+    
+                        <div class="col col-3 text-center">
+                            <div class="card mt-0">
+                                <span class="mt-0 md:col-none md:block text-center"><strong>Total</strong></span>
+                                <h2 class="m-0 md:col-none md:block text-center font-bold">{{ companydirectorStatusCounts.total }}</h2>
+                            </div>
+                        </div>
+    
+                        <div class="col col-3 text-center c-green">
+                            <div class="card mt-0">
+                                <span class="mt-0 md:col-none md:block text-center"><strong>Active</strong></span>
+                                <h2 class="m-0 md:col-none md:block text-center font-bold">{{ companydirectorStatusCounts.active }}</h2>
+                            </div>
+                        </div>
+    
+                        <div class="col col-3 text-center c-light">
+                            <div class="card mt-0">
+                                <span class="mt-0 md:col-none md:block text-center"><strong>Inactive</strong></span>
+                                <h2 class="m-0 md:col-none md:block text-center font-bold">{{ companydirectorStatusCounts.inactive }}</h2>
+                            </div>
+                        </div>
+    
+                        <div class="col col-3 text-center c-red">
+                            <div class="card mt-0">
+                                <span class="mt-0 md:col-none md:block text-center"><strong>Resigned</strong></span>
+                                <h2 class="m-0 md:col-none md:block text-center font-bold">{{ companydirectorStatusCounts.resigned }}</h2>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="commentry-timeline">
+    
+                        <div *ngFor="let item of directorOverviewArray; let i = index" class="card-row"
+                            [ngClass]="{ 'bg-grey': i%2 == 0 }">
+    
+                            <div class="grid align-items-center m-0 big-data-font">
+    
+                                <svg class="col-fixed p-0 directorStatus"
+                                    [ngClass]="{ 'greenFill': item.status != undefined && item.status == 'active', 'redFill': item.status == undefined || item.status == 'resigned', 'greyFill': item.status == undefined || item.status == 'inactive' }">
+                                    <circle cx="6" cy="6" r="5" />
+                                </svg>
+                                <span></span>
+                                <span class="col-fixed p-0 featuredLinks" addOnAccess="contactInformation">
+                                    <ng-container
+                                        *ngIf="item?.linkedin_url && item?.linkedin_url !== ' ' && item?.linkedin_url !== '0'; else otherUser">
+                                        <a class="pointer" href="javascript:void(0)"
+                                            (click)="checkSubscriptionAuth( addOnContactInformation, item?.linkedin_url.split(',')[0] )">
+                                            <svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                <path
+                                                    d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                            </svg>
+                                        </a>
+                                    </ng-container>
+                                    <ng-template #otherUser>
+                                        <a class="pointer" href="javascript:void(0)"
+                                            (click)="linkedInUrlForDirector(item?.dName?.name?.trim(),item?.dName?.link)">
+                                            <svg class="svg-fill-light" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                            </svg>
+                                        </a>
+                                    </ng-template>
+                                </span>
+    
+                                <i class="col-fixed p-0 ui-icon-person-outline mr-1"></i>
+    
+                                <ng-container *ngIf="isLoggedIn;else withoutuserLogin">
+                                    <span class="ml-2">
+                                        <a class="p-0 cName"
+                                            [href]="'/director/' + formatDirectorNameForUrl( ( item?.directorTitle ? item?.directorTitle : '' ) + ' ' + item?.dName?.name?.trim() | titlecase ) + '/' + item?.dName?.link"
+                                            target="_blank">{{ ( item?.directorTitle ? item?.directorTitle : '' ) + ' ' +
+                                            item?.dName?.name | titlecase }}</a>
+                                    </span>
+                                </ng-container>
+    
+                                <ng-template #withoutuserLogin>
+                                    <a class="p-0 cName" href="javascript: void(0);"
+                                        (click)="checkSubscriptionAuth( false )">{{ ( item?.directorTitle ?
+                                        item?.directorTitle : '' ) + ' ' + item?.dName?.name | titlecase }}</a>
+                                </ng-template>
+                            </div>
+    
+                            <div class="grid justify-content-between align-items-center">
+    
+                                <div class="col-fixed">
+    
+                                    <span *ngIf="item.status && item.status !== '-'" class="small-data-font ml-md-3"
+                                        [ngClass]="{ 'green': item.status != undefined && item.status == 'active', 'red': item.status == undefined || item.status == 'resigned', 'c-light': item.status == undefined || item.status == 'inactive' }">{{
+                                        item.status | titlecase }}</span>
+    
+                                    <svg class="seperator" *ngIf="item.directorRole && item.directorRole !== '-'">
+                                        <circle cx="3" cy="3" r="2" />
+                                    </svg>
+    
+                                    <span *ngIf="item.directorRole && item.directorRole !== '-'" class="small-data-font">{{
+                                        item.directorRole | titlecase }}</span>
+    
+                                    <svg class="seperator" *ngIf="item.occupation && item.occupation !== '-'">
+                                        <circle cx="3" cy="3" r="2" />
+                                    </svg>
+    
+                                    <span *ngIf="item.directorOccupation && item.directorOccupation !== '-'"
+                                        [ngClass]="{ 'ml-3': !item.directorRole || item.directorRole == '-'}"
+                                        class="small-data-font">
+                                        {{ item.directorOccupation | titlecase }}
+                                    </span>
+    
+                                    <svg class="seperator" *ngIf="item.nationality && item.nationality !== '-'">
+                                        <circle cx="3" cy="3" r="2" />
+                                    </svg>
+    
+                                    <span *ngIf="item.nationality && item.nationality !== '-'"
+                                        [ngClass]="{ 'ml-3': !item.directorOccupation && item.directorOccupation == '-' }"
+                                        class="small-data-font">
+                                        {{ item.nationality | titlecase }}
+                                    </span>
+    
+                                    <svg class="seperator" *ngIf="item.age && item.age !== 0">
+                                        <circle cx="3" cy="3" r="2" />
+                                    </svg>
+    
+                                    <span *ngIf="item.age && item.age !== 0"
+                                        [ngClass]="{ 'ml-3': !item.nationality || item.nationality == '-' }"
+                                        class="small-data-font">
+                                        {{ item.age }} Years Old
+                                    </span>
+    
+                                    <svg class="seperator"
+                                        *ngIf="item.directorshipCountUpdated && item.directorshipCountUpdated.active_count !== undefined">
+                                        <circle cx="3" cy="3" r="2" />
+                                    </svg>
+    
+                                    <span
+                                        *ngIf="item.directorshipCountUpdated && item.directorshipCountUpdated.active_count !== undefined"
+                                        [ngClass]="{ 'ml-3': !item.age || item.age == '-' }" class="small-data-font">
+                                        {{ item.directorshipCountUpdated.active_count !== undefined ?
+                                        item.directorshipCountUpdated.active_count : "-" }} Active Directorships
+                                    </span>
+    
+                                </div>
+                                <div class="col-fixed text-right ml-auto">
+                                    <a href="javascript:void(0)" class="c-green small-data-font" (click)="checkSubscriptionAuth( ( userAuthService.hasFeaturePermission( 'See Relations' ) || userAuthService.hasRolePermission( ['Super Admin'] ) ), [ '/relations', formatCompanyNameForUrl( ( item?.directorTitle ? item?.directorTitle : '' ) + ' ' + item?.otherRelations?.name?.trim()) ,item?.otherRelations?.link,item?.otherRelations?.role.replace(' ','-') ] )">
+                                        <span *ngIf="selectedGlobalCountry == 'uk'"><i class="material-icons">device_hub</i> See Relations</span></a>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card md:hidden md:block" *ngIf="companyData?.pscDetails && companyData.pscDetails?.length > 0"> <!--Person With Significant Card-->    
+                    <span class="x-big-data-font c-darkBlue">Person With Significant Control</span>
+    
+                    <div class="mt-2 commentry-timeline">
+                        <div class="col card-row" [ngClass]="{ 'bg-grey': i%2 == 0 }"
+                            *ngFor="let item of companyData.pscDetails; let i = index">
+    
+                            <div class="font-bold mb-2 font-bold"><svg class="col-fixed p-0 directorStatus"
+                                    [ngClass]="{ 'greenFill': item.ceasedDate != undefined, 'greyFill': item.ceasedDate == undefined }">
+                                    <circle cx="6" cy="6" r="5" />
+                                </svg><i class="ui-icon-person mr-2"></i>{{ ( item?.title ? item?.title : '' ) + ' ' + (
+                                item.pscName['name'] ? item.pscName['name'] : item.pscName ) | titlecase }}</div>
+                            <ng-container>
+                                <div class="pl-5">
+                                    <div class="grid justify-content-between align-items-center pt-0">
+                                        <div class="col-fixed">
+                                            <svg class="seperator" *ngIf="item.stat">
+                                                <circle cx="3" cy="3" r="2" />
+                                            </svg>
+                                            <span *ngIf="item.stat"
+                                                [ngClass]="{'c-green': item.stat =='current' || item.stat =='active', 'c-red':item.stat !='current' && item.stat !='active'}"
+                                                class="small-data-font">
+                                                {{ item.stat =='current' || item.stat =='active' ? 'Active' : 'Inactive' |
+                                                titlecase }}
+                                            </span>
+    
+                                            <svg class="seperator ml-3" *ngIf="item.ceasedDate && item.ceasedDate !== '-'">
+                                                <circle cx="3" cy="3" r="2" />
+                                            </svg>
+                                            <span *ngIf="item.ceasedDate" class="small-data-font">
+                                                {{ item.stat =='current' ? '-' : item.ceasedDate }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <span class="ml-5"
+                                *ngIf="item.nationality && item.nationality !== '-' && item.nationality !== null">{{ item.nationality | titlecase }}</span>
+                            <svg class="seperator" *ngIf="item.dataOfBirth && item.dataOfBirth !== '-'">
+                                <circle cx="3" cy="3" r="2" />
+                            </svg>
+    
+                            <span [ngClass]="{ 'ml-5': !item.nationality || item.nationality == '-'}" *ngIf="item.dataOfBirth && item.dataOfBirth !== 0">{{ directorsAge( item.dataOfBirth ) }} Years Old</span>
+    
+                            <ng-container *ngFor="let data of item.natures_of_control; let i = index">
+                                <div class="ml-5">{{ data | titlecase }}</div>
+                            </ng-container>
+    
+                        </div>
+    
+                    </div>
+                </div>
+                <!-- <div addOnAccess="diversityAndInclusion">
+                    <div class="card" addOnAccess="diversityAndInclusion" *ngIf="selectedGlobalCountry == 'uk'"> 
+                        <p-messages [(value)]="diversityAndInclusionMsgs"></p-messages>
+                        <div>
+                            <div class="grid">
+                                <div class="col-12 xl:col-5 ">
+                                    <span class="x-big-data-font c-darkBlue">Responsible Procurement</span>
+                                </div>
+                                <div *ngIf="!userCreditDeductedForDiBool" class="col-12 xl:col-7 text-right hidden md:block">
+                                    <ng-container>
+                                        <button pButton type="button" label="Get Responsibility Info" class="p-button-inline p-button-sm p-button-rounded hasFeatureLockIcon"
+                                            [disabled]="diversityButonBoolean" icon="ui-icon-touch-app" (click)="DiversityLimit()">
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
+        
+                            <p-messages></p-messages>
+        
+                            <ng-container *ngIf="loaderForDiversityBlock else blockWithoutLoader">
+                                <div class="spinner-wrapper">
+                                    <p-progressSpinner fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                                </div>
+                            </ng-container>
+        
+                            <ng-template #blockWithoutLoader>
+        
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <div class="card bg-pink-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed colUser">
+                                                    <div class="diversityCardIcon bg-pink-400 material-icons text-3xl">female
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2 text-pink-400">Female Owned Business</div>
+                                                    <div class="pt-2"
+                                                        *ngIf="diversityInclusionObject?.femaleOwned == true || diversityInclusionObject?.femaleOwned == false;">
+                                                        <span
+                                                            class="data-font text-pink-500 font-bold text-2xl">{{diversityInclusionObject.femaleOwned
+                                                            == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-purple-500 font-bold text-xl"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class=" card pr-2 bg-purple-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-purple-400 material-icons text-3xl">
+                                                        diversity_2 </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-purple-600">Ethnic Minority Business</div>
+                                                    <div class="col-12"
+                                                        *ngIf="diversityInclusionObject?.ethnicOwned == true || diversityInclusionObject?.ethnicOwned == false;">
+                                                        <span
+                                                            class="data-font text-purple-500 font-bold text-xl">{{diversityInclusionObject.ethnicOwned
+                                                            == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-purple-500 font-bold text-xl"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card bg-green-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-green-400 material-icons-outlined text-3xl">
+                                                        B
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2 text-teal-600">B Corp Certified Business</div>
+                                                    <div class="pt-2"
+                                                        *ngIf="diversityInclusionObject?.bcropTag == true || diversityInclusionObject?.bcropTag == false;">
+                                                        <span class="data-font text-green-600 font-bold text-xl">{{diversityInclusionObject.bcropTag == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-purple-500 font-bold text-xl" *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card pr-2 bg-yellow-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-yellow-500 material-icons text-3xl">
+                                                        military_tech </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2 text-yellow-600">Military Veterans</div>
+                                                    <div class="pt-2"
+                                                        *ngIf="diversityInclusionObject?.militaryVeterans == true || diversityInclusionObject?.militaryVeterans == false;">
+                                                        <span
+                                                            class="data-font text-orange-400 font-bold text-xl">{{diversityInclusionObject.militaryVeterans
+                                                            == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-orange-400 font-bold text-xl"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card pr-2 bg-cyan-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-cyan-400 material-icons text-3xl">business
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2">MSME TAG <i
+                                                            class="ui-icon-info-outline x-big-data-font c-black ml-1"
+                                                            (mouseenter)="msmeInfoOverlay.show($event)"
+                                                            (mouseleave)="msmeInfoOverlay.hide($event)"></i></div>
+                                                    <span class="data-font text-cyan-400 font-bold text-xl pl-1"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                    <div class="pt-2" *ngIf="diversityInclusionObject.msmeCategory">
+                                                        <span
+                                                            class="data-font text-cyan-400 font-bold text-xl">{{diversityInclusionObject.msmeCategory}}</span>
+                                                    </div>
+                                                </div>
+                                                <p-overlayPanel #msmeInfoOverlay [showCloseIcon]="false" [dismissable]="true"
+                                                    appendTo="body">
+                                                    <dg-msme-svg-popup-card></dg-msme-svg-popup-card>
+                                                </p-overlayPanel>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card bg-black-alpha-10 border-round-3xl">
+                                            <div class="grid">
+        
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-bluegray-400 material-icons text-3xl">
+                                                        diversity_3</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="text-700" style="padding-bottom: 4px">Age Diversity<i
+                                                            class="ui-icon-info-outline x-big-data-font c-black ml-1"
+                                                            (mouseenter)="op4.show($event)" (mouseleave)="op4.hide($event)"></i>
+                                                    </div>
+        
+                                                    <ng-container *ngIf="lengthOfAgeDiversityObject > 0; else emptyData">
+                                                        <div *ngIf="diversityInclusionObject['ageDiversityData']['below30'] || diversityInclusionObject['ageDiversityData']['31-50'] || diversityInclusionObject['ageDiversityData']['51-65'] || diversityInclusionObject['ageDiversityData']['above65']; else otherBlock"
+                                                            class="barParent">
+                                                            <span
+                                                                *ngIf="diversityInclusionObject['ageDiversityData']['below30'] !== 0"
+                                                                class="bar belowTo30"
+                                                                [ngStyle]="{ 'width': calculateBarWidth( diversityInclusionObject, ( diversityInclusionObject['ageDiversityData']['below30'] ) ) }">
+                                                                <span class="countCircle">{{
+                                                                    diversityInclusionObject['ageDiversityData']['below30'] |
+                                                                    number }}</span> </span>
+        
+                                                            <span
+                                                                *ngIf="diversityInclusionObject['ageDiversityData']['31-50'] !== 0"
+                                                                class="bar thirtyToFifty"
+                                                                [ngStyle]="{ 'width': calculateBarWidth( diversityInclusionObject, diversityInclusionObject['ageDiversityData']['31-50'] ) }">
+                                                                <span class="countCircle">{{
+                                                                    diversityInclusionObject['ageDiversityData']['31-50'] |
+                                                                    number }}</span> </span>
+        
+                                                            <span
+                                                                *ngIf="diversityInclusionObject['ageDiversityData']['51-65'] !== 0"
+                                                                class="bar fiftyToSixtyfive"
+                                                                [ngStyle]="{ 'width': calculateBarWidth( diversityInclusionObject, diversityInclusionObject['ageDiversityData']['51-65'] ) }">
+                                                                <span class="countCircle">{{
+                                                                    diversityInclusionObject['ageDiversityData']['51-65'] |
+                                                                    number }}</span> </span>
+        
+                                                            <span
+                                                                *ngIf="diversityInclusionObject['ageDiversityData']['above65'] !== 0"
+                                                                class="bar above65"
+                                                                [ngStyle]="{ 'width': calculateBarWidth( diversityInclusionObject, diversityInclusionObject['ageDiversityData']['above65'] ) }">
+                                                                <span class="countCircle">{{
+                                                                    diversityInclusionObject['ageDiversityData']['above65'] |
+                                                                    number }}</span> </span>
+                                                        </div>
+                                                        <ng-template #otherBlock><span
+                                                                class="data-font text-gray-500 font-bold text-xl">-</span></ng-template>
+                                                    </ng-container>
+                                                    <ng-template #emptyData>
+                                                        <span class="data-font text-gray-500 font-bold text-xl"
+                                                            *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card pr-2 bg-blue-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-blue-500 material-icons text-3xl">castle
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2 text-blue-600">VCSE<i
+                                                            class="ui-icon-info-outline text-2xl c-blue ml-1"
+                                                            (mouseenter)="vcseHoverInfo.show($event)"
+                                                            (mouseleave)="vcseHoverInfo.hide($event)"></i>
+                                                    </div>
+                                                    <div class="pt-2"
+                                                        *ngIf="diversityInclusionObject?.vcseCategory == true || diversityInclusionObject?.vcseCategory == false;">
+                                                        <span
+                                                            class="data-font text-blue-400 font-bold text-xl">{{diversityInclusionObject.vcseCategory
+                                                            == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-blue-400 font-bold text-xl"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card pr-2 bg-blue-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-blue-500 material-icons text-3xl">warehouse
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2 text-blue-600">Net-Zero Target</div>
+                                                    <div class="pt-2"
+                                                        *ngIf="diversityInclusionObject?.netZeroTarget == true || diversityInclusionObject?.netZeroTarget == false;">
+                                                        <span
+                                                            class="data-font text-blue-400 font-bold text-xl">{{diversityInclusionObject.netZeroTarget
+                                                            == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-blue-400 font-bold text-xl"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card pr-2 bg-indigo-100 border-round-3xl">
+                                            <div class="grid">
+                                                <div class="col-fixed">
+                                                    <div class="diversityCardIcon bg-indigo-300 material-icons text-3xl">
+                                                        <img src="assets/layout/images/PPC.png" alt="PPC" width="50">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="pb-2 text-indigo-600">Prompt Payment Code</div>
+                                                    <div class="pt-2"
+                                                        *ngIf="diversityInclusionObject?.ppcTag == true || diversityInclusionObject?.ppcTag == false;">
+                                                        <span
+                                                            class="data-font text-indigo-400 font-bold text-xl">{{diversityInclusionObject.ppcTag
+                                                            == true ? "Yes" : "No"}}</span>
+                                                    </div>
+                                                    <span class="data-font text-indigo-400 font-bold text-xl"
+                                                        *ngIf="!lengthOfAgeDiversityObject">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+        
+                            <p-overlayPanel #op4 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+        
+                                <div class="gaugeLegends ml-auto">
+                                    <div class="below30">
+                                        <span class="colorBlock"></span>
+                                        <span class="label">Below 30</span>
+                                    </div>
+                                    <div class="container31To45">
+                                        <span class="colorBlock"></span>
+                                        <span class="label">31 to 50</span>
+                                    </div>
+                                    <div class="container46To56">
+                                        <span class="colorBlock"></span>
+                                        <span class="label">51 to 65</span>
+                                    </div>
+                                    <div class="above65">
+                                        <span class="colorBlock"></span>
+                                        <span class="label">Above 65</span>
+                                    </div>
+                                </div>
+        
+                            </p-overlayPanel>
+        
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="col-6">
+                <div class="card hidden md:block"> <!--Account Cateogery-->
+                    <div class="grid mb-2">
+                        <div class="col-4 md:col-4">
+                            <span class="heading-font"><strong>Account Category</strong></span>
+                        </div>
+                        <div class="col-8 md:col-8">
+                            <span class="data-font">{{companyData?.accountsType | titlecase}}</span><br>
+                        </div>
+                    </div>
+                    <div class="grid mb-2">
+                        <div class="col-4 md:col-4">
+                            <span class="heading-font">Account</span>
+                        </div>
+                        <div class="col-8 md:col-8">
+                            <span class="data-font">Last accounts made up to {{formatDate(companyData?.accountsMadeUpDate)}}</span><br>
+                            <span class="data-font">Date of latest accounts {{formatDate(companyData?.latestDateOfAccounts)}}</span><br>
+                            <span class="data-font">Last accounts filed on {{formatDate(companyData?.accountsFilingDate)}}</span><br>
+                            <span class="data-font">Next Due Date is {{formatDate(companyData?.accountsDueDate)}}</span>
+                        </div>
+                    </div>
+                    <div class="grid mb-2">
+                        <div class="col-4 md:col-4">
+                            <span class="heading-font">Confirmation Statement</span>
+                        </div>
+                        <div class="col-8 md:col-8">
+                            <span class="data-font">Last made update on {{formatDate(companyData?.latestAnnualReturnDate)}}</span><br>
+                            <span class="data-font">Next Due Date is {{ formatDate(nextAnnualReturnDate)}}</span>
+                        </div>
+                    </div>
+                    <div class="grid mb-2" *ngFor="let data of companyData.bankDetails">
+                        <div class="col-4 md:col-4">
+                            <span class="heading-font">Bank Name</span>
+                        </div>
+                        <div class="col-8 md:col-8">
+                            <span class="data-font">{{ (data?.bankName!= null ? data?.bankName : '(N/A)') | titlecase }}</span>
+                        </div>
+                        <div class="col-4 md:col-4" *ngIf="data.sortCode">
+                            <span class="heading-font">Bank Sort Code</span>
+                        </div>
+                        <div class="col-8 md:col-8">
+                            <span class="data-font">{{ (data?.sortCode!= null ? data?.sortCode : '(N/A)') }}</span>
+                        </div>
+                    </div>
+    
+                    <div class="grid mb-2"
+                        *ngIf="companyData.auditorsQualificationCodes && ( companyData.auditorsQualificationCodes[0].auditors || companyData.auditorsQualificationCodes[0].accountantsName || companyData.auditorsQualificationCodes[0].accountsDate )">
+                        <div class="col-12 p-b-0 mt-3">
+                            <span class="heading-font">Auditor and Accountant's Detail</span>
+                        </div>
+                        <div class="col-12 commentry-timeline">
+    
+                            <div *ngIf="companyData.auditorsQualificationCodes[0].auditors">
+                                <span class="data-font">Auditor: {{ (companyData.auditorsQualificationCodes[0]?.auditors ? companyData.auditorsQualificationCodes[0]?.auditors : '(N/A)') | titlecase }}</span>
+                            </div>
+                            <div *ngIf="companyData.auditorsQualificationCodes[0].accountantsName">
+                                <span class="data-font">Accountant Name: {{ (companyData.auditorsQualificationCodes[0]?.accountantsName ? companyData.auditorsQualificationCodes[0]?.accountantsName : '(N/A)') | titlecase
+                                    }}</span>
+                            </div>
+                            <div *ngIf="companyData.auditorsQualificationCodes[0].accountsDate">
+                                <span class="data-font">Accounts Date: {{ formatDate(companyData.auditorsQualificationCodes[0]?.accountsDate) }}</span>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4"> <!--Cateogry Card-->
+                    <div class="grid">
+                        <div class="col-8 md:col-7">
+                            <span class="font-bold">Category</span>
+                        </div>
+                        <div class="col-4 md:col-5">
+                            <span class="font-bold">Incorporated on</span>
+                        </div>
+                    </div>
+                
+                    <div class="grid mb-4">
+                        <div class="col-8 md:col-7">
+                            <span class="data-font">{{ companyData?.companyType | titlecase }}</span>
+                        </div>
+                        <div class="col-4 md:col-5">
+                            <span class="data-font">{{ formatDate( companyData?.companyRegistrationDate ) }}</span>
+                            <span class="data-font"><strong>({{ ( companyData?.companyAge ) }} Years Old)</strong></span>
+                        </div>
+                    </div>
+                
+                    <div class="hidden md:block" *ngIf="companyData?.DissolutionDate || companyData?.previousNames?.length > 0">
+                        <div class="grid mb-2" *ngIf="companyData?.DissolutionDate">
+                            <div class="col-4 md:col-4">
+                                <span class="heading-font">Dissolved on</span>
+                            </div>
+                            <div class="col-8 md:col-8">
+                                <span class="data-font">{{formatDate(companyData?.DissolutionDate)}}</span><span
+                                    class="small-data-font ml-2">({{calculateAge(companyData?.DissolutionDate)}} Years
+                                    Ago)</span>
+                            </div>
+                        </div>
+                
+                
+                        <div *ngIf="companyData?.previousNames && companyData?.previousNames?.length > 0">
+                
+                            <div class="grid">
+                                <div class="col-8 md:col-7">
+                                    <span class="font-bold">Previously known as</span>
+                                </div>
+                                <div class="col-4 md:col-5">
+                                    <span class="font-bold">Changed on</span>
+                                </div>
+                            </div>
+                
+                            <div class="grid" *ngFor="let item of companyData?.previousNames">
+                                <div class="col-8 md:col-7">
+                                    <span class="data-font">{{ item.name | titlecase }}</span>
+                                </div>
+                                <div class="col-4 md:col-5">
+                                    <span class="data-font">{{ item?.dateChanged ? parseDate( item.dateChanged ) : '-' }}</span>
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                
+                </div>
+                <div *ngIf="companyData?.hasCompanyCommentary"><!--Commentry Card-->
+                    <div class="card">
+                        <div class="x-big-data-font c-darkBlue" [ngClass]="{'text-center': !isLoggedIn}">Commentary</div>
+                        <div [loginAccessModal]="{companyNumber}">
+                            <div featureAccess="Commentary" optionalTemplate="true">
+                                <div class="commentry-timeline mt-2">
+                                    <div *ngFor="let item of companyCommentryData; let i = index" class="col card-row" [ngClass]="{ 'bg-grey': i%2 == 0}">
+                                        <div class="grid">
+                                            <div class="col-fixed">
+                                                <ng-container *ngIf="item.commentaryImpact == '+'">
+                                                    <i class="ui-icon-arrow-upward c-green"></i>
+                                                </ng-container>
+                                                <ng-container *ngIf="item.commentaryImpact == '-'">
+                                                    <i class="ui-icon-arrow-downward c-red"></i>
+                                                </ng-container>
+                                                <ng-container *ngIf="item.commentaryImpact == null">
+                                                    <i class="ui-icon-arrow-forward c-orange"></i>
+                                                </ng-container>
+                                            </div>
+                                            <div class="col">
+                                                <div>
+                                                    <span class="data-font" *ngIf="item.commentaryText !== null && item.commentaryText !== ''" [ngClass]="{ 'c-green': item.commentaryImpact == '+', 'c-red': item.commentaryImpact == '-', 'c-orange': item.commentaryImpact == null }">
+                                                        {{ item.commentaryText | titlecase}}
+                                                    </span>
+                                                </div>
+                                                <span class="mr-1 md:col-none md:block"
+                                                    *ngIf="item.dateLogged !== null && item.dateLogged !== ''">Logged On: {{
+                                                    formatDate(item.dateLogged) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card hidden md:block" *ngIf="companyData?.hasCCJInfo"> <!--CCJ-->
+                    <div class="x-big-data-font c-darkBlue" [ngClass]="{'text-center': !isLoggedIn}">CCJ's</div>
+                    <div featureAccess="CCJs" [optionalTemplate]="true">
+                        <div class="mt-2">
+                            <div *ngFor="let item of exactCCJData | slice:0:5; let i = index" class="col card-row"
+                                [ngClass]="{ 'bg-grey': i%2 == 0}">
+                                <div>
+                                    <span class="data-font" *ngIf="exactCCJData[i].businessName !== null && exactCCJData[i].businessName !== ''">
+                                        {{ exactCCJData[i].court | titlecase }}
+                                    </span>
+                                </div>
+                                <span class="small-data-font mr-1" *ngIf="exactCCJData[i].ccjStatus !== null && exactCCJData[i].ccjStatus !== ''">{{exactCCJData[i].ccjStatus | titlecase}}</span>
+                                <svg class="seperator" *ngIf="exactCCJData[i].ccjDate !== null && exactCCJData[i].ccjDate !== ''">
+                                    <circle cx="3" cy="3" r="2" />
+                                </svg>
+                                <span class="small-data-font mr-1" *ngIf="exactCCJData[i].ccjDate !== null && exactCCJData[i].ccjDate !== ''">Created On: {{formatDate(exactCCJData[i].ccjDate)}}</span>
+                                <svg class="seperator" *ngIf="exactCCJData[i].ccjPaidDate !== null && exactCCJData[i].ccjPaidDate !== ''">
+                                    <circle cx="3" cy="3" r="2" />
+                                </svg>
+                                <span class="small-data-font mr-1" *ngIf="exactCCJData[i].ccjPaidDate !== null && exactCCJData[i].ccjPaidDate !== ''">Paid On: {{formatDate(exactCCJData[i].ccjPaidDate) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" *ngIf="companyData['pin'] && companyData['pin']['companyLocation']"> <!--Google Map-->
+                    <div #mapContainer style="width:100%; height:360px"></div>
+                </div>
+                <div *ngIf="companyData?.amountBandsInPounds"> <!--Furlough-->
+                    <div class="card hidden md:block" >
+                        <div class="grid">
+                            <div class="col">
+                                <span class="x-big-data-font c-darkBlue">Furlough</span>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-fixed">
+                                <span class="heading-font">Amount (&pound;) </span>
+                            </div>
+                            <div class="col">
+                                <span class="data-font">{{companyData?.amountBandsInPounds | titlecase}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-12">
+            <ng-template #industryTagsViewTemplate let-industryTagListArray>
+                 <span class="companyDetailsIndustryTags">
+                     <ng-container *ngFor="let item of industryTagListArray">
+                         <ng-container *ngIf="item !== 'lending'">
+                             <span class="roundedColoredChipLabel"> {{ item | titlecase }} </span>
+                         </ng-container>
+                     </ng-container>
+                 </span>
+             </ng-template>
+        </div>
+    </div>
+
+    <p class="p-2">
+        <sup>*</sup> The Corporate Telephone Preference Service (CTPS) is the central opt-out register for organisations wishing to opt out from receiving sales and marketing calls. <br>
+        <sup>*</sup> In general, you must not make marketing calls to any number listed on the Telephone Preference Service (TPS) or Corporate TPS (CTPS), unless that person has specifically consented to your calls. You can call a number if it is not listed on the TPS or CTPS and you are not marketing claims management services.
+    </p>
+</ng-container>

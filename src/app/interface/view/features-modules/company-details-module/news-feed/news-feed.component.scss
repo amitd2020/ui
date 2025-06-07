@@ -1,0 +1,154 @@
+.newsFeedCardWrapper {
+    h2 {
+        margin-top: 0;
+    }
+
+    .card {
+        position: relative;
+
+        .fluidFixedLoader {
+            ::ng-deep {
+                .p-progress-spinner {
+                    position: absolute;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    .newsFeedCard {
+        border-radius: 15px;
+
+        h3 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0 0 3px;
+        }
+
+        &.hasThumbnail {
+            position: relative;
+            min-height: 132px;
+            padding-right: 132px;
+
+            .rightThumbnail {
+                width: 100px;
+                height: 100px;
+                border-radius: 10px;
+                overflow: hidden;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .newsFeedTimeline {
+
+        position: relative;
+        max-width: 1080px;
+        list-style: none;
+        padding: 0 0 0 100px;
+        margin: 0 auto;
+
+        @media only screen and (max-width: 992px) {
+            padding: 0;
+        }
+
+        &::before {
+            content: "";
+            display: block;
+            width: 1px;
+            height: auto;
+            background-color: #d7d7d7;
+            position: absolute;
+            top: 22px;
+            bottom: 0;
+            left: 0;
+        }
+
+        li {
+            position: relative;
+
+            // For dot on the v-line
+            &::before {
+                content: "";
+                display: block;
+                width: 10px;
+                height: 10px;
+                background-color: #1ab394;
+                border-radius: 100%;
+                position: absolute;
+                top: 41px;
+                left: -100px;
+                margin-left: -5px;
+                z-index: 1;
+            }
+
+            // For h-line to the v-line
+            &::after {
+                content: "";
+                display: block;
+                width: 100px;
+                height: 1px;
+                background-color: #d7d7d7;
+                position: absolute;
+                top: 46px;
+                bottom: 0;
+                left: 0;
+
+                -webkit-transform: translateX(-100%);
+                -moz-transform: translateX(-100%);
+                -ms-transform: translateX(-100%);
+                transform: translateX(-100%);
+            }
+
+            .dateTimeContainer {
+                display: inline-block;
+                font-size: 0.9em;
+                color: #8e8e8e;
+                border-bottom: 0;
+                border-radius: 10px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                padding-left: 15px;
+            }
+        }
+
+    }
+
+    .sentimentSign {
+        float: right;
+        font-weight: 500;
+        font-size: 3vh;
+
+        &.positiveSign {
+            color: rgb(12, 171, 15);
+        }
+
+        &.negativeSign {
+            color: #DF2020;
+        }
+
+        &.neutralSign {
+            color: #FFD400;
+        }
+    }
+
+    .newsFeedCardWidth {
+
+        max-width: -webkit-fill-available;
+        max-width: -moz-available;
+        max-width: stretch;
+
+    }
+
+}
+
+.p-d-none {
+    display: none;
+}

@@ -1,0 +1,261 @@
+$red : #ea3546;
+
+.groupStructureTreeWrapper {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	min-height: 80vh;
+	flex-direction: column;
+
+	@media only screen and (max-width: 767px) {
+		min-height: 0;
+	}
+
+	p-tree {
+		margin-top: auto;
+		margin-bottom: auto;
+
+		.highlightCurrentCompanyNode {
+			&:before {
+				content: '';
+				display: block;
+				background-color: #fff266;
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				border-radius: 3px;
+				pointer-events: none;
+				user-select: none;
+
+				@media only screen and (max-width:1024px) {
+					border-radius: 12px;
+				}
+			}
+
+			* {
+				position: relative;
+				z-index: 1;
+			}
+		}
+
+		::ng-deep {
+			.p-tree {
+				.p-treenode-content {
+					position: relative;
+					display: -webkit-box;
+					display: -webkit-flex;
+					display: -ms-flexbox;
+					display: flex;
+					min-width: 320px;
+					background-color: #fff;
+
+					@media only screen and (max-width: 1024px) {
+						min-width: 220px;
+						box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+						font-size: 14px;
+						border-radius: 12px;
+						padding: 0.8em;
+					}
+
+					@media only screen and (max-width: 991px) {
+						font-size: 0.75em;
+					}
+
+					&:hover {
+						background-color: #e8e8e8 !important;
+					}
+
+					&:focus {
+						@media only screen and (max-width: 1024px) {
+							outline: none;
+						}
+					}
+
+					.p-treenode-label,
+					.p-treenode-label:hover {
+						flex: 1;
+						white-space: normal;
+						background-color: inherit;
+						padding-right: 2em;
+
+						h4 {
+							line-height: 1.3;
+							-webkit-pointer-events: none;
+							pointer-events: none;
+						}
+
+						a {
+							.material-icons {
+								vertical-align: middle;
+
+								@media only screen and (max-width: 991px) {
+									margin-top: -1px;
+								}
+							}
+						}
+					}
+
+					.p-tree-toggler,
+					.p-treenode-icon {
+						vertical-align: top;
+					}
+
+					.p-tree-toggler {
+						position: absolute;
+						right: 0;
+						z-index: 1;
+
+						@media only screen and (max-width: 991px) {
+							right: 7px;
+						}
+					}
+
+					.companyLinkFixed {
+						position: absolute;
+						right: 0;
+						bottom: 0;
+					}
+
+				}
+
+				.p-treenode-children {
+					@media only screen and (max-width:1024px) {
+						padding-left: 0;
+					}
+
+				}
+			}
+		}
+
+		&.p-vertical-layout {
+			::ng-deep {
+				.p-tree {
+
+					@media only screen and (max-width: 767px) {
+						padding: 0;
+					}
+
+					.p-treenode-content {
+
+						@media only screen and (max-width: 1024px) {
+							margin: 15px 0;
+						}
+
+						&::before {
+							@media only screen and (max-width: 1024px) {
+								content: "";
+								border-left: 1px solid #000;
+								position: absolute;
+								left: 50%;
+								top: 0;
+								transform: translateY(-100%);
+								height: 30px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (min-width:1026px) {
+
+	.vertical-style,
+	.p-vertical-layout {
+		display: none;
+	}
+
+}
+
+@media only screen and (max-width:1026px) {
+
+	.horizontal-style {
+		display: none;
+	}
+
+}
+
+.verticalAlign {
+	vertical-align: middle;
+}
+
+.companyLogoSize {
+	width: 20px;
+	height: 20px;
+}
+
+.warningRedIcon {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.8em;
+	line-height: 0.7;
+	color: #df2020 !important;
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.3rem 0.75rem;
+	font-size: 0.75rem;
+	font-weight: bold;
+	border-radius: 0.5rem;
+	border: 1px solid transparent;
+	margin: 0.25em;
+
+	&.badge-red {
+		background-color: lighten($red, 50%);
+		color: $red;
+		border-color: $red;
+
+		&.badge-round {
+			border-radius: 1rem;
+		}
+	}
+}
+
+.riskRatingLabel {
+	font-size: 0.9rem;
+	margin-bottom: 0;
+	padding: 0.3em 0.8em;
+	border-radius: 25px;
+	margin-right: 0.2em;
+
+	@media only screen and (max-width: 840px) {
+		font-size: 0.9rem;
+		margin-right: 0em;
+		padding: 0.2em 1.1em;
+	}
+
+	&.lightGreen {
+		background-color: #6DC470;
+		color: #fff;
+	}
+
+	&.cyan {
+		background-color: #59BA9B;
+		color: #fff;
+	}
+
+	&.yellow {
+		background-color: #FFC201;
+		color: #fff;
+	}
+
+	&.orange {
+		background-color: #E4790F;
+		color: #fff;
+	}
+
+	&.darkRed {
+		background-color: #D92727;
+		color: #fff;
+	}
+
+	&.light {
+		background-color: #9b9b9b;
+		color: #fff;
+	}
+}

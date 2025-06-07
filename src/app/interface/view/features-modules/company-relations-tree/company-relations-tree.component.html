@@ -1,0 +1,85 @@
+<p-messages [value]="msgs"></p-messages>
+<div class="card groupStructureTreeWrapper">
+    <div class="mb-4">
+        <button pButton type="button" label="Change Tree View" (click)="changeTreeOrientation()"></button>
+    </div>
+
+    <div *ngIf="pTreeBoolean" class="mt-auto mb-auto">
+        <p-tree [value]="companyRelationsData" [ngClass]="{'ui-vertical-layout' : treeOrientation == 'vertical'}" (onNodeExpand)="getCompanyRelationsTreeDataOnNodeExpand($event)" (onNodeSelect)="expandTreeOnSelectingNode($event)" layout="{{ treeOrientation }}" selectionMode="single">
+            <ng-template let-node pTemplate="default">
+    
+                <ng-container *ngIf="node.companyStatus === undefined && node.role === undefined && node.status === undefined ">
+                    {{ node.label | titlecase }}
+                </ng-container>
+                
+                <ng-container *ngIf="node.companyStatus !== undefined">
+                    <h4 class="m-0"><strong>{{ node.label | uppercase }}</strong></h4>
+                    <div class="c-light"><small>{{ node.data }} | <em>{{ node?.CompanyCategory | titlecase }}</em></small></div>
+                    <div class="mb-2"><small> Director Status: <span [ngClass]="{ 'c-green': node?.DirectorStatus != undefined &&  node?.DirectorStatus == 'Active', 'c-red': node?.DirectorStatus == undefined || node?.DirectorStatus == 'Resigned', 'c-light': node?.DirectorStatus == undefined || node?.DirectorStatus == 'Inactive' }">{{ node?.DirectorStatus | titlecase }}</span></small></div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <span class="status small" [ngClass]="{ 'green':  node?.companyStatus == 'live' || node?.companyStatus == 'administration order', 'c-orange':  node?.companyStatus == 'in liquidation' || node?.companyStatus == 'removed', 'c-red': node?.companyStatus == 'converted/closed' || node?.companyStatus == 'dissolved' || node?.companyStatus == 'in administration' || node?.companyStatus == 'in receivership / administration' ||  node?.companyStatus == 'voluntary arrangement' || node?.companyStatus == 'in receivership' || node?.companyStatus == 'deleted'}">{{ node.companyStatus | titlecase }}</span>
+                        </div>
+                        <div class="col-6 text-right d-content">
+                            <small>
+                                <a [href]="'/company/' + node['data'] + '/' + formatCompanyNameForUrl(node['label'] | titlecase)" target="_blank">View Details <i class="material-icons valign-b">navigate_next</i></a>
+                            </small>
+                        </div>
+                    </div>
+                </ng-container>
+    
+                <ng-container *ngIf="node.role !== undefined || node.status !== undefined">
+                    <h4 class="m-0"><strong>{{ ( node.directorTitle ? node.directorTitle : '' ) + ' ' + node.label | titlecase }}</strong></h4>
+                    <div *ngIf="node.role" class="c-light mb-1"><small><em>{{ (removeHyphen(node?.role)) | titlecase }}</em></small></div>
+                    <div *ngIf="node.status" class="my-1">
+                        <span class="status small" [ngClass]="{ 'c-green': node?.status != undefined &&  node?.status == 'Active', 'c-red': node?.status == undefined || node?.status == 'Resigned' , 'c-light': node?.status == undefined || node?.status == 'Inactive' }">{{ node.status | titlecase }}</span>
+                    </div>
+                </ng-container>
+            </ng-template>     
+    
+        </p-tree>
+    </div>
+
+    <div *ngIf="!pTreeBoolean" class="mt-auto mb-auto">
+        <div *ngFor="let result of companyRelationsData" class="mb-3 mt-3 py-3">     
+            <p-tree [value]="result.data" (onNodeSelect)="expandMeetMeTreeOnSelectingNode($event)" selectionMode="single" layout="{{ treeOrientation }}" [ngClass]="{'ui-vertical-layout' : treeOrientation == 'vertical'}">
+                <ng-template let-node pTemplate="default">
+                    <h4 class="m-0"><strong>{{ node.label | uppercase }}</strong></h4>
+                    <div *ngIf="node.collapsedIcon.includes('ui-icon-business')" class="c-light"><small>{{ node.data }} | <em>{{ node?.companyType | titlecase }}</em></small></div>
+                    <div class="grid" *ngIf="node.collapsedIcon.includes('ui-icon-person')">
+                        <div class="col-12">
+                            <div class="col-12 pad-l-0" *ngIf="node.status !== undefined">
+                                <span class="status small" [ngClass]="{ 'c-green': node?.status != undefined &&  node?.status == 'active', 'c-red': node?.status == undefined || node?.status == 'resigned' , 'c-light': node?.status == undefined || node?.status == 'inactive' }">{{ node.status | titlecase }}</span>
+                            </div>
+                            <div class="col-12 p-0">
+                                <small>
+                                    <a class="cName" [href]="'/director/' + formatCompanyNameForUrl( node['label'] | titlecase)+ '/' + node['data'] " target="_blank">View Details <i class="material-icons valign-b">navigate_next</i></a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid" *ngIf="node.collapsedIcon.includes('ui-icon-business')">
+                        <div class="col-12">
+                            <div class="col-12 pb-0" *ngIf="node.directorStatus !== undefined">
+                                <small> Director Status: <span [ngClass]="{ 'c-green': node?.directorStatus != undefined &&  node?.directorStatus == 'active', 'c-red': node?.directorStatus == undefined || node?.directorStatus == 'resigned', 'c-light': node?.directorStatus == undefined || node?.directorStatus == 'inactive' }">{{ node?.directorStatus | titlecase }}</span></small>
+                            </div>
+                            <div class="col-12 pt-0" *ngIf="node.sicCode07.SicNumber_1">
+                                <small> Sic Code: <span>{{ node?.sicCode07.SicNumber_1 | uppercase }} - {{ node?.sicCode07.SicText_1 | titlecase }}</span></small>
+                            </div>
+                            <div class="grid">
+                                <div class="col-6">
+                                    <span class="status" [ngClass]="{ 'c-green': node?.status != undefined &&  node?.status == 'live', 'c-yellow': node?.status !== undefined && node?.status != 'in liquidation' ,'c-red': node?.status == undefined || node?.status != 'live' }">{{ node.status | titlecase }}</span>
+                                </div>
+                                <div class="col-6">
+                                    <small>
+                                        <a class="cName" [href]="'/company/' + node['data'] + '/' + formatCompanyNameForUrl(node['label'] | titlecase)" target="_blank">View Details <i class="material-icons valign-b">navigate_next</i></a>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-tree>
+        </div>
+    </div>
+</div>

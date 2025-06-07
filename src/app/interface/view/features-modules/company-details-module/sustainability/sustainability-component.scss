@@ -1,0 +1,90 @@
+p {
+    line-height: 1;
+}
+
+ul.listTextStyle {
+    list-style-type: none;
+
+    li {
+        line-height: 2;
+        text-align: left;
+        position: relative;
+    }
+}
+
+::ng-deep {
+
+    .dialogBoxCustom {
+        .p-dialog-header {
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            .p-dialog-header-icons {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+    }
+
+
+}
+
+.reviewIconStyling {
+    position: absolute;
+    left: -28px;
+    top: 4px;
+    font-size: 21px;
+    color: #808080;
+}
+
+.card {
+    &.mainCardSpacing {
+        padding: 1rem 2.2rem;
+    }
+}
+
+.cardStyle {
+    height: 100%;
+}
+
+.wordSpacing {
+    word-spacing: 1px;
+}
+
+.c-grey {
+    color: #808080;
+}
+
+.p-button {
+    &.p-button-sm {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    &.p-button-light {
+        background-color: #fff;
+        color: #1ab394;
+    }
+}
+
+.noRecords {
+    text-align: center;
+    padding: 2em;
+    -webkit-pointer-events: none;
+    pointer-events: none;
+
+    p {
+        font-size: 1.5em;
+        font-weight: 300;
+        color: #e2e2e2;
+    }
+}
+
+.overview-box {
+    .overview-status {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+}

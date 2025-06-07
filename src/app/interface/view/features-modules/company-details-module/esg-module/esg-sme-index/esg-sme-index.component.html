@@ -1,0 +1,145 @@
+<div class="insightsViewContainer lightLayout">
+    <div class="insightsChartViewContainer">
+
+        <div class="flex align-items-center justify-content-start mb-1">
+            <div class="col-fixed py-0">
+                <button pButton label="Reset Filter" (click)="resetAppliedFilters()" class="p-button-sm"></button>
+            </div>
+        </div>
+
+        <div class="grid">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="flex align-items-center">
+                        <div>
+                            <span class="c-green mr-2">Year Wise Bands</span>
+                            <sup><i class="ui-icon-info-outline x-big-data-font c-green mr-5" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)" style="font: size 18px"></i></sup>
+							<p-overlayPanel #op2 [showCloseIcon]="false"  [dismissable]="true" appendTo="body">
+								<svg viewBox="0 0 400 294 " width="400" height="294" fill="#fff" class="svgViewBox">
+                                    <rect  x="0" y="0" width="400" height="46" fill="#6aa84f"></rect>
+                                    <rect  x="0" y="48" width="400" height="46" fill="#b6d7a8"></rect>
+                                    <rect  x="0" y="96" width="400" height="46" fill="#ffd966"></rect>
+                                    <rect  x="0" y="144" width="400" height="46" fill="#cc4125"></rect>
+                                    <rect  x="0" y="192" width="400" height="46" fill="#e6b8af"></rect>
+                                    <rect  x="0" y="240" width="400" height="46" fill="#ff0000"></rect>
+                                    <text x="10" y="30">A index</text><text x="340" y="30">75-84</text>
+                                    <text x="10" y="78">B index</text><text x="340" y="78">65-74</text>
+                                    <text x="10" y="126">C index</text><text x="340" y="126">55-64</text>
+                                    <text x="10" y="174">D index</text><text x="340" y="174">45-54</text>
+                                    <text x="10" y="222">E index</text><text x="340" y="222">36-44</text>
+                                    <text x="10" y="270">F index</text><text x="340" y="270">0-35</text>
+							    </svg>
+							</p-overlayPanel>
+                        </div>
+                        <div>
+                            <label class="mr-2">Show Counts</label>
+                            <p-inputSwitch [(ngModel)]="changeDataLabels" (onChange)="checkforDataLabels($event)"></p-inputSwitch>
+                        </div>
+                    </div>
+                    <p-chart #lineChartStatsContainer type="bar" [data]="esgIndexBandLineData" [options]="esgIndexBandOptions" height="380px" [responsive]="true" [plugins]="ChartDataLabelsPlugin"></p-chart>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="grid">
+            <div class="col-6 md-6">
+                <div class="grid">
+                    <div class="col-3">
+                        <p-dropdown [options]="esgYearMap" [(ngModel)]="selectedYearForCurrentMap" optionLabel="bandyear" styleClass="roundedCorners" (onChange)="getMapFilterData()" ></p-dropdown>
+                    </div>
+                    <div class="col-3">
+                        <p-dropdown [options]="esgYearBand" [(ngModel)]="selectedBand" optionLabel="value" styleClass="roundedCorners" (onChange)="getMapFilterData()"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 md-6">
+                <div class="grid">
+                    <div class="col-3">
+                        <p-dropdown [options]="esgYearMap" [(ngModel)]="selectedYearForPreviousMap" optionLabel="bandyear" styleClass="roundedCorners" (onChange)="getMapFilterData()"></p-dropdown>
+                    </div>
+                    <div class="col-3">
+                        <p-dropdown [options]="esgYearBand" [(ngModel)]="selectedBand" optionLabel="value" styleClass="roundedCorners" (onChange)="getMapFilterData()"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #LazyLeafletMapContainer></ng-template>
+
+        <div class="grid">
+                
+            <div class="card col-12">
+                <button pButton type="button" class="p-button-rounded mr-2 p-button-sm" label="Reset Table" icon="pi pi-replay" (click)="resetFilters()"></button>
+
+                <p-table #esgTableData [columns]="esgIndexListColumns" [value]="tableDataArray" responsiveLayout="scroll" scrollHeight="50vh" *ngIf="tableDataArray.length">
+    
+                    <ng-template pTemplate="header" let-columns>
+
+                        <tr>
+                            <ng-container *ngFor="let col of columns">
+                                <th
+                                    [ngStyle]="{ 'min-width': col.width, 'text-align': col.field == 'industryName' ? 'left' : 'center' }"
+                                    [attr.rowspan]="col.field == 'industryName' ? 2 : ''"
+                                    [attr.colspan]="col.field !== 'industryName' ? col.field.size : ''">
+                                        {{ col.header }}
+                                </th>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <ng-container *ngFor="let col of columns">
+                                <ng-container *ngIf="col.field !== 'industryName'">
+                                    <th *ngFor="let field of col.field | keyvalue" [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign }">
+                                        {{ field['key'] | uppercase }}
+                                        <p-sortIcon (click)="customSort( $event, esgTableData, field['key'], col.header )"></p-sortIcon>
+                                    </th>
+                                </ng-container>
+                            </ng-container>
+                        </tr>
+
+                    </ng-template>
+    
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <ng-container *ngFor="let col of columns; let colIndex = index" [ngSwitch]="true">
+                                
+                                <ng-container *ngSwitchCase="col.field == 'industryName'">
+                                    <td [ngStyle]="{ 'min-width': '315px' }">
+                                        {{ rowData[ col.field ] | titlecase }}
+                                    </td>
+                                </ng-container>
+    
+                                <ng-container *ngSwitchDefault>
+                                    <ng-container *ngFor="let field of col.field | keyvalue">
+                                        <td [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign }">
+                                            <ng-container *ngIf="rowData[ col.header ][ field['key'] ] != '0' else dashWhichIsNotClickable">
+                                                <a href="javascript:void(0);" class="c-blue" (click)="goToESearchForEsg( col.header, field['key'], rowData['industryName'] )">
+                                                    <strong>
+                                                        {{ rowData[ col.header ][ field['key'] ] | number: '1.0-0' }}
+                                                    </strong>
+                                                </a>
+                                            </ng-container>
+
+                                            <ng-template class="c-blue" #dashWhichIsNotClickable>
+                                                <strong>-</strong>
+                                            </ng-template>
+
+                                        </td>
+                                    </ng-container>
+    
+                                </ng-container>
+    
+                            </ng-container>
+                        </tr>
+                    </ng-template>
+    
+                </p-table>
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <dg-filter-sidebar [thisPage]="'esgIndex'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="esgIndexDashboard($event)" [isFilterSidebarShow]="isFilterSidebarShow"></dg-filter-sidebar> -->
+<dg-filter-sidebar [thisPage]="'esgIndex'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="esgIndexDashboard($event)"></dg-filter-sidebar>

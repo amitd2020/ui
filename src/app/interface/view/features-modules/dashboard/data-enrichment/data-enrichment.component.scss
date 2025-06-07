@@ -1,0 +1,144 @@
+::ng-deep .p-steps .p-steps-number {
+    display: none;
+}
+.roundedCorners {
+    .ui-inputtext {
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+    }
+}
+.dynamic-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.dynamic-table th,
+.dynamic-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.dynamic-table th {
+    background-color: #f2f2f2;
+}
+
+.dynamic-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.dynamic-table tr:nth-child(2) {
+    th {
+        background-color: #eadbdb;
+    }
+}
+
+.dynamic-table tr:nth-child(1) {
+    th {
+        background-color: #fff;
+    }
+}
+// .completed-step {
+//     ::ng-deep{
+//         .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+//             color: white !important;
+//             background-color: green !important;
+//         }
+//         // .p-steps .p-steps-item.p-highlight .p-steps-title {
+//         //     color: white !important;
+//         //     background-color: green !important;
+//         // }
+
+//     }
+// }
+
+/* Style Completed Steps - Green */
+::ng-deep .p-steps{
+        padding: 0;
+        .p-steps-item.p-highlight .p-steps-title  {
+
+        color: #00534b !important;
+        font-size: 1rem !important;
+        background-color: #c2e6e2 !important;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border: 1px solid #00534b !important;
+        border-radius: 0.75rem !important
+    }
+	.p-steps-item .p-menuitem-link .p-steps-title{
+		color: #00534b !important;
+        font-size: 1rem;
+        background-color: #ecf1f1;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        // border: 1px solid #59dfdf !important;
+        border-radius: 0.75rem !important
+	}
+}
+.cards {
+    background-color:rgb(5, 189, 143);
+		box-shadow: none;
+		border: 1px solid #d2d2d2;
+}
+.cbox {
+	::ng-deep {
+		.p-checkbox {
+
+			.p-checkbox-box,
+			.p-checkbox-disabled {
+				&.p-highlight {
+					border-color: var(--surface-a);
+					background-color: #20b2aa;
+				}
+
+				border-radius: 20px;
+				background-color: transparent;
+				border-color: var(--surface-a);
+
+				&:hover {
+					background-color: transparent;
+				}
+			}
+		}
+
+		.select-all-checkbox {
+			.p-checkbox {
+
+				.p-checkbox-box,
+				.p-checkbox-disabled {
+					&.p-highlight {
+						border-color: var(--text-color);
+						background-color: var(--text-color);
+
+						&:hover {
+							background-color: var(--text-color);
+						}
+
+						.p-checkbox-icon.pi-check:before {
+							border-color: var(--surface-a) !important;
+						}
+					}
+
+					border-radius: 20px;
+					border-color: var(--text-color);
+				}
+			}
+		}
+
+		.subCardsSelectionContent {
+			padding: 0 0.5rem;
+			border-radius: 40px;
+			box-shadow: 0 1px 10px 0px rgb(0 0 0 / 25%);
+		}
+	}
+
+	p-scrollPanel {
+		div {
+			margin-bottom: .5em;
+		}
+	}
+}

@@ -1,0 +1,64 @@
+<ng-container *ngIf="hasResponsibleProcurementData; else noDataBlock">
+    <div class="grid">
+    
+        <div class="col-4 bg-gray-200 py-2 px-3 border-1 border-gray-400 border-round-left-xl">
+            <div class="flex gap-1 align-items-center">
+                <h3 class="text-teal-500 font-semibold mb-1 py-2">Segmentation By Ownership</h3>
+            </div>
+            <div class="grid">
+                <ng-container *ngFor="let data of segmentationByOwnershipStructure | keyvalue: preventDefaultSort">
+                    <div class="col-12">
+                        <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                            <div class="grid">
+                                <div class="col-3 flex align-items-center p-0">
+                                    <img [src]="data.value.imageSource" alt="Responsible Procurement" width="90" height="75">
+                                </div>
+                                <div class="col-9 flex justify-content-center align-items-center flex-column gap-2">
+                                    <div>
+                                        <span class="text-lg c-light font-medium mr-2">{{ data.value.label }}</span>
+                                        <dg-shared-itag-component><div class="m-2" [innerHTML]="data.value.infoMsg"></div></dg-shared-itag-component>
+                                    </div>
+                                    <div class="font-bold text-xl" [ngStyle]="{'color': 'rgb(var(' + data.value.colorVar + ') )'}">{{ data.value.status }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            
+        </div>
+        
+        <div class="col-8 bg-gray-200 py-2 px-3 border-1 border-gray-400">
+            <div class="flex gap-1 align-items-center">
+                <h3 class="text-teal-500 font-semibold mb-1 py-2">Mission Spectrum</h3>
+            </div>
+            <div class="grid">
+                <ng-container *ngFor="let data of missionSpectrumStructure | keyvalue: preventDefaultSort">
+                    <div class="col-6">
+                        <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                            <div class="grid">
+                                <div class="col-3 flex align-items-center p-0">
+                                    <img [src]="data.value.imageSource" alt="Responsible Procurement" width="90" height="75">
+                                </div>
+                                <div class="col-9 flex justify-content-center align-items-center flex-column gap-2">
+                                    <div>
+                                        <span class="text-lg c-light font-medium mr-2">{{ data.value.label }}</span>
+                                        <dg-shared-itag-component><div class="m-2" [innerHTML]="data.value.infoMsg"></div></dg-shared-itag-component>
+                                    </div>
+                                    <div class="font-bold text-xl" [ngStyle]="{'color': 'rgb(var(' + data.value.colorVar + ') )'}">{{ data.value.status }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #noDataBlock>
+    <div class="h-5rem bg-white flex flex-column justify-content-center align-items-center mt-5">
+        <i class="pi pi-exclamation-circle text-2xl text-gray-400"></i>
+        <p class="text-gray-500 mt-2 text-lg">Due to the unavailability of relevant data, the Responsible Procurement card cannot be displayed at this time. We will update the section once the required information becomes accessible.</p>
+    </div>
+</ng-template>

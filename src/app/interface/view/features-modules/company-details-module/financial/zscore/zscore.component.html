@@ -1,0 +1,21 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+    <!-- <ng-container *ngIf="isLoggedIn; else withoutLogin"> -->
+    <div [ngClass]="{'card': !isLoggedIn}" loginAccessModal>
+        <dg-financial-table-data [zScoreData]="zScoreData" [pieChartZScore]="zScoreIndustryPieChartData" [showRatiosTableInput]="true" [requiredCompanyName]="companyData?.businessName" *ngIf="zScoreData"></dg-financial-table-data>
+    </div>
+
+    <!-- </ng-container> -->
+
+    <!-- <ng-template #withoutLogin>
+        <p-card>
+            <dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+        </p-card>
+    </ng-template> -->
+    
+</ng-template>

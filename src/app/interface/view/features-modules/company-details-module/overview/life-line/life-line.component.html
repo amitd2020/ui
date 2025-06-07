@@ -1,0 +1,55 @@
+<!-- Upgrade Plan Dialog -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+	<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+<div featureAccess="Lifeline" optionalTemplate="true">
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Lifeline' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !( userAuthService.isLoggedInSubject$ | async ) && companiesEligibleForDataWithoutLogin.includes( companyNumber ) ); else showLifelineInfoTab"> -->
+
+	<div class="card widget-timeline pt-5" *ngIf="companyDocuments; else noDocuments">
+
+		<div class="grid justify-content-center lifeline-timeline-height">
+			<div class="col-12 md:col-6">
+				<p-timeline [value]="companyDocuments?.items" align="left">
+					<ng-template pTemplate="marker" let-event>
+						<span class="custom-marker p-shadow-2 p-2" [style.backgroundColor]="event.color">
+							<i class="marker-icon material-icons">{{ event.icon }}</i>
+						</span>
+					</ng-template>
+					<ng-template pTemplate="content" let-event>
+						<p-card styleClass="onlyLinesAround p-mb-3" [header]="event.description" [subheader]="event.date | date: 'dd-MM-yyyy'" data-color="{{ event.color }}">
+							<div class="grid justify-content-between align-items-center">
+								<div class="col-fixed">
+									<p>{{ event.category }}</p> 
+								</div>
+								<div class="col-fixed" *ngIf="event.description && event.links && event.links.document_metadata">
+									<button pButton type="button" label="Download" icon="pi pi-download" class="p-button-rounded p-button-sm" [style.backgroundColor]="event.color" (click)="downloadDocumentRequest( event.description, event.links.document_metadata )"></button>
+								</div>
+							</div>
+						</p-card>
+					</ng-template>
+				</p-timeline>
+			</div>
+		</div>
+
+	</div>
+
+	<ng-template #noDocuments>
+		<div class="card">
+			<h3>No Documents/records Available.</h3>
+		</div>
+	</ng-template>
+
+<!-- </ng-container> -->
+</div>
+
+<!-- <ng-template #showLifelineInfoTab>
+	<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+		<div class="card p-text-center">
+			To enable this feature, please contact your Administrator.
+		</div>
+	</ng-container>
+	<ng-template #otherThanClientUserLoggedIn>
+		<dg-upgrade-plan [currentPlan]="userDetails?.planId"></dg-upgrade-plan>
+	</ng-template>
+</ng-template> -->

@@ -1,0 +1,138 @@
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Trading Address' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || companiesEligibleForDataWithoutLogin.includes( companyNumber ); else showTradingInfoTab">  -->
+	<span featureAccess="Trading Address" optionalTemplate="true">
+		<div addOnAccess="propertyIntelligence">
+			<p-accordion>
+				<p-accordionTab header="EPC Rating">
+					<div addOnAccess="propertyIntelligence">
+						<div class="grid"  *ngIf="countKeys">
+							<div class="col-12 md:col-6 lg:col-5">
+						
+								<div class="epcRatingCards card overview-box flex flex-column h-full">
+									<div class="card-body flex flex-column ">
+										<div class="gaugeChartContainer">
+											<div class="gaugeLegends">
+												<div class="gaugeLegendAPlus">
+													<span class="colorBlock"></span>
+													<span class="label">A+</span>
+												</div>
+												<div class="gaugeLegendA">
+													<span class="colorBlock"></span>
+													<span class="label">A</span>
+												</div>
+												<div class="gaugeLegendB">
+													<span class="colorBlock"></span>
+													<span class="label">B</span>
+												</div>
+												<div class="gaugeLegendC">
+													<span class="colorBlock"></span>
+													<span class="label">C</span>
+												</div>
+												<div class="gaugeLegendD">
+													<span class="colorBlock"></span>
+													<span class="label">D</span>
+												</div>
+												<div class="gaugeLegendE">
+													<span class="colorBlock"></span>
+													<span class="label">E</span>
+												</div>
+												<div class="gaugeLegendF">
+													<span class="colorBlock"></span>
+													<span class="label">F</span>
+												</div>
+												<div class="gaugeLegendG">
+													<span class="colorBlock"></span>
+													<span class="label">G</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card-body flex flex-column col justify-content-center">
+										<div class="flex align-items-center flex-wrap">
+											<div class="col flex align-items-center justify-content-center">
+												<p-chart *ngIf="tradingGradeCountArray.length; else noRecordTemplate" type="doughnut" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" [data]="overallDoughnutData" height="300px" width="300px" [responsive]="true"></p-chart>
+											</div>
+										</div>
+										<div class="flex align-items-center flex-wrap">
+											<div class="col flex align-items-center justify-content-center">
+												<p class="fs-medium">EPC Rating</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 md:col-6 lg:col-7">
+								
+								<div class="epcRatingCards card overview-box flex flex-column h-full">
+									<div class="card-body flex flex-column ">
+						
+										<div class="gaugeChartContainer">
+											<div class="gaugeLegends">
+												<div class="epc">
+													<span class="colorBlock"></span>
+													<span class="label">EPC</span>
+												</div>
+												<div class="nonEpc">
+													<span class="colorBlock"></span>
+													<span class="label">Non EPC</span>
+												</div>
+												<div class="epcDomestic">
+													<span class="colorBlock"></span>
+													<span class="label">Domestic</span>
+												</div>
+												<div class="epcNonDomestic">
+													<span class="colorBlock"></span>
+													<span class="label">Non Domestic</span>
+												</div>
+											</div>
+										</div>
+									</div>
+	
+									<div class="card-body flex flex-column col justify-content-center showConentCenter">
+										<div class="flex align-items-center flex-wrap">
+											<div class="col">
+												<p-chart *ngIf="tradingEpcNonEpcArray.length; else noRecordTemplate" type="doughnut" [options]="epcAndDomesticBlockOptions" [data]="totalEPCCountsData" height="230px" width="230px" [responsive]="true" [plugins]="ChartDataLabelsPlugins"></p-chart>
+												<div class="col">
+													<small>EPC & Non EPC</small>
+												</div>
+											</div>
+											<div class="col">
+												<p-chart *ngIf="tradingDomesticNonDomesticArray.length; else noRecordTemplate" type="doughnut" [options]="epcAndDomesticBlockOptions" [plugins]="ChartDataLabelsPlugins"
+													[data]="totalDomesticNonDomesticCountsData" height="230px" width="230px" [responsive]="true"></p-chart>
+													<div class="col">
+														<small>Domestic EPC & Non Domestic EPC</small>
+													</div>
+											</div>			
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+		</div>
+	</span>
+	<div class="pt-3">
+		<dg-user-list *ngIf="tradingAddressDetails != undefined" [listColumns]="tradingAddressDetailsColumn" [listDataValues]="tradingAddressDetails" [listPage]="true" [searchTotalCount]="tradingAddressCount" [thisPage]="'tradingAddress'"></dg-user-list>
+	</div>
+
+<!-- </ng-container> -->
+
+<!-- <ng-template #showTradingInfoTab>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="card p-text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+		</ng-template>
+	</p-card>
+</ng-template> -->
+
+<ng-template #noRecordTemplate>
+	<div class="noRecords">
+		<p>No Records Found</p>
+	</div>
+</ng-template>

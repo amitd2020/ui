@@ -1,0 +1,418 @@
+<div class="sustainESGSummaryContainer">
+
+    <ng-container *ngIf="sustainEsgSummaryData">
+    
+        <p-messages [value]="msgs"></p-messages>
+    
+        <div class="flex align-items-center justify-content-end mb-3">
+            <div class="col-fixed p-py-0">
+                <button pButton label="Add To Watch" icon="pi pi-eye" class="p-button-sm" (click)="addToEsgWatchTable()" *ngIf="sustainEsgSummaryData && !sustainEsgSummaryData.inEsgWatch"></button>
+                <button pButton label="Remove From Watch" icon="pi pi-eye-slash" class="p-button-sm" (click)="removeFromEsgWatchTable()" *ngIf="sustainEsgSummaryData && sustainEsgSummaryData.inEsgWatch"></button>
+            </div>
+        </div>
+    
+        <div class="grid mb-3">
+            <div class="col-12 lg:col-4">
+        
+                <div class="card flex flex-column h-full">
+                    <div class="card-header">
+                        <h5>Current ESG State <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Current ESG State')"></i></h5>
+                    </div>
+                    <div class="card-body flex flex-column col justify-content-center">
+        
+                        <div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('currentESGGaugeProperties')">
+                            
+                            <p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.currentESGGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="220"></p-chart>
+        
+                            <div class="gaugeLegends">
+                                <div class="gaugeAvrg">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Average</span>
+                                </div>
+                                <div class="gaugeGood">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Good</span>
+                                </div>
+                                <div class="gaugeExcell">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Excellent</span>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                    <div class="card-footer hasDivider">
+    
+                        <div class="grid">
+    
+                            <div class="col-6 align-self-end">
+                                <h2 class="mb-1">{{ sustainEsgSummaryData['esgPreviousYearPercentage'] | number: '1.0-0' }}%</h2>
+                                <div class="c-light">Previous</div>
+                            </div>
+    
+                            <div class="col-6 align-self-end text-right">
+                                <h2 class="mb-1" [ngClass]="{ 'c-green': sustainEsgSummaryData['esgPercentage'] > sustainEsgSummaryData['esgPreviousYearPercentage'], 'c-red': ( sustainEsgSummaryData['esgPercentage'] < sustainEsgSummaryData['esgPreviousYearPercentage'] ) || ( sustainEsgSummaryData['esgPreviousYearPercentage'] < 0 ) }">
+                                    <i class="material-icons" *ngIf="sustainEsgSummaryData['esgPercentage'] > sustainEsgSummaryData['esgPreviousYearPercentage']">north</i>
+                                    <i class="material-icons" *ngIf="sustainEsgSummaryData['esgPercentage'] < sustainEsgSummaryData['esgPreviousYearPercentage']">south</i>
+                                    {{ sustainEsgSummaryData['esgPercentage'] - sustainEsgSummaryData['esgPreviousYearPercentage'] | number: '1.0-0' }}%
+                                </h2>
+                                <div class="c-light">Difference</div>
+                            </div>
+                            
+                        </div>
+    
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 lg:col-8">
+                
+                <dg-carbon-calculator-dashboard [companyNumber]="companyNumber" [compactView]="true"></dg-carbon-calculator-dashboard>
+
+            </div>
+
+            <!-- <div class="col-12 md:col-6 lg:col-7">
+
+                <div class="card h-full">
+                    <div class="card-header">
+    
+                        <h5>Yearly ESG State</h5>
+                        
+                        <div class="esgBarChartLegends">
+                            <div class="environmentLegend">
+                                <span class="colorBlock"></span>
+                                <span class="label">Environment</span>
+                            </div>
+                            <div class="socialLegend">
+                                <span class="colorBlock"></span>
+                                <span class="label">Social</span>
+                            </div>
+                            <div class="goverenenceLegend">
+                                <span class="colorBlock"></span>
+                                <span class="label">Governance</span>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="card-body">
+                        <div class="esgBarChartContainer">
+                            
+                            <p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="esgYearWiseChartData" [responsive]="true" [plugins]="ChartDataLabelsPlugin"></p-chart>
+        
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+
+        </div>
+        
+        <div class="grid">
+        
+            <div class="col-12 md:col-4 lg:col-3">
+        
+                <div class="card h-full">
+                    <div class="card-header">
+        
+                        <h5>Environment <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox('Environment')"></i></h5>
+                        <div class="environmentButton">
+                            <button pButton pRipple type="button" icon="pi pi-arrow-right" class="p-button-rounded" (click)="goToTab( targetRouteComponents.SustainEnvironmentComponent )"></button>
+                        </div>
+        
+                    </div>
+                    <div class="card-body">
+        
+                        <div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('environmentGaugeProperties')">
+                            <p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.environmentGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="320"></p-chart>
+        
+                            <div class="gaugeLegends">
+                                <div class="gaugeAvrg">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Average</span>
+                                </div>
+                                <div class="gaugeGood">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Good</span>
+                                </div>
+                                <div class="gaugeExcell">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Excellent</span>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <ul class="widget-activity environmentCard">
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Emissions</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['environmental']['emissionsPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Energy Management</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['environmental']['energyPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Waste Management</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['environmental']['wastePercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                        </ul>
+        
+                    </div>
+                </div>
+        
+            </div>
+        
+            <div class="col-12 md:col-4 lg:col-3">
+        
+                <div class="card h-full">
+                    <div class="card-header">
+                        <h5>Social <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox('Social')"></i></h5>
+                        <div class="socialButton">
+                            <button pButton pRipple type="button" icon="pi pi-arrow-right" class="p-button-rounded" (click)="goToTab( targetRouteComponents.SustainSocialComponent )"></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+        
+                        <div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('socialGaugeProperties')">
+                            <p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.socialGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="320"></p-chart>
+        
+                            <div class="gaugeLegends">
+                                <div class="gaugeAvrg">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Average</span>
+                                </div>
+                                <div class="gaugeGood">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Good</span>
+                                </div>
+                                <div class="gaugeExcell">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Excellent</span>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <ul class="widget-activity socialCard">
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Diversity</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['social']['diversityPercentage']" [showValue]="false" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Social Security</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['social']['securityPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Employee Satisfaction</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['social']['employeeSatisfactionPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+            <div class="col-12 md:col-4 lg:col-3">
+        
+                <div class="card h-full">
+                    <div class="card-header">
+                        <h5>Governance<i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox('Governance')"></i></h5>
+                        <div class="goverenenceButton">
+                            <button pButton pRipple type="button" icon="pi pi-arrow-right" class="p-button-rounded" (click)="goToTab( targetRouteComponents.SustainGovernanceComponent )"></button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+        
+                        <div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('governanceGaugeProperties')">
+                            <p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.governanceGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="320"></p-chart>
+        
+                            <div class="gaugeLegends">
+                                <div class="gaugeAvrg">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Average</span>
+                                </div>
+                                <div class="gaugeGood">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Good</span>
+                                </div>
+                                <div class="gaugeExcell">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Excellent</span>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <ul class="widget-activity governanceCard">
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Turnover</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['governance']['turnoverPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Enforcement</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['governance']['enforcementPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Timeline</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['governance']['timelinePercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+            <div class="col-12 md:col-4 lg:col-3">
+        
+                <div class="card h-full">
+                    <div class="card-header">
+                        <h5>Finance<i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox('Finance')"></i></h5>
+                        <div class="financeButton">
+                            <button pButton pRipple type="button" icon="pi pi-arrow-right" class="p-button-rounded" (click)="goToTab( targetRouteComponents.SustainFinanceComponent )"></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+        
+                        <div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('financeGaugeProperties')">
+                            <p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.financeGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="320"></p-chart>
+        
+                            <div class="gaugeLegends">
+                                <div class="gaugeAvrg">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Average</span>
+                                </div>
+                                <div class="gaugeGood">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Good</span>
+                                </div>
+                                <div class="gaugeExcell">
+                                    <span class="colorBlock"></span>
+                                    <span class="label">Excellent</span>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <ul class="widget-activity financeCard">
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Gross Profit</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['finance']['grossProfitPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Retained Profits</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['finance']['retainedProfitPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-item flex flex-column">
+                                    <div class="activity-title mb-1">Current Ratio</div>
+                                    <p-progressBar [value]="sustainEsgSummaryData['finance']['currentRatioPercentage']" [showValue]="false"></p-progressBar>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+        
+        <p-dialog header="{{ dialogBoxheader }}" [(visible)]="showDescription" [draggable]="false" [style]="{width: '60vw', height: 'auto'}" [modal]="true" [closable]="true" appendTo="body">
+        
+            <ng-container *ngIf="dialogBoxheader == 'Current ESG State'">
+                <p-scrollPanel styleClass="sustainContentScrollPanel">
+                    <ul class="listTextStyle wordSpacing pl-5">
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What is ESG?</strong></li>
+                        <div class="mb-2">Companies operations are measured through a set of international standards, which help
+                            investors to weigh potential investments.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">Why ESG matters?</strong></li>
+                        <div class="mb-2">Company leadership, relationship among peers, caring attitude towards nature to name a few are
+                            analysed by the investors to ensure the sustainability of their investments, Companies would be expected
+                            to pay urgent attention to incorporate ESG related disclosures in their reports. Screen reader support
+                            enabled.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">Measurables:-</strong></li>
+                        <div><strong class="c-grey">Environment: </strong>Energy sources and measures to reduce GHG emissions.</div>
+                        <div><strong class="c-grey">Social: </strong>Highest concern to employees welfare</div>
+                        <div class="mb-2"><strong class="c-grey">Governance: </strong>Transparency in Management.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey" >Some Tips: </strong>We offer a ESG criteria which would help investors to avoid financial risks
+                            due to various unacceptable practices if the company.</li>
+                    </ul>
+                </p-scrollPanel>
+            </ng-container>
+        
+            <ng-container *ngIf="dialogBoxheader == 'Environment'">
+                <p-scrollPanel styleClass="sustainContentScrollPanel">
+                    <ul class="listTextStyle wordSpacing pl-5">
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What are Environment disclosures and TCFD?</strong></li>
+                        <div class="mb-2">Financial markets need clear, comprehensive, high-quality information on the impacts of climate change. The Financial Stability Board created the Task Force on Climate-related Financial Disclosures (TCFD) to provide information to investors about what companies are doing to mitigate the risks of climate change, as well as be transparent about the way in which they are governed.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What it matters for the investment and performance of the company?</strong></li>
+                        <div>This includes the report of the organization related to the risks and opportunities presented by rising temperatures, climate-related policy, and emerging technologies in a clear, balanced, and understandable form. This disclosure presented consistently over time to enable users to understand the development and/or evolution of the impact of climate-related issues on the organization’s business.</div>
+                    </ul>
+                </p-scrollPanel>
+            </ng-container>
+    
+            <ng-container *ngIf="dialogBoxheader == 'Social'">
+                <p-scrollPanel styleClass="sustainContentScrollPanel">
+                    <ul class="listTextStyle wordSpacing pl-5">
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What is GRI?</strong> </li>
+                        <div class="mb-2">The Global Reporting Initiative (GRI) is an international not-for-profit organisation, with a network-based structure. To enable all companies and organisations to report their economic, environmental, social and governance performance, GRI produces free Sustainability Reporting Guidelines.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What it matters for the investment and performance of the company?</strong></li>
+                        <div>Through GRI reporting, an organization can understand and better manage its impacts on people and the planet. It can identify and reduce risks, seize new opportunities, and take action towards becoming a responsible, trusted organization in a more sustainable world. Sustainability reporting helps make organizations' decision-making processes more efficient and, in turn, enables them to reduce risk across their supply chain. This process reduces waste, yielding significant cost savings.</div>
+                    </ul>
+                </p-scrollPanel>
+            </ng-container>
+        
+            <ng-container *ngIf="dialogBoxheader == 'Governance'">
+                <p-scrollPanel styleClass="sustainContentScrollPanel">
+                    <ul class="listTextStyle wordSpacing pl-5">
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What are the GRI standards and Governance?</strong> </li>
+                        <div class="mb-2">The Number of Stakeholders is the formal stakeholder forum within the GRI governance structure and advises the Board on strategic issues. The Council's key governance functions include appointing Board members and making recommendations on future policy, business planning and activity.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What it matters for the investment and performance of the company?</strong></li>
+                        <div>Companies need to go beyond traditional economic concerns and address economic, environmental, and social values in the short, medium, and long-terms to become more sustainability oriented. The Number of directors play an important role in the sustainability of the company.</div>
+                    </ul>
+                </p-scrollPanel>
+            </ng-container>
+        
+            <ng-container *ngIf="dialogBoxheader == 'Finance'">
+                <p-scrollPanel styleClass="sustainContentScrollPanel">
+                    <ul class="listTextStyle wordSpacing pl-5">
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">How Profitability matters?</strong></li>
+                        <div class="pm-2">Profitability will enable the investors to understand ability of the firm through its revenue, cost of sales, assets shown in balance sheet and if available, shareholder's equity.</div>
+                        <li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">Compass:</strong>Usage of assets to generate income | Higher the ratio investment prospects becomes favourable.</li>
+                    </ul>
+                </p-scrollPanel>
+            </ng-container>
+        
+        </p-dialog>
+    
+    </ng-container>
+
+</div>

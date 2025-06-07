@@ -1,0 +1,467 @@
+<!-- View Notice Identifier Modal Box Start -->
+<p-dialog header="{{ (noticeIndentifierSummaryData?.notice_identifier) | uppercase }}" [draggable]="false" [modal]="true"
+	[(visible)]="viewNoticeIndentifierModal" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false"
+	[style]="{ width: '75vw', 'overflow-y': 'auto' }" [maximizable]="true">
+
+	<div class="grid">
+
+		<div class="col-12 divider">
+
+			<ng-container *ngIf="noticeIndentifierSummaryData?.buyer_name && ( noticeIndentifierSummaryData?.organisationReg || noticeIndentifierSummaryData?.customOrganisationReg )">
+
+				<ng-container *ngIf="noticeIndentifierSummaryData?.buyer_name && noticeIndentifierSummaryData?.organisationReg; else customCmpNo">
+					<span class="x-big-data-font">
+						<a class="cName" target="_blank"
+							[href]="'/company/' + noticeIndentifierSummaryData?.organisationReg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?businessType=viewGovernmentEnablerBuyer'">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}
+						</a>
+					</span>
+				</ng-container>
+
+				<ng-template #customCmpNo>
+					<span class="x-big-data-font">
+						<a class="cName" target="_blank"
+							[href]="'/company/' + noticeIndentifierSummaryData?.customOrganisationReg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?companyType=isBuyer'">{{ noticeIndentifierSummaryData?.buyer_name | uppercase }}
+						</a>
+					</span>
+				</ng-template>
+
+			</ng-container>
+
+			<ng-container *ngIf="noticeIndentifierSummaryData?.buyer_name && noticeIndentifierSummaryData?.organisationReg; else noUKCompanies">
+
+				<span class="x-big-data-font">
+					<a class="cName" target="_blank"
+						[href]="'/company/' + noticeIndentifierSummaryData?.organisationReg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?businessType=viewGovernmentEnablerBuyer'">( {{
+						noticeIndentifierSummaryData?.organisationReg | uppercase }} )
+					</a>
+				</span>
+			</ng-container>
+			<ng-template #noUKCompanies>
+				<span class="x-big-data-font">
+					<a class="cName" target="_blank"
+						[href]="'/company/' + noticeIndentifierSummaryData?.customOrganisationReg + '/' + formatCompanyNameForUrl(noticeIndentifierSummaryData?.buyer_name | titlecase) + '?companyType=isBuyer'">( {{
+						noticeIndentifierSummaryData?.customOrganisationReg | uppercase }} )
+					</a>
+				</span>
+			</ng-template>
+
+		</div>
+
+	</div>
+
+	<div class="grid align-items-center mb-2 mt-5">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Contract Details</span>
+		</div>
+	</div>
+
+	<p-timeline [value]="dateTimelineView" layout="horizontal" align="top" styleClass="timeLineStyle">
+        <ng-template pTemplate="content" let-event>
+			<div class="fs-medium font-medium">
+				{{ (event.date && event.date != null && event.date != '') ? event.date : '-' }}
+			</div>
+			{{ event.status }}
+        </ng-template>
+    </p-timeline>
+
+	<div class="grid">
+
+		<div class="col-12 md:col-6 lg:col-6">
+
+			<div class="card h-full widget-topsearchs hideOverflowX">
+
+				<div *ngIf="noticeIndentifierSummaryData?.cpv_codes.length > 0" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Industry:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<ng-container *ngFor="let item of noticeIndentifierSummaryData?.cpv_codes">
+							{{ item.code }} - {{ item.desc | titlecase }}
+						</ng-container>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.status" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Status:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.status | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.title" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Title:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<div #descriptionTextContainer class="limitTextHeight">{{ noticeIndentifierSummaryData?.title | titlecase }}</div>
+						<a type="button" *ngIf="noticeIndentifierSummaryData?.title && noticeIndentifierSummaryData?.title.length > 50"
+							href="javascript:void(0);" class="small-data-font c-green"
+							(click)="showText( descriptionTextContainer )">Read More
+						</a>
+					</div>
+				</div>
+
+
+				<div *ngIf="noticeIndentifierSummaryData?.region" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Location:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.region | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.awarded_value" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Value:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.awarded_value | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.closing_time" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Closing Time:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.closing_time }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.ojeu_contract_type" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contract Type:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.ojeu_contract_type | titlecase }}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-12 md:col-6 lg:col-6">
+			<div class="card h-full widget-topsearchs hideOverflowX">
+
+				<div *ngIf="noticeIndentifierSummaryData?.description" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Description:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<div #descriptionTextContainer class="limitTextHeight">{{ noticeIndentifierSummaryData?.description | titlecase }}</div>
+						<a type="button" *ngIf="noticeIndentifierSummaryData?.description && noticeIndentifierSummaryData?.description.length > 80"
+							href="javascript:void(0);" class="small-data-font c-green"
+							(click)="showText( descriptionTextContainer )">Read More
+						</a>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.suitable_for_SME" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Suitable For SME:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.suitable_for_SME | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.suitable_for_VCO" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Suitable For VCO:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.suitable_for_VCO | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.is_sub_contract" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Is Sub Contract:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.is_sub_contract | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.value_high" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> High Value:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.value_high | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.postcode" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Postcode:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.postcode | uppercase }}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="grid align-items-center mb-2 mt-5">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Buyer Contact Details</span>
+		</div>
+	</div>
+
+	<div class="grid">
+
+		<div class="col-12 md:col-6 lg:col-6">
+			<div class="card h-full widget-topsearchs hideOverflowX">
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_name" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contact Name:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.contact_name | titlecase }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_address_1 || noticeIndentifierSummaryData?.contact_address_2 || noticeIndentifierSummaryData?.contact_town || noticeIndentifierSummaryData?.contact_postcode  || noticeIndentifierSummaryData?.contact_country" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Address:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.contact_address_1 | titlecase }} {{ noticeIndentifierSummaryData?.contact_address_2 | titlecase }} {{ noticeIndentifierSummaryData?.contact_town | titlecase }} {{ noticeIndentifierSummaryData?.contact_postcode | uppercase }} {{ noticeIndentifierSummaryData?.contact_country | titlecase}}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-12 md:col-6 lg:col-6">
+
+			<div class="card h-full widget-topsearchs hideOverflowX">
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_email" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contact Email:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.contact_email }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_website" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contact Website:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.contact_website }}</span>
+					</div>
+				</div>
+
+				<div *ngIf="noticeIndentifierSummaryData?.contact_telephone" class="grid item">
+					<div class="col-4 pb-0">
+						<span class="material-icons headerIconStyle">info</span>
+						<span class="c-grey font-bold"> Contact Telephone:</span>
+					</div>
+					<div class="col-8 pb-0">
+						<span>{{ noticeIndentifierSummaryData?.contact_telephone }}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</p-dialog>
+<!-- View Notice Identifier Modal Box Ends -->
+
+<div class="grid">
+    <div class="col-fixed col-12 md:col-4 lg:col-4">
+        <div class="card">
+            <div class="grid">
+                <div class="col-6 text-center">
+                    <div class="icon business">
+                        <span class="material-icons iconContract">business</span>
+                    </div>
+                </div> 
+                <div class="col-6 text-center mt-4">
+                    <div>                               
+                        <h6>Contracts Won</h6>                                
+                    </div>
+                    <div>
+                        <span class="heading">{{ supplierData?.contractWonCount }}</span>
+                    </div>                    
+                </div>                       
+            </div>                    
+        </div>
+        <div class="card">
+            <div class="grid">
+                <div class="col-6 text-center">
+                    <div class="icon emoji_events">
+                        <span class="material-icons iconAward">emoji_events</span>
+                    </div>
+                </div>
+                <div class="col-6 text-center mt-4">
+                    <div>
+                        <h6>Total Award Value</h6>
+                    </div>
+                    <div>
+                        <span class="heading">{{ supplierData?.awardValueCount ? toNumberSuffix.transform( supplierData?.awardValueCount, '0', selectedGlobalCurrency ) : 0 }}</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-fixed col-12 md:col-4 lg:col-4 p-pr-0">
+        <div class="card">
+            <p-chart type="bar" [data]="barData" [options]="barOptions" height="278px" [responsive]="true"></p-chart>
+        </div>
+    </div>
+    <div class="col-fixed col-12 md:col-4 lg:col-4 p-pr-0">
+        <div class="card">
+            <p-chart type="line" [data]="lineData" [options]="lineOptions" height="278px" [responsive]="true"></p-chart>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="grid justify-content-end mb-2 mt-1 mr-2">
+        <span class="col-fixed ml-auto align-items-center">
+            <button pButton type="button" label="Table View" [ngClass]="{ 'switchDarkBtn': changeTable == false, 'switchLightBtn': changeTable == true }" class="mb-0" (click)="changeTableView($event)"></button>
+            <button pButton type="button" label="Data View" [ngClass]="{ 'switchLightBtn': changeTable == false, 'switchDarkBtn': changeTable == true }" class="mb-0" (click)="changeTableView($event)"></button>
+        </span>
+    </div>
+    <ng-container *ngIf="changeTable; else otherBlock">
+        <div class="card">
+            <p-dataView #buyerDataTable [value]="supplierDataValues" [paginator]="[ subscribedPlanModal['Start'], subscribedPlanModal['Valentine_Special'], subscribedPlanModal['Expand_Weekly_Trial'], subscribedPlanModal['Monthly_Expand_Trial'], subscribedPlanModal['Annually_Expand_Trial'], subscribedPlanModal['Enterprise_Weekly_Trial'], subscribedPlanModal['Monthly_Enterprise_Trial'], subscribedPlanModal['Annually_Enterprise_Trial'], subscribedPlanModal['Trial_48_Hours'], subscribedPlanModal['Expand_Trial_48_Hours'], subscribedPlanModal['Premium_Trial_48_Hours'] ].includes( currentPlan) ? false : true" [rows]="8" filterBy="name"
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="grid" paginatorPosition="top">
+                <ng-template pTemplate="header">
+                    <div class="flex flex-column md:flex-row md:justify-content-between">
+                    </div>
+                </ng-template>
+                <ng-template let-rowData pTemplate="gridItem">
+                    <div class="col-fixed col-12 md:col-6 lg:col-6 pb-3">
+                        <div class="product-grid-item card h-full ">
+							<div class="grid product-name" *ngIf="rowData?.title">
+								<div class="col-12 md:col-2 lg:col-2">
+									<span>Title:</span>
+								</div>
+								<div class="col-12 md:col-8 lg:col-8">
+									<span>
+										<a href="javascript: void(0);" class="cName" (click)="getNoticeIndentifierData( rowData['notice_identifier'] )"> {{ rowData?.title | titlecase }}</a>
+									</span>
+								</div>
+							</div>
+
+                            <div class="product-description mt-2">
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-6">
+                                        <div class="grid" *ngIf="rowData?.suitable_for_SME">
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-label">SME:</span>
+                                            </div>
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-value">{{ rowData?.suitable_for_SME | titlecase }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-6">
+                                        <div class="grid" *ngIf="rowData?.suitable_for_VCO">
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-label">VCSE:</span>
+                                            </div>
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-value">{{ rowData?.suitable_for_VCO | titlecase }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-12 md:col-6 lg:col-6">
+                                        <div class="grid" *ngIf="rowData?.suitable_for_SME">
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-label">Awarded Date:</span>
+                                            </div>
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-value">{{ rowData?.awarded_date }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-6">
+                                        <div class="grid" *ngIf="rowData?.awarded_value">
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-label">Award Value:</span>
+                                            </div>
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-value">{{ rowData?.awarded_value | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-6">
+                                        <div class="grid" *ngIf="rowData?.contract_start_date">
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-label">Contract Start Date:</span>
+                                            </div>
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-value">{{ rowData?.contract_start_date }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-6 lg:col-6">
+                                        <div class="grid" *ngIf="rowData?.contract_end_date">
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-label">Contract End Date:</span>
+                                            </div>
+                                            <div class="col-12 md:col-6 lg:col-6">
+                                                <span class="key-value">{{ rowData?.contract_end_date }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="grid">
+									<div class="col-12">
+										<div class="grid" *ngIf="rowData?.cpv_codes">
+                                            <div class="col-12 md:col-2 lg:col-2">
+                                                <span class="key-label">CPV:</span>
+                                            </div>
+                                            <div class="col-12 md:col-10 lg:col-10">
+												<ng-container *ngFor="let item of rowData?.cpv_codes">
+													<div class="key-value">{{ item.code }} {{ ( item.desc ? ' - ' + item.desc : '' ) | titlecase }}</div>
+												</ng-container>
+                                            </div>
+                                        </div>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+
+    </ng-container>
+    <ng-template #otherBlock>
+        <dg-user-list [listColumns]="supplierDataColumn" [listDataValues]="supplierDataValues" [listPage]="true" [thisPage]="'supplierPage'" (getNoticeIndentifierData)="getNoticeIndentifierData($event)"></dg-user-list>
+    </ng-template>
+</div>

@@ -1,0 +1,25 @@
+<!-- <ng-container *ngIf="isLoggedIn; else notLoggedIn"> -->
+<div  loginAccessModal>
+	<div class="grid mt-2 flex" *ngIf="creditorsInfoData">
+		<div class="col md:col-3 text-center">
+			<div class="card">
+				<span class="mt-0"><strong>Total Amount</strong></span>
+				<h1 class="m-0"><strong>£{{ creditorsTotalAmount | number: '1.0-0' }}</strong></h1>
+			</div>
+		</div>
+	
+		<div class="col md:col-3  text-center c-green">
+			<div class="card">
+				<span class="mt-0"><strong>Total Count</strong></span>
+				<h1 class="m-0"><strong>{{ creditorsCount }}</strong></h1>
+			</div>
+		</div>
+	</div>
+	
+	<dg-user-list [listColumns]="creditorsInfoDataColumn" [listDataValues]="creditorsInfoData" [listPage]="true" [thisPage]="'creditorsInfoPage'" [serverSidePaginator]="true"></dg-user-list>
+</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #notLoggedIn>
+	<dg-without-login-modal></dg-without-login-modal>
+</ng-template> -->

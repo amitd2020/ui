@@ -1,0 +1,571 @@
+<div class="sustainFinanceContainer">
+
+	<ng-container *ngIf="sustainFinanceData">
+    
+        <p-messages [value]="msgs"></p-messages>
+	
+		<div class="flex flex-wrap align-item-center justify-content-between mb-3">
+			<div class="col-fixed py-0">
+				<button pButton label="Back" icon="ui-icon-arrow-back" iconPos="left" class="p-button-sm" (click)="goBack()"></button>
+			</div>
+			<div class="col-fixed py-0">
+                <button pButton label="Add To Watch" icon="pi pi-eye" class="p-button-sm mr-4" (click)="addToEsgWatchTable()" *ngIf="sustainFinanceData && !sustainFinanceData.inEsgWatch"></button>
+                <button pButton label="Remove From Watch" icon="pi pi-eye-slash" class="p-button-sm mr-4" (click)="removeFromEsgWatchTable()" *ngIf="sustainFinanceData && sustainFinanceData.inEsgWatch"></button>
+				<button pButton label="Environment" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainEnvironmentComponent )"></button>
+				<button pButton label="Social" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainSocialComponent )"></button>
+				<button pButton label="Governance" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainGovernanceComponent )"></button>
+			</div>
+		</div>
+	
+		<div class="grid mb-3">
+	
+			<div class="col-12 md:col-4 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Finance State</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+		
+						<div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('financeGaugeProperties')">
+							<p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.financeGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="300"></p-chart>
+							
+							<div class="gaugeLegends">
+								<div class="gaugeAvrg">
+									<span class="colorBlock"></span>
+									<span class="label">Average</span>
+								</div>
+								<div class="gaugeGood">
+									<span class="colorBlock"></span>
+									<span class="label">Good</span>
+								</div>
+								<div class="gaugeExcell">
+									<span class="colorBlock"></span>
+									<span class="label">Excellent</span>
+								</div>
+							</div>
+		
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 md:col-4 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Altman Z Score <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Altman Z Score' )"></i></h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('zScore'); else noRecordTemplate">
+							<div class="esgBarChartLegends mb-3">
+								<div class="zScoreBelow0Legend">
+									<span class="colorBlock"></span>
+									<span class="label">Below 0 to 1.8</span>
+								</div>
+								<div class="zScoreFrom1Legend">
+									<span class="colorBlock"></span>
+									<span class="label">From 1.8 to 3.0</span>
+								</div>
+								<div class="ZScoreGreaterThan3Legend">
+									<span class="colorBlock"></span>
+									<span class="label">> 3.0</span>
+								</div>
+							</div>
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['zScore']" [responsive]="true" [plugins]="ChartDataLabelsPlugins"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-4 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>CAGR <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'CAGR' )"></i></h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('cagr'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['cagr']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Gearing <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Gearing' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('gearingPercentage'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['gearingPercentage']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Creditor Days <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Creditor Days' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('creditorDays'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['creditorDays']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Debtor Days <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Debtor Days' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('debtorDays'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['debtorDays']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="grid align-item-center mb-2 mt-5">
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">Profitability</span>
+			</div>
+		</div>
+	
+		<div class="grid mb-2">
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Gross Profit <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Gross Profit' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('grossProfit'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['grossProfit']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Operating Profit <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Operating Profit' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('operatingProfit'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['operatingProfit']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Profit Before Tax <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Profit Before Tax' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('profitBeforeTax'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['profitBeforeTax']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Return on Assets <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Return on Assets' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('returnOnTotalAssets'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['returnOnTotalAssets']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Return on Capital <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Return on Capital' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('returnOnCapital'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['returnOnCapital']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Retained Profit <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Retained Profit' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('retainedProfit'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['retainedProfit']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Revenue <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Revenue' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('revenue'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['revenue']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="grid align-item-center mb-2 mt-5">
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">Liquidity</span>
+			</div>
+		</div>
+		<div class="grid mb-2">
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Current Ratio <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Current Ratio' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('currentRatio'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['currentRatio']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Cash Ratio <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Cash Ratio' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('cashRatio'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['cashRatio']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Quick Ratio <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Quick Ratio' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('quickRatio'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['quickRatio']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Trade Creditors <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Trade Creditors' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('tradeCreditors'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['tradeCreditors']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Trade Debtors <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Trade Debtors' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('tradeDebtors'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['tradeDebtors']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="grid align-item-center mb-2 mt-5">
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">Solvency</span>
+			</div>
+		</div>
+	
+		<div class="grid mb-2">
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Equity Ratio <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Equity Ratio' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('equityInPercentage'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['equityInPercentage']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Total Debt Ratio <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Total Debt Ratio' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('totalDebtRatio'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['totalDebtRatio']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-3">
+				<div class="card h-full">
+					<div class="card-header">
+						<h6>Net Worth <i class="pi pi-info-circle ml-2" (click)="showDescriptionDialogBox( 'Net Worth' )"></i></h6>
+					</div>
+					<div class="card-body">
+						<ng-container *ngIf="financialChartDatasets.hasOwnProperty('netWorth'); else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="financialChartDatasets['netWorth']" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<p-dialog header="{{ dialogBoxheader }}" [(visible)]="showDescription" [draggable]="false" [style]="{width: '30vw', height: 'auto'}" [modal]="true" [closable]="true" appendTo="body">
+		
+			<ng-container *ngIf="dialogBoxheader == 'Altman Z Score'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Profitability, Leverage, Liquidity, Solvency and Financial Ratios are computed to indicate the financial position of a company.</span></li>
+					</ul>
+					<div class="text-center mt-4">
+						<img src="\assets\layout\images\ZScore.png" alt="" width="400" class="zScoreResponsive">
+					</div>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'CAGR'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">The compound annual growth rate (CAGR) is the annualized average rate of revenue growth between two given years, assuming growth takes place at an exponentially compounded rate.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Gearing'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Level of equity participation in investment than debt instruments.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Creditor Days'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Average time taken to settle all credits to suppliers, vendors and financiers.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Debtor Days'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Debtor days is the average days required for a company to receive payments from its customers</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Gross Profit'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Total Sales less Cost of Goods Sold.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Operating Profit'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">A profit from business operations (gross profit minus operating expenses) before deduction of interest and taxes.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Profit Before Tax'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Company's profit before any taxes to be paid.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Return on Assets'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Company's ability to utilize its assets to generate Net income, after deducting all expenses.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Return on Capital'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">The efficiency of the capital in use is measured with debt and equity being considered, EBIT (Revenue - (CoGS+Operating Expenses) Versus Capital Employed(Total Assets - Current Liabilities) shows the expected efficiency.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Retained Profit'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Total revenue less operating expenses and all other taxes.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Revenue'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Total sales done by the company.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Current Ratio'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Company's financial strength to handle current liability with current assets in a year.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Cash Ratio'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Readily available to pay towards current liabilities.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Quick Ratio'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">More current assets are taken into account to find the ability of company to manage short term liabilities.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Trade Creditors'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Trade creditors are the bills the company need to pay. They're sometimes called creditors, trade creditors or accounts payables.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Trade Debtors'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Trade Debtor is the average period required for a company to receive payments from its customers.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Equity Ratio'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Company's position which provides total liabilities to Total Shareholder's equity.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Total Debt Ratio'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">A debt ratio measures the amount of leverage used by a company in terms of total debt to total assets.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+
+			<ng-container *ngIf="dialogBoxheader == 'Net Worth'">
+				<p-scrollPanel styleClass="sustainContentScrollPanel">
+					<ul class="listTextStyle wordSpacing pl-5">
+						<li><span class="material-icons reviewIconStyling">reviews</span><span class="c-grey">Total Assets less total Liabilities.</span></li>
+					</ul>
+				</p-scrollPanel>
+			</ng-container>
+		
+		</p-dialog>
+		
+		<ng-template #noRecordTemplate>
+			<div class="noRecords">
+				<p>No Records Found</p>
+			</div>
+		</ng-template>
+	
+	</ng-container>
+
+</div>

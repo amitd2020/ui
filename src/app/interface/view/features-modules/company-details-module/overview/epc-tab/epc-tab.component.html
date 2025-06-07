@@ -1,0 +1,1044 @@
+<p-confirmDialog key="epcTab" [baseZIndex]="10000"></p-confirmDialog>
+<p-messages [value]="msgs" key="epc"></p-messages>
+
+<div class="col">
+    <div class="col-12">
+
+		<div class="grid">
+			<ng-container *ngIf="certificateType == 'non-domestic'">
+	
+				<div class="col-4">
+					
+					<div class="col-12 flex justify-content-between borderColor">
+						<div>
+							Asset Rating
+						</div>
+						<div>
+							Current
+						</div>
+					</div>
+		
+					<div class="card assetRatingBlockTable">
+		
+						<div class="text-lg mb-2">
+							<span [ngStyle]="{ color: 'var( --surface-g )' }">Very Energy Efficient - Lower Running Costs</span>
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+							
+							<div class="stepBlockRatingBar ratingAPlus">
+								<span class="ratingRange">(Net zero)</span>
+								<strong class="text-right float-r text-2xl">A+</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='A+'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftA"></div>
+								<div class="squareBlock squareBlockA">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+
+							<div class="stepBlockRatingBar ratingA">
+								<span class="ratingRange">(0-25)</span>
+								<strong class="text-right float-r text-2xl">A</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='A'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftA"></div>
+								<div class="squareBlock squareBlockA">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+		
+							<div class="stepBlockRatingBar ratingB">
+								<span class="ratingRange">(26-50)</span>
+								<strong class="text-right float-r text-2xl">B</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='B'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftB"></div>
+								<div class="squareBlock squareBlockB">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+		
+							<div class="stepBlockRatingBar ratingC">
+								<span class="ratingRange">(51-75)</span>
+								<strong class="text-right float-r text-2xl">C</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='C'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftC"></div>
+								<div class="squareBlock squareBlockC">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+		
+							<div class="stepBlockRatingBar ratingD">
+								<span class="ratingRange">(76-100)</span>
+								<strong class="text-right float-r text-2xl">D</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='D'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftD"></div>
+								<div class="squareBlock squareBlockD">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+		
+							<div class="stepBlockRatingBar ratingE">
+								<span class="ratingRange">(101-125)</span>
+								<strong class="text-right float-r text-2xl">E</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='E'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftE"></div>
+								<div class="squareBlock squareBlockE">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+		
+							<div class="stepBlockRatingBar ratingF">
+								<span class="ratingRange">(126-150)</span>
+								<strong class="text-right float-r text-2xl">F</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='F'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftF"></div>
+								<div class="squareBlock squareBlockF">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex justify-content-between align-items-center p-0">
+		
+							<div class="stepBlockRatingBar ratingG">
+								<span class="ratingRange">(150+)</span>
+								<strong class="text-right float-r text-2xl">G</strong>
+							</div>
+		
+							<div *ngIf="epcDetails.asset_rating_band ==='G'" class="pointer pointer-transition">
+								<div class="triangleLeft triangleLeftG"></div>
+								<div class="squareBlock squareBlockG">
+									<div class="pointerValue fw-500">
+										{{ epcDetails.asset_rating }}
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="text-lg mt-2">
+							<span [ngStyle]="{ color: 'var( --surface-g )' }">Not Very Efficient - Higher Running Costs</span>
+						 </div>
+		
+					</div>
+		
+				</div>
+	
+			</ng-container>
+	
+			<ng-container *ngIf="certificateType == 'domestic'">
+	
+				<div class="col-4">
+		
+					<div class="col-12 flex justify-content-between align-items-center borderColor">
+						<div class="col-4 p-0">
+							Asset Rating
+						</div>
+						<div class="col-4 text-right p-0">
+							Current
+						</div>
+						<div class="col-4 text-right p-0">
+							Potential
+						</div>
+					</div>
+		
+					<div class="card assetRatingBlockTable">
+		
+						<div class="text-lg mb-2">
+						   <span [ngStyle]="{ color: 'var( --surface-g )' }">Very Energy Efficient - Lower Running Costs</span>
+						</div>
+		
+						<div class="col-12 flex p-0">
+							
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingA">
+									<span class="ratingRange">(92+)</span>
+									<strong class="text-right float-r text-2xl">A</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating ==='A'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftA"></div>
+									<div class="squareBlock squareBlockA">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating ==='A'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftA"></div>
+									<div class="squareBlock squareBlockA">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex p-0">
+							
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingB">
+									<span class="ratingRange">(81-91)</span>
+									<strong class="text-right float-r text-2xl">B</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating === 'B'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftB"></div>
+									<div class="squareBlock squareBlockB">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating === 'B'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftB"></div>
+									<div class="squareBlock squareBlockB">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex p-0">
+							
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingC">
+									<span class="ratingRange">(69-80)</span>
+									<strong class="text-right float-r text-2xl">C</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating === 'C'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftC"></div>
+									<div class="squareBlock squareBlockC">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating === 'C'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftC"></div>
+									<div class="squareBlock squareBlockC">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex p-0">
+	
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingD">
+									<span class="ratingRange">(55-68)</span>
+									<strong class="text-right float-r text-2xl">D</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating === 'D'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftD"></div>
+									<div class="squareBlock squareBlockD">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating === 'D'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftD"></div>
+									<div class="squareBlock squareBlockD">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex p-0">
+							
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingE">
+									<span class="ratingRange">(39-54)</span>
+									<strong class="text-right float-r text-2xl">E</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating === 'E'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftE"></div>
+									<div class="squareBlock squareBlockE">
+										<div class="pointerValue fw-500">
+										   {{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating === 'E'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftE"></div>
+									<div class="squareBlock squareBlockE">
+										<div class="pointerValue fw-500">
+										   {{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex p-0">
+	
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingF">
+									<span class="ratingRange">(21-38)</span>
+									<strong class="text-right float-r text-2xl">F</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating === 'F'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftF"></div>
+									<div class="squareBlock squareBlockF">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating === 'F'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftF"></div>
+									<div class="squareBlock squareBlockF">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 flex p-0">
+	
+							<div class="col-4 p-0">
+								<div class="stepBlockRatingBar ratingG">
+									<span class="ratingRange">(1-20)</span>
+									<strong class="text-right float-r text-2xl">G</strong>
+								</div>
+							</div>
+	
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.current_energy_rating === 'G'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftG"></div>
+									<div class="squareBlock squareBlockG">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.current_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-4 p-0">
+								<div *ngIf="epcDetails.potential_energy_rating === 'G'" class="pointer pointer-transition">
+									<div class="triangleLeft triangleLeftG"></div>
+									<div class="squareBlock squareBlockG">
+										<div class="pointerValue fw-500">
+											{{ epcDetails.potential_energy_rating }}
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="text-lg mt-2">
+						   <span [ngStyle]="{ color: 'var( --surface-g )' }">Not Very Efficient - Higher Running Costs</span>
+						</div>
+		
+					</div>
+		
+				</div>
+	
+			</ng-container>
+	
+	
+			<div class="col-8">
+				<div class="card infoWrapper">
+					<div class="grid epc-box">
+						<div class="col-12 epc-address-rating-box">
+							<div class="epc-address-box">
+								<div *ngIf="epcDetails.address1 != '' && epcDetails.address1 != epcDetails.address2 ">{{ epcDetails.address1 }}</div>
+								<div *ngIf="epcDetails.address2 != '' ">{{ epcDetails.address2 }}</div>
+								<div *ngIf="epcDetails.address3 != '' ">{{ epcDetails.address3 }}</div>
+								<div>{{ epcDetails.postcode }}</div>
+								<div>{{ epcDetails.local_authority_label }} ({{ epcDetails.local_authority }})
+								</div>
+								<div>{{ epcDetails.constituency_label }} ({{ epcDetails.constituency }})</div>
+							</div>
+							<div class="epc-rating-box">
+								<div>
+									Energy rating
+								</div>
+								<div class="epc-rating">
+									<ng-container *ngIf="certificateType == 'non-domestic'; else nonDomestic">
+										<strong>{{ epcDetails.asset_rating_band }}</strong>
+									</ng-container>
+									<ng-template #nonDomestic>
+										<strong>{{ epcDetails.current_energy_rating }}</strong>
+									</ng-template>
+								</div>
+							</div>
+						</div>
+	
+						<div class="col-6 epc-date-box" *ngIf="certificateType == 'non-domestic'">
+							<div>
+								Valid Till
+							</div>
+							<div>
+								{{ epcDetails.valid_till | date: 'dd-MM-yyyy' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box">
+							<div>
+								Lodgement Date
+							</div>
+							<div>
+								{{ epcDetails.lodgement_date | date: 'dd-MM-yyyy' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-date-box" *ngIf="certificateType == 'non-domestic'">
+							<div>
+								Assest Rating
+							</div>
+							<div>
+								{{ epcDetails.asset_rating }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box">
+							<div>
+								Inspection Date
+							</div>
+							<div>
+								{{ epcDetails.inspection_date | date: 'dd-MM-yyyy' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-date-box" *ngIf="certificateType == 'non-domestic'">
+							<div>
+								New Build Benchmark
+							</div>
+							<div>
+								{{ epcDetails.new_build_benchmark }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box">
+							<div>
+								Transaction Type
+							</div>
+							<div>
+								{{ (epcDetails.transaction_type ? epcDetails.transaction_type : '-') | titlecase }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-date-box" *ngIf="certificateType == 'non-domestic'">
+							<div>
+								Existing Stock Benchmark
+							</div>
+							<div>
+								{{ epcDetails.existing_stock_benchmark ? epcDetails.existing_stock_benchmark : '-' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box" *ngIf="certificateType == 'non-domestic'">
+							<div>
+								Floor Area
+							</div>
+							<div>
+								{{ epcDetails.floor_area ? epcDetails.floor_area : '-' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-date-box" *ngIf="certificateType == 'non-domestic'">
+							<div>
+								Building Level
+							</div>
+							<div>
+								{{ epcDetails.building_level ? epcDetails.building_level : '-' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-date-box" *ngIf="certificateType == 'domestic'">
+							<div>
+								Building Reference Number
+							</div>
+							<div>
+								{{ epcDetails.building_reference_number ? epcDetails.building_reference_number : '-' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box">
+							<div>
+								Property Type
+							</div>
+							<div class="text-right">
+								{{ epcDetails.property_type ? epcDetails.property_type : '-' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box" *ngIf="certificateType == 'domestic'">
+							<div>
+								Extension Count
+							</div>
+							<div>
+								{{ epcDetails.extension_count ? epcDetails.extension_count : '-' }}
+							</div>
+						</div>
+	
+						<div class="col-6 epc-number-box" *ngIf="certificateType == 'domestic'">
+							<div>
+								Wind Turbine Count
+							</div>
+							<div>
+								{{ epcDetails.wind_turbine_count ? epcDetails.wind_turbine_count : '-' }}
+							</div>
+						</div>
+						<div class="col-6 epc-number-box" *ngIf="certificateType == 'domestic'">
+							<div>
+								Flat Storey Count
+							</div>
+							<div>
+								{{ epcDetails.flat_storey_count ? epcDetails.flat_storey_count : '-' }}
+							</div>
+						</div>
+						<div class="col-6 epc-number-box" *ngIf="certificateType == 'domestic'">
+							<div>
+								Fixed Lighting Outlets Count
+							</div>
+							<div>
+								{{ epcDetails.fixed_lighting_outlets_count ? epcDetails.fixed_lighting_outlets_count : '-' }}
+							</div>
+						</div>
+						<div class="col-6 epc-number-box" *ngIf="certificateType == 'domestic'">
+							<div>
+							   Low Energy Fixed Lighting Outlets Count
+							</div>
+							<div>
+								{{ epcDetails.low_energy_fixed_light_count ? epcDetails.low_energy_fixed_light_count : '-' }}
+							</div>
+						</div>
+	
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				
+				<p-accordion [multiple]="true">
+
+					<p-accordionTab header="Others" [selected]="true">
+	
+						<ng-container *ngIf="certificateType == 'non-domestic'">
+	
+							<div class="grid">
+								<div class="col-6">
+									<div class="h-full widget-topsearchs">
+										<div class="flex justify-content-between item">
+											<span>Main Heating Fuel</span>
+											<span>{{ ( epcDetails.main_heating_fuel ?
+												epcDetails.main_heating_fuel : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Other Fuel Desc</span>
+											<span>{{ ( epcDetails.other_fuel_desc ? epcDetails.other_fuel_desc :
+												'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Special Energy Uses</span>
+											<span>{{ ( epcDetails.special_energy_uses ?
+												epcDetails.special_energy_uses : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Renewable Sources</span>
+											<span>{{ ( epcDetails.renewable_sources ?
+												epcDetails.renewable_sources : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>AC Inspection Commissioned</span>
+											<span>{{ ( epcDetails.ac_inspection_commissioned ?
+												epcDetails.ac_inspection_commissioned : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Building Environment</span>
+											<span>{{ ( epcDetails.building_environment ?
+												epcDetails.building_environment : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>UPRN</span>
+											<span>{{ ( epcDetails.uprn ? epcDetails.uprn : 'no data available')
+												| titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>UPRN Source</span>
+											<span>{{ ( epcDetails.uprn_source ? epcDetails.uprn_source : 'no
+												data available') | titlecase }}</span>
+										</div>
+		
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="h-full widget-topsearchs">
+										<div class="flex justify-content-between item">
+											<span>Standard Emissions</span>
+											<span>{{ ( epcDetails.standard_emissions ?
+												epcDetails.standard_emissions : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Target Emissions</span>
+											<span>{{ ( epcDetails.target_emissions ? epcDetails.target_emissions
+												: 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Typical Emissions</span>
+											<span>{{ ( epcDetails.typical_emissions ?
+												epcDetails.typical_emissions : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Building Emissions</span>
+											<span>{{ ( epcDetails.building_emissions ?
+												epcDetails.building_emissions : 'no data available') | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Aircon Present</span>
+											<span>{{ ( epcDetails.aircon_present ? epcDetails.aircon_present :
+												'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Aircon KW Rating</span>
+											<span>{{ ( epcDetails.aircon_kw_rating ? epcDetails.aircon_kw_rating
+												: 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Estimated Aircon KW Rating</span>
+											<span>{{ epcDetails.estimated_aircon_kw_rating ?
+												epcDetails.estimated_aircon_kw_rating : 'no data available' | titlecase
+												}}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Primary Energy</span>
+											<span>{{ ( epcDetails.primary_energy_value ?
+												epcDetails.primary_energy_value : 'no data available') | titlecase
+												}}</span>
+										</div>
+									</div>
+								</div>
+		
+							</div>
+	
+						</ng-container>
+	
+						<ng-container *ngIf="certificateType == 'domestic'">
+	
+							<div class="grid">
+								<div class="col-6">
+									<div class="h-full widget-topsearchs">
+										<div class="flex justify-content-between item">
+											<span>Environment Impact Current</span>
+											<span>{{ ( epcDetails.environment_impact_current ? epcDetails.environment_impact_current : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Environment Impact Potential</span>
+											<span>{{ ( epcDetails.environment_impact_potential ? epcDetails.environment_impact_potential : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Energy Consumption Current</span>
+											<span>{{ ( epcDetails.energy_consumption_current ? epcDetails.energy_consumption_current : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Energy Consumption Potential</span>
+											<span>{{ ( epcDetails.energy_consumption_potential ? epcDetails.energy_consumption_potential : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Energy Tariff</span>
+											<span>{{ ( epcDetails.energy_tariff ? epcDetails.energy_tariff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>CO<sub>2</sub> Emissions Current</span>
+											<span>{{ ( epcDetails.co2_emissions_current ? epcDetails.co2_emissions_current : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>CO<sub>2</sub> Emissions Potential</span>
+											<span>{{ ( epcDetails.co2_emissions_potential ? epcDetails.co2_emissions_potential : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Sheating Energy Eff</span>
+											<span>{{ ( epcDetails.sheating_energy_eff ? epcDetails.sheating_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Sheating Env Off</span>
+											<span>{{ ( epcDetails.sheating_env_eff ? epcDetails.sheating_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Number Habitable Rooms</span>
+											<span>{{ ( epcDetails.number_habitable_rooms ? epcDetails.number_habitable_rooms : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Number Heated Rooms</span>
+											<span>{{ ( epcDetails.number_heated_rooms ? epcDetails.number_heated_rooms : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Number Open Fireplaces</span>
+											<span>{{ ( epcDetails.number_open_fireplaces ? epcDetails.number_open_fireplaces : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Low Energy Fixed Lighting Outlets Count</span>
+											<span>{{ ( epcDetails.low_energy_fixed_light_count ? epcDetails.low_energy_fixed_light_count : 'no data available') | titlecase }}</span>
+										</div>
+										
+										<div class="flex justify-content-between item">
+											<span>UPRN</span>
+											<span>{{ ( epcDetails.uprn ? epcDetails.uprn : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>UPRN Source</span>
+											<span>{{ ( epcDetails.uprn_source ? epcDetails.uprn_source : 'no data available') | titlecase }}</span>
+										</div>
+		
+										<div class="flex justify-content-between item">
+											<span>Roof Description</span>
+											<span>{{ ( epcDetails.roof_description ? epcDetails.roof_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Main Fuel</span>
+											<span>{{ ( epcDetails.main_fuel ? epcDetails.main_fuel : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mains Gas Flag</span>
+											<span>{{ ( epcDetails.mains_gas_flag ? epcDetails.mains_gas_flag : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mainheat Description</span>
+											<span>{{ ( epcDetails.mainheat_description ? epcDetails.mainheat_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mainheat Energy Eff</span>
+											<span>{{ ( epcDetails.mainheat_energy_eff ? epcDetails.mainheat_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mainheat Env Eff</span>
+											<span>{{ ( epcDetails.mainheat_env_eff ? epcDetails.mainheat_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mainheatcont Description</span>
+											<span>{{ ( epcDetails.mainheatcont_description ? epcDetails.mainheatcont_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mainheatc Energy Eff</span>
+											<span>{{ ( epcDetails.mainheatc_energy_eff ? epcDetails.mainheatc_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mainheatc Env Eff</span>
+											<span>{{ ( epcDetails.mainheatc_env_eff ? epcDetails.mainheatc_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Glazed Type</span>
+											<span>{{ ( epcDetails.primary_energy_value ? epcDetails.primary_energy_value : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Glazed Area</span>
+											<span>{{ ( epcDetails.primary_energy_value ? epcDetails.primary_energy_value : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Multi Glaze Proportion</span>
+											<span>{{ ( epcDetails.primary_energy_value ? epcDetails.primary_energy_value : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Mechanical Ventilation</span>
+											<span>{{ ( epcDetails.primary_energy_value ? epcDetails.primary_energy_value : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Solar Water Heating Flag</span>
+											<span>{{ ( epcDetails.solar_water_heating_flag ? epcDetails.solar_water_heating_flag : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Photo Supply</span>
+											<span>{{ ( epcDetails.photo_supply ? epcDetails.photo_supply : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Heat Loss Corridor</span>
+											<span>{{ ( epcDetails.heat_loss_corridor ? epcDetails.heat_loss_corridor : 'no data available') | titlecase }}</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="h-full widget-topsearchs">
+										<div class="flex justify-content-between item">
+											<span>Total Floor Area</span>
+											<span>{{ ( epcDetails.total_floor_area ? epcDetails.total_floor_area : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Floor Level</span>
+											<span>{{ ( epcDetails.floor_level ? epcDetails.floor_level : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Floor Height</span>
+											<span>{{ ( epcDetails.floor_height ? epcDetails.floor_height : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Floor Description</span>
+											<span>{{ ( epcDetails.floor_description ? epcDetails.floor_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Floor Energy Eff</span>
+											<span>{{ ( epcDetails.floor_energy_eff ? epcDetails.floor_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Floor Env Eff</span>
+											<span>{{ ( epcDetails.floor_env_eff ? epcDetails.floor_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Lighting Cost Current</span>
+											<span>{{ ( epcDetails.lighting_cost_current ? epcDetails.lighting_cost_current : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Lighting Cost Potential</span>
+											<span>{{ ( epcDetails.lighting_cost_potential ? epcDetails.lighting_cost_potential : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Low Energy Lighting</span>
+											<span>{{ ( epcDetails.low_energy_lighting ? epcDetails.low_energy_lighting : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Lighting Description</span>
+											<span>{{ ( epcDetails.lighting_description ? epcDetails.lighting_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Lighting Energy Eff</span>
+											<span>{{ ( epcDetails.lighting_energy_eff ? epcDetails.lighting_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Lighting Env Eff</span>
+											<span>{{ ( epcDetails.lighting_env_eff ? epcDetails.lighting_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										
+										<div class="flex justify-content-between item">
+											<span>Heating Cost Current</span>
+											<span>{{ ( epcDetails.heating_cost_current ? epcDetails.heating_cost_current : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Heating Cost Potential</span>
+											<span>{{ ( epcDetails.heating_cost_potential ? epcDetails.heating_cost_potential : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Main Heating Controls</span>
+											<span>{{ ( epcDetails.main_heating_controls ? epcDetails.main_heating_controls : 'no data available') }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Hot Water Cost Current</span>
+											<span>{{ epcDetails.hot_water_cost_current ? epcDetails.hot_water_cost_current : 'no data available' }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Hot Water Cost Potential</span>
+											<span>{{ epcDetails.hot_water_cost_potential ? epcDetails.hot_water_cost_potential : 'no data available' }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Hot Water Energy Eff</span>
+											<span>{{ epcDetails.hot_water_energy_eff ? epcDetails.hot_water_energy_eff : 'no data available' | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Hot Water Description</span>
+											<span>{{ epcDetails.hotwater_description ? epcDetails.hotwater_description : 'no data available' | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Hot Water Env Eff</span>
+											<span>{{ epcDetails.hot_water_env_eff ? epcDetails.hot_water_env_eff : 'no data available' | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Windows Description</span>
+											<span>{{ ( epcDetails.windows_description ? epcDetails.windows_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Windows Energy Eff</span>
+											<span>{{ ( epcDetails.windows_energy_eff ? epcDetails.windows_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Windows Env Eff</span>
+											<span>{{ ( epcDetails.windows_env_eff ? epcDetails.windows_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Walls Description</span>
+											<span>{{ ( epcDetails.walls_description ? epcDetails.walls_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Walls Energy Eff</span>
+											<span>{{ ( epcDetails.walls_energy_eff ? epcDetails.walls_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Walls Env Eff</span>
+											<span>{{ ( epcDetails.walls_env_eff ? epcDetails.walls_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Roof Energy Eff</span>
+											<span>{{ ( epcDetails.roof_energy_eff ? epcDetails.roof_energy_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Roof Env Eff</span>
+											<span>{{ ( epcDetails.roof_env_eff ? epcDetails.roof_env_eff : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Secondheat Description</span>
+											<span>{{ ( epcDetails.secondheat_description ? epcDetails.secondheat_description : 'no data available') | titlecase }}</span>
+										</div>
+										<div class="flex justify-content-between item">
+											<span>Unheated Corridor Length</span>
+											<span>{{ ( epcDetails.primary_energy_value ? epcDetails.primary_energy_value : 'no data available') | titlecase }}</span>
+										</div>
+									</div>
+								</div>
+		
+							</div>
+	
+						</ng-container>
+	
+					</p-accordionTab>
+
+					<p-accordionTab header="Recommendations" [selected]="true">
+	
+						<p-table [columns]="recommendationFields" [value]="epcRecommendationData" responsiveLayout="scroll">
+							<ng-template pTemplate="colgroup" let-columns>
+								<colgroup>
+									<col *ngFor="let col of columns" [ngStyle]="{ 'width': col.width }">
+								</colgroup>
+							</ng-template>
+							<ng-template pTemplate="header" let-columns>
+								<tr>
+									<th *ngFor="let col of columns" [ngStyle]="{ 'text-align': col.textAlign }">
+										<span *ngIf="col.header !== 'CO2 Impact'">{{ col.header }}</span>
+										<span *ngIf="col.header == 'CO2 Impact'">CO<sub>2</sub>&nbsp;Impact</span>
+									</th>
+								</tr>
+							</ng-template>
+							<ng-template pTemplate="body" let-rowData let-columns="columns">
+								<tr>
+									<td *ngFor="let col of columns" [ngStyle]="{ 'text-align': col.textAlign }"
+										[ngSwitch]="true">
+	
+										<ng-container *ngSwitchDefault>
+											<ng-container *ngIf="toCheckStringType( rowData[col.field] )">
+												{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}                
+											</ng-container>
+										</ng-container>
+	
+										<ng-container *ngSwitchCase="col.field == 'payback_type'">
+											{{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+										</ng-container>
+	
+										<ng-container *ngSwitchCase="col.field == 'co2_impact'">
+											<p-tag severity="success" *ngIf="rowData[col.field] == 'LOW'">{{
+												rowData[col.field ]}}</p-tag>
+											<p-tag severity="warning" *ngIf="rowData[col.field] == 'MEDIUM'">{{
+												rowData[col.field ]}}</p-tag>
+											<p-tag severity="danger" *ngIf="rowData[col.field] == 'HIGH'">{{
+												rowData[col.field ]}}</p-tag>
+										</ng-container>
+									</td>
+								</tr>
+							</ng-template>
+						</p-table>
+					</p-accordionTab>
+	
+				</p-accordion>
+				
+			</div>
+		</div>
+    </div>
+</div>

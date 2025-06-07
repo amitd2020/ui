@@ -1,0 +1,337 @@
+<div class="sustainSocialContainer">
+
+	<ng-container *ngIf="sustainSocialData">
+    
+        <p-messages [value]="msgs"></p-messages>
+	
+		<div class="flex flex-wrap align-items-center justify-content-between mb-3">
+			<div class="col-fixed py-0">
+				<button pButton label="Back" icon="ui-icon-arrow-back" iconPos="left" class="p-button-sm" (click)="goBack()"></button>
+			</div>
+			<div class="col-fixed py-0">
+                <button pButton label="Add To Watch" icon="pi pi-eye" class="p-button-sm mr-4" (click)="addToEsgWatchTable()" *ngIf="sustainSocialData && !sustainSocialData.inEsgWatch"></button>
+                <button pButton label="Remove From Watch" icon="pi pi-eye-slash" class="p-button-sm mr-4" (click)="removeFromEsgWatchTable()" *ngIf="sustainSocialData && sustainSocialData.inEsgWatch"></button>
+				<button pButton label="Environment" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainEnvironmentComponent )"></button>
+				<button pButton label="Governance" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainGovernanceComponent )"></button>
+				<button pButton label="Finance" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainFinanceComponent )"></button>
+			</div>
+		</div>
+	
+		<div class="grid mb-3">
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Social State</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+		
+						<div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('socialGaugeProperties')">
+							<p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.socialGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="300"></p-chart>
+		
+							<div class="gaugeLegends">
+								<div class="gaugeAvrg">
+									<span class="colorBlock"></span>
+									<span class="label">Average</span>
+								</div>
+								<div class="gaugeGood">
+									<span class="colorBlock"></span>
+									<span class="label">Good</span>
+								</div>
+								<div class="gaugeExcell">
+									<span class="colorBlock"></span>
+									<span class="label">Excellent</span>
+								</div>
+							</div>
+		
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Directors</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<div class="flex align-items-center flex-wrap">
+							<div class="col flex align-items-center justify-content-center">
+								<p-chart type="doughnut" [data]="directorPieChartData" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" height="200px" width="200px" [responsive]="true"></p-chart>
+							</div>
+							<div class="col">
+
+								<div class="grid justify-content-end">
+									<div class="col-6 text-right mb-2">
+										<p class="text-6xl font-medium c-green m-0">{{ ( activeDirectorsCount | number : '1.0-0' ) || 0 }}</p>
+										<p class="text-sm c-light m-0">Active</p>
+									</div>
+									<div class="col-6 text-right mb-2">
+										<p class="text-6xl font-medium c-blue m-0">{{ ( activeSecretary | number : '1.0-0' ) || 0 }}</p>
+										<p class="text-sm c-light m-0">Secretary</p>
+									</div>
+									<div class="col-6 text-right mb-2">
+										<p class="text-6xl font-medium c-red m-0">{{ ( resignedDirectorsCount | number : '1.0-0' ) || 0 }}</p>
+										<p class="text-sm c-light m-0">Resigned</p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Directors Remuneration</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<ng-container *ngIf="directorsRemunerationBool; else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="directorsRemunerationYearWiseChartData" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Employees</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<ng-container *ngIf="totalEmployees !== 0; else noRecordTemplate">
+							<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="noOfEmployeesYearWiseChartData" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>PSC</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+
+						<ng-container *ngIf="pscData['individual'] || pscData['corporateEntity'] || pscData['legalPerson'] || pscData['superSecure'] || pscData['pscStatement']; else noRecordTemplate">
+
+							<div class="flex align-items-center flex-wrap">
+								<div class="col flex align-items-center justify-content-center">
+									<p-chart type="doughnut" [data]="pscPieChartData" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" height="200px" width="200px" [responsive]="true"></p-chart>
+								</div>
+								<div class="col">
+	
+									<div class="grid justify-content-end">
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-dark-2 );">{{ ( pscData['individual'] | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Individual</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-dark-1 );">{{ ( pscData['corporateEntity'] | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Corporate Entity</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color );">{{ ( pscData['legalPerson'] | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Legal Person</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-light-1 );">{{ ( pscData['superSecure'] | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Super Secure</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-light-2 );">{{ ( pscData['pscStatement'] | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">PSC Statement</p>
+										</div>
+									</div>
+	
+								</div>
+							</div>
+
+						</ng-container>
+
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="grid align-items-center mb-2 mt-4">
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">Diversity on Directors</span>
+			</div>
+		</div>
+	
+		<div class="grid mb-4">
+	
+			<div class="col-12 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h6>Age</h6>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+
+						<ng-container *ngIf="socialDiversityData?.age?.ageLessThan40 || socialDiversityData?.age?.agebetween40to60 || socialDiversityData?.age?.ageGreaterThen60 || socialDiversityData?.age?.ageNA; else noRecordTemplate">
+							
+							<div class="flex align-items-center flex-wrap">
+								<div class="col flex align-items-center justify-content-center">
+									<p-chart type="doughnut" [data]="socialDiversityCharts['ageDiversity']" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" height="220px" width="220px" [responsive]="true"></p-chart>
+								</div>
+								<div class="col">
+	
+									<div class="grid justify-content-end">
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-dark-3 );">{{ ( socialDiversityData?.age?.ageLessThan40 | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Less Than 40</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-dark-2 );">{{ ( socialDiversityData?.age?.agebetween40to60 | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Between 40 T0 60</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color );">{{ ( socialDiversityData?.age?.ageGreaterThen60 | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Greater Than 60</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-light-2 );">{{ ( socialDiversityData?.age?.ageNA | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Unknown</p>
+										</div>
+									</div>
+	
+								</div>
+							</div>
+
+						</ng-container>
+
+
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 lg:col-4">
+				<div class="card overview-box flex flex-column h-full">
+					<div class="card-header">
+						<h6>Gender</h6>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+
+						<ng-container *ngIf="socialDiversityData?.maleDirector || socialDiversityData?.femaleDirector || ( socialDiversityData.hasOwnProperty('unknownDirector') && socialDiversityData.unknownDirector ); else noRecordTemplate">
+
+							<div class="flex align-items-center flex-wrap">
+								<div class="col flex align-items-center justify-content-center">
+									<p-chart type="doughnut" [data]="socialDiversityCharts['genderDiversity']" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" height="220px" width="220px" [responsive]="true"></p-chart>
+								</div>
+								<div class="col">
+	
+									<div class="grid justify-content-end">
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-dark-2 );">{{ ( socialDiversityData?.maleDirector | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Male</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color );">{{ ( socialDiversityData?.femaleDirector | number : '1.0-0' ) || 0 }}</p>
+											<p class="text-sm c-light m-0">Female</p>
+										</div>
+										<div class="col-6 text-right mb-2">
+											<p class="text-6xl font-medium m-0" style="color: var( --sustain-social-color-light-2 );">{{ socialDiversityData.hasOwnProperty('unknownDirector') && socialDiversityData.unknownDirector ? ( socialDiversityData.unknownDirector | number: '1.0-0' ) : 0 }}</p>
+											<p class="text-sm c-light m-0">Unknown</p>
+										</div>
+									</div>
+	
+								</div>
+							</div>
+
+						</ng-container>
+
+						
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 lg:col-4">
+				<div class="card overview-box flex flex-column h-full">
+					<div class="card-header">
+						<h6>Ethnicity</h6>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+
+						<ng-container *ngIf="socialDiversityCharts['ethnicityDiversity']; else noRecordTemplate">
+							
+							<div class="flex align-items-center flex-wrap">
+								<div class="col flex align-items-center justify-content-center">
+									<p-chart type="doughnut" [data]="socialDiversityCharts['ethnicityDiversity']" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" height="220px" width="220px" [responsive]="true"></p-chart>
+								</div>
+								<div class="col">
+	
+									<div class="grid justify-content-end">
+	
+										<ng-container *ngFor="let ethnicity of socialDiversityCharts['ethnicityDiversity']['labels']; let i = index">
+											<div class="col-6 text-right mb-2">
+												<p class="text-6xl font-medium m-0" [ngStyle]="{ 'color': socialDiversityCharts['ethnicityDiversity']['datasets'][0]['backgroundColor'][ i ] }">{{ socialDiversityCharts['ethnicityDiversity']['datasets'][0]['data'][ i ] | number : '1.0-0' }}</p>
+												<p class="text-sm c-light m-0">{{ ethnicity == 'Nationalityunknown' ? 'Not Specified' : ethnicity }}</p>
+											</div>
+										</ng-container>
+	
+									</div>
+	
+								</div>
+							</div>
+							
+						</ng-container>
+						
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="grid mt-5">
+			<div class="col-12 md:col-8">
+				<div class="card h-full">
+					<div class="card-header">
+						<h5>About</h5>
+					</div>
+					<div class="card-body">
+						<ul class="listTextStyle wordSpacing">
+							<li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What is GRI ?</strong></li>
+							<div class="mb-2">
+								The Global Reporting Initiative (GRI) is an international not-for-profit organisation, with a network-based structure. To enable all companies and organisations to report their economic, environmental, social and governance performance, GRI produces free Sustainability Reporting Guidelines.
+							</div>
+							<li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What it matters for the investment and performance of the company ?</strong></li>
+							<div class="mb-2">
+								Through GRI reporting, an organization can understand and better manage its impacts on people and the planet. It can identify and reduce risks, seize new opportunities, and take action towards becoming a responsible, trusted organization in a more sustainable world. Sustainability reporting helps make organizations' decision-making processes more efficient and, in turn, enables them to reduce risk across their supply chain. This process reduces waste, yielding significant cost savings. 
+							</div>
+						</ul>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-4">
+				<div class="card h-full">
+					<div class="card-header">
+						<h5>PARAMETERS USED TO MEASURE THE PERFORMANCE</h5>
+					</div>
+					<div class="card-body">
+						<ul class="listTextStyle wordSpacing">
+							<li><span class="material-icons reviewIconStyling">reviews</span>Director’s presence in companies.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Group Structure of the company.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Person Of Significant Control.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Diversity in Board of Directors.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</ng-container>
+	
+	<ng-template #noRecordTemplate>
+		<div class="noRecords">
+			<p>No Records Found</p>
+		</div>
+	</ng-template>
+
+</div>

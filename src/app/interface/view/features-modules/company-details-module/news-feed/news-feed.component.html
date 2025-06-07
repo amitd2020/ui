@@ -1,0 +1,76 @@
+
+<div class="card newsFeedCardWrapper">
+	<div class="grid">
+		<ng-container *ngIf="newsDataOnly && newsDataOnly.length > 0; else noData">
+			<div class="col-12 md:col-8">
+				<h2>Headlines</h2>
+				<ul class="newsFeedTimeline" *ngIf="newsFeedData && newsFeedData.length > 0; else noData">
+					<ng-container *ngFor="let newsFeed of newsFeedData">
+						<li>
+							<div class="dateTimeContainer">{{ newsFeed?.time }}</div>
+							<div class="card onlyLinesAround newsFeedCard" [ngClass]="{ 'hasThumbnail': newsFeed.image_uri }">
+								<h3>
+									<a [href]="newsFeed?.link" target="_blank">{{ newsFeed?.title | titlecase }}</a>
+								</h3>
+								<p class="sourceAuthorName mt-2"><a class="c-light" [href]="newsFeed?.link" target="_blank"><em>{{ newsFeed?.source | titlecase }}</em></a></p>
+								<p>{{ newsFeed?.description }}</p>
+								<span class="newsFeedLink" *ngIf="newsFeed.link">
+									<a [href]="newsFeed?.link" target="_blank" class="c-green">Read More <i class="material-icons valign-m">navigate_next</i></a>
+								</span>
+								<div class="rightThumbnail" *ngIf="newsFeed.image_uri">
+									<img src="https://o.aolcdn.com/images/dims?resize=1200%2C630&crop=1200%2C630%2C0%2C0&quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2020-12%2F41f4e7b2-355a-11eb-b5ee-da1c52afa73b&client=amp-blogside-v2&signature=9b129d2ea86e36ee4a5e23c870b1e1de71407570" alt="">
+								</div>
+							</div>
+						</li>
+					</ng-container>
+				</ul>
+			</div>
+			<div class="col-12 md:col-4">
+				<h2>Sentiment Analysis</h2>
+				<div class="card onlyLinesAround text-center">
+					<div class="text-left">
+						<h4 class="mt-0">Positive Words</h4>
+					</div>
+					<ng-container *ngIf="positiveLink !== null ; else noSentimentAvailable">
+						<p-progressSpinner class="fluidFixedLoader" #positiveImageLoader></p-progressSpinner>
+						<img src="{{positiveLink}}" class="newsFeedCardWidth" (load)="onImageLoad(positiveImageLoader)">
+					</ng-container>
+				</div>
+				<div class="card onlyLinesAround text-center">
+					<div class="text-left">
+						<h4 class="mt-0">Negative Words</h4>
+					</div>
+					<ng-container *ngIf="negativeLink !== null ; else noSentimentAvailable">
+						<p-progressSpinner class="fluidFixedLoader" #negativeImageLoader></p-progressSpinner>
+						<img src="{{negativeLink}}" class="newsFeedCardWidth" (load)="onImageLoad(negativeImageLoader)">
+					</ng-container>
+				</div>
+				<div class="card onlyLinesAround text-center">
+					<div class="text-left">
+						<h4 class="mt-0">Features</h4>
+					</div>
+					<ng-container *ngIf="featuresLink !== null ; else noSentimentAvailable">
+						<p-progressSpinner class="fluidFixedLoader" #featuresImageLoader></p-progressSpinner>
+						<img src="{{featuresLink}}" class="newsFeedCardWidth" (load)="onImageLoad(featuresImageLoader)">
+					</ng-container>
+				</div>
+				<div class="card onlyLinesAround text-center">
+					<div class="text-left">
+						<h4 class="mt-0">Emotions Graph</h4>
+					</div>
+					<p-progressSpinner class="fluidFixedLoader" *ngIf="!chartBool"></p-progressSpinner>
+					<p-chart type="bar" [data]="emotionGraphData" [options]="emotionGraphOptions" *ngIf="chartBool && emotionGraphData"></p-chart>
+					<div *ngIf="showChartBlankMsg">
+						<h3 class="text-left c-light">No Sentiment Analysis.</h3>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<ng-template #noData>
+			<h3>No news feed.</h3>
+		</ng-template>
+		<ng-template #noSentimentAvailable>
+			<h3 class="text-left c-light">No Sentiment Analysis.</h3>
+		</ng-template>
+	</div>
+</div>

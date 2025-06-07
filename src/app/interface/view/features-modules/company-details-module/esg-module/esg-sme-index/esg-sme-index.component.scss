@@ -1,0 +1,118 @@
+.insightsViewContainer {
+    min-height: calc( 100vh - 117px );
+    padding: 20px;
+		
+    @media only screen and (max-width: 1024px) {
+        flex-direction: column;
+    }
+    
+    .insightsChartViewContainer {
+        flex: 1;
+		
+		@media only screen and (max-width: 1024px) {
+            padding-left: 0;
+		}
+		
+
+    }
+	
+	.insightsRegionalMap {
+		// @media (min-width: 1025px) {
+		// 	height: auto
+		// }
+		flex: 1;
+		height: 380px;
+		background-color: transparent;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+
+	.roundedColoredChipLabel {
+		font-size: 1.2em;
+		padding: 0.4em 1em;
+	}
+	
+	.insightsInputtext {
+		background: 0 0;
+	}
+
+	.insightsRoundedCorners {
+		max-width: 520px;
+	}
+
+	.insightsCheckboxText {
+		font-weight: 600;
+		color: #898989;
+	}
+
+}
+
+@media only screen and (max-width:992px) {
+
+	::ng-deep {
+		dg-lending-landscape {
+			.p-datatable {
+			
+				table {
+					display: table;
+				}
+			
+				.p-datatable-thead {
+					& > tr {
+						& > th {
+							display: table-cell;
+						}
+					}
+				}
+				.p-datatable-tbody {
+	
+					display: table-row-group;
+	
+					& > tr {
+	
+						display: table-row;
+	
+						& > td {
+							display: table-cell;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+p-dropdown {
+	::ng-deep {
+		.p-dropdown {
+
+			&,
+			&.p-focus,
+			&:not(.p-disabled).p-focus {
+
+				&.roundedCorners {
+					min-width: 0;
+				}
+
+			}
+
+		}
+	}
+}
+.svgViewBox{
+	border-radius: 12px;
+}
+
+::ng-deep{
+	.p-overlaypanel .p-overlaypanel-content{
+		padding-bottom: 0 !important;
+		padding: 8px ;
+	}
+}
+
+/* Below Css is for ESG INDEX page, While scrolling down into the table TABLE HEADER should be sticky DG-6222*/
+:host ::ng-deep .p-datatable .p-datatable-thead {
+	position: sticky;
+	top: 0px;
+}
+/* Above Css is for ESG INDEX page, While scrolling down into the table TABLE HEADER should be sticky DG-6222*/

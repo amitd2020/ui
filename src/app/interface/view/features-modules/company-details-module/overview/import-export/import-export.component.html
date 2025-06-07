@@ -1,0 +1,75 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="userDetails?.planId"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+	<!-- <ng-container *ngIf="isLoggedIn; else withouLogin"> -->
+	<div [ngClass]="{'text-center': !isLoggedIn, 'card': !isLoggedIn}" loginAccessModal>
+
+		<div class="grid">
+			<div class="col-12 md:col-6" *ngIf="companyExportData && companyData.hasExportData">
+				<div class="card widget-social">
+					<div class="flex justify-content-between align-items-center p-3">
+						<div class="social-icon">
+							<i class="ui-icon-import-export blue-color text-6xl"></i>
+						</div>
+						<div class="info flex flex-column">
+							<span class="value">{{ lastExportMonthYear }}</span>
+							<span class="subtext mt-2">Month Of Last Export</span>
+						</div>
+					</div>
+			
+					<div class="stats flex justify-content-between mt-3">
+						<div class="left flex flex-column">
+							<span class="title">Last 12 Months Exports</span>
+							<span class="value p-mb-2">{{ lastOneYearExports }} ({{ lastOneYearExports/12 | percent:'1.2-2' }})</span>
+						</div>
+						<div class="right flex flex-column">
+							<span class="title">Last 60 Months Exports</span>
+							<span class="value p-mb-2">{{ lastFiveYearExports }} ({{ lastFiveYearExports/60 | percent:'1.2-2' }})</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 md:col-6" *ngIf="companyImportData && companyData.hasImportData">
+				<div class="card widget-social">
+					<div class="flex justify-content-between align-items-center p-3">
+						<div class="social-icon">
+							<i class="ui-icon-import-export blue-color text-6xl"></i>
+						</div>
+						<div class="info flex flex-column">
+							<span class="value">{{ lastImportMonthYear }}</span>
+							<span class="subtext mt-2">Month Of Last Import</span>
+						</div>
+					</div>
+			
+					<div class="stats flex justify-content-between mt-3">
+						<div class="left flex flex-column ">
+							<span class="title">Last 12 Months Imports</span>
+							<span class="value p-mb-2">{{ lastOneYearImports }} ({{ lastOneYearImports/12 | percent:'1.2-2' }})</span>
+						</div>
+						<div class="right flex flex-column">
+							<span class="title">Last 60 Months Imports</span>
+							<span class="value p-mb-2">{{ lastFiveYearImports }} ({{ lastFiveYearImports/60 | percent:'1.2-2' }})</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div *ngIf="companyExportData && companyData.hasExportData" #target class="c-darkBlue font-medium x-big-data-font p-mb-2">Export Data</div>
+		<dg-user-list *ngIf="companyExportData && companyData.hasExportData" [listColumns]="companyImportExportColumns" [listDataValues]="companyExportData" [listPage]="true" [thisPage]="'exportPageOnly'"></dg-user-list>
+		
+		<div *ngIf="companyImportData && companyData.hasImportData" #target class="c-darkBlue font-medium x-big-data-font p-mb-2">Import Data</div>
+		<dg-user-list *ngIf="companyImportData && companyData.hasImportData" [listColumns]="companyImportExportColumns"  [listDataValues]="companyImportData" [listPage]="true" [thisPage]="'importExport'"></dg-user-list>
+	</div>
+	<!-- </ng-container> -->
+
+	<!-- <ng-template #withouLogin>
+		<p-card>
+			<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+		</p-card>
+	</ng-template> -->
+
+</ng-template>

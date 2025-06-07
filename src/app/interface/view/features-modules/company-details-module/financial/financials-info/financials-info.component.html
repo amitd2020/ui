@@ -1,0 +1,60 @@
+<div [ngClass]="{'card': !isLoggedIn }" featureAccess="Key Financials" optionalTemplate="true">
+	<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Key Financials' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData?.companyRegistrationNumber ) ); else showFinancialInfoTab"> -->
+
+		<div class="grid mb-2">
+			<ng-container *ngFor="let financialKey of financialCardDatasets.statutoryAccounts | keyvalue : returnZero">
+					<div class="col-12 md:col-2">
+						<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: financialKey.key, body: financialKey.value } }"></ng-container>
+					</div>
+			</ng-container>
+		</div>
+
+		<div *ngIf="finstatutoryChartData" class="grid align-items-stretch vertical-container hideBlockForMobileView">
+
+			<div class="responsiveCharts" [ngClass]="{'col-6': hasFinancailRatios,'fluidFixedLoader col-12' : (!hasFinancailRatios) }">
+				<p-card header="Statutory Accounts">
+					<p-chart type="line" [data]="finstatutoryChartData" [options]="chartOptions" height="350px" [responsive]="true"></p-chart>
+				</p-card>
+			</div>
+
+			<div class="col-6 responsiveCharts" *ngIf="hasFinancailRatios">
+				<p-card header="Ratios">
+					<p-chart type="line" [data]="finRatioChartData" [options]="chartOptions2" height="350px" [responsive]="true"></p-chart>
+				</p-card>
+			</div>
+
+		</div>
+
+		<ng-container *ngIf="companyData['hasFinances'] && companyData['statutoryAccounts']">
+			<dg-financial-table-data [showFinancialTableInput]="true" [requiredCompanyName]="companyData['businessName']" [financeStatutoryAccounts]="financeData" *ngIf="financeData"></dg-financial-table-data>
+		</ng-container>
+
+		<div class="card" *ngIf="!( companyData['hasFinances'] && companyData['statutoryAccounts'] )">
+			<div class="x-big-data-font c-light">No data available</div>
+		</div>
+
+		<div class="col-12">
+			<span>
+				<i class="ui-icon-info-outline p-mr-1"></i>This information is processed by third party, we do not take any responsibility for your financial decision based on information provided. 
+			</span>
+		</div>
+	<!-- </ng-container> -->
+</div>
+<!-- <ng-template #showFinancialInfoTab>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="p-text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+		</ng-template>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+	</p-card>
+</ng-template> -->
+
+<ng-template #financialCardDisplayTemplate let-cardData>
+	<!-- {{cardData | json}} -->
+	<dg-shared-financial-card [cardData]="cardData" thisPage="financialInfoTab"></dg-shared-financial-card>
+</ng-template>

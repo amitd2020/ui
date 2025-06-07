@@ -1,0 +1,318 @@
+$epcBlueColor: #1d70b8;
+
+::ng-deep {
+
+	.epcListBoxStyle {
+		&.p-listbox {
+			.p-listbox-list {
+
+				.p-listbox-item,
+				&.p-hightlight {
+					display: block;
+					background-color: lighten($epcBlueColor, 10%);
+					border: 1px solid #fff;
+					border-radius: 3px;
+					color: white;
+					padding: 0.3rem 0.75rem;
+
+					&:hover {
+						background-color: $epcBlueColor !important;
+						color: #fff !important;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+p-tag {
+	::ng-deep {
+		.p-tag {
+			font-size: 0.90rem;
+		}
+	}
+}
+
+$colorRatingA: #008054;
+$colorRatingB: #19b459;
+$colorRatingC: #8dce46;
+$colorRatingD: #ffd500;
+$colorRatingE: #fcaa65;
+$colorRatingF: #ef8023;
+$colorRatingG: #e9153b;
+
+// Pointer Block //
+.pointer {
+
+	display: flex;
+	justify-content: flex-end;
+
+	.triangleLeft {
+		width: 0;
+		height: 0;
+		border-top: 15px solid transparent;
+		border-bottom: 15px solid transparent;
+
+		&.triangleLeftA {
+			border-right: 25px solid $colorRatingA;
+		}
+
+		&.triangleLeftB {
+			border-right: 25px solid $colorRatingB;
+		}
+
+		&.triangleLeftC {
+			border-right: 25px solid $colorRatingC;
+		}
+
+		&.triangleLeftD {
+			border-right: 25px solid $colorRatingD;
+		}
+
+		&.triangleLeftE {
+			border-right: 25px solid $colorRatingE;
+		}
+
+		&.triangleLeftF {
+			border-right: 25px solid $colorRatingF;
+		}
+
+		&.triangleLeftG {
+			border-right: 25px solid $colorRatingG;
+		}
+
+	}
+
+	.squareBlock {
+		height: 30px;
+		width: 40px;
+		background-color: $colorRatingA;
+		text-align: center;
+
+		&.squareBlockA {
+			background-color: $colorRatingA;
+		}
+
+		&.squareBlockB {
+			background-color: $colorRatingB;
+		}
+
+		&.squareBlockC {
+			background-color: $colorRatingC;
+		}
+
+		&.squareBlockD {
+			background-color: $colorRatingD;
+		}
+
+		&.squareBlockE {
+			background-color: $colorRatingE;
+		}
+
+		&.squareBlockF {
+			background-color: $colorRatingF;
+		}
+
+		&.squareBlockG {
+			background-color: $colorRatingG;
+		}
+	}
+
+	.pointerValue {
+		color: #fff;
+		display: inline-block;
+		vertical-align: middle;
+		line-height: 30px;
+		font-size: 20px;
+	}
+}
+// Pointer Block
+
+.cardRatingStyle {
+	padding: 0;
+	border: 1px solid white;
+	width: 75px;
+}
+
+.stepBlockRatingBar {
+	padding: 0.5em;
+	color: #fff;
+	width: 120px;
+
+	.ratingRange {
+		color: #111;
+		font-size: 0.85em;
+	}
+
+	&.ratingAPlus {
+		background-color: $colorRatingA;
+		width: 100px;
+	}
+
+	&.ratingA {
+		background-color: $colorRatingA;
+		width: 120px;
+	}
+
+	&.ratingB {
+		background-color: $colorRatingB;
+		width: 140px;
+	}
+
+	&.ratingC {
+		background-color: $colorRatingC;
+		width: 160px;
+	}
+
+	&.ratingD {
+		background-color: $colorRatingD;
+		width: 180px;
+	}
+
+	&.ratingE {
+		background-color: $colorRatingE;
+		width: 200px;
+	}
+
+	&.ratingF {
+		background-color: $colorRatingF;
+		width: 220px;
+	}
+
+	&.ratingG {
+		background-color: $colorRatingG;
+		width: 240px;
+	}
+
+}
+
+//certificate detail block //
+.card {
+
+	&.infoWrapper {
+		box-shadow: none;
+	}
+
+	.epc-box {
+		color: #fff;
+		background: #1d70b8;
+		padding: 0;
+		overflow: hidden;
+		margin-bottom: 0.6rem;
+
+		.epc-address-rating-box {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 2px solid #fff;
+			padding: 17px 12px;
+
+			.epc-address-box {
+				padding: 0;
+			}
+
+			.epc-rating-box {
+				border: 2px solid #fff;
+				text-align: center;
+				padding: 20px;
+
+				.epc-rating {
+					padding-top: 0.4em;
+					padding-bottom: 0.2em;
+					font-size: 100px;
+				}
+			}
+		}
+
+		.epc-date-box {
+			border-right: 2px solid #fff;
+			text-align: justify;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.epc-number-box {
+			text-align: justify;
+			display: flex;
+			justify-content: space-between;
+			border-right: 2px solid #fff;
+		}
+	}
+
+	&.assetRatingBlockTable {
+		box-shadow: none;
+		border-top: none;
+		border: 1px solid black;
+		border-radius: 0;
+	}
+}
+
+.borderColor {
+	border: 1px solid black;
+	border-bottom: 0;
+}
+
+.float-r {
+	float: right;
+}
+
+.p-p-1px {
+	padding: 1px 0 0 0;
+}
+
+.limitTextHeight {
+	height: 30px;
+	overflow: hidden;
+}
+
+.widget-topsearchs {
+	.item {
+		padding: 1rem;
+		border-bottom: 1px solid #E4E4E4;
+
+		.value {
+			font-weight: 500;
+
+			&.type-green {
+				color: green;
+			}
+
+			&.type-yellow {
+				color: #EF6C00;
+			}
+
+			&.type-pink {
+				color: pink;
+			}
+		}
+
+		&:nth-child(even) {
+			background-color: #ECEFF1;
+		}
+
+		&:last-child {
+			border-bottom: 0 none;
+		}
+
+	}
+}
+
+p-dialog {
+	::ng-deep {
+		.p-dialog-mask {
+			.p-dialog {
+				.p-dialog-content {
+
+					i {
+						font-size: 1.8rem;
+					}
+
+					p {
+						margin: 0.5rem 0 0 0.5rem
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,198 @@
+.card {
+    box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    overflow: hidden;
+    padding: 0;
+
+    .card-header {
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+        padding: 0.8rem 1rem;
+        margin: 0;
+
+        h3 {
+            font-size: 1.1rem;
+            text-transform: capitalize;
+
+            .material-icons {
+                font-size: 1.75rem;
+                color: #1ab394;
+            }
+        }
+
+        .riskRatingLabel {
+            font-size: 1rem;
+            margin-bottom: 0;
+            padding: 0.1em 0.8em;
+            border-radius: 25px;
+
+            @media only screen and (max-width: 840px) {
+                font-size: 0.9rem;
+                margin-right: 0em;
+                padding: 0.2em 1.1em;
+            }
+
+            &.lightGreen {
+                background-color: #6DC470;
+                color: #fff;
+            }
+
+            &.cyan {
+                background-color: #59BA9B;
+                color: #fff;
+            }
+
+            &.yellow {
+                background-color: #FFC201;
+                color: #fff;
+            }
+
+            &.orange {
+                background-color: #E4790F;
+                color: #fff;
+            }
+
+            &.darkRed {
+                background-color: #D92727;
+                color: #fff;
+            }
+
+            &.light {
+                background-color: #9b9b9b;
+                color: #fff;
+            }
+        }
+    }
+
+    .card-body {
+        display: -webkit-box;
+        display: -ms-box;
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 40px);
+        padding: 0.8rem 1.2rem;
+
+        &>* {
+            flex: 1;
+
+            &:not([class*="p-align-"]) {
+                align-items: center;
+            }
+        }
+
+        p {
+            color: #616161;
+        }
+
+    }
+}
+
+.p-grid {
+
+    &+.p-grid {
+        margin-top: 0;
+    }
+
+    .card {
+        margin: 0;
+    }
+}
+
+.noRecords {
+    -webkit-pointer-events: none;
+    pointer-events: none;
+
+    p {
+        font-size: 1em !important;
+        font-weight: 300 !important;
+        color: #e2e2e2 !important;
+        margin-bottom: 7px;
+    }
+}
+
+.showNoRecords {
+    text-align: center;
+    padding: 3em;
+    -webkit-pointer-events: none;
+    pointer-events: none;
+
+    p {
+        font-size: 1.5em !important;
+        font-weight: 300 !important;
+        color: #e2e2e2 !important;
+    }
+}
+
+.esgBarChartLegends {
+    display: -webkit-box;
+    display: -ms-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .zScoreBelow0Legend,
+    .zScoreFrom1Legend,
+    .ZScoreGreaterThan3Legend {
+        padding: 0 1rem;
+
+        &>span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 15px;
+        }
+
+        .colorBlock {
+            width: 15px;
+            height: 15px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+            box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .label {
+            color: #a1a1a1;
+        }
+    }
+
+    .zScoreBelow0Legend {
+        .colorBlock {
+            background-color: #ff4500;
+        }
+    }
+
+    .zScoreFrom1Legend {
+        .colorBlock {
+            background-color: #808080;
+        }
+    }
+
+    .ZScoreGreaterThan3Legend {
+        .colorBlock {
+            background-color: #008000;
+        }
+    }
+}
+
+*.disabled {
+    opacity: 0.35;
+    background-image: none;
+    cursor: auto !important;
+    -webkit-pointer-events: none;
+    pointer-events: none;
+}
+
+.captureSnapshotActive {
+    background-color: var(--surface-d);
+    padding: 1rem;
+
+    ::ng-deep {
+        * {
+            box-shadow: none !important;
+        }
+
+        .p-button {
+            display: none !important;
+        }
+    }
+
+}

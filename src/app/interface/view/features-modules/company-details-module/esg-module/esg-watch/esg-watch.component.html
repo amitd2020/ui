@@ -1,0 +1,54 @@
+<p-messages [value]="msgs"></p-messages>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" styleClass="logoutConfirmationDialogStyling"></p-confirmDialog>
+
+<ng-container *ngIf="isSuperAdmin">
+	<div class="col">
+		<div class="col-12">
+			<div class="card">	
+
+				<form #esgWatchFormData="ngForm" (ngSubmit)="submitEsgWatchForm( esgWatchFormData )">
+
+					<h4 class="text-left mb-4">ESG Watch</h4>
+
+					<div class="grid p-fluid">
+
+						<div class="col-12">
+
+							<div class="grid">
+
+								<div class="col-12 md:col-3">
+									<span class="p-float-label">
+										<p-autoComplete appendTo="body" [(ngModel)]="companyNameNumberSearchKey" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany($event, undefined)" (completeMethod)="filteredCompanyName($event.query, undefined)" (onSelect)="searchCompany($event)" [size]="100" [minLength]="0" name="company_Name" #company_Name="ngModel" required></p-autoComplete>
+										<label>Company Name/Number</label>
+										<span class="help-block c-red" *ngIf="company_Name.invalid && fieldValidate">
+											Company Name is required
+										</span>
+										<span class="help-block c-red" *ngIf="companyNameNumberSearchKey && fieldValidate">
+											Invalid Company Name
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="grid">
+						
+						<div class="col-fixed">
+							<button pButton type="submit" class="p-button-rounded mr-2 mb-2" label="Save" [disabled]="esgWatchFormData.invalid"></button>
+						</div>
+						<div class="col-fixed">
+							<button pButton type="button" class="p-button-rounded p-button-danger mr-2 mb-2" label="Cancel" (click)="cancelEsgData()"></button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			
+			<p-progressBar mode="indeterminate" *ngIf="isDataLoading"></p-progressBar>
+
+			<dg-admin-record-list (deleteEsgWatchData)="deleteEsgWatchData($event)" (operatingTable)="getOperatingTable($event)" [listColumns]="esgWatchDataColumn" [listDataValues]="esgWatchData" [thisPage]="'esgWatchPage'" [searchTotalCount]="searchTotalCount" (updateTableAfterPagination)="updateTableAfterPagination($event)"></dg-admin-record-list>
+
+		</div>
+	</div>
+</ng-container>

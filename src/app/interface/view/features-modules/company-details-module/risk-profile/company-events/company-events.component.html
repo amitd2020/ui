@@ -1,0 +1,4 @@
+<ng-container *ngIf="companyEventsData">
+    <dg-user-list *ngIf="companyEventsData !== undefined" [listColumns]="companyEventsColumns" [listDataValues]="companyEventsData" [listPage]="true" [thisPage]="'companyEventsData'"></dg-user-list>
+</ng-container>
+

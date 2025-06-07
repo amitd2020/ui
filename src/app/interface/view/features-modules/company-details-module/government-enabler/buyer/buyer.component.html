@@ -1,0 +1,106 @@
+<div class="card p-0">
+    <div class="grid">
+        <div class="col-4">
+			<div class="flex justify-content-start align-items-center">
+				<div class="mx-4 text-lg text-teal-500 font-semibold">Year</div>
+				<div class="bg-gray-100 border-round-md px-4 py-1 w-5 shadow-1">
+					<p-dropdown 
+						[options]="this.yearDropdownHandler['option']" 
+						[(ngModel)]="this.yearDropdownHandler['selectionModel']"
+						class="p-fluid"
+						optionLabel="label"
+                        optionValue="year"
+						placeholder="Select Year"
+						(onChange)="clickOnDropdown()"
+						[showClear]="false">
+					</p-dropdown>
+				</div>
+			</div>
+        </div>
+        <div class="col-4">
+			<div class="flex justify-content-start align-items-center">
+				<div class="mx-4 text-lg text-teal-500 font-semibold">Month</div>
+				<div class="bg-gray-100 border-round-md px-4 py-3 w-8 shadow-1">
+                    <p-multiSelect 
+                        [options]="monthDropdownHandler['option']" 
+                        [(ngModel)]="monthDropdownHandler['selectionModel']"
+                        optionLabel="label" 
+                        optionValue="month"
+                        placeholder="Select Month"
+                        [maxSelectedLabels]="2"
+                        styleClass="w-full md:80"
+                        [showToggleAll]="false"
+                        (onChange)="clickOnDropdown()" />
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col bg-gray-200 border-round-xl m-1">
+        <div class="flex justify-content-between flex-wrap m-2 text-gray-600 text-xl font-semibold">
+            <div class="flex align-items-center justify-content-center">Total Spend</div>
+            <!-- <div class="flex align-items-center justify-content-center">...</div> -->
+        </div>
+        <div class="grid m-1 border-1 border-round-xl border-gray-400 bg-white">
+            <div class="col-9">
+                <div class="text-gray-600 m-1">£<span class="text-xl font-semibold"> {{ ( summaryDataRes?.[0]?.['count'] ) ? ( summaryDataRes?.[0]?.['count'] | number ) : '-' }}</span></div>
+               <small class="text-gray-600 m-1">vs last year</small>
+            </div>
+            <div class="col-3 flex justify-content-end align-items-end">
+                <div class="mr-3">                    
+
+                    <span *ngIf =" summaryDataRes?.[0]['change_type'] == 'positive'" class="p-tag p-tag-info px-3 py-2 bg-green-200 text-green-800"><i class="pi pi-arrow-up m-2"></i>{{ summaryDataRes?.[0]['percentage_change'] ? (summaryDataRes?.[0]['percentage_change'] | number: '1.0-0' ) : '-'}}%</span>
+
+                    <span *ngIf =" summaryDataRes?.[0]['change_type'] == 'negative'" class="p-tag p-tag-info px-3 py-2 bg-red-100 text-red-800"><i class="pi pi-arrow-down m-2"></i>{{ summaryDataRes?.[0]['percentage_change'] ? (summaryDataRes?.[0]['percentage_change'] | number: '1.0-0' ) : '-'}}%</span>
+
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="col bg-gray-200 border-round-xl m-1">
+        <div class="flex justify-content-between flex-wrap m-2 text-gray-600 text-xl font-semibold">
+            <div class="flex align-items-center justify-content-center">Top Expense Area</div>
+            <!-- <div class="flex align-items-center justify-content-center">...</div> -->
+        </div>
+        <div class="m-1 border-1 border-round-xl border-gray-400 bg-white">
+            <div class="text-gray-600 m-2">{{ summaryDataRes?.[1]?.['topExpenseArea'] ? ( summaryDataRes?.[1]?.['topExpenseArea'] | titlecase ) : '-' }}</div>
+            <div class="flex justify-content-between m-1 border-1 border-round-xl border-green-300 bg-green-200	text-cyan-800">
+                <div class="flex align-items-center justify-content-center p-2">Expense</div>
+                <div class="flex align-items-center justify-content-center p-2"><small>£</small><span class="font-semibold text-xl ml-1">{{ summaryDataRes?.[1]?.['count'] ? ( summaryDataRes?.[1]?.['count'] | number ) : '-' }}</span></div>
+            </div>            
+        </div>        
+    </div>
+    <div class="col bg-gray-200 border-round-xl m-1">
+        <div class="flex justify-content-between flex-wrap m-2 text-gray-600 text-xl font-semibold">
+            <div class="flex align-items-center justify-content-center">Most Frequent Expense Type</div>
+            <!-- <div class="flex align-items-center justify-content-center">...</div> -->
+        </div>
+        <div class="grid m-0 h-5rem border-1 border-round-xl border-gray-400 bg-white">
+            <div class="col-9 flex align-items-center">
+                <div class="text-gray-600 m-1">{{ summaryDataRes?.[2]?.['frequentExpenseType'] ? ( summaryDataRes?.[2]?.['frequentExpenseType'] | titlecase ) : '-' }}</div>
+            </div>
+            <div class="col-3 flex justify-content-end align-items-end">
+                <div class="">                    
+                    <span class="p-tag p-tag-info px-4 py-2 bg-green-100 text-green-800">{{ summaryDataRes?.[2]?.['totalPercentage'] ? ( summaryDataRes?.[2]?.['totalPercentage'] | number : '1.0-0' ) : '-' }} %</span>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+<div class="card">
+	<dg-shared-graph [chartOptions]="optionForLineGraph"></dg-shared-graph>
+</div>
+
+<ng-container>
+    <dg-admin-record-list [listColumns]="paymentsColumn" [listDataValues]="paymentsData" [searchTotalCount]="totalSearchCount" [thisPage]="'payments'" (updateTableAfterPagination)="updateTableAfterPagination( $event )"></dg-admin-record-list>
+</ng-container>
+
+<!-- <div class="card">
+	<dg-shared-graph [chartOptions]="optionForLineGraph"></dg-shared-graph>
+</div>
+</div>
+<div> Table card </div> -->
+

@@ -1,0 +1,11 @@
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Charges' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData.companyRegistrationNumber ) ); else showChargesInfoTab"> -->
+<span featureAccess="Charges" optionalTemplate="true">
+    <dg-user-list *ngIf="companyChargesData" [listColumns]="chargesDataColumn" [listDataValues]="companyChargesData" [listPage]="true" [thisPage]="'charges'"></dg-user-list>
+</span>
+<!-- </ng-container> -->
+<!-- <ng-template #showChargesInfoTab>
+    <p-card>
+        <dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+    </p-card>
+</ng-template> -->

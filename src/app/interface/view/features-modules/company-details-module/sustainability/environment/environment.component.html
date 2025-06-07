@@ -1,0 +1,267 @@
+<div class="sustainEnvironmentContainer">
+    
+	<p-messages [value]="msgs"></p-messages>
+
+	<div class="flex align-items-center justify-content-between mb-3">
+		<div class="col-fixed py-0">
+			<button pButton label="Back" icon="ui-icon-arrow-back" iconPos="left" class="p-button-sm" (click)="goBack()"></button>
+		</div>
+		<div class="col-fixed py-0">
+			<button pButton label="Add To Watch" icon="pi pi-eye" class="p-button-sm mr-4" (click)="addToEsgWatchTable()" *ngIf="sustainEnvironmentalData && !sustainEnvironmentalData.inEsgWatch"></button>
+			<button pButton label="Remove From Watch" icon="pi pi-eye-slash" class="p-button-sm mr-4" (click)="removeFromEsgWatchTable()" *ngIf="sustainEnvironmentalData && sustainEnvironmentalData.inEsgWatch"></button>
+			<button pButton label="Social" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainSocialComponent )"></button>
+			<button pButton label="Governance" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainGovernanceComponent )"></button>
+			<button pButton label="Finance" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainFinanceComponent )"></button>
+		</div>
+	</div>
+	
+	<div class="grid mb-3">
+		<div class="col-12 md:col-6 lg:col-5">
+			<div class="card flex flex-column h-full">
+				<div class="card-header">
+					<h5>Environment State</h5>
+				</div>
+				<div class="card-body flex flex-column col justify-content-center">
+	
+					<div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('environmentGaugeProperties')">
+						<p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.environmentGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="320"></p-chart>
+	
+						<div class="gaugeLegends">
+							<div class="gaugeAvrg">
+								<span class="colorBlock"></span>
+								<span class="label">Average</span>
+							</div>
+							<div class="gaugeGood">
+								<span class="colorBlock"></span>
+								<span class="label">Good</span>
+							</div>
+							<div class="gaugeExcell">
+								<span class="colorBlock"></span>
+								<span class="label">Excellent</span>
+							</div>
+						</div>
+	
+					</div>
+				</div>
+				<!-- <div class="card-footer hasDivider">
+	
+					<div class="grid">
+	
+						<div class="col-6 p-as-end">
+							<h2 class="mb-1">{{ 50.69 | number: '1.0-0' }}%</h2>
+							<div class="c-light">Previous</div>
+						</div>
+	
+						<div class="col-6 p-as-end text-right">
+							<h2 class="c-green mb-1"><i class="material-icons">north</i> {{ 45 | number: '1.0-0' }}%</h2>
+							<div class="c-light">Difference</div>
+						</div>
+						
+					</div>
+	
+				</div> -->
+			</div>
+		</div>
+	
+		<div class="col-12 md:col-6 lg:col-7">
+			<div class="card h-full">
+				<div class="card-header">
+	
+					<h5>Yearly Environment State</h5>
+					
+					<div class="esgBarChartLegends">
+						<div class="environmentLegend">
+							<span class="colorBlock"></span>
+							<span class="label">Environment</span>
+						</div>
+					</div>
+	
+				</div>
+				<div class="card-body">
+					<div class="esgBarChartContainer">
+						<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="esgYearWiseChartData" [responsive]="true" [plugins]="ChartDataLabelsPlugin"></p-chart>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="mb-3">
+		<p-accordion>
+	
+			<ng-container *ngIf="environmentComplianceScoreData?.length">
+				<p-accordionTab header="Environment Compliance Score">
+					<div class="grid align-items-center mt-2">
+						<div class="col-fixed">
+							<span class="x-big-data-font c-darkBlue">Environment Compliance Score</span>
+							<i class="pi pi-info-circle c-darkBlue ml-2" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)" style="font-size:18px"></i>
+							<p-overlayPanel appendTo="body" #op2 styleClass="complianceBandsoverlay">
+								<img class="complianceBandsOnHover" src="assets/layout/images/compliance_bands.svg" />
+							</p-overlayPanel>
+						</div>
+					</div>
+					<dg-user-list [listColumns]="environmentComplianceScoreColumns" [listDataValues]="environmentComplianceScoreData" [listPage]="true" [thisPage]="'environmentComplianceScoreTable'" [showFilterSearch]="false" [serverSidePaginator]="true"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+		
+			<ng-container *ngIf="enforcementActionData?.length">
+				<p-accordionTab header="Enforcement Action">
+					<dg-user-list [listColumns]="enforcementActionColumns" [listDataValues]="enforcementActionData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="wasteOperationsData?.length">
+				<p-accordionTab header="Waste Operations">
+					<dg-user-list [listColumns]="wasteOperationsColumns" [listDataValues]="wasteOperationsData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="waterDischargesData?.length">
+				<p-accordionTab header="Water Discharges">
+					<dg-user-list [listColumns]="waterDischargesColumns" [listDataValues]="waterDischargesData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="industrialInstallationData?.length">
+				<p-accordionTab header="Industrial Installation">
+					<dg-user-list [listColumns]="industrialInstallationColumns" [listDataValues]="industrialInstallationData"
+						[listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="wasteExemptionsData?.length">
+				<p-accordionTab header="Waste Exemptions">
+					<dg-user-list [listColumns]="wasteExemptionsColumns" [listDataValues]="wasteExemptionsData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="endOfLifeVehiclesData?.length">
+				<p-accordionTab header="End of Life Vehicles">
+					<dg-user-list [listColumns]="endOfLifeVehiclesColumns" [listDataValues]="endOfLifeVehiclesData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="scrapMetalDealersData?.length">
+				<p-accordionTab header="Scrap Metal Dealers">
+					<dg-user-list [listColumns]="scrapMetalDealersColumns" [listDataValues]="scrapMetalDealersData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="floodRiskExemptionsData?.length">
+				<p-accordionTab header="Flood Risk Exemptions">
+					<dg-user-list [listColumns]="floodRiskExemptionsColumns" [listDataValues]="floodRiskExemptionsData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="radioactiveSubstanceData?.length">
+				<p-accordionTab header="Radioactive Substance">
+					<dg-user-list [listColumns]="radioactiveSubstanceColumns" [listDataValues]="radioactiveSubstanceData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+			
+			<ng-container *ngIf="wasteCarriersBrokersData?.length">
+				<p-accordionTab header="Waste Carriers Brokers">
+					<dg-user-list [listColumns]="wasteCarriersBrokersColumns" [listDataValues]="wasteCarriersBrokersData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+				</p-accordionTab>
+			</ng-container>
+		
+		</p-accordion>
+	</div>
+
+	<ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] )">
+
+		<div class="grid align-items-center mt-2">
+			<div class="col-fixed">
+				<span class="x-big-data-font c-darkBlue">Carbon Emission</span>
+			</div>
+		</div>
+	
+		<div class="grid mb-2" *ngIf="currentCarbonData && previousCarbonData">
+	
+			<ng-container *ngFor="let currentCalculatedValue of currentCalculatedCarbonValue">
+			
+				<div class="col-12 md:col-2">
+	
+					<div class="card h-full otherEmissionValueDetails">
+						<div class="card-header">
+							<h3>{{ currentCalculatedValue.label }}
+								<ng-container *ngIf="currentCalculatedValue.method">
+									({{ currentCalculatedValue.method }})
+								</ng-container>
+							</h3>
+						</div>
+						<div class="card-body">
+							
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6">
+									<span class="largeIcon"><i class="material-icons">{{ currentCalculatedValue.icon }}</i></span>
+								</div>
+								<div class="col-12 md:col-6 text-right">
+		
+									<div class="flex align-items-center justify-content-end">
+										<div class="col-fixed p-p-0">
+											<h2>{{ currentCalculatedValue.value ? ( currentCalculatedValue.value  | number: '1.2-2' ) : 0 }}</h2>
+											<p><small><small>kg CO<sub>2</sub>e</small></small></p>
+										</div>
+									</div>
+		
+								</div>
+	
+							</div>
+		
+						</div>
+					</div>
+		
+				</div>
+			
+			</ng-container>
+	
+		</div>
+
+	</ng-container>
+	
+	<div class="grid mb-2">
+	
+		<div class="col-12 md:col-8">
+			<div class="card h-full">
+				<div class="card-header">
+					<h5>About</h5>
+				</div>
+				<div class="card-body">
+					<ul class="listTextStyle wordSpacing">
+						<li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What are Environment disclosures and TCFD ?</strong></li>
+						<div class="mb-2">
+							Financial markets need clear, comprehensive, high-quality information on the impacts of climate change. The Financial Stability Board created the Task Force on Climate-related Financial Disclosures (TCFD) to provide information to investors about what companies are doing to mitigate the risks of climate change, as well as be transparent about the way in which they are governed.
+						</div>
+						<li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What it matters for the investment and performance of the company ?</strong></li>
+						<div>
+							This includes the report of the organization related to the risks and opportunities presented by rising temperatures, climate-related policy, and emerging technologies in a clear, balanced, and understandable form. This disclosure presented consistently over time to enable users to understand the development and/or evolution of the impact of climate-related issues on the organization’s business. 
+						</div>
+					</ul>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col-12 md:col-4">
+			<div class="card h-full">
+				<div class="card-header">
+					<h5>PARAMETERS USED TO MEASURE THE PERFORMANCE</h5>
+				</div>
+				<div class="card-body">
+					<ul class="listTextStyle wordSpacing">
+						<li><span class="material-icons reviewIconStyling">reviews</span>Industry to which the company belongs to in the country.</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Exposure to Radioactive substance.</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Environment Compliance Score.</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Handling Scrap metals.</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Handling Wastes in Operations and recycling.</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Location of the company.</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Handling Flood Risks</li>
+						<li><span class="material-icons reviewIconStyling">reviews</span>Industrial Installations</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

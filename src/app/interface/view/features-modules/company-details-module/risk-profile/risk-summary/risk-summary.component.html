@@ -1,0 +1,538 @@
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission('Risk Summary') || userAuthService.hasRolePermission( ['Super Admin'] ); else showUpgradePlan"> -->
+	<div featureAccess="Risk Summary" optionalTemplate="true">
+		<div #companyRiskAnalysisContainerId class="companyRiskAnalysisContainer" *ngIf="companyRiskAssessmentAnalysisData">
+
+			<div class="flex justify-content-end align-items-center mb-1">
+				<button pButton type="button" label="Take Snapshot" icon="pi pi-image" class="p-button-rounded p-button-sm ml-3" title="Take Snapshot" (click)="takeSnapshot(companyRiskAnalysisContainerId)"></button>
+			</div>
+
+			<div class="grid">
+			
+				<div class="col-12 lg:col-6">
+		
+					<div class="card h-full">
+
+
+						<div class="card-header">
+							<h3>Risk Assessment</h3>
+							<span class="riskRatingLabel" [ngClass]="{ 'lightGreen' : companyData?.internationalScoreDescription == 'very low risk', 'cyan' : companyData?.internationalScoreDescription == 'low risk', 'yellow' : companyData?.internationalScoreDescription == 'moderate risk', 'orange' : companyData?.internationalScoreDescription == 'high risk', 'darkRed': companyData?.internationalScoreDescription == 'not scored' }">
+								{{ companyData?.internationalScoreDescription == 'not scored'? 'Not scored /Very High Risk': companyData?.internationalScoreDescription | titlecase }}
+							</span>
+						</div>
+						<div class="card-body">
+							<div class="grid">
+								<div class="col-12">
+									<p-chart #riskGaugeChart *ngIf="riskGaugeChartDataValues; else showNoRecordTemplate" type="doughnut" [options]="gaugeChartOptionsProps" [data]="riskGaugeChartDataValues" [plugins]="gaugeChartPluginProps" width="210"></p-chart>
+								</div>
+							</div>
+						</div>
+					</div>
+		
+				</div>
+		
+				<div class="col-12 lg:col-6">
+		
+					<div class="grid">
+		
+						<div class="col-12 lg:col-6">
+		
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>Company Age & Accounts</h3>
+								</div>
+								<div class="card-body">
+									
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-5" *ngIf="companyRiskAssessmentAnalysisData?.companyAge; else noRecordTemplate">
+											<p class="text-2xl m-0">{{ companyRiskAssessmentAnalysisData?.companyAge }}</p>
+											<p class="text-sm m-0">Years Old</p>
+										</div>
+										<div class="col-12 md:col-7 md:text-right" *ngIf="companyRiskAssessmentAnalysisData?.accountsDueDate; else noRecordTemplate">
+											<p class="text-xl m-0 {{ calculateAccountOverduePeriod( companyRiskAssessmentAnalysisData?.accountsDueDate ) ? 'c-red' : 'c-green' }}" *ngIf="companyRiskAssessmentAnalysisData?.accountsDueDate && calculateAccountOverduePeriod( companyRiskAssessmentAnalysisData?.accountsDueDate )">{{ commonService.changeToDate( companyData?.accountsDueDate ) | date: 'dd-MM-yyyy' }} <span class="text-sm">( {{ calculateDays( companyRiskAssessmentAnalysisData?.accountsDueDate ) | number: '1.0-0' }} days )</span></p>
+											<p class="text-xl m-0 {{ calculateAccountOverduePeriod( companyRiskAssessmentAnalysisData?.accountsDueDate ) ? 'c-red' : 'c-green' }}" *ngIf="companyRiskAssessmentAnalysisData?.accountsDueDate">{{ calculateAccountOverduePeriod( companyRiskAssessmentAnalysisData?.accountsDueDate ) ? 'Accounts Overdue' : 'No Overdues' }}</p>
+											<p  class="text-xl m-0">{{ companyRiskAssessmentAnalysisData?.accountsMadeUpDate }}
+												<span  pTooltip="Last Account Made Up" class="pi pi-info-circle"></span>
+											</p>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 lg:col-6">
+		
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>Charges</h3>
+									<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.chargesDetails?.outstandingCount && !companyRiskAssessmentAnalysisData?.chargesDetails?.fullySatisfiedCount }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewCharges' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">
+									
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6">
+											<p *ngIf="companyRiskAssessmentAnalysisData?.chargesDetails?.outstandingCount; else noRecordTemplate" class="text-2xl m-0 c-red">{{ companyRiskAssessmentAnalysisData?.chargesDetails?.outstandingCount | number }}</p>
+											<p class="text-sm m-0">Outstanding</p>
+										</div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p *ngIf="companyRiskAssessmentAnalysisData?.chargesDetails?.fullySatisfiedCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.chargesDetails?.fullySatisfiedCount | number }}</p>
+											<p class="text-sm m-0">Fully Satisfied</p>
+										</div>
+									</div>
+		
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 lg:col-6">
+		
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>County Court Judgements</h3>
+									<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.ccjDetails?.newJudgmentAmountCount && !companyRiskAssessmentAnalysisData?.ccjDetails?.satisfiedAmountCount }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewCcj' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6">
+											<p class="text-2xl m-0 c-red" *ngIf="companyRiskAssessmentAnalysisData?.ccjDetails?.newJudgmentAmountCount; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.ccjDetails?.newJudgmentAmountCount | numberSuffix: '2' : selectedGlobalCurrency }}</p>
+											<p class="m-0"><strong class="c-red" *ngIf="companyRiskAssessmentAnalysisData?.ccjDetails?.newJudgmentCount">{{ companyRiskAssessmentAnalysisData?.ccjDetails?.newJudgmentCount | number }}</strong><small> New Judgements</small></p>
+										</div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p *ngIf="companyRiskAssessmentAnalysisData?.ccjDetails?.satisfiedAmountCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.ccjDetails?.satisfiedAmountCount | numberSuffix: '2' : selectedGlobalCurrency }}</p>
+											<p class="m-0"><strong class="c-green" *ngIf="companyRiskAssessmentAnalysisData?.ccjDetails?.satisfiedCount">{{ companyRiskAssessmentAnalysisData?.ccjDetails?.satisfiedCount | number }}</strong><small> Satisfied</small></p>
+										</div>
+									</div>
+		
+								</div>
+							</div>
+		
+						</div>
+		
+						<div class="col-12 lg:col-6">
+		
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>Write-offs</h3>
+									<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.writeOffs[0]?.totalAmount && !companyRiskAssessmentAnalysisData?.writeOffs[0]?.totalCount }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewWrtieOffs' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">
+									
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6"></div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p class="text-2xl m-0 c-red" *ngIf="companyRiskAssessmentAnalysisData?.writeOffs[0]?.totalAmount; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.writeOffs[0]?.totalAmount | numberSuffix: '2' : selectedGlobalCurrency }}</p>
+											<p class="m-0"><strong class="c-red" *ngIf="companyRiskAssessmentAnalysisData?.writeOffs[0]?.totalCount">{{ companyRiskAssessmentAnalysisData?.writeOffs[0]?.totalCount }}</strong><small> Companies</small></p>
+										</div>
+									</div>
+		
+								</div>
+							</div>
+		
+						</div>
+					</div>
+		
+				</div>
+		
+				<ng-container *ngFor="let financialKey of financialCardDatasets.financials | keyvalue : returnZero">
+		
+					<div class="col-12 lg:col-3">
+						<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: financialKey.key, body: financialKey.value } }"></ng-container>
+					</div>
+		
+				</ng-container>
+			</div>
+
+			<div class="grid">
+				<ng-container *ngFor="let additionalRations of financialCardDatasets.additionalCalculatedRatios | keyvalue : returnZero">
+		
+					<div class="col-12 lg:col-3"  [ngClass]="{ 'mt-5': ![ 'turnoverByNumberOfEmployees' ].includes( additionalRations.key ) }">
+						<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: additionalRations.key, body: additionalRations.value } }"></ng-container>
+					</div>
+		
+				</ng-container>
+			
+			</div>
+		
+			<div class="grid mt-6">
+		
+				<div class="col-12 lg:col-3">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Company Commentary</h3>
+							<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.companyCommentary.commentaryImpactNegative && !companyRiskAssessmentAnalysisData?.companyCommentary?.commentaryImpactPositive }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewCommentary' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6">
+									<p *ngIf="companyRiskAssessmentAnalysisData?.companyCommentary.commentaryImpactNegative ; else noRecordTemplate" class="text-2xl m-0 c-red">{{ companyRiskAssessmentAnalysisData?.companyCommentary?.commentaryImpactNegative | number }}</p>
+									<p class="text-sm m-0">Negative</p>
+								</div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p *ngIf="companyRiskAssessmentAnalysisData?.companyCommentary?.commentaryImpactPositive; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.companyCommentary?.commentaryImpactPositive | number}}</p>
+									<p class="text-sm m-0">Positive</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+			</div>
+		
+			<div class="grid">
+		
+				<div class="col-12 lg:col-6">
+		
+					<div class="grid align-items-center mb-2 mt-2">
+						<div class="col-fixed">
+							<span class="x-big-data-font c-darkBlue">International Trade</span>
+						</div>
+					</div>
+				
+					<div class="grid">
+				
+						<div class="col-12 lg:col-6">
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>Imports</h3>
+									<span [ngClass]="{ 'disabled':  ( !userAuthService.hasAddOnPermission('internationalTradeFilter') ) || (!companyRiskAssessmentAnalysisData?.importExportData?.lastFiveYearImports && !companyRiskAssessmentAnalysisData?.importExportData?.lastOneYearImports) }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewImportExport' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">		
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6">
+											<p class="text-2xl m-0" *ngIf="companyRiskAssessmentAnalysisData?.importExportData?.lastFiveYearImports; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.importExportData?.lastFiveYearImports | number }}</p>
+											<p class="m-0"><small>Last<strong> 60 </strong>Months</small></p>
+										</div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p class="text-2xl m-0" *ngIf="companyRiskAssessmentAnalysisData?.importExportData?.lastOneYearImports; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.importExportData?.lastOneYearImports | number }}</p>
+											<p class="m-0"><small>Last<strong> 12 </strong>Months</small></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="col-12 lg:col-6">
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>Exports</h3>
+									<span [ngClass]="{ 'disabled': ( !userAuthService.hasAddOnPermission('internationalTradeFilter') ) || (!companyRiskAssessmentAnalysisData?.importExportData?.lastFiveYearExports && !companyRiskAssessmentAnalysisData?.importExportData?.lastOneYearExports) }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewImportExport' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">		
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6">
+											<p class="text-2xl m-0" *ngIf="companyRiskAssessmentAnalysisData?.importExportData?.lastFiveYearExports; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.importExportData?.lastFiveYearExports | number }}</p>
+											<p class="m-0"><small>Last<strong> 60 </strong>Months</small></p>
+										</div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p class="text-2xl m-0" *ngIf="companyRiskAssessmentAnalysisData?.importExportData?.lastOneYearExports; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.importExportData?.lastOneYearExports | number }}</p>
+											<p class="m-0"><small>Last<strong> 12 </strong>Months</small></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+					</div>
+		
+				</div>
+		
+				<div class="col-12 lg:col-6">
+		
+					<div class="grid align-items-center mb-2 mt-2">
+						<div class="col-fixed">
+							<span class="x-big-data-font c-darkBlue">Govt. Procurements</span>
+						</div>
+					</div>
+		
+					<div class="grid">
+		
+						<div class="col-12 lg:col-6">
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>As Supplier</h3>
+									<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.supplierDataCount?.awardValueCount && !companyRiskAssessmentAnalysisData?.supplierDataCount?.contractWonCount }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewGovernmentEnablerSupplier' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">		
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6"></div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p class="text-2xl m-0 c-green" *ngIf="companyRiskAssessmentAnalysisData?.supplierDataCount?.awardValueCount; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.supplierDataCount?.awardValueCount | numberSuffix: '2' : selectedGlobalCurrency }}</p>
+											<p class="m-0"><strong *ngIf="companyRiskAssessmentAnalysisData?.supplierDataCount?.contractWonCount" class="c-green">{{ companyRiskAssessmentAnalysisData?.supplierDataCount?.contractWonCount | number }}</strong><small> Contracts Awarded</small></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="col-12 lg:col-6">
+							<div class="card h-full">
+								<div class="card-header">
+									<h3>As Buyer</h3>
+									<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.buyerDataCount?.awardValueCount && !companyRiskAssessmentAnalysisData?.buyerDataCount?.awardedCount }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( 'viewGovernmentEnablerBuyer' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">		
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6"></div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p class="text-2xl m-0 c-green" *ngIf="companyRiskAssessmentAnalysisData?.buyerDataCount?.awardValueCount; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.buyerDataCount?.awardValueCount | numberSuffix: '2' : selectedGlobalCurrency }}</p>
+											<p class="m-0"><strong *ngIf="companyRiskAssessmentAnalysisData?.buyerDataCount?.awardedCount" class="c-green">{{ companyRiskAssessmentAnalysisData?.buyerDataCount?.awardedCount | number }}</strong><small> Contracts Awarded</small></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					</div>
+		
+				</div>
+		
+			</div>
+
+			<div class="grid align-items-center mb-2 mt-2">
+				<div class="col-fixed">
+					<span class="x-big-data-font c-darkBlue">Assets</span>
+				</div>
+			</div>
+
+			<div class="grid">
+		
+				<div class="col-12 lg:col-3">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Land Purchased</h3>
+							<!-- If user dont have  propertyIntelligence Addon then Arrow Redirection icon will be disabled. [DG-6902] -->
+							<span [ngClass]="{ 'disabled': ( !userAuthService.hasAddOnPermission('propertyIntelligence') ) ||(!companyRiskAssessmentAnalysisData?.landPurchaseFreeholdCount && !companyRiskAssessmentAnalysisData?.landPurchaseLeaseholdCount) }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewCorporateLand' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6">
+									<p *ngIf="companyRiskAssessmentAnalysisData?.landPurchaseFreeholdCount ; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.landPurchaseFreeholdCount | number }}</p>
+									<p class="text-sm m-0">Freehold</p>
+								</div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p *ngIf="companyRiskAssessmentAnalysisData?.landPurchaseLeaseholdCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.landPurchaseLeaseholdCount | number }}</p>
+									<p class="text-sm m-0">Leasehold</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-12 lg:col-3">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Land Sold</h3>
+							<!-- If user dont have  propertyIntelligence Addon then Arrow Redirection icon will be disabled. [DG-6902] -->
+							<span [ngClass]="{ 'disabled': !userAuthService.hasAddOnPermission('propertyIntelligence') ||(!companyRiskAssessmentAnalysisData?.landSaleFreeholdCount && !companyRiskAssessmentAnalysisData?.landSaleLeaseholdCount) }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewCorporateLand' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6">
+									<p *ngIf="companyRiskAssessmentAnalysisData?.landSaleFreeholdCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.landSaleFreeholdCount | number }}</p>
+									<p class="text-sm m-0">Freehold</p>
+								</div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p *ngIf="companyRiskAssessmentAnalysisData?.landSaleLeaseholdCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companyRiskAssessmentAnalysisData?.landSaleLeaseholdCount | number }}</p>
+									<p class="text-sm m-0">Leasehold</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+				<div class="col-12 lg:col-3">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Grants Offered</h3>
+							<!-- If user dont have  propertyIntelligence Addon then Arrow Redirection icon will be disabled. [DG-6902] -->
+							<span [ngClass]="{ 'disabled': (!userAuthService.hasAddOnPermission('propertyIntelligence') ||  !companyRiskAssessmentAnalysisData?.grantOffered[0] ) }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewInnovateGrant' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">		
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6"></div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p class="text-2xl m-0 c-green" *ngIf="companyRiskAssessmentAnalysisData?.grantOffered[0]; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.grantOffered[0] | numberSuffix: '2' : selectedGlobalCurrency }}</p>
+									<p class="m-0"><small>Final Claimed</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+			</div>
+		
+			<div class="grid align-items-center mb-2 mt-2">
+				<div class="col-fixed">
+					<span class="x-big-data-font c-darkBlue">Management</span>
+				</div>
+			</div>
+		
+			<div class="grid">
+		
+				<div class="col-12 md:col-3 lg:col-2">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Directors's Change</h3>
+							<span [ngClass]="{ 'disabled': companyRiskAssessmentAnalysisData?.directors_Details?.Changed_Directors_in_3_months == '' }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewDirectors' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">		
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6"></div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p class="text-2xl m-0 c-green" *ngIf="companyRiskAssessmentAnalysisData?.directors_Details?.Changed_Directors_in_3_months !== ''; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.directors_Details?.Changed_Directors_in_3_months.length | number }}</p>
+									<p class="m-0"><small>in<strong> 3 </strong>Months</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+				<div class="col-12 md:col-3 lg:col-2">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Shareholders</h3>
+							<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.totalShareHolder }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewShareholders' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">		
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6"></div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p class="text-2xl m-0 c-green" *ngIf="companyRiskAssessmentAnalysisData?.totalShareHolder; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.totalShareHolder | number }}</p>
+									<p class="m-0"><small>Total</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+				<div class="col-12 md:col-3 lg:col-2">
+					<div class="card h-full">
+						<div class="card-header">
+							<h3>Disqualified Directors</h3>
+							<span [ngClass]="{ 'disabled': !companyRiskAssessmentAnalysisData?.disqualifiedDirectorsCount }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( 'viewDirectors' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</div>
+						<div class="card-body">		
+							<div class="grid align-items-center">
+								<div class="col-12 md:col-6"></div>
+								<div class="col-12 md:col-6 md:text-right">
+									<p class="text-2xl m-0 c-red" *ngIf="companyRiskAssessmentAnalysisData?.disqualifiedDirectorsCount; else noRecordTemplate">{{ companyRiskAssessmentAnalysisData?.disqualifiedDirectorsCount | number }}</p>
+									<p class="m-0"><small>Total</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+				<div class="col-12 lg:col-3">
+		
+					<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: 'Directors Remuneration', body: financialCardDatasets.structural.directorsRemunerationYearWiseArray } }"></ng-container>
+			
+				</div>
+			
+				<div class="col-12 lg:col-3">
+		
+					<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: 'Number of Employees', body: financialCardDatasets.structural.employeeYearWiseArray } }"></ng-container>
+			
+				</div>
+		
+			</div>
+		
+		
+			<div class="grid align-items-center mb-2 mt-3">
+				<div class="col-fixed">
+					<span class="x-big-data-font c-darkBlue">Financial</span>
+				</div>
+			</div>
+		
+			<ng-container *ngFor="let financialAll of financialCardDatasets | keyvalue : returnZero">
+		
+				<ng-container *ngIf="![ 'financials', 'structural', 'additionalCalculatedRatios' ].includes( financialAll.key )">
+		
+					<div class="grid align-items-center mb-2 mt-2">
+						<div class="col-fixed">
+							<span class="text-xl font-bold">{{ commonService.camelCaseToTitleCaseStr( financialAll.key ) }}</span>
+						</div>
+					</div>
+				
+					<div class="grid">
+		
+						<ng-container *ngFor="let financialData of financialAll.value | keyvalue : returnZero">
+		
+							<div class="col-12 lg:col-3">
+				
+								<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: financialData.key, body: financialData.value, parentGroup: financialAll.key } }"></ng-container>
+				
+							</div>
+		
+						</ng-container>
+					</div>
+		
+				</ng-container>
+		
+			</ng-container>
+
+		</div>
+	</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #showUpgradePlan>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+		</ng-template>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+	</p-card>
+</ng-template> -->
+
+<ng-template #noRecordTemplate>
+	<div class="noRecords">
+		<p>No Data</p>
+	</div>
+</ng-template>
+
+<ng-template #showNoRecordTemplate>
+	<div class="showNoRecords">
+		<p>No Records Found</p>
+	</div>
+</ng-template>
+
+<!-- Financial Card Template -->
+<ng-template #financialCardDisplayTemplate let-cardData>
+	<dg-shared-financial-card [cardData]="cardData" [financialBool]="financialBool"></dg-shared-financial-card>
+</ng-template>
+<!-- /Financial Card Template -->

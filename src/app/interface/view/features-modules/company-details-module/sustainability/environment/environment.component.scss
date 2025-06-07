@@ -1,0 +1,306 @@
+.card {
+    padding: 0;
+
+    .card-header {
+        color: #666;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--divider-color);
+        margin: 0;
+
+        h5 {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .p-button {
+            &.p-button-rounded {
+                font-size: 0.6rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                margin: 0;
+            }
+        }
+
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--divider-color);
+
+        &.hasDivider {
+            .p-grid {
+                &>[class*="p-col"]+[class*="p-col"] {
+                    border-left: 1px solid var(--divider-color);
+                }
+            }
+        }
+    }
+}
+
+.limitTextHeight {
+    height: 60px;
+    overflow: hidden;
+}
+
+.gaugeChartContainer {
+    .gaugeLegends {
+        display: -webkit-box;
+        display: -ms-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+
+        .gaugeAvrg,
+        .gaugeGood,
+        .gaugeExcell {
+            padding: 0 1rem;
+
+            &>span {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 15px;
+            }
+
+            .colorBlock {
+                width: 15px;
+                height: 15px;
+                background-color: #bbb;
+                border-radius: 50%;
+                margin-right: 0.8rem;
+                box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .label {
+                color: #a1a1a1;
+            }
+        }
+
+        .gaugeAvrg {
+            .colorBlock {
+                background-color: #f8bb32;
+            }
+        }
+
+        .gaugeGood {
+            .colorBlock {
+                background-color: #92d050;
+            }
+        }
+
+        .gaugeExcell {
+            .colorBlock {
+                background-color: #00b050;
+            }
+        }
+    }
+}
+
+.esgBarChartLegends {
+    display: -webkit-box;
+    display: -ms-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .environmentLegend,
+    .socialLegend,
+    .goverenenceLegend {
+        padding: 0 1rem;
+
+        &>span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 15px;
+        }
+
+        .colorBlock {
+            width: 15px;
+            height: 15px;
+            background-color: #bbb;
+            border-radius: 50%;
+            margin-right: 0.8rem;
+            box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .label {
+            color: #a1a1a1;
+        }
+    }
+
+    .environmentLegend {
+        .colorBlock {
+            background-color: #0fd569;
+        }
+    }
+
+    .socialLegend {
+        .colorBlock {
+            background-color: #1fcfeb;
+        }
+    }
+
+    .goverenenceLegend {
+        .colorBlock {
+            background-color: #2a8ce1;
+        }
+    }
+}
+
+::ng-deep {
+    .sustainContentScrollPanel {
+        height: 80%;
+    }
+
+    .environmentButton {
+        .p-button {
+            background-color: #0fd569;
+        }
+    }
+
+    .socialButton {
+        .p-button {
+            background: #1fcfeb;
+        }
+    }
+
+    .goverenenceButton {
+        .p-button {
+            background: #2a8ce1;
+        }
+    }
+}
+
+.widget-activity {
+
+    &>li {
+        .activity-item {
+            .activity-title {
+                font-weight: 400;
+                color: #666;
+            }
+        }
+    }
+
+    &.environmentCard {
+        >li {
+            ::ng-deep {
+
+                p-progressBar {
+                    .p-progressbar {
+                        background-color: #eceff1;
+
+                        .p-progressbar-value {
+                            background-color: #0fd569;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.socialCard {
+        >li {
+            ::ng-deep {
+
+                p-progressBar {
+                    .p-progressbar {
+                        background-color: #eceff1;
+
+                        .p-progressbar-value {
+                            background-color: #1fcfeb;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.governanceCard {
+        >li {
+            ::ng-deep {
+
+                p-progressBar {
+                    .p-progressbar {
+                        background-color: #eceff1;
+
+                        .p-progressbar-value {
+                            background-color: #2a8ce1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.financeCard {
+        >li {
+            ::ng-deep {
+
+                p-progressBar {
+                    .p-progressbar {
+                        background-color: #eceff1;
+
+                        .p-progressbar-value {
+                            background-color: #e16738;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    ::ng-deep {
+        .questionTextStyle {
+
+            padding: 1.2rem;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.4;
+            text-align: justify;
+            font-weight: 400;
+
+        }
+    }
+
+}
+
+.otherEmissionValueDetails {
+
+    &.card {
+        .card-body {
+            padding: 1rem;
+        }
+    }
+
+    h2,
+    p {
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: #444;
+        margin-top: 1rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    .largeIcon {
+        font-size: 1.5rem;
+        line-height: 1;
+        text-shadow: 4px 3px 5px rgba(0, 0, 0, 0.2);
+
+        .material-icons {
+            color: #12c381;
+        }
+    }
+
+}

@@ -1,0 +1,61 @@
+<div [ngClass]="{'card': !isLoggedIn}" featureAccess="Key Financials" optionalTemplate="true">
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Key Financials' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData?.companyRegistrationNumber ) ); else showRatiosInfoTab"> -->
+	
+	<div *ngIf="finstatutoryChartData" class="grid align-items-stretch vertical-container">
+
+		<ng-container *ngIf="hasFinancialRatios; else noDataBlock">
+
+			<div class="col-12 col-6 md:col-6 responsiveCharts" *ngIf="hasFinancialRatios">
+				<div class="card">
+					<p-chart type="line" [data]="finRatioTabChartData?.chartData1" [options]="chartOptions2" height="350px" [responsive]="true"></p-chart>
+				</div>
+			</div>
+
+			<div class="col-12 col-6 md:col-6 responsiveCharts" *ngIf="hasFinancialRatios">
+				<div class="card">
+					<p-chart type="line" [data]="finRatioTabChartData?.chartData2" [options]="chartOptions2" height="350px" [responsive]="true"></p-chart>
+				</div>
+			</div>
+		</ng-container>
+
+		<ng-template #noDataBlock>
+			<div class="col-12">
+				<p-card>
+					<span class="ml-2">No records found.</span>
+				</p-card>
+			</div>
+		</ng-template>
+		
+	</div>
+
+	<div *ngIf="companyData.hasFinances && companyData.statutoryAccounts">
+		<dg-financial-table-data [showRatiosTableInput]="true" [requiredCompanyName]="companyData?.businessName" [financialSimpleAccntsData]="financialDataObject" [thisPage]="'financialRatio'" *ngIf="financeData"></dg-financial-table-data>
+	</div>
+
+	<div class="card" *ngIf="!( companyData.hasFinances && companyData.statutoryAccounts )">
+		<div class="x-big-data-font c-light">No data available</div>
+	</div>
+
+	<div *ngIf="hasFinancialRatios && financeData" class="col-12"> 
+		<span [ngClass]="'c-red'">
+			<strong>
+				<i class="ui-icon-info-outline p-mr-1"></i>This information is processed by third party, we do not take any responsibility for your financial decision based on information provided. 
+			</strong>
+		</span>
+	</div>
+
+<!-- </ng-container> -->
+</div>
+<!-- <ng-template #showRatiosInfoTab>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="p-text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+		</ng-template>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+	</p-card>
+</ng-template> -->

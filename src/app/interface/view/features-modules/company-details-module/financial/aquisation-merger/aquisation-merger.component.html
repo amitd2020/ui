@@ -1,0 +1,7 @@
+<span loginAccessModal>
+    <ng-container *ngIf="( companyData?.hasAcquiringCompany || companyData?.hasAcquiredCompany )">
+        
+        <dg-user-list *ngIf="aquisitionMergerData" [listColumns]="aquisitionMergerDataColumn" [listDataValues]="aquisitionMergerData" [listPage]="true" [thisPage]="'aquisitionMergerPage'"></dg-user-list>
+
+    </ng-container>
+</span> 

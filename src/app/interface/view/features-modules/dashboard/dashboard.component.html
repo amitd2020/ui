@@ -1,0 +1,340 @@
+<p-messages [value]="msgs"></p-messages>
+
+<div class="dashboard card-pt-ForMobileView p-3">
+
+    <div class="topSearchBlock">
+		<ng-container *ngIf="selectedGlobalCountry == 'uk'; else irBlock">
+			<h2 class="text-center mt-0">Find A Specific Company or Director or Industry </h2>
+		</ng-container>
+		<ng-template #irBlock>
+			<h2 class="text-center mt-0">Find A Specific Company</h2>
+		</ng-template>
+		<ng-template #irBlock></ng-template>
+		<div class="grid justify-content-center">
+			<div class="col-12 md:col-8 lg:col-8">
+				<dg-shared-search-bar [thisPage]="'dashboardSearch'"></dg-shared-search-bar>
+			</div>
+		</div>
+	</div>
+
+	<div class="quickAccessSection">
+
+		<div class="grid">
+
+			<div class="col-12 md:col-6 lg:col-4 topCardsBlock">
+				<a href="javascript:void(0);" [routerLink]="['company-search']">
+					<div class="card c-green">
+						<div class="cardBody">
+							<h2>Start Searching</h2>
+							<p class="cardDesc c-light">Click here to search for companies using our wide range of filters.</p>
+							<div class="cardButtonBar">
+								<button pButton type="button" label="Explore" icon="pi pi-arrow-right" iconPos="right" class="p-button-rounded"></button>
+							</div>
+						</div>
+						<div class="cardFooter"></div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card accessListBlock recentSearchesList">
+					<div class="cardHeader">
+						<div class="grid">
+							<div class="col">
+								<h3 class="sectionTitle">Recent Company Searches</h3>
+							</div>
+						</div>
+					</div>
+					<div class="cardBody" loginAccessModal>
+						<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+							<div class="accessList" *ngIf="dashRecentData && dashRecentData.length; else elseBlockTemplate">
+								<ul>
+									<ng-container *ngFor="let listItem of dashRecentData; let i = index">
+										<li *ngIf="i < 10">
+											<a href="javascript:void(0)" [routerLink]="'/company/' + listItem.companyNumber + '/' + commonService.formatCompanyNameForUrl( listItem.companyName | titlecase )" target="_blank">{{ listItem?.companyName | uppercase }}</a>
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+						<!-- </ng-container> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card accessListBlock popularSearchesList">
+					<div class="cardHeader">
+						<div class="grid">
+							<div class="col">
+								<h3 class="sectionTitle">Popular Searches</h3>
+							</div>
+						</div>
+					</div>
+					<div class="cardBody" loginAccessModal>
+						<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+							<div class="accessList" *ngIf="popularSearchesData && popularSearchesData.length; else elseBlockTemplate">
+								<ul>
+									<ng-container *ngFor="let listItem of popularSearchesData; let i = index">
+										<li *ngIf="i < 5">
+											<a href="javascript:void(0)" [routerLink]="['/company-search']" [queryParams]="{ chipData: JSON.stringify( listItem.chipData ) }">
+												{{ listItem?.filterName }}
+											</a>
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+						<!-- </ng-container> -->
+					</div>
+				</div>
+			</div>
+
+			<ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) && selectedGlobalCountry == 'uk'">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="card accessListBlock addedNotesList">
+                        <div class="cardHeader">
+                            <div class="grid">
+                                <div class="col">
+                                    <h3 class="sectionTitle">Title Deed History</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cardBody">
+							<div class="accessList" *ngIf="titleDeedData && titleDeedData.length">
+								<ul>
+									<ng-container *ngFor="let listItem of titleDeedData; let i = index">
+										<li *ngIf="i < 5">
+											<a href="javascript:void(0)">
+												{{ listItem?.firstName | titlecase }} {{ listItem?.lastName | titlecase }}
+												<div class="shortDescMsg">
+													<strong>Last Hit Date: </strong> <span class="c-green">{{ listItem?.lastHitDate | date: 'dd-MM-yyyy' }}</span>
+													| <strong>Total Hits: </strong> <span class="c-green">{{ listItem?.totalLimit  }}</span>
+													| <strong>Hit Consumes: </strong> <span class="c-green">{{ listItem?.hitConsumes }}</span>
+												</div>
+											</a>
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+			<div class="col-12 md:col-6 lg:col-4" *ngIf="selectedGlobalCountry == 'uk' && ['default', 'admin'].includes(accountType)">
+				<div class="card accessListBlock companiesMonitoredList">
+					<div class="cardHeader">
+						<div class="grid">
+							<div class="col">
+								<h3 class="sectionTitle">Companies Monitored</h3>
+							</div>
+							<div *ngIf="isLoggedIn" class="col-fixed p-text-right viewAllBtnResponsiveness">
+								<p><small><a href="javascript:void(0);" [routerLink]="['list/business-monitor']" class="c-green">View All <i class="pi pi-arrow-right"></i></a></small></p>
+							</div>
+						</div>
+					</div>
+					<div class="cardBody" loginAccessModal>
+						<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+							<div class="accessList" *ngIf="dashWatchlistData && dashWatchlistData.length; else elseBlockTemplate">
+								<ul>
+									<ng-container *ngFor="let listItem of dashWatchlistData; let i = index">
+										<li *ngIf="i < 5">
+											<!-- <a href="javascript:void(0)" [routerLink]="'/company/' + listItem.companyNumber + '/' + commonService.formatCompanyNameForUrl( listItem.companyName | titlecase )" target="_blank"> -->
+
+												{{ listItem?.companyName | uppercase }}
+												
+												<div class="shortDescMsg">
+													<ng-container *ngIf="listItem.changes.length; else shortDescMsgBlock">
+														<ng-container *ngFor="let change of listItem.changes; let changeIndx = index">
+															<a href="javascript:void(0)" [routerLink]="'/company/' + listItem.companyNumber + '/' + commonService.formatCompanyNameForUrl(listItem.companyName | titlecase)" [queryParams]="{ type: showDetailChanges(change)}" target="_blank"><span class="changeValue">{{ change | titlecase }}</span></a>
+															<span *ngIf="changeIndx + 1 !== listItem.changes.length">, </span>
+														</ng-container>
+														<ng-container *ngIf="listItem.updatedAt">
+															as on <span class="changeValue">{{ listItem.updatedAt | date: 'dd-MM-yyyy' }}</span>
+														</ng-container>
+													</ng-container>
+													<ng-template #shortDescMsgBlock>
+														<span>There are no updates currently</span>
+													</ng-template>
+												</div>
+											<!-- </a> -->
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+						<!-- </ng-container> -->
+					</div>
+				</div>
+			</div>
+
+            <!-- <ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasAddOnPermission('companyMonitorPlus')"> -->
+				<ng-container *ngIf="selectedGlobalCountry == 'uk'">
+					<div class="col-12 md:col-6 lg:col-4" *ngIf="userAuthService.hasAddOnPermission('companyMonitorPlus')">
+						<div class="card accessListBlock companiesMonitoredList">
+							<div class="cardHeader">
+								<div class="grid">
+									<div class="col">
+										<h3 class="sectionTitle">Advanced Monitoring System</h3>
+									</div>
+									<div *ngIf="isLoggedIn" class="col-fixed p-text-right viewAllBtnResponsiveness">
+										<p><small><a href="javascript:void(0);" [routerLink]="['list/business-monitor-plus']" class="c-green">View All <i class="pi pi-arrow-right"></i></a></small></p>
+									</div>
+								</div>
+							</div>
+							<div class="cardBody" loginAccessModal>
+								<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+									<div class="accessList" *ngIf="dashWatchlistPlusData && dashWatchlistPlusData.length; else elseBlockTemplate">
+										<ul>
+											<ng-container *ngFor="let listItem of dashWatchlistPlusData; let i = index">
+												<li *ngIf="i < 5">
+													{{ listItem?.companyName | uppercase }}
+													<div class="shortDescMsg">
+														<ng-container *ngIf="listItem.changes.length; else shortDescMsgBlock">
+															<ng-container *ngFor="let change of listItem.changes; let changeIndx = index">
+																<a href="javascript:void(0)" [routerLink]="'/company/' + listItem.companyNumber + '/' + commonService.formatCompanyNameForUrl(listItem.companyName | titlecase)" [queryParams]="{ type: showDetailChanges(change)}" target="_blank"><span class="changeValue">{{ change | titlecase }}</span></a>
+																<span *ngIf="changeIndx + 1 !== listItem.changes.length">, </span>
+															</ng-container>
+															<ng-container *ngIf="listItem.updatedAt">
+																as on <span class="changeValue">{{ listItem.updatedAt | date: 'dd-MM-yyyy' }}</span>
+															</ng-container>
+														</ng-container>
+														<ng-template #shortDescMsgBlock>
+															<span>There are no updates currently</span>
+														</ng-template>
+													</div>
+												</li>
+											</ng-container>
+										</ul>
+									</div>
+								<!-- </ng-container> -->
+							</div>
+						</div>
+					</div>
+				</ng-container>
+            <!-- </ng-container> -->
+
+			<div class="col-12 md:col-6 lg:col-4" *ngIf="selectedGlobalCountry == 'uk'">
+				<div class="card accessListBlock addedNotesList">
+					<div class="cardHeader">
+						<div class="grid">
+							<div class="col">
+								<h3 class="sectionTitle">Added Notes</h3>
+							</div>
+							<div *ngIf="isLoggedIn" class="col-fixed p-text-right viewAllBtnResponsiveness">
+								<p><small><a href="javascript:void(0);" [routerLink]="['/list/notes']" class="c-green">View All <i class="pi pi-arrow-right"></i></a></small></p>
+							</div>
+						</div>
+					</div>
+					<div class="cardBody" loginAccessModal>
+						<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+							<div class="accessList" *ngIf="notesTableData && notesTableData.length; else elseBlockTemplate">
+								<ul>
+									<ng-container *ngFor="let listItem of notesTableData; let i = index">
+										<li *ngIf="i < 5">
+											<a href="javascript:void(0)"
+											[routerLink]="'/company/' + listItem.companyNumber + '/' + commonService.formatCompanyNameForUrl( listItem.CompanyNameOriginal | titlecase )" target="_blank">
+												{{ listItem?.notes | titlecase }}
+												<div class="shortDescMsg">
+													<span class="c-green">{{ listItem?.createdOn | date: 'dd-MM-yyyy' }}</span> for <span class="c-green">{{ listItem?.CompanyNameOriginal | titlecase }}</span>
+												</div>
+											</a>
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+						<!-- </ng-container> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card accessListBlock savedSearchesList">
+					<div class="cardHeader">
+						<div class="grid">
+							<div class="col">
+								<h3 class="sectionTitle">My Saved Filters</h3>
+							</div>
+							<div *ngIf="isLoggedIn" class="col-fixed p-text-right viewAllBtnResponsiveness">
+								<p><small><a href="javascript:void(0);" [routerLink]="['/list/saved-filters']" class="c-green">View All <i class="pi pi-arrow-right"></i></a></small></p>
+							</div>
+						</div>
+					</div>
+					<div class="cardBody" loginAccessModal>
+						<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+							<div class="accessList" *ngIf="dashSearchData && dashSearchData.length; else elseBlockTemplate">
+								<ul>
+									<ng-container *ngFor="let listItem of dashSearchData; let i = index">
+										<li *ngIf="i < 5">
+											<a href="javascript:void(0)"
+												(click)="goToSearchPage( listItem.searchType, listItem.chipData, listItem )">
+												<strong>{{ listItem?.filterName | titlecase }}</strong>
+												<div class="shortDescMsg">
+													<span class="searchType">{{ listItem?.searchType | titlecase }}</span>
+													<span> | </span>
+			
+													<dg-display-filter-chip [rawDataChips]="listItem.chipData" [displayType]="'inline'"></dg-display-filter-chip>
+												</div>
+											</a>
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+						<!-- </ng-container> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card accessListBlock userSavedLists">
+					<div class="cardHeader">
+						<div class="grid">
+							<div class="col">
+								<h3 class="sectionTitle">My Saved Lists</h3>
+							</div>
+							<!-- <div *ngIf="isLoggedIn" class="col-fixed p-text-right viewAllBtnResponsiveness">
+								<p><small><a href="javascript:void(0);" [routerLink]="['/list/saved-lists']" class="c-green">View All <i class="pi pi-arrow-right"></i></a></small></p>
+							</div> -->
+						</div>
+					</div>
+					<div class="cardBody" loginAccessModal>
+						<!-- <ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async ); else loginModalTemplate"> -->
+							<div class="accessList" *ngIf="dashUserlistData && dashUserlistData.length; else elseBlockTemplate">
+								<ul>
+									<ng-container *ngFor="let listItem of dashUserlistData; let i = index">
+										<li *ngIf="i < 5 && listItem?.listName">
+											<a href="javascript:void(0)" [routerLink]="['/company-search']" [queryParams]="{ chipData: JSON.stringify([ { chip_group: 'Saved Lists', chip_values: [listItem.listName] } ]), cListId: listItem._id, cListLength: listItem['companiesInList'], listPageName: ( listItem.listName === 'Exported Bucket' ) ? 'exportedBucket' : listItem.page, listName: listItem?.listName }" >
+												<div class="grid">
+													<div class="col-7 pb-0">
+														{{ listItem?.listName | titlecase }}
+													</div>
+													<div class="col-5 pageNameStyle">{{ listItem.listName == 'Exported Bucket' ? 'Exported Bucket' : listItem.listName == 'Favourites' ? 'Favourites' : pageNamesForList[listItem.page] }} <i class="pi pi-arrow-right" style="font-size: 9px;"></i></div>
+
+													<div class="col-7 pt-0 shortDescMsg">
+														<span class="c-green">{{ listItem?.companiesInList }} {{ listItem?.companiesInList > 1 ? 'companies' : 'company' }}</span> added in list on <span class="c-green">{{ listItem.listName == 'Exported Bucket' ? ( listItem?.lastUpdated | date: 'dd-MM-yyyy' ) : listItem?.updatedAt | date: 'dd-MM-yyyy' }}</span>
+													</div>
+												</div>
+												
+											</a>
+										</li>
+									</ng-container>
+								</ul>
+							</div>
+						<!-- </ng-container> -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<ng-template #elseBlockTemplate>
+	<div class="noRecords">
+		<p>No Records Found</p>
+	</div>
+</ng-template>
+
+<!-- <ng-template #loginModalTemplate>
+	<dg-without-login-modal></dg-without-login-modal>
+</ng-template> -->

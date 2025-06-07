@@ -1,0 +1,390 @@
+<div class="sustainGovernanceContainer">
+    
+	<ng-container *ngIf="sustainGovernanceData">
+
+		<p-messages [value]="msgs"></p-messages>
+	
+		<div class="flex flex-wrap align-items-center justify-content-between mb-3">
+			<div class="col-fixed py-0">
+				<button pButton label="Back" icon="ui-icon-arrow-back" iconPos="left" class="p-button-sm" (click)="goBack()"></button>
+			</div>
+			<div class="col-fixed py-0">
+				<button pButton label="Add To Watch" icon="pi pi-eye" class="p-button-sm mr-4" (click)="addToEsgWatchTable()" *ngIf="sustainGovernanceData && !sustainGovernanceData.inEsgWatch"></button>
+				<button pButton label="Remove From Watch" icon="pi pi-eye-slash" class="p-button-sm mr-4" (click)="removeFromEsgWatchTable()" *ngIf="sustainGovernanceData && sustainGovernanceData.inEsgWatch"></button>
+				<button pButton label="Environment" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainEnvironmentComponent )"></button>
+				<button pButton label="Social" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainSocialComponent )"></button>
+				<button pButton label="Finance" class="p-button-sm p-button-light ml-2" (click)="goToTab( targetRouteComponents.SustainFinanceComponent )"></button>
+			</div>
+		</div>
+	
+		<div class="grid mb-3">
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Governance State</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+		
+						<div class="gaugeChartContainer mt-3 mb-6" *ngIf="allGaugeChartPropertiesContainer.hasOwnProperty('governanceGaugeProperties')">
+							<p-chart type="doughnut" [options]="gaugeChartOptionsProps" [data]="allGaugeChartPropertiesContainer.governanceGaugeProperties.chartDataset" [plugins]="gaugeChartPluginProps" width="300"></p-chart>
+		
+							<div class="gaugeLegends">
+								<div class="gaugeAvrg">
+									<span class="colorBlock"></span>
+									<span class="label">Average</span>
+								</div>
+								<div class="gaugeGood">
+									<span class="colorBlock"></span>
+									<span class="label">Good</span>
+								</div>
+								<div class="gaugeExcell">
+									<span class="colorBlock"></span>
+									<span class="label">Excellent</span>
+								</div>
+							</div>
+		
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Wages And Salaries</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<ng-container *ngIf="wagesAndSalariesDataBool; else noRecordTemplate">
+							<div class="esgBarChartContainer">
+								<p-chart type="bar" [options]="esgYearWiseChartOptions" [data]="wagesAndSalariesYearWiseChartData" [plugins]="ChartDataLabelsPlugins" [responsive]="true"></p-chart>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Write-offs</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+	
+						<ng-container *ngIf="totalDebtorCount || totalDebtorAmount; else noRecordTemplate">
+							<ng-container *ngIf="totalDebtorCount">
+								<div class="flex justify-content-between align-items-center p-3">
+									<div class="social-icon">
+										<span class="material-icons cardPlaceholderIcons">credit_card_off</span>
+									</div>
+									<div class="flex flex-column text-right">
+										<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalDebtorCount | number : '1.0-0' }}</p>
+										<p class="text-sm c-light m-0">Number of Write-offs</p>
+									</div>
+								</div>
+							</ng-container>
+							
+							<ng-container *ngIf="totalDebtorAmount">
+								<div class="flex justify-content-between align-items-center p-3">
+									<div class="social-icon">
+										<span class="material-icons cardPlaceholderIcons">credit_card_off</span>
+									</div>
+									<div class="flex flex-column text-right">
+										<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalDebtorAmount | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}}</p>
+										<p class="text-sm c-light m-0">Write-off Amount</p>
+									</div>
+								</div>
+							</ng-container>
+						</ng-container>
+	
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Impacted Creditors</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						
+						<ng-container *ngIf="totalCreditorsCount || totalCreditorsAmount; else noRecordTemplate">
+							<ng-container *ngIf="totalCreditorsCount">
+								<div class="flex justify-content-between align-items-center p-3">
+									<div class="social-icon">
+										<span class="material-icons cardPlaceholderIcons">card_membership</span>
+									</div>
+									<div class="flex flex-column text-right">
+										<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalCreditorsCount | number : '1.0-0' }}</p>
+										<p class="text-sm c-light m-0">Number of Impacted Creditors</p>
+									</div>
+								</div>
+							</ng-container>
+							<ng-container *ngIf="totalCreditorsAmount">
+								<div class="flex justify-content-between align-items-center p-3">
+									<div class="social-icon">
+										<span class="material-icons cardPlaceholderIcons">card_membership</span>
+									</div>
+									<div class="flex flex-column text-right">
+										<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalCreditorsAmount | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}</p>
+										<p class="text-sm c-light m-0">Impacted Creditors Amount</p>
+									</div>
+								</div>
+							</ng-container>
+						</ng-container>
+	
+					</div>
+	
+				</div>
+			</div>
+			
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Property Register</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						<ng-container *ngIf="totalCorporateLandCount.corporateLandPurchasedCount || totalCorporateLandCount.corporateLandSoldCount; else noRecordTemplate">
+							<div class="flex justify-content-between align-items-center p-3" *ngIf="totalCorporateLandCount.corporateLandPurchasedCount">
+								<div class="social-icon">
+									<span class="material-icons cardPlaceholderIcons">maps_home_work</span>
+								</div>
+								<div class="flex flex-column text-right">
+									<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalCorporateLandCount?.corporateLandPurchasedCount | number : '1.0-0' }}</p>
+									<p class="text-sm c-light m-0">Purchased</p>
+								</div>
+							</div>
+							<div class="flex justify-content-between align-items-center p-3" *ngIf="totalCorporateLandCount.corporateLandSoldCount">
+								<div class="social-icon">
+									<span class="material-icons cardPlaceholderIcons">maps_home_work</span>
+								</div>
+								<div class="flex flex-column text-right">
+									<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalCorporateLandCount?.corporateLandSoldCount | number : '1.0-0' }}</p>
+									<p class="text-sm c-light m-0">Sold</p>
+								</div>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Charges</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+	
+						<ng-container *ngIf="totalChargesCount; else noRecordTemplate">
+							<div class="flex justify-content-between align-items-center p-3">
+								<div class="social-icon">
+									<span class="material-icons cardPlaceholderIcons">account_balance</span>
+								</div>
+								<div class="flex flex-column text-right">
+									<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalChargesCount | number : '1.0-0' }}</p>
+									<p class="text-sm c-light m-0">Charges</p>
+								</div>
+							</div>
+						</ng-container>
+	
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Shareholders</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+	
+						<ng-container *ngIf="totalShareHolderCount; else noRecordTemplate">
+							<div class="flex justify-content-between align-items-center p-3">
+								<div class="social-icon">
+									<span class="material-icons cardPlaceholderIcons">supervisor_account</span>
+								</div>
+								<div class="flex flex-column text-right">
+									<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalShareHolderCount | number : '1.0-0' }}</p>
+									<p class="text-sm c-light m-0">Shareholder<ng-container *ngIf="totalShareHolderCount > 1">s</ng-container></p>
+								</div>
+							</div>
+						</ng-container>
+	
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>CCJ's</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+	
+						<ng-container *ngIf="totalCCJCount; else noRecordTemplate">
+							<div class="flex justify-content-between align-items-center p-3">
+								<div class="social-icon">
+									<span class="material-icons cardPlaceholderIcons">gavel</span>
+								</div>
+								<div class="flex flex-column text-right">
+									<p class="text-6xl font-medium mb-1" style="color: var( --sustain-governance-color );">{{ totalCCJCount | number : '1.0-0' }}</p>
+									<p class="text-sm c-light m-0">CCJ<ng-container *ngIf="totalCCJCount > 1">s</ng-container></p>
+								</div>
+							</div>
+						</ng-container>
+	
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-6 lg:col-4">
+				<div class="card flex flex-column h-full">
+					<div class="card-header">
+						<h5>Auditor and Accountant's Detail</h5>
+					</div>
+					<div class="card-body flex flex-column col justify-content-center">
+						
+						<div class="grid" *ngIf="auditorData">
+							<div class="col-12 lg:col-8">
+								<p class="text-2xl font-medium mb-2" [ngStyle]="{ 'color': ( auditorData && auditorData?.auditors ) ? 'var( --sustain-governance-color )' : '' }">{{ ( auditorData['auditors'] | titlecase ) || 'NA' }}</p>
+								<p class="text-sm c-light m-0">Auditor</p>
+							</div>
+							<div class="col-12 lg:col-4 text-right">
+								<p class="text-2xl font-medium mb-2" [ngStyle]="{ 'color': ( auditorData && auditorData?.accountsDate ) ? 'var( --sustain-governance-color )' : '' }">{{ ( auditorData['accountsDate'] | titlecase ) || 'NA' }}</p>
+								<p class="text-sm c-light m-0">Accounts Date</p>
+							</div>
+							<div class="col-12 lg:col-8">
+								<p class="text-2xl font-medium mb-2" [ngStyle]="{ 'color': ( auditorData && auditorData?.accountantsName ) ? 'var( --sustain-governance-color )' : '' }">{{ ( auditorData['accountantsName'] | titlecase ) || 'NA' }}</p>
+								<p class="text-sm c-light m-0">Accountant Name</p>
+							</div>
+						</div>
+	
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="mb-3">
+			<p-accordion>
+				<ng-container *ngIf=" companyData?.hasCompanyCommentary">
+					<p-accordionTab header="Commentary">
+					   <ng-container *ngIf="companyData?.hasCompanyCommentary">		   
+							<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Commentary' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showCommentaryInfoTab"> -->
+							<span featureAccess="Commentary" optionalTemplate="true">
+								<dg-user-list [listColumns]="companyCommentaryColumn" [listDataValues]="companyCommentryData" [listPage]="true" [thisPage]="'companyCommentary'"></dg-user-list>
+							</span>
+							<!-- </ng-container> -->
+						
+							<ng-template #showCommentaryInfoTab>
+								<p-card>
+									<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+								</p-card>
+							</ng-template>
+					    </ng-container>
+					</p-accordionTab>
+				</ng-container>
+			
+				<ng-container *ngIf="companyData.patentData && companyData.patentData.length > 0">
+					<p-accordionTab header="Patent and Trade">
+						<ng-container *ngIf="this.subscribedPlanModal['Valentine_Special'].includes(currentPlan); else otherPlansCheck">
+							<div class="card text-center">
+								<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+							</div>
+						</ng-container>
+						
+						<ng-template #otherPlansCheck>
+						
+							<ng-container *ngIf="userAuthService.hasAddOnPermission('specialFilter') || userAuthService.hasRolePermission( ['Super Admin'] ) || subscribedPlanModal['Valentine_Special'].includes(currentPlan)">
+								
+								<dg-user-list *ngIf="patentTradeData !== undefined" [listColumns]="patentTradeColumns" [listDataValues]="patentTradeData" [listPage]="true" [thisPage]="'patentTradeData'"> </dg-user-list>
+											
+							</ng-container>
+						
+						</ng-template>
+						
+					</p-accordionTab>
+				</ng-container>
+			
+				<ng-container *ngIf="innovateGrantData !== undefined && innovateGrantData.length > 0">
+			
+					<p-accordionTab header="Innovate Grant">
+				
+						<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+							<div class="card text-center">
+								<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+							</div>
+						</ng-container>
+						<ng-template #otherPlansCheck>
+							<span addOnAccess="specialFilter">
+							<!-- <ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasAddOnPermission('specialFilter')"> -->
+							
+								<ng-container *ngIf="innovateGrantData">
+									<dg-user-list *ngIf="innovateGrantData !== undefined && innovateGrantData.length > 0" [listColumns]="innovateGrantColumns" [listDataValues]="innovateGrantData" [listPage]="true" [thisPage]="'innovateGrant'"></dg-user-list>
+										<div class="card" *ngIf="innovateGrantData.length <= 0">
+											<h3 class="c-light">No records found.</h3>
+										</div>
+								</ng-container>
+							
+							<!-- </ng-container> -->
+							</span>
+						</ng-template>
+				
+					</p-accordionTab>
+				</ng-container>
+			
+			</p-accordion>
+		</div>
+	
+		<div class="grid mb-2">
+			<div class="col-12 md:col-8">
+				<div class="card h-full">
+					<div class="card-header">
+						<h5>About</h5>
+					</div>
+					<div class="card-body">
+						<ul class="listTextStyle wordSpacing">
+							<li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What are the GRI standards and Governance ?</strong></li>
+							<div class="mb-2">
+								The Number of Stakeholders is the formal stakeholder forum within the GRI governance structure and advises the Board on strategic issues. The Council's key governance functions include appointing Board members and making recommendations on future policy, business planning and activity.
+							</div>
+							<li><span class="material-icons reviewIconStyling">reviews</span><strong class="c-grey">What it matters for the investment and performance of the company ?</strong></li>
+							<div class="mb-2">
+								Companies need to go beyond traditional economic concerns and address economic, environmental, and social values in the short, medium, and long-terms to become more sustainability oriented. The Number of directors play an important role in the sustainability of the company.
+							</div>
+						</ul>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-12 md:col-4">
+				<div class="card h-full">
+					<div class="card-header">
+						<h5>PARAMETERS USED TO MEASURE THE PERFORMANCE</h5>
+					</div>
+					<div class="card-body">
+						<ul class="listTextStyle wordSpacing">
+							<li><span class="material-icons reviewIconStyling">reviews</span>Shareholders Type.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Enforcement data.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Safe Alerts in Place.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Time line of Company Status.</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Corporate land Data</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Investment Ratings</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Patent Data</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Innovate Data</li>
+							<li><span class="material-icons reviewIconStyling">reviews</span>Role of High Net worth Individuals</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<ng-template #noRecordTemplate>
+			<div class="noRecords">
+				<p>No Records Found</p>
+			</div>
+		</ng-template>
+
+	</ng-container>
+
+</div>

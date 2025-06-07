@@ -1,0 +1,97 @@
+<div class="grid mb-2">
+	
+    <div class="col-12">
+        <div class="sustainIndexLegends">
+            <div class="parentCompanyLegend">
+                <span class="colorBlock"></span>
+                <span class="label text-sm">Parent Company</span>
+            </div>
+            <div class="relatedCompanyLegend" *ngIf="selectedCompanyName">
+                <span class="colorBlock"></span>
+                <span class="label text-sm">Related Company</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 md:col-3">
+       
+        <div class="card setHeightCard">
+            <h3 class="font-medium mb-0">Select Director</h3>
+            <p-listbox [options]="directorNameListOptions" [(ngModel)]="selectedDirectorName" (onClick)="getCompanyListsByDirectorPnr(selectedDirectorName)" filter="filter"></p-listbox>
+        </div>
+
+        <div class="card setHeightCard">
+            <h3 class="font-medium mb-0">Select Related Company</h3>
+            <small class="c-light">*Note No financials for disabled list</small>
+            <ng-container *ngIf="companyListOptions && companyListOptions.length > 0; else noRecordTemplate">
+                <p-listbox [options]="companyListOptions" [(ngModel)]="selectedCompanyName" (onClick)="getOverAllData(selectedCompanyName)" filter="filter" styleClass="companyListStyle" optionDisabled="inactive">
+                    <ng-template let-companyListItem pTemplate="item">
+                        <div class="text-lg">{{ companyListItem.label | uppercase }}</div>
+                        <div class="text-sm"><strong>Appointed:&nbsp;</strong>{{ companyListItem.appointedDate }} <small>({{ companyListItem.noOfYears }} Years)</small></div>
+                    </ng-template>
+                </p-listbox>
+            </ng-container>
+            <ng-template #noRecordTemplate>
+                <div class="c-light mt-4">
+                    *Please select the director to get the list of related companies
+                </div>
+            </ng-template>
+        </div>
+
+    </div>
+    
+   <div class="col-12 md:col-9">
+       
+        <div class="grid">
+           
+            <ng-container *ngFor="let sustainChart of sustainabilityIndexChartDatasets | keyvalue: preventDefaultSort">
+                <div class="col-6 md:col-4">
+                    <div class="card p-0">
+                        <div class="card-header">
+
+                            <h6>
+                                {{ commonService.camelCaseToTitleCaseStr( sustainChart.key.replace('Data', '') ) }}
+
+                                <a href="javascript: void(0);" class="sustainIndexDefinitionBlock ml-2">
+                                    <i class="pi pi-info-circle"></i>
+                                    <span class="overlayPanel">{{ sustainIndexCardDefinitions[ sustainChart.key ] }}</span>
+                                </a>
+                            </h6>
+
+                        </div>
+                        <div class="card-body">
+                            <p-chart type="line" [options]="sustainabilityIndexGraphOptions" [data]="sustainChart.value" [responsive]="true" height="235px" *ngIf="sustainChart.value.datasets.length"></p-chart>
+                        </div>
+                    </div>
+
+                </div>
+
+            </ng-container>
+
+        </div>
+
+   </div> 
+
+   <div class="col-12">
+        <div class="card">
+            <h2 class="mb-1 c-darkBlue">What is Sustainability Index?</h2><div>Capability of a company to develope and sustain a diverse resource for quite a long time that would perform and fulfil the business intersest of the customers with or without financial support. But from finance professionals perspective, financial sustainability is the capacity of managers to control and monitor the expected benchmarks and financial risk over the long term. From other side, when the company fail to meet pre existing operational levels, the company is said to be in financial distress. Few company managers measure sustainability with timely repayment of debt. When the company grows. when the company is profitable and when the company operates at acceptable financial risk level, those companies are seen as financially suatainable. To put together, the company is expected to retain its profit for future expansion, while covering operational and financial commitments along with mitigating financial risks.</div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <h2 class="mb-1 c-green">Profitability:</h2><div>Long term return: Return on Asset can be used a strategic measure to see long term return.  </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <h2 class="mb-1 c-orange">Sustainable growth:</h2><div>It is the measure of how much the shareholder's equity is used to finance the company activities. </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <h2 class="mb-1 c-greenishBlue">Financial distress: </h2><div> "Short history of Altman Z Score" . Altman developed the model to find financial distress with data from 66 public limited manufacturing companies, out of which 50 were identified as bankrupt. The crucial financial ratios were modelled  to identify financial sustainability index of the manufacturing companies.The combination of regression coefficient with hand picked financial ratios measure the financial sustainability of any company indirectly to good level of accuracy.</div>
+        </div>
+    </div>
+
+</div>

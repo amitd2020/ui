@@ -1,0 +1,230 @@
+<!-- <button pButton type="button" label="Enterprise Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm p-button-inline mb-xxl-2 mr-2"  title="Enterprise Report" ></button> -->
+
+<p-dialog header="Select Fields:" styleClass="downloadReportModalDialog" [(visible)]="enterpriseReportButton" [modal]="true" [focusOnShow]="false" [style]="{width: '50vw'}" [baseZIndex]="10000" appendTo="body" [draggable]="false" [resizable]="true" (onHide)="resetOnHideDialog()">
+
+    <div class="grid">
+        <div class="col-10">
+            <div class="p-field-radiobutton mt-3 mb-2">
+                <label class="mr-2 font-bold">Branding: </label>
+                <p-radioButton class="mr-1" name="Branding" value="DG Branding" [(ngModel)]="checkDgBranding" inputId="DG Branding" (onClick)="getBrandingName($event)"></p-radioButton>
+                <label class="mr-3" for="DG Branding">DG Branding</label>
+                <p-radioButton class="mr-1" name="Branding" value="Custom Branding" [(ngModel)]="checkDgBranding" inputId="Custom Branding" (onClick)="getBrandingName($event)"></p-radioButton>
+                <label for="Custom Branding">Custom Branding</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-orange-600" *ngIf="checkDgBranding == 'Custom Branding' && !showCheckBoxCard">
+        <small><p>Please click on the profile tab and upload your company logo and cover photo to generate the report.</p></small>
+    </div>
+
+    <div  [ngClass]="{ 'disabled': checkDgBranding == 'Custom Branding' && !showCheckBoxCard }">
+        <div class="mb-3">
+            <p-checkbox name="selectAll" label="All" binary="true" [(ngModel)]="selectAllChecked" (click)="selectAll()" ></p-checkbox>
+        </div>
+    
+        <div class="grid checkBoxStyle">
+    
+            <div class="col-4 md-4">
+                <div class="card h-full greenCard">
+    
+                    <h3 class="mt-0 mb-2">Risk Profiles</h3>
+            
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="financialDetails" label="Financial Details" [(ngModel)]="financialChecked" binary="true" inputId="financial" (onChange)="selectCheckBox( $event, 'financialChecked' )"></p-checkbox>
+                    </div>
+                    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="account" label="Account" [(ngModel)]="accountChecked" binary="true" inputId="account" (onChange)="selectCheckBox( $event, 'accountChecked' )"></p-checkbox>
+                    </div>
+            
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="ccjInformation" label="County Court Judgment"  [(ngModel)]="ccjChecked" binary="true" inputId="ccj" (onChange)="selectCheckBox( $event, 'ccjChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="riskAssessmentData" label="Risk Assessment" [(ngModel)]="riskAssessmentDataChecked" binary="true" inputId="riskAssessmentData" (onChange)="selectCheckBox( $event, 'riskAssessmentDataChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="history" label="History" [(ngModel)]="historyChecked" binary="true" inputId="history" (onChange)="selectCheckBox( $event, 'historyChecked' )"></p-checkbox>
+                    </div>
+            
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="charges" label="Charges" [(ngModel)]="chargesChecked" binary="true" inputId="charges" (onChange)="selectCheckBox( $event, 'chargesChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="chargesPersonEntitled" label="Charges Person Entitled" [(ngModel)]="chargesPersonEntitledChecked" binary="true" inputId="chargesPersonEntitled" (onChange)="selectCheckBox( $event, 'chargesPersonEntitledChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="corporateLand" label="Property Register"  [(ngModel)]="corporate_landChecked" binary="true" inputId="corporate_land" (onChange)="selectCheckBox( $event, 'corporate_landChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="writeOff" label="Write-offs" [(ngModel)]="badDebtorsChecked" binary="true" inputId="bad_Debtors" (onChange)="selectCheckBox( $event, 'badDebtorsChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="innovateGrant" label="Innovate Grant" [(ngModel)]="innovateGrantDataChecked" binary="true" inputId="Innovate" (onChange)="selectCheckBox( $event, 'innovateGrantDataChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="commentary" label="Commentary" [(ngModel)]="commentaryChecked" binary="true" inputId="commentary" (onChange)="selectCheckBox( $event, 'commentaryChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="scoreAndIndicators" label="Score And Indicators" [(ngModel)]="scoreAndIndicatorsChecked" binary="true" inputId="scoreAndIndicators" (onChange)="selectCheckBox( $event, 'scoreAndIndicatorsChecked' )"></p-checkbox>
+                    </div>
+                    
+                </div>
+            </div>
+    
+            <div class="col-4 md-4">
+                <div class="card h-full blueCard">
+    
+                    <h3 class="mt-0 mb-2">Related Entities</h3>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="Entity Count" label="Entity Count" [(ngModel)]="managementChecked" binary="true" inputId="management" (onChange)="selectCheckBox( $event, 'managementChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="ultimateHoldingCompany" label="Ultimate Beneficial Owner" [(ngModel)]="ultimateHoldingCompanyChecked" binary="true" inputId="ultimateHoldingCompany" (onChange)="selectCheckBox( $event, 'ultimateHoldingCompanyChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="personWithSignificantControl" label="Person With Significant Control" [(ngModel)]="personWithSignificantControlChecked" binary="true" inputId="personWithSignificantControl" (onChange)="selectCheckBox( $event, 'personWithSignificantControlChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="activeCompanyDirector" label="Active Company Director" [(ngModel)]="activeCompanyDirectorChecked" binary="true" inputId="activeCompanyDirector" (onChange)="selectCheckBox( $event, 'activeCompanyDirectorChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="activeCompanySecretary" label="Active Company Secretary" [(ngModel)]="activeCompanySecretaryChecked" binary="true" inputId="documents" (onChange)="selectCheckBox( $event, 'activeCompanySecretaryChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="previousCompanyDirectorAndSecretary" label="Resigned Company Director And Secretary" [(ngModel)]="previousCompanyDirectorAndSecretaryChecked" binary="true" inputId="previousCompanyDirectorAndSecretary" (onChange)="selectCheckBox( $event, 'previousCompanyDirectorAndSecretaryChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="shareHolder" label="Shareholder" [(ngModel)]="shareholdersChecked" binary="true" inputId="shareholders" (onChange)="selectCheckBox( $event, 'shareholdersChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="tradingAddress" label="Trading Address" [(ngModel)]="tradingAddressesChecked" binary="true" inputId="trading_addresses" (onChange)="selectCheckBox( $event, 'tradingAddressesChecked' )"></p-checkbox>
+                    </div>
+    
+                    <!-- <div class="mb-1">
+                        <p-checkbox name="group2" value="ccjDataTrends" label="CCJ Data trend" [(ngModel)]="ccjDataTrendsChecked" binary="true" inputId="ccjDataTrends" (onChange)="selectCheckBox( $event, 'ccjDataTrendsChecked' )"></p-checkbox>
+                    </div> -->
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="accumulativeInvoiceTrends" label="Accumulative Invoice trends" [(ngModel)]="accumulativeInvoiceTrendsChecked" binary="true" inputId="accumulativeInvoiceTrends" (onChange)="selectCheckBox( $event, 'accumulativeInvoiceTrendsChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="dbtTrends" label="DBT trends" [(ngModel)]="dbtTrendsChecked" binary="true" inputId="dbtTrends" (onChange)="selectCheckBox( $event, 'dbtTrendsChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="groupStructure" label="Group Structure" [(ngModel)]="groupStructureChecked" binary="true" inputId="groupStructure" (onChange)="selectCheckBox( $event, 'groupStructureChecked' )"></p-checkbox>
+                    </div>
+    
+                    <!-- <div class="mb-1">
+                        <p-checkbox name="group2" value="extendedGroupStructure" label="Extended Group Strucure" [(ngModel)]="extendedGroupStructureChecked" binary="true" inputId="extendedGroupStructure" (onChange)="selectCheckBox( $event, 'extendedGroupStructureChecked' )"></p-checkbox>
+                    </div> -->
+    
+                </div>
+            </div>
+    
+            <div class="col-4 md-4">
+                <div class="card h-full voiletCard">
+    
+                    <h3 class="mt-0 mb-2">Miscellaneous</h3>
+    
+                    <!-- <div class="mb-1">
+                        <p-checkbox name="group2" value="aboutTheCompany" label="About The Company" [(ngModel)]="aboutTheCompanyChecked" binary="true" inputId="aboutTheCompany" (onChange)="selectCheckBox( $event, 'aboutTheCompanyChecked' )"></p-checkbox>
+                    </div> -->
+    
+                    <!-- <div class="mb-1">
+                        <p-checkbox name="group2" value="contactInformation" label="Contact Information" [(ngModel)]="contactInformationChecked" binary="true" inputId="contactInformation" (onChange)="selectCheckBox( $event, 'contactInformationChecked' )"></p-checkbox>
+                    </div>                 -->
+                    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="documents" label="Documents" [(ngModel)]="documentsChecked" binary="true" inputId="documents" (onChange)="selectCheckBox( $event, 'documentsChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="auditorAndAccountant" label="Auditor And Accountant" [(ngModel)]="auditorAndAccountantChecked" binary="true" inputId="auditorAndAccountant" (onChange)="selectCheckBox( $event, 'auditorAndAccountantChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="governmentProcurement" label="Government Procurement" [(ngModel)]="governmentProcurementChecked" binary="true" inputId="governmentProcurement" (onChange)="selectCheckBox( $event, 'governmentProcurementChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1" *ngIf="patentData">
+                        <p-checkbox name="group2" value="patentAndTrade" label="Patent and Trade" [(ngModel)]="patentDataChecked" binary="true" inputId="paten" (onChange)="selectCheckBox( $event, 'patentDataChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="import" label="Import" [(ngModel)]="importDataChecked" binary="true" inputId="Import" (onChange)="selectCheckBox( $event, 'importDataChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="export" label="Export" [(ngModel)]="exportDataChecked" binary="true" inputId="Export" (onChange)="selectCheckBox( $event, 'exportDataChecked' )"></p-checkbox>
+                    </div>
+    
+                    <div class="mb-1">
+                        <p-checkbox name="group2" value="eventHistory" label="Event History" [(ngModel)]="eventHistoryChecked" binary="true" inputId="eventHistory" (onChange)="selectCheckBox( $event, 'eventHistoryChecked' )"></p-checkbox>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+    
+        <p-footer>
+            <div class="text-center">
+                <button pButton type="button" label="Download Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-inline p-button-sm mr-0 mb-2" [ngClass]="{ 'hasFeatureLockIcon': [ subscribedPlanModal['Start'] ].includes( userDetails?.planId ) }" title="Download Report" (click)="checkPdfReportLimit('enterpriseReport')">
+                    <span *ngIf="( [ subscribedPlanModal['Start'] ].includes( userDetails?.planId ))" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+                </button>
+                <button pButton type="button" label="Send To Mail" icon="ui-icon-mail-outline" class="p-button-rounded p-button-inline p-button-sm p-button-secondary mr-0 mb-2" (click)="exportCSVToMailDialog()"></button>
+                <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-inline p-button-sm p-button-secondary mr-0 mb-2" (click)="onModalClose()"></button>
+            </div> 
+        </p-footer>
+    
+            <!-- Email Export Dialog Starts -->
+        <p-dialog header="Report Export to Mail" [(visible)]="mailFromEnterPriseButtonBool" [modal]="true" appendTo="body" [style]="{width: '35vw'}" [draggable]="false" [focusOnShow]="false" (onHide)="mailFromEnterPriseButtonBool=false; customEmailId=''; customEmail=false">
+    
+            <div class="text-center" *ngIf="!customEmail">
+                <p class="mt-2">Do you want to send exported report to another email account ?</p>
+                <button pButton class="p-button-rounded mr-2 p-button-lg" (click)="customEmail=true" type="button" label="Yes"></button>
+                <button pButton class="p-button-rounded p-button-lg darkGrey" (click)="sendMailFromEnterPriseButton(); mailFromEnterPriseButtonBool=false; this.customEmailId='';customEmail=false" type="button" label="No"></button>
+            </div>
+    
+            <div *ngIf="customEmail" class="col form-group p-input-filled">
+                <div class="col-12 md:col-3 lg:col-12">
+                    <span class="p-inputfield">
+                        <input type="email" class="p-inputtext p-component p-element ng-untouched ng-pristine ng-valid" pInputText name="email" (keyup)="validateEmail(customEmailId)" placeholder="Email" [(ngModel)]="customEmailId" autocomplete="off"  [pattern]="emailPattern" #offEmail="ngModel" style="width: 100%; padding: 0.6rem">
+                    </span>
+                    <div *ngIf="offEmail.errors">
+                        <div style="color: red;" *ngIf="offEmail.errors.pattern">Email not valid.</div>	
+                    </div>
+                </div>
+            </div>
+    
+            <p-footer>
+                <div class="text-center">
+                    <button *ngIf="customEmail" pButton class="p-button-rounded darkGrey" (click)="customEmail=false" type="button" label="Back"></button>
+                    <button pButton *ngIf="customEmail" class="p-button-rounded ml-2" (click)="downloadCompanyPDFReport(); mailFromEnterPriseButtonBool=false; this.customEmailId='';customEmail=false" [disabled]="customEmailId === undefined || emailValidateBool == false || customEmailId.length == 0" type="button" label="Send"></button>
+                    <button pButton type="button" class="p-button-rounded darkGrey ml-2" (click)="mailFromEnterPriseButtonBool=false; this.customEmailId='';customEmail=false" label="Close"></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+            <!-- Email Export Dialog Ends -->
+    </div>

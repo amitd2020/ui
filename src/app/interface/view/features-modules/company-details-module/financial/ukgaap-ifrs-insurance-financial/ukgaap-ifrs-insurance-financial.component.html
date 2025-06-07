@@ -1,0 +1,11 @@
+<ng-container *ngIf="checkPlanAndFeatures(); else showUpgradePlanBlock">
+    <div *ngIf="financialDataObject">
+        <dg-financial-table-data [showUkgaapIfrsInsuranceFinancialInput]="true" [requiredCompanyName]="companyData?.businessName" [ukgaapIfrsInsuranceFinancialData]="financialDataObject" [UkgaapHeadingName] = "headingName"></dg-financial-table-data>
+    </div>
+</ng-container>
+
+<ng-template #showUpgradePlanBlock>
+	<p-card>
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</p-card>
+</ng-template>

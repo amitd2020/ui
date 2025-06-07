@@ -1,0 +1,1145 @@
+
+<p-toast position="top-center" key="tc" [baseZIndex]="90000000"></p-toast>
+
+<!-- EPC Button Declaration-->
+
+<ng-container *ngIf="epcDetails && ( ( epcDetails.asset_rating_band && epcDetails.asset_rating_band !='' ) || ( epcDetails.current_energy_rating && epcDetails.current_energy_rating !='' ) || ( epcDetails.potential_energy_rating && epcDetails.potential_energy_rating !='' ) ); else noRatingBand">
+    <ng-container *ngIf="currentGrade">
+        <ng-container *ngIf="epcDetails.asset_rating_band; else secondBlock">
+            <p-button label="Rating" styleClass="ratingBand colorRating{{ epcDetails.asset_rating_band }}" badge="{{ epcDetails.asset_rating_band }}" (click)="energyPerformanceCertificate()"></p-button>
+        </ng-container>
+        <ng-template #secondBlock>
+            <ng-container *ngIf="epcDetails.current_energy_rating; else noRatingBand">
+                <p-button label="Rating" styleClass="ratingBand colorRating{{ epcDetails.current_energy_rating }}" badge="{{ epcDetails.current_energy_rating }}"  (click)="energyPerformanceCertificate()"></p-button>
+            </ng-container>
+        </ng-template>
+    </ng-container>
+
+    <ng-container *ngIf="potentialGrade">
+        <ng-container *ngIf="epcDetails.potential_energy_rating; else noRatingBand">
+            <p-button label="Rating" styleClass="ratingBand colorRating{{ epcDetails.potential_energy_rating }}" badge="{{ epcDetails.potential_energy_rating }}" (click)="energyPerformanceCertificate()"></p-button>
+        </ng-container>
+    </ng-container>
+</ng-container>
+<ng-template #noRatingBand>
+    -
+</ng-template>
+
+<!-- EPC Modal Dialog -->
+<p-dialog header="Energy Performance Certificates" [(visible)]="displayEPCModal" [modal]="true" [focusOnShow]="false" [baseZIndex]="10000" [draggable]="false" appendTo="body" [style]="{width: '50vw'}" (onHide)="resetOnHideDialog()">
+    
+    <ng-container *ngIf="epcDetails && epcDetails.length > 0; else noRecordFound">
+        
+        <p-listbox [options]="epcDetails" [(ngModel)]="selectedEpc" [filter]="true" [multiple]="false" optionLabel="rating" [style]="{'width':'100%'}" (onClick)="selectCertificate(selectedEpc)" filterPlaceHolder="Search by Rating" styleClass="epcListBoxStyle">
+            <ng-template let-epc pTemplate="item">
+                <div class="grid align-items-center">
+                    <div class="col-10 p-0">
+                        <div class="col-fixed text-left">
+                            <span class="text-lg">{{epc.address}}</span>
+                        </div>
+
+                    </div>
+                    <div class="col-2 pb-0">
+                        <div class="col text-right ml-auto cardRatingStyle">
+                            <div class="text-center"><span>Rating</span></div>
+                            <div class="fw-700 fs-xxlarge text-center p-my-3">{{epc.rating}}</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+        </p-listbox>
+
+        <p-footer>
+            <div class="text-center mt-4">
+                <button pButton type="button" label="View Details" class="p-button-rounded p-button-lg" title="View Details"
+                    [disabled]="lmk_Key ===undefined" (click)="epcDetailsView()"></button>
+            </div>
+        </p-footer>
+
+    </ng-container>
+
+    <ng-template #noRecordFound>
+        <div class="c-light mt-2">
+            No Records Found..!
+        </div>
+    </ng-template>
+</p-dialog>
+<!-- EPC Modal Dialog End -->
+
+<!-- EPC Details Modal Dialog -->
+<p-dialog header="Energy Performance Certificates Details" [(visible)]="displayEPCDetailsModal" [modal]="true"
+    [focusOnShow]="false" [baseZIndex]="9999999" [draggable]="false" appendTo="body" [style]="{width: '80vw'}">
+
+    <!-- <button *ngIf="hideButtonOnEPCTab" pButton icon="ui-icon-arrow-back" type="button" label="back" class="p-button-rounded p-button-sm" (click)="goBackToPreviousScreen()"></button> -->
+
+    <div class="grid">
+
+        <ng-container *ngIf="epcCertificateType == 'non-domestic'">
+            <div class="col-4">
+                
+                <div class="col-12 flex justify-content-between borderColor">
+                    <div>
+                        Asset Rating
+                    </div>
+                    <div>
+                        Current
+                    </div>
+                </div>
+    
+                <div class="card assetRatingBlockTable">
+    
+                    <div class="text-lg mb-2">
+                        <span [ngStyle]="{ color: 'var( --surface-g )' }">Very Energy Efficient - Lower Running Costs</span>
+                    </div>
+                    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingAPlus">
+                            <span class="ratingRange">(Net zero)</span>
+                            <strong class="text-right float-r fs-large">A+</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='A+'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftA"></div>
+                            <div class="squareBlock squareBlockA">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingA">
+                            <span class="ratingRange">(0-25)</span>
+                            <strong class="text-right float-r fs-large">A</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='A'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftA"></div>
+                            <div class="squareBlock squareBlockA">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingB">
+                            <span class="ratingRange">(26-50)</span>
+                            <strong class="text-right float-r fs-large">B</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='B'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftB"></div>
+                            <div class="squareBlock squareBlockB">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingC">
+                            <span class="ratingRange">(51-75)</span>
+                            <strong class="text-right float-r fs-large">C</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='C'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftC"></div>
+                            <div class="squareBlock squareBlockC">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingD">
+                            <span class="ratingRange">(76-100)</span>
+                            <strong class="text-right float-r fs-large">D</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='D'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftD"></div>
+                            <div class="squareBlock squareBlockD">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingE">
+                            <span class="ratingRange">(101-125)</span>
+                            <strong class="text-right float-r fs-large">E</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='E'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftE"></div>
+                            <div class="squareBlock squareBlockE">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingF">
+                            <span class="ratingRange">(126-150)</span>
+                            <strong class="text-right float-r fs-large">F</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='F'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftF"></div>
+                            <div class="squareBlock squareBlockF">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex justify-content-between align-items-center p-0">
+    
+                        <div class="stepBlockRatingBar ratingG">
+                            <span class="ratingRange">(150+)</span>
+                            <strong class="text-right float-r fs-large">G</strong>
+                        </div>
+    
+                        <div *ngIf="certificateDetails.asset_rating_band ==='G'" class="pointer pointer-transition">
+                            <div class="triangleLeft triangleLeftG"></div>
+                            <div class="squareBlock squareBlockG">
+                                <div class="pointerValue fw-500">
+                                    {{ certificateDetails.asset_rating }}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="text-lg mt-2">
+                        <span [ngStyle]="{ color: 'var( --surface-g )' }">Not Very Efficient - Higher Running Costs</span>
+                     </div>
+    
+                </div>
+    
+            </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="epcCertificateType == 'domestic'">
+            
+            <div class="col-4">
+    
+                <div class="col-12 flex justify-content-between align-items-center borderColor">
+                    <div class="col-4 p-0">
+                        Asset Rating
+                    </div>
+                    <div class="col-4 text-right p-0">
+                        Current
+                    </div>
+                    <div class="col-4 text-right p-0">
+                        Potential
+                    </div>
+                </div>
+    
+                <div class="card assetRatingBlockTable">
+    
+                    <div class="text-lg mb-2">
+                       <span [ngStyle]="{ color: 'var( --surface-g )' }">Very Energy Efficient - Lower Running Costs</span>
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+                        
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingA">
+                                <span class="ratingRange">(92+)</span>
+                                <strong class="text-right float-r fs-large">A</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating ==='A'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftA"></div>
+                                <div class="squareBlock squareBlockA">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating ==='A'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftA"></div>
+                                <div class="squareBlock squareBlockA">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+                        
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingB">
+                                <span class="ratingRange">(81-91)</span>
+                                <strong class="text-right float-r fs-large">B</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating === 'B'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftB"></div>
+                                <div class="squareBlock squareBlockB">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating === 'B'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftB"></div>
+                                <div class="squareBlock squareBlockB">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+                        
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingC">
+                                <span class="ratingRange">(69-80)</span>
+                                <strong class="text-right float-r fs-large">C</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating === 'C'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftC"></div>
+                                <div class="squareBlock squareBlockC">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating === 'C'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftC"></div>
+                                <div class="squareBlock squareBlockC">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingD">
+                                <span class="ratingRange">(55-68)</span>
+                                <strong class="text-right float-r fs-large">D</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating === 'D'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftD"></div>
+                                <div class="squareBlock squareBlockD">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating === 'D'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftD"></div>
+                                <div class="squareBlock squareBlockD">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+                        
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingE">
+                                <span class="ratingRange">(39-54)</span>
+                                <strong class="text-right float-r fs-large">E</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating === 'E'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftE"></div>
+                                <div class="squareBlock squareBlockE">
+                                    <div class="pointerValue fw-500">
+                                       {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating === 'E'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftE"></div>
+                                <div class="squareBlock squareBlockE">
+                                    <div class="pointerValue fw-500">
+                                       {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingF">
+                                <span class="ratingRange">(21-38)</span>
+                                <strong class="text-right float-r fs-large">F</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating === 'F'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftF"></div>
+                                <div class="squareBlock squareBlockF">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating === 'F'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftF"></div>
+                                <div class="squareBlock squareBlockF">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 flex p-0">
+
+                        <div class="col-4 p-0">
+                            <div class="stepBlockRatingBar ratingG">
+                                <span class="ratingRange">(1-20)</span>
+                                <strong class="text-right float-r fs-large">G</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.current_energy_rating === 'G'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftG"></div>
+                                <div class="squareBlock squareBlockG">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.current_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-4 p-0">
+                            <div *ngIf="certificateDetails.potential_energy_rating === 'G'" class="pointer pointer-transition">
+                                <div class="triangleLeft triangleLeftG"></div>
+                                <div class="squareBlock squareBlockG">
+                                    <div class="pointerValue fw-500">
+                                        {{ certificateDetails.potential_energy_efficiency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="text-lg mt-2">
+                       <span [ngStyle]="{ color: 'var( --surface-g )' }">Not Very Efficient - Higher Running Costs</span>
+                    </div>
+    
+                </div>
+    
+            </div>
+
+        </ng-container>
+
+
+        <div class="col-8">
+            <div class="card infoWrapper">
+                <div class="grid epc-box">
+                    <div class="col-12 epc-address-rating-box">
+                        <div class="epc-address-box">
+                            <div *ngIf="certificateDetails.address1 != '' && certificateDetails.address1 != certificateDetails.address2 ">{{ certificateDetails.address1 }}</div>
+                            <div *ngIf="certificateDetails.address2 != '' ">{{ certificateDetails.address2 }}</div>
+                            <div *ngIf="certificateDetails.address3 != '' ">{{ certificateDetails.address3 }}</div>
+                            <div>{{ certificateDetails.postcode }}</div>
+                            <div>{{ certificateDetails.local_authority_label }} ({{ certificateDetails.local_authority }})
+                            </div>
+                            <div>{{ certificateDetails.constituency_label }} ({{ certificateDetails.constituency }})</div>
+                        </div>
+                        <div class="epc-rating-box">
+                            <div>
+                                Energy rating
+                            </div>
+                            <div class="epc-rating">
+                                <ng-container *ngIf="epcCertificateType == 'non-domestic'; else nonDomestic">
+                                    <strong>{{ certificateDetails.asset_rating_band }}</strong>
+                                </ng-container>
+                                <ng-template #nonDomestic>
+                                    <strong>{{ certificateDetails.current_energy_rating }}</strong>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-date-box" *ngIf="epcCertificateType == 'non-domestic'">
+                        <div>
+                            Valid Till
+                        </div>
+                        <div>
+                            {{ certificateDetails.valid_till | date: 'dd-MM-yyyy' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box">
+                        <div>
+                            Lodgement Date
+                        </div>
+                        <div>
+                            {{ certificateDetails.lodgement_date | date: 'dd-MM-yyyy' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-date-box" *ngIf="epcCertificateType == 'non-domestic'">
+                        <div>
+                            Assest Rating
+                        </div>
+                        <div>
+                            {{ certificateDetails.asset_rating }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box">
+                        <div>
+                            Inspection Date
+                        </div>
+                        <div>
+                            {{ certificateDetails.inspection_date | date: 'dd-MM-yyyy' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-date-box" *ngIf="epcCertificateType == 'non-domestic'">
+                        <div>
+                            New Build Benchmark
+                        </div>
+                        <div>
+                            {{ certificateDetails.new_build_benchmark }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box">
+                        <div>
+                            Transaction Type
+                        </div>
+                        <div>
+                            {{ (certificateDetails.transaction_type ? certificateDetails.transaction_type : '-') | titlecase }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-date-box" *ngIf="epcCertificateType == 'non-domestic'">
+                        <div>
+                            Existing Stock Benchmark
+                        </div>
+                        <div>
+                            {{ certificateDetails.existing_stock_benchmark ? certificateDetails.existing_stock_benchmark : '-' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box" *ngIf="epcCertificateType == 'non-domestic'">
+                        <div>
+                            Floor Area
+                        </div>
+                        <div>
+                            {{ certificateDetails.floor_area ? certificateDetails.floor_area : '-' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-date-box" *ngIf="epcCertificateType == 'non-domestic'">
+                        <div>
+                            Building Level
+                        </div>
+                        <div>
+                            {{ certificateDetails.building_level ? certificateDetails.building_level : '-' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-date-box" *ngIf="epcCertificateType == 'domestic'">
+                        <div>
+                            Building Reference Number
+                        </div>
+                        <div>
+                            {{ certificateDetails.building_reference_number ? certificateDetails.building_reference_number : '-' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box">
+                        <div>
+                            Property Type
+                        </div>
+                        <div class="text-right">
+                            {{ certificateDetails.property_type ? certificateDetails.property_type : '-' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box" *ngIf="epcCertificateType == 'domestic'">
+                        <div>
+                            Extension Count
+                        </div>
+                        <div>
+                            {{ certificateDetails.extension_count ? certificateDetails.extension_count : '-' }}
+                        </div>
+                    </div>
+
+                    <div class="col-6 epc-number-box" *ngIf="epcCertificateType == 'domestic'">
+                        <div>
+                            Wind Turbine Count
+                        </div>
+                        <div>
+                            {{ certificateDetails.wind_turbine_count ? certificateDetails.wind_turbine_count : '-' }}
+                        </div>
+                    </div>
+                    <div class="col-6 epc-number-box" *ngIf="epcCertificateType == 'domestic'">
+                        <div>
+                            Flat Storey Count
+                        </div>
+                        <div>
+                            {{ certificateDetails.flat_storey_count ? certificateDetails.flat_storey_count : '-' }}
+                        </div>
+                    </div>
+                    <div class="col-6 epc-number-box" *ngIf="epcCertificateType == 'domestic'">
+                        <div>
+                            Fixed Lighting Outlets Count
+                        </div>
+                        <div>
+                            {{ certificateDetails.fixed_lighting_outlets_count ? certificateDetails.fixed_lighting_outlets_count : '-' }}
+                        </div>
+                    </div>
+                    <div class="col-6 epc-number-box" *ngIf="epcCertificateType == 'domestic'">
+                        <div>
+                           Low Energy Fixed Lighting Outlets Count
+                        </div>
+                        <div>
+                            {{ certificateDetails.low_energy_fixed_light_count ? certificateDetails.low_energy_fixed_light_count : '-' }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <p-accordion [multiple]="true">
+                <p-accordionTab header="Others" [selected]="true">
+
+                    <ng-container *ngIf="epcCertificateType == 'non-domestic'">
+
+                        <div class="grid">
+                            <div class="col-6">
+                                <div class="h-full widget-topsearchs">
+                                    <div class="flex justify-content-between item">
+                                        <span>Main Heating Fuel</span>
+                                        <span>{{ ( certificateDetails.main_heating_fuel ?
+                                            certificateDetails.main_heating_fuel : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Other Fuel Desc</span>
+                                        <span>{{ ( certificateDetails.other_fuel_desc ? certificateDetails.other_fuel_desc :
+                                            'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Special Energy Uses</span>
+                                        <span>{{ ( certificateDetails.special_energy_uses ?
+                                            certificateDetails.special_energy_uses : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Renewable Sources</span>
+                                        <span>{{ ( certificateDetails.renewable_sources ?
+                                            certificateDetails.renewable_sources : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>AC Inspection Commissioned</span>
+                                        <span>{{ ( certificateDetails.ac_inspection_commissioned ?
+                                            certificateDetails.ac_inspection_commissioned : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Building Environment</span>
+                                        <span>{{ ( certificateDetails.building_environment ?
+                                            certificateDetails.building_environment : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>UPRN</span>
+                                        <span>{{ ( certificateDetails.uprn ? certificateDetails.uprn : 'no data available')
+                                            | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>UPRN Source</span>
+                                        <span>{{ ( certificateDetails.uprn_source ? certificateDetails.uprn_source : 'no
+                                            data available') | titlecase }}</span>
+                                    </div>
+    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="h-full widget-topsearchs">
+                                    <div class="flex justify-content-between item">
+                                        <span>Standard Emissions</span>
+                                        <span>{{ ( certificateDetails.standard_emissions ?
+                                            certificateDetails.standard_emissions : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Target Emissions</span>
+                                        <span>{{ ( certificateDetails.target_emissions ? certificateDetails.target_emissions
+                                            : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Typical Emissions</span>
+                                        <span>{{ ( certificateDetails.typical_emissions ?
+                                            certificateDetails.typical_emissions : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Building Emissions</span>
+                                        <span>{{ ( certificateDetails.building_emissions ?
+                                            certificateDetails.building_emissions : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Aircon Present</span>
+                                        <span>{{ ( certificateDetails.aircon_present ? certificateDetails.aircon_present :
+                                            'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Aircon KW Rating</span>
+                                        <span>{{ ( certificateDetails.aircon_kw_rating ? certificateDetails.aircon_kw_rating
+                                            : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Estimated Aircon KW Rating</span>
+                                        <span>{{ certificateDetails.estimated_aircon_kw_rating ?
+                                            certificateDetails.estimated_aircon_kw_rating : 'no data available' | titlecase
+                                            }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Primary Energy</span>
+                                        <span>{{ ( certificateDetails.primary_energy_value ?
+                                            certificateDetails.primary_energy_value : 'no data available') | titlecase
+                                            }}</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="epcCertificateType == 'domestic'">
+
+                        <div class="grid">
+                            <div class="col-6">
+                                <div class="h-full widget-topsearchs">
+                                    <div class="flex justify-content-between item">
+                                        <span>Environment Impact Current</span>
+                                        <span>{{ ( certificateDetails.environment_impact_current ? certificateDetails.environment_impact_current : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Environment Impact Potential</span>
+                                        <span>{{ ( certificateDetails.environment_impact_potential ? certificateDetails.environment_impact_potential : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Energy Consumption Current</span>
+                                        <span>{{ ( certificateDetails.energy_consumption_current ? certificateDetails.energy_consumption_current : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Energy Consumption Potential</span>
+                                        <span>{{ ( certificateDetails.energy_consumption_potential ? certificateDetails.energy_consumption_potential : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Energy Tariff</span>
+                                        <span>{{ ( certificateDetails.energy_tariff ? certificateDetails.energy_tariff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>CO<sub>2</sub> Emissions Current</span>
+                                        <span>{{ ( certificateDetails.co2_emissions_current ? certificateDetails.co2_emissions_current : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>CO<sub>2</sub> Emissions Potential</span>
+                                        <span>{{ ( certificateDetails.co2_emissions_potential ? certificateDetails.co2_emissions_potential : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Sheating Energy Eff</span>
+                                        <span>{{ ( certificateDetails.sheating_energy_eff ? certificateDetails.sheating_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Sheating Env Off</span>
+                                        <span>{{ ( certificateDetails.sheating_env_eff ? certificateDetails.sheating_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Number Habitable Rooms</span>
+                                        <span>{{ ( certificateDetails.number_habitable_rooms ? certificateDetails.number_habitable_rooms : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Number Heated Rooms</span>
+                                        <span>{{ ( certificateDetails.number_heated_rooms ? certificateDetails.number_heated_rooms : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Number Open Fireplaces</span>
+                                        <span>{{ ( certificateDetails.number_open_fireplaces ? certificateDetails.number_open_fireplaces : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Low Energy Fixed Lighting Outlets Count</span>
+                                        <span>{{ ( certificateDetails.low_energy_fixed_light_count ? certificateDetails.low_energy_fixed_light_count : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    
+                                    <div class="flex justify-content-between item">
+                                        <span>UPRN</span>
+                                        <span>{{ ( certificateDetails.uprn ? certificateDetails.uprn : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>UPRN Source</span>
+                                        <span>{{ ( certificateDetails.uprn_source ? certificateDetails.uprn_source : 'no data available') | titlecase }}</span>
+                                    </div>
+    
+                                    <div class="flex justify-content-between item">
+                                        <span>Roof Description</span>
+                                        <span>{{ ( certificateDetails.roof_description ? certificateDetails.roof_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Main Fuel</span>
+                                        <span>{{ ( certificateDetails.main_fuel ? certificateDetails.main_fuel : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mains Gas Flag</span>
+                                        <span>{{ ( certificateDetails.mains_gas_flag ? certificateDetails.mains_gas_flag : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mainheat Description</span>
+                                        <span>{{ ( certificateDetails.mainheat_description ? certificateDetails.mainheat_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mainheat Energy Eff</span>
+                                        <span>{{ ( certificateDetails.mainheat_energy_eff ? certificateDetails.mainheat_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mainheat Env Eff</span>
+                                        <span>{{ ( certificateDetails.mainheat_env_eff ? certificateDetails.mainheat_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mainheatcont Description</span>
+                                        <span>{{ ( certificateDetails.mainheatcont_description ? certificateDetails.mainheatcont_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mainheatc Energy Eff</span>
+                                        <span>{{ ( certificateDetails.mainheatc_energy_eff ? certificateDetails.mainheatc_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mainheatc Env Eff</span>
+                                        <span>{{ ( certificateDetails.mainheatc_env_eff ? certificateDetails.mainheatc_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Glazed Type</span>
+                                        <span>{{ ( certificateDetails.glazed_type ? certificateDetails.glazed_type : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Glazed Area</span>
+                                        <span>{{ ( certificateDetails.glazed_area ? certificateDetails.glazed_area : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Multi Glaze Proportion</span>
+                                        <span>{{ ( certificateDetails.multi_glaze_proportion ? certificateDetails.multi_glaze_proportion : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Mechanical Ventilation</span>
+                                        <span>{{ ( certificateDetails.mechanical_ventilation ? certificateDetails.mechanical_ventilation : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Solar Water Heating Flag</span>
+                                        <span>{{ ( certificateDetails.solar_water_heating_flag ? certificateDetails.solar_water_heating_flag : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Photo Supply</span>
+                                        <span>{{ ( certificateDetails.photo_supply ? certificateDetails.photo_supply : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Heat Loss Corridor</span>
+                                        <span>{{ ( certificateDetails.heat_loss_corridor ? certificateDetails.heat_loss_corridor : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Current Energy Efficiency</span>
+                                        <span>{{ certificateDetails.current_energy_efficiency ? certificateDetails.current_energy_efficiency : 'no data available' | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="h-full widget-topsearchs">
+                                    <div class="flex justify-content-between item">
+                                        <span>Total Floor Area</span>
+                                        <span>{{ ( certificateDetails.total_floor_area ? certificateDetails.total_floor_area : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Floor Level</span>
+                                        <span>{{ ( certificateDetails.floor_level ? certificateDetails.floor_level : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Floor Height</span>
+                                        <span>{{ ( certificateDetails.floor_height ? certificateDetails.floor_height : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Floor Description</span>
+                                        <span>{{ ( certificateDetails.floor_description ? certificateDetails.floor_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Floor Energy Eff</span>
+                                        <span>{{ ( certificateDetails.floor_energy_eff ? certificateDetails.floor_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Floor Env Eff</span>
+                                        <span>{{ ( certificateDetails.floor_env_eff ? certificateDetails.floor_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Lighting Cost Current</span>
+                                        <span>{{ ( certificateDetails.lighting_cost_current ? certificateDetails.lighting_cost_current : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Lighting Cost Potential</span>
+                                        <span>{{ ( certificateDetails.lighting_cost_potential ? certificateDetails.lighting_cost_potential : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Low Energy Lighting</span>
+                                        <span>{{ ( certificateDetails.low_energy_lighting ? certificateDetails.low_energy_lighting : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Lighting Description</span>
+                                        <span>{{ ( certificateDetails.lighting_description ? certificateDetails.lighting_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Lighting Energy Eff</span>
+                                        <span>{{ ( certificateDetails.lighting_energy_eff ? certificateDetails.lighting_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Lighting Env Eff</span>
+                                        <span>{{ ( certificateDetails.lighting_env_eff ? certificateDetails.lighting_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    
+                                    <div class="flex justify-content-between item">
+                                        <span>Heating Cost Current</span>
+                                        <span>{{ ( certificateDetails.heating_cost_current ? certificateDetails.heating_cost_current : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Heating Cost Potential</span>
+                                        <span>{{ ( certificateDetails.heating_cost_potential ? certificateDetails.heating_cost_potential : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Main Heating Controls</span>
+                                        <span>{{ ( certificateDetails.main_heating_controls ? certificateDetails.main_heating_controls : 'no data available') }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Hot Water Cost Current</span>
+                                        <span>{{ certificateDetails.hot_water_cost_current ? certificateDetails.hot_water_cost_current : 'no data available' }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Hot Water Cost Potential</span>
+                                        <span>{{ certificateDetails.hot_water_cost_potential ? certificateDetails.hot_water_cost_potential : 'no data available' }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Hot Water Energy Eff</span>
+                                        <span>{{ certificateDetails.hot_water_energy_eff ? certificateDetails.hot_water_energy_eff : 'no data available' | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Hot Water Description</span>
+                                        <span>{{ certificateDetails.hotwater_description ? certificateDetails.hotwater_description : 'no data available' | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Hot Water Env Eff</span>
+                                        <span>{{ certificateDetails.hot_water_env_eff ? certificateDetails.hot_water_env_eff : 'no data available' | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Windows Description</span>
+                                        <span>{{ ( certificateDetails.windows_description ? certificateDetails.windows_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Windows Energy Eff</span>
+                                        <span>{{ ( certificateDetails.windows_energy_eff ? certificateDetails.windows_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Windows Env Eff</span>
+                                        <span>{{ ( certificateDetails.windows_env_eff ? certificateDetails.windows_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Walls Description</span>
+                                        <span>{{ ( certificateDetails.walls_description ? certificateDetails.walls_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Walls Energy Eff</span>
+                                        <span>{{ ( certificateDetails.walls_energy_eff ? certificateDetails.walls_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Walls Env Eff</span>
+                                        <span>{{ ( certificateDetails.walls_env_eff ? certificateDetails.walls_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Roof Energy Eff</span>
+                                        <span>{{ ( certificateDetails.roof_energy_eff ? certificateDetails.roof_energy_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Roof Env Eff</span>
+                                        <span>{{ ( certificateDetails.roof_env_eff ? certificateDetails.roof_env_eff : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Secondheat Description</span>
+                                        <span>{{ ( certificateDetails.secondheat_description ? certificateDetails.secondheat_description : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Unheated Corridor Length</span>
+                                        <span>{{ ( certificateDetails.primary_energy_value ? certificateDetails.primary_energy_value : 'no data available') | titlecase }}</span>
+                                    </div>
+                                    <div class="flex justify-content-between item">
+                                        <span>Potential Energy Rating</span>
+                                        <span>{{ ( certificateDetails.potential_energy_efficiency ? certificateDetails.potential_energy_efficiency : 'no data available') | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+
+                    </ng-container>
+
+                </p-accordionTab>
+                <p-accordionTab header="Recommendations" [selected]="true">
+                    <p-table [columns]="recommendationFields" [value]="epcRecommendationData" responsiveLayout="scroll">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }">
+                                    <span *ngIf="col.header !== 'CO2 Impact'">{{ col.header }}</span>
+                                    <span *ngIf="col.header == 'CO2 Impact'">CO<sub>2</sub>&nbsp;Impact</span>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }"
+                                    [ngSwitch]="true">
+
+                                    <ng-container *ngSwitchDefault>
+                                        <ng-container *ngIf="toCheckStringType( rowData[col.field] ); else showHyphen">
+                                            {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}                
+                                        </ng-container>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="col.field == 'payback_type'">
+                                        {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="col.field == 'co2_impact'">
+                                        <p-tag severity="success" *ngIf="rowData[col.field] == 'LOW'">{{
+                                            rowData[col.field ]}}</p-tag>
+                                        <p-tag severity="warning" *ngIf="rowData[col.field] == 'MEDIUM'">{{
+                                            rowData[col.field ]}}</p-tag>
+                                        <p-tag severity="danger" *ngIf="rowData[col.field] == 'HIGH'">{{
+                                            rowData[col.field ]}}</p-tag>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="columns?.length">No records found.</td>    
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-accordionTab>
+
+            </p-accordion>
+        </div>
+    </div>
+
+
+    <p-footer>
+        <div class="text-center">
+            <!-- <button *ngIf="hideButtonOnEPCTab" pButton type="button" label="Save" class="p-button-rounded p-button-inline" (click)="confirmDisplayDialog()"></button> -->
+            <button pButton type="button" label="Cancel" class="p-button-rounded p-button-inline ml-0 darkGrey" (click)="displayEPCDetailsModal = false"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+<!-- EPC Details Modal Dialog -->
+
+<p-dialog header="Confirmation" [(visible)]="confirmDisplay" [modal]="true" [baseZIndex]="10001"
+[draggable]="false" [resizable]="false">
+<div class="flex">
+    <i class="pi pi-exclamation-triangle"></i>
+    <p> Are you sure that you want to map this EPC data with company number {{selectedCompany}} ?</p>
+</div>
+    <ng-template pTemplate="footer">
+        <button pButton icon="pi pi-check" (click)="confirmSaveData()" label="yes" class="p-button-rounded p-button-inline ml-0"></button>
+        <button pButton icon="pi pi-times" (click)="confirmDisplay=false" label="No" class="p-button-rounded p-button-inline ml-0 darkGrey"></button>
+    </ng-template>
+</p-dialog>
+
+<ng-template #showHyphen>
+-
+</ng-template>
+
+<!-- <p-confirmDialog [baseZIndex]="10001" key="epc"></p-confirmDialog> -->

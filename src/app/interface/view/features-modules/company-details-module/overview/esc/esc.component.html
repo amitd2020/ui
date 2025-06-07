@@ -1,0 +1,102 @@
+<ng-container *ngIf="environmentComplianceScoreData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Environment Compliance Score</span>
+			<i class="pi pi-info-circle c-darkBlue ml-2" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)" style="font-size:18px"></i>
+			<p-overlayPanel appendTo="body" #op2 styleClass="complianceBandsoverlay">
+				<img class="complianceBandsOnHover" src="assets/layout/images/compliance_bands.svg" />
+			</p-overlayPanel>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="environmentComplianceScoreColumns" [listDataValues]="environmentComplianceScoreData" [listPage]="true" [thisPage]="'environmentComplianceScoreTable'" [showFilterSearch]="false" [serverSidePaginator]="true"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="enforcementActionData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Enforcement Action</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="enforcementActionColumns" [listDataValues]="enforcementActionData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="wasteOperationsData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Waste Operations</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="wasteOperationsColumns" [listDataValues]="wasteOperationsData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="waterDischargesData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Water Discharges</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="waterDischargesColumns" [listDataValues]="waterDischargesData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="industrialInstallationData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Industrial Installation</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="industrialInstallationColumns" [listDataValues]="industrialInstallationData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="wasteExemptionsData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Waste Exemptions</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="wasteExemptionsColumns" [listDataValues]="wasteExemptionsData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="endOfLifeVehiclesData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">End of Life Vehicles</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="endOfLifeVehiclesColumns" [listDataValues]="endOfLifeVehiclesData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="scrapMetalDealersData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Scrap Metal Dealers</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="scrapMetalDealersColumns" [listDataValues]="scrapMetalDealersData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="floodRiskExemptionsData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Flood Risk Exemptions</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="floodRiskExemptionsColumns" [listDataValues]="floodRiskExemptionsData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="radioactiveSubstanceData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Radioactive Substance</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="radioactiveSubstanceColumns" [listDataValues]="radioactiveSubstanceData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>
+
+<ng-container *ngIf="wasteCarriersBrokersData?.length">
+	<div class="grid align-items-center mt-2">
+		<div class="col-fixed">
+			<span class="x-big-data-font c-darkBlue">Waste Carriers Brokers</span>
+		</div>
+	</div>
+	<dg-user-list [listColumns]="wasteCarriersBrokersColumns" [listDataValues]="wasteCarriersBrokersData" [listPage]="true" [thisPage]="'escDataPage'"></dg-user-list>
+</ng-container>

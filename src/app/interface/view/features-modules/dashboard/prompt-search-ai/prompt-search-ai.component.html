@@ -1,0 +1,147 @@
+<div class="card bg-gray-50">
+    <form (ngSubmit)="triggredKeywordSearch()">
+        <div class="p-inputgroup p-2 pt-0">
+            <input type="text" [(ngModel)]="inputValue" pInputText  placeholder="Input your refrence text to search. ( eg. : 'Show me live companies' )" [ngModelOptions]="{standalone: true}">
+            <button pButton label="Search" icon="pi pi-search piIcon" class="border-round p-button-sm"></button>
+        </div>
+    </form>
+    <div class="flex" *ngIf="userPrompt">
+        <span class="px-2 text-xs font-medium text-800">{{ userPrompt | titlecase }}</span>
+    </div>
+
+    <div class="flex mt-1">  
+        <ng-container *ngIf="inputToken">
+            <span class="roundedColoredChipLabel cursor-pointer" (click)="visibleInputToken = true">
+                <p-chip pTooltip="Input Tokens" tooltipPosition="top"><span>Input Tokens: {{ inputToken }}</span></p-chip>
+            </span>
+        </ng-container>
+
+        <ng-container *ngIf="outputToken">
+            <span class="roundedColoredChipLabel cursor-pointer" (click)="visible = true">
+                <p-chip pTooltip="Output Tokens" tooltipPosition="top"><span>Output Tokens: {{ outputToken }}</span></p-chip>
+            </span>
+        </ng-container>
+    </div>
+</div>
+
+<div class="grid chatBackground">
+    <div class="col-4">
+        <div class="p-2"  *ngIf="!responseAI">
+           Your chat will Appear here !!
+        </div>
+        <div class="p-4" *ngIf="responseAI">
+            <p-scrollPanel [style]="{ width: '100%', height: '63vh' }">
+                <div *ngFor="let message of responseAI" class="message-wrapper">
+                    <div class="user-message-container mb-4">
+                        <div class="user-message-content flex justify-end">
+                            <div class="message-bubble user bg-primary text-white p-3 p-shadow-2 mr-3">
+                                {{ message.user }}
+                            </div>
+                            <p-avatar icon="pi pi-user" size="large" shape="circle"></p-avatar>
+                        </div>
+                    </div>
+                    <div class="ai-message-container mb-4">
+                        <div class="ai-message-content flex align-items-start">
+                            <p-avatar icon="pi pi-robot" size="large" shape="circle" class="mr-3"></p-avatar>
+                            <div class="message-bubble ai bg-gray-100 p-3 p-shadow-2">
+                                <pre class="m-0">{{ message.ai }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </p-scrollPanel>
+        </div>
+    </div>
+    <div class="col-8">
+        <ng-container *ngIf="companyData">
+            <dg-admin-record-list *ngIf="companyData" [listColumns]="recordTableCols" [listDataValues]="companyData" [searchTotalCount]="searchTotalCount" [thisPage]="'promptSearchAi'" [queryId]="queryId" (updateTableAfterPagination)="updateTableAfterPagination($event)"></dg-admin-record-list>    
+        </ng-container>
+        
+        <div class="flex justify-content-center">
+            <p-dialog header="Query Response" [modal]="true" [(visible)]="visible" [style]="{ width: '75rem', height: '45rem' }" [dismissableMask]="true" [closable]="true">
+                <p-messages [(value)]="msgs" [enableService]="false" [closable]="true" />
+                <div class="flex justify-content-end">
+                    <button pButton icon="pi pi-copy" label="Copy" class="p-button-sm" (click)="copyResponseData()"></button>
+                </div>
+        
+                <div class="px-2 bg-blue-50 w-max">
+                    <ng-container *ngIf="typeForQuery == 'object'; else otherType">
+                        <pre>{{ generatedElasticQuery | json }}</pre>
+                    </ng-container>
+        
+                    <ng-template #otherType>
+                        <pre>{{ generatedElasticQuery }}</pre>
+                    </ng-template>
+                </div>
+            </p-dialog>
+        </div>
+        
+        <p-dialog header="Response" [modal]="true" [(visible)]="visibleInputToken" [style]="{ width: '75rem', height: '45rem' }" [dismissableMask]="true" [closable]="true">
+        
+            <div class="px-2 bg-blue-50 w-max">
+                <ng-container>
+                    <pre>{{ inputPrompt }}</pre>
+                </ng-container>
+            </div>
+        </p-dialog>
+    </div>
+</div>
+
+<!-- <div class="chat-wrapper">
+    <div class="chat-box" #scrollContainer>
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender">
+        <div class="bubble">{{ msg.text }}</div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+</div> -->
+<!-- <div class="chat-wrapper">
+    <div class="chat-box" #scrollContainer>
+      <div *ngFor="let chat of chatHistory" class="message">
+        <div class="p-card-header"><strong>You:</strong> {{ chat.user }}</div>
+        <div class="p-card-body">
+            <strong>AI:</strong>
+            <div *ngFor="let line of chat.aiVisibleLines">
+              {{ line }}
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+        <input
+        type="text"
+        pInputText
+        [(ngModel)]="userInput"
+        (keyup.enter)="submitQuery()"
+        placeholder="Ask something..."
+      />
+      <button pButton icon="pi pi-send" label="Send" (click)="submitQuery()"></button>
+    </div>
+</div>
+<!-- 
+<div class="p-inputgroup p-mb-3">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="userInput"
+      (keyup.enter)="submitQuery()"
+      placeholder="Ask something..."
+    />
+    <button pButton icon="pi pi-send" label="Send" (click)="submitQuery()"></button>
+  </div>
+  
+  <div *ngFor="let chat of chatHistory" class="p-card p-mb-2">
+    <div class="p-card-header"><strong>You:</strong> {{ chat.user }}</div>
+    <div class="p-card-body">
+      <strong>AI:</strong>
+      <div *ngFor="let line of chat.aiVisibleLines">
+        {{ line }}
+      </div>
+    </div>
+</div> -->

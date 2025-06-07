@@ -1,0 +1,25 @@
+<ng-container *ngIf="( companyData?.hasCCJInfo || companyData?.hasPossibleCCJInfo ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData.companyRegistrationNumber ) )">
+	<div featureAccess="CCJs" optionalTemplate="true">		
+	<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'CCJs' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData.companyRegistrationNumber ) ); else showCCJInfoTab"> -->
+
+		<div class="col-12">
+			<i class="ui-icon-info-outline mr-1"></i>Note: If you do not owe the money, you can ask the court to cancel the county court judgement ( CCJ ) or high court judgement. This is known as getting the judgement 'set aside'. You can do this if you did not receive, or did not respond to, the original claim from the court saying you owed the money.
+		</div>
+
+		<dg-user-list *ngIf="exactCCJData?.length > 0" [listColumns]="exactCCJDataColumn" [listDataValues]="exactCCJData" [listPage]="true" [thisPage]="'CCJ'"></dg-user-list>
+
+		<div *ngIf="possibleCCJData?.length > 0" #target class="x-big-data-font darkBlue mb-2">Possible CCJ's</div>
+
+		<dg-user-list *ngIf="possibleCCJData?.length > 0" [listColumns]="possibleCCJDataColumn" [listDataValues]="possibleCCJData" [listPage]="true" [thisPage]="'CCJ'"></dg-user-list>
+
+	<!-- </ng-container> -->
+	</div>
+
+	<!-- <ng-template #showCCJInfoTab>
+		<p-card>
+			<dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+			<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+		</p-card>
+	</ng-template> -->
+
+</ng-container>

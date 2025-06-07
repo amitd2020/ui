@@ -1,0 +1,292 @@
+
+<ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) && companyValuationsRoeData; else otherBlock">
+
+	<!-- Business Valuation Card -->
+	<div class="card businessValuationCard">
+
+		<div class="grid align-items-center mb-2">
+			<div class="col-fixed">
+				<h3 class="x-big-data-font c-darkBlue m-0">Business Valuation</h3>
+			</div>
+			<div class="col-fixed" *ngIf="companyValuationsRoeData?.voScore; else notenoughdata">
+				<span class="highlightedMarkedValue x-big-data-font c-darkBlue m-0 blueBg">{{ companyValuationsRoeData?.voScore | currency: selectedGlobalCurrency:'symbol':'1.0-0' }}</span>
+			</div>
+			<ng-template #notenoughdata>
+				<div class="col-fixed text-right mr-3 highlightedMarkedValue">Not enough data to calculate</div>
+			</ng-template>
+		</div>
+
+		<div class="grid">
+			<div class="col-12 lg:col-6">
+
+				<div class="card onlyLinesAround">
+					<h4 class="cardTitle c-darkBlue mt-0">All UK Companies</h4>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Valuation ranking comments</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right" *ngIf="companyValuationsRoeData">{{ returnCommentAccordingToValue( companyValuationsRoeData?.voScore, companyValuationsRoeData?.quartileData[0]?.voScoreQuartile, 'valuation' ) }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Highest company valuation</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.quartileData[0]?.voScoreQuartile?.Q4 ? ( companyValuationsRoeData?.quartileData[0]?.voScoreQuartile?.Q4 | currency: selectedGlobalCurrency:'symbol':'1.0-0' ) : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Lowest company valuation</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.quartileData[0]?.voScoreQuartile?.Q1 ? ( companyValuationsRoeData?.quartileData[0]?.voScoreQuartile?.Q1 | currency: selectedGlobalCurrency:'symbol':'1.0-0' ) : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Average company valuation</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.quartileData[0]?.voScoreQuartile?.Q3 ? ( companyValuationsRoeData?.quartileData[0]?.voScoreQuartile?.Q3 | currency: selectedGlobalCurrency:'symbol':'1.0-0' ) : '-' }}</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="col-12 lg:col-6">
+
+				<div class="card onlyLinesAround">
+					<h4 class="cardTitle c-darkBlue mt-0">Industry Data</h4>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Number of businesses within the industry</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.bussinessInIndustry ? ( companyValuationsRoeData?.bussinessInIndustry | number: '1.0-0' ) : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Highest company valuation</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.industryVoQuartile?.Q4 ? ( companyValuationsRoeData?.industryVoQuartile?.Q4 | currency: selectedGlobalCurrency:'symbol':'1.0-0' ) : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Lowest company valuation</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.industryVoQuartile?.Q1 ? ( companyValuationsRoeData?.industryVoQuartile?.Q1 | currency: selectedGlobalCurrency:'symbol':'1.0-0' ) : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Average company valuation</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.industryVoQuartile?.Q3 ? ( companyValuationsRoeData?.industryVoQuartile?.Q3 | currency: selectedGlobalCurrency:'symbol':'1.0-0' ) : '-' }}</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Return On Equity Card -->
+	<div class="card businessValuationCard">
+
+		<div class="grid align-items-center mb-2">
+			<div class="col-fixed">
+				<h3 class="x-big-data-font c-darkBlue m-0">Return On Equity</h3>
+			</div>
+			<div class="col-fixed" *ngIf="companyValuationsRoeData?.roePercent; else notenoughdata">
+				<span class="highlightedMarkedValue x-big-data-font c-darkBlue m-0 blueBg">{{ companyValuationsRoeData?.roePercent | number: '1.0-0' }}%</span>
+			</div>
+			<ng-template #notenoughdata>
+				<div class="col-fixed text-right mr-3 highlightedMarkedValue">Not enough data to calculate</div>
+			</ng-template>
+		</div>
+
+		<div class="grid">
+			<div class="col-12 lg:col-6">
+
+				<div class="card onlyLinesAround">
+					<h4 class="cardTitle c-darkBlue mt-0">All UK Companies</h4>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Return On Equity ranking comments</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right" *ngIf="companyValuationsRoeData">{{ returnCommentAccordingToValue( companyValuationsRoeData?.roePercent, companyValuationsRoeData?.quartileData[0]?.roePercentQuartile, 'ROE' ) }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Highest company ROE</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.quartileData[0]?.roePercentQuartile?.Q4 ? ( companyValuationsRoeData?.quartileData[0]?.roePercentQuartile?.Q4 | number: '1.0-0' ) + '%' : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Lowest company ROE</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.quartileData[0]?.roePercentQuartile?.Q1 ? ( companyValuationsRoeData?.quartileData[0]?.roePercentQuartile?.Q1 | number: '1.0-0' ) + '%' : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Average company ROE</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.quartileData[0]?.roePercentQuartile?.Q3 ? ( companyValuationsRoeData?.quartileData[0]?.roePercentQuartile?.Q3 | number: '1.0-0' ) + '%' : '-' }}</div>
+					</div>
+					
+				</div>
+
+			</div>
+			<div class="col-12 lg:col-6">
+
+				<div class="card onlyLinesAround">
+					<h4 class="cardTitle c-darkBlue mt-0">Industry Data</h4>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Number of businesses within the industry</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.bussinessInIndustry ? ( companyValuationsRoeData?.bussinessInIndustry | number: '1.0-0' ) : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Highest company ROE</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.industryRoeQuartile?.Q4 ? ( companyValuationsRoeData?.industryRoeQuartile?.Q4 | number: '1.0-0' ) + '%' : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Lowest company ROE</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.industryRoeQuartile?.Q1 ? ( companyValuationsRoeData?.industryRoeQuartile?.Q1 | number: '1.0-0' ) + '%' : '-' }}</div>
+					</div>
+
+					<div class="grid">
+						<div class="col-12 md:col-6">
+							<p class="m-0"><strong>Average company ROE</strong></p>
+						</div>
+						<div class="col-12 md:col-6 text-right">{{ companyValuationsRoeData?.industryRoeQuartile?.Q3 ? ( companyValuationsRoeData?.industryRoeQuartile?.Q3 | number: '1.0-0' ) + '%' : '-' }}</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<ng-container *ngIf="companyValuationsRoeData?.voScore >= 0 || companyValuationsRoeData?.roePercent >= 0; else noVoScoreDataTemplate">
+
+		<!-- Business Valuation Card For Graphs -->
+		<div class="card businessValuationCard" *ngIf="companiesValuationsTurnoverChartData && companiesValuationsNetAssetsChartData">
+			
+			<ng-container *ngIf="allCompaniesValuationsChartData && allCompaniesRoeChartData; else noHistoryDataTemplate">
+				<div class="grid">
+					<div class="col-12 lg:col-6">
+						
+						<div class="card onlyLinesAround">
+
+							<h4 class="cardTitle c-darkBlue mt-0">Business Valuations</h4>
+
+							<p-chart type="bar" [data]="allCompaniesValuationsChartData" [options]="companyValuationsChartOptions" height="350px"></p-chart>
+
+						</div>
+						
+					</div>
+					<div class="col-12 lg:col-6">
+
+						<div class="card onlyLinesAround">
+
+							<h4 class="cardTitle c-darkBlue mt-0">ROE</h4>
+
+							<p-chart type="bar" [data]="allCompaniesRoeChartData" [options]="companyRoeChartOptions" height="350px"></p-chart>
+
+						</div>
+
+					</div>
+				</div>
+			</ng-container>
+
+			<ng-template #noHistoryDataTemplate>
+				<h4 class="cardTitle c-light m-0">No history available to show the Business Valuation and ROE graph.</h4>
+			</ng-template>
+
+		</div>
+
+		<!-- Key Financials History Graphs -->
+		<div class="card businessValuationCard">
+
+			<ng-container *ngIf="companiesValuationsTurnoverChartData && companiesValuationsNetAssetsChartData; else noFinancialHistoryDataTemplate">
+				
+				<div class="grid">
+					<div class="col-12 lg:col-6">
+
+						<div class="card onlyLinesAround">
+
+							<h4 class="cardTitle c-darkBlue mt-0">Turnover</h4>
+
+							<p-chart type="bar" [data]="companiesValuationsTurnoverChartData" [options]="companyValuationsChartOptions" height="350px" [responsive]="true"></p-chart>
+
+						</div>
+
+					</div>
+					<div class="col-12 lg:col-6">
+
+						<div class="card onlyLinesAround">
+
+							<h4 class="cardTitle c-darkBlue mt-0">Net Assets</h4>
+
+							<p-chart type="bar" [data]="companiesValuationsNetAssetsChartData" [options]="companyValuationsChartOptions" height="350px" [responsive]="true"></p-chart>
+
+						</div>
+
+					</div>
+				</div>
+
+			</ng-container>
+			
+
+			<ng-template #noFinancialHistoryDataTemplate>
+				<h4 class="cardTitle c-light m-0">No financial history available to show the graph.</h4>
+			</ng-template>
+
+		</div>
+
+		<div class="col-12">
+			<span>
+				<strong>
+					<i class="ui-icon-info-outline mr-1"></i>This information is processed by third party, we do not take any responsibility for your financial decision based on information provided. 
+				</strong>
+			</span>
+		</div>
+
+	</ng-container>
+
+	<ng-template #noVoScoreDataTemplate>
+
+		<!-- Business Valuation Card For Graphs -->
+		<div class="card businessValuationCard">
+
+			<h4 class="cardTitle c-light m-0">Not enough data to calculate</h4>
+		
+		</div>
+
+	</ng-template>
+
+</ng-container>
+
+<ng-template #otherBlock>
+	<div class="card">
+		<h3 class="c-light">No Record Found.</h3>
+	</div>
+</ng-template>

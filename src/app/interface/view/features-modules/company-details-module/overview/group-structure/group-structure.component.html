@@ -1,0 +1,228 @@
+<p-messages [value]="msgs"></p-messages>
+<div featureAccess="Group Structure" optionalTemplate="true">
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission('Group Structure') || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !( userAuthService.isLoggedInSubject$ | async ) && companiesEligibleForDataWithoutLogin.includes( companyNumber ) ); else showGroupStructureInfoTab"> -->
+
+	<div class="card groupStructureTreeWrapper" *ngIf="companyData.groupStructureData">
+		
+		<div class="grid mb-3">
+			<div class="col-12 md:col-4">
+				<button pButton type="button" class="p-button-round mr-2" label="{{ forTableView ? 'Change Table View' : 'Change Tree View' }}" [disabled]="companyData?.groupStructureData == undefined" (click)="changeTreeOrientation()"></button>
+
+				<button pButton type="button" class="p-button-round ml-2" label="Export" [disabled]="companyData?.groupStructureData == undefined" (click)="reportGroupStructure()"></button>
+
+				<!-- <dg-company-pdf-report [companyReportParams]="companyData" [(companyReportButtonBool)]="companyReportButtonBool"  [relatedDirectorAPICount]="relCompAPICount"></dg-company-pdf-report > -->
+
+			</div>
+			<div class="col-12 md:col-8 text-right">
+				<small><i class="pi pi-info-circle mr-1 valign-m"></i> Note: Companies start with "#" are foreign companies.</small>
+			</div>
+		</div>
+
+		<p-tree [value]="companyData?.groupStructureData" class="horizontal-style" [ngClass]="{ 'no_data': companyData?.groupStructureData === undefined }" (onNodeSelect)="expandTreeOnSelectingNode($event)" layout="horizontal" selectionMode="single" *ngIf="treeOrientation == 'horizontal'" (onNodeExpand)="onNodeSelect($event)">
+		
+			<ng-template let-node pTemplate="default">
+				<div [ngClass]="{ 'highlightCurrentCompanyNode': companyData?.companyRegistrationNumber == node.data }">
+					<h4 class="m-0"><strong>{{ node.label | uppercase }}</strong></h4>
+					<ng-container *ngIf="node?.nationName != undefined && node?.nationName != '-' && node?.nationName !== 'UNKNOWN'">
+						<span> <img src="assets/utilities/flags/flag_placeholder.png" alt="Flag" class="flag flag-{{ node?.nationCode | lowercase }}"> </span>
+						({{ node.nationName | titlecase }})
+					</ng-container>
+					<div class="c-light"><small>{{ node.data }}</small></div>
+					<div class="grid" *ngIf="(node.data !== undefined && !(node.data.match('#')))">
+						<div class="col-12">
+							<small>
+								<a [href]="'/company/' + node['data'] + '/' + formatCompanyNameForUrl(node['label'] | titlecase)" target="_blank">View Details <i class="material-icons valign-b">navigate_next</i></a>
+							</small>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+			
+		</p-tree>
+
+		<p-tree [value]="companyData?.groupStructureData" class="p-vertical-layout" [ngClass]="{ 'no_data': companyData?.groupStructureData === undefined }" (onNodeSelect)="expandTreeOnSelectingNode($event)" layout="vertical" selectionMode="single" *ngIf="treeOrientation == 'horizontal'" (onNodeExpand)="onNodeSelect($event)">
+		
+			<ng-template let-node pTemplate="default">
+				<div [ngClass]="{ 'highlightCurrentCompanyNode': companyData?.companyRegistrationNumber == node.data }">
+					<h4 class="m-0"><strong>{{ node.label | titlecase }}</strong></h4>
+					<ng-container *ngIf="node?.nationName != undefined && node?.nationName != '-' && node?.nationName !== 'UNKNOWN'">
+						<span> <img src="assets/utilities/flags/flag_placeholder.png" alt="Flag" class="flag flag-{{ node?.nationCode | lowercase }}"> </span>
+						({{ node.nationName | titlecase }})
+					</ng-container>
+					<div class="c-light"><small>{{ node.data }}</small></div>
+					<div class="grid" *ngIf="(node.data !== undefined && !(node.data.match('#')))">
+						<div class="col-12">
+							<small>
+								<a [href]="'/company/' + node['data'] + '/' + formatCompanyNameForUrl(node['label'] | titlecase)" target="_blank">View Details <i class="material-icons valign-b">navigate_next</i></a>
+							</small>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+			
+		</p-tree>
+
+		<!-- Tree Table View -->
+		<p-treeTable [columns]="groupStructureTableCols" [value]="companyData?.groupStructureData" *ngIf="treeOrientation == 'vertical'" [scrollable]="true" scrollHeight="65vh" (onNodeExpand)="onNodeSelect($event)">
+			<ng-template pTemplate="header" let-columns>
+				<tr [ttRow]="rowNode">
+					<th *ngFor="let col of columns" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }">{{ col.header }}</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-rowNode let-columns="columns">
+				<tr [ngClass]="{ 'heighlightTableRow': companyData?.companyRegistrationNumber == rowNode['node']['data'] }">
+					<td *ngFor="let col of columns; let i = index" [ngStyle]="{ 'width': col.width, 'text-align': col.textAlign }">
+						<p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+
+						<ng-container *ngIf="col.field == 'label'">
+							<ng-container *ngIf="( rowNode['node']['data'] !== undefined && !( commonService.checkForeignCompany( rowNode['node']['data'] ) ) ); else foreignCompanyBlock">
+								<span class="verticalAlign" *ngIf="rowNode?.node?.logo_url && rowNode?.node?.logo_url; else noCompanyLogo">
+									<img class="companyLogoSize" *ngIf="rowNode?.node?.logo_url" src="{{rowNode?.node?.logo_url}}" alt="Company Logo" />
+								</span> 
+								 <ng-template #noCompanyLogo>
+									<span>
+										<i class="material-icons c-blue">business</i>
+									</span>
+								</ng-template>
+								<a [href]="'/company/' + rowNode['node']['data'] + '/' + formatCompanyNameForUrl( rowNode['node']['label'] | titlecase )"
+									target="_blank" class="cName">
+									{{ rowNode['node'][ col.field ] | titlecase }}
+								</a>
+							</ng-container>
+							<ng-template #foreignCompanyBlock>
+								{{ rowNode['node'][col.field] | titlecase }}
+								<ng-container *ngIf="rowNode['node']['nationName'] != undefined && rowNode['node']['nationName'] != '-' && rowNode['node']['nationName'] !== 'UNKNOWN'">
+									(  <span> <img src="assets/utilities/flags/flag_placeholder.png" alt="Flag" class="flag flag-{{ rowNode['node']['nationCode'] | lowercase }}"> </span>
+									 {{ rowNode['node']['nationName'] | titlecase }}  )  
+								</ng-container>
+							</ng-template>
+						</ng-container>	
+
+						<ng-container *ngIf="col.field == 'data'">
+							<ng-container *ngIf="( rowNode['node']['data'] !== undefined && !( commonService.checkForeignCompany( rowNode['node']['data'] ) ) ); else foreignCompanyBlock">
+								<a [href]="'/company/' + rowNode['node']['data'] + '/' + formatCompanyNameForUrl( rowNode['node']['label'] | titlecase )"
+									target="_blank" class="cName">
+									{{ rowNode['node'][ col.field ] | uppercase }}
+								</a>
+							</ng-container>
+							<ng-template #foreignCompanyBlock>
+								{{ rowNode['node'][col.field] | uppercase }}
+							</ng-template>
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'safeAlerts' && rowNode['node'][ col.field ] === true">
+							<i class="pi pi-exclamation-triangle warningRedIcon"></i>
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'safeAlerts' && (rowNode['node'][ col.field ] === false || rowNode['node'][ col.field ] == '-')">
+							-
+						</ng-container>
+					
+						<ng-container *ngIf="col.field === 'percentageShare'">
+							<div *ngIf="rowNode['node']['shareDetails'] && rowNode['node']['shareDetails'].length > 0; else noShareDetailsDataBlock">
+								<div *ngFor="let val of rowNode['node']['shareDetails']">
+									<!-- <a class="cName" target="_blank"
+										[href]="'/company/' + rowNode['node']['parent']['data'] + '/' + formatCompanyNameForUrl( rowNode['node']['parent']['label'] | titlecase )"> -->
+										{{ rowNode['node']['data'] }}
+									<!-- </a> -->
+									- 
+									{{ val['shareType'] | titlecase }} ( {{ val['percentage_share'] }} % )
+								</div>
+							</div>
+
+							<ng-template #noShareDetailsDataBlock>
+								-
+							</ng-template>
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'turnover' || col.field == 'totalAssets' || col.field == 'netWorth' || col.field == 'totalLiabilities'">
+									<ng-container *ngIf="rowNode['node'][ col.field ] < 0; else positiveValue">
+                                <span class="c-red"> 
+								 ( {{ (rowNode['node'][ col.field ] * -1 ) | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} )
+								</span>
+                            </ng-container>
+                            <ng-template #positiveValue>
+                                <span> 
+									{{rowNode['node'][ col.field ] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'}} 
+								</span>
+                            </ng-template>
+
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'internationalScoreDescription'">
+							<div *ngIf="rowNode['node'][ col.field ] !== undefined; else noValue">
+								<span *ngIf="rowNode['node'][ col.field ]; else noValue" class="riskRatingLabel" [ngClass]="{ 'lightGreen' : rowNode['node'].internationalScoreDescription == 'very low risk', 'cyan' : rowNode['node'].internationalScoreDescription == 'low risk', 'yellow' : rowNode['node'].internationalScoreDescription == 'moderate risk', 'orange' : rowNode['node'].internationalScoreDescription == 'high risk', 'darkRed': rowNode['node'].internationalScoreDescription == 'not scored' }">
+								{{ ( rowNode['node'][ col.field ] ? rowNode['node'][ col.field ] == 'not scored'? 'Not Scored / Very High Risk': rowNode['node'][ col.field ] : '-' ) | titlecase }}
+								</span>
+							</div>
+							<ng-template #noValue>
+								-
+							</ng-template>
+
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'person_entitled'">
+							<ng-container *ngIf="rowNode['node'][ 'person_entitled' ] && rowNode['node'][ 'person_entitled' ].length; else noValue">
+								<ng-container *ngFor="let arr of rowNode['node'][ 'person_entitled' ]">
+                                    <div class="badge badge-red badge-round">
+										<!-- {{ arr[0] | titlecase }} ({{ arr[1] }}) -->
+										{{ arr | titlecase }}
+                                    </div>
+								</ng-container>
+							</ng-container>
+							
+							<ng-template #noValue>
+								-
+							</ng-template>
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'companyStatus'">
+							<div *ngIf="rowNode['node']['companyStatus'] != undefined && rowNode['node']['companyStatus'] != '-'; else noStatusBlock">
+								<span
+								[ngClass]="{ 'green':  rowNode['node']['companyStatus'] == 'live' || rowNode['node']['companyStatus'] == 'administration order', 'c-orange':  rowNode['node']['companyStatus'] == 'in liquidation' || rowNode['node']['companyStatus'] == 'removed', 'c-red': rowNode['node']['companyStatus'] == 'converted/closed' || rowNode['node']['companyStatus'] == 'dissolved' || rowNode['node']['companyStatus'] == 'in administration' || rowNode['node']['companyStatus'] == 'in receivership / administration' ||  rowNode['node']['companyStatus'] == 'voluntary arrangement' || rowNode['node']['companyStatus'] == 'in receivership' || rowNode['node']['companyStatus'] == 'deleted'}"
+								class="status">{{ rowNode['node']['companyStatus'] | uppercase }}
+								</span>
+							</div>
+							<ng-template #noStatusBlock> - </ng-template>
+						
+						</ng-container>
+
+						<ng-container *ngIf="col.field == 'numLandCorporate'">
+							<div *ngIf="rowNode['node']['numLandCorporate'] !== undefined &&  rowNode['node']['numLandCorporate'] != '-'; else noNumLandCorporateBlock">
+								<a href="javascript:void(0);" (click)="goToTab( rowNode['node']['data'], rowNode['node']['label'], 'viewCorporateLand' )">
+									<span class="c-blue">{{ rowNode['node']['numLandCorporate'] }}</span>
+								</a>
+							</div>
+							<ng-template #noNumLandCorporateBlock> - </ng-template>
+						
+						</ng-container>
+
+						<ng-container *ngIf="col.field !== 'data' && col.field !== 'label' && col.field !== 'safeAlerts' && col.field !== 'turnover' && col.field !== 'totalAssets' && col.field !== 'netWorth' && col.field !== 'totalLiabilities' && col.field !== 'companyStatus' && col.field !== 'percentageShare' && col.field !== 'internationalScoreDescription' && col.field !== 'person_entitled' && col.field != 'numLandCorporate'">
+							{{ rowNode['node'][ col.field ] !== undefined ? rowNode['node'][ col.field ] : "-"}}
+						</ng-container>
+
+					</td>
+				</tr>
+			</ng-template>
+		</p-treeTable>
+		<!-- /.Tree Table View Ends -->
+
+	</div>
+
+	<div class="card" *ngIf="!companyData.groupStructureData">
+		No Data Found
+	</div>
+<!-- </ng-container> -->
+</div>
+<!-- <ng-template #showGroupStructureInfoTab>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="card text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+		</ng-template>
+	</p-card>
+</ng-template> -->

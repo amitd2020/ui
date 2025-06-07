@@ -1,0 +1,37 @@
+<!-- <ng-container *ngIf="isLoggedIn; else withoutLogin"> -->
+<div [ngClass]="{'card': !isLoggedIn}" loginAccessModal>
+	<!-- Upgrade Plan Dialog -->
+	<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+		<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+	</p-dialog>
+	<!-- Upgrade Plan Dialog End -->
+	
+	<p-dialog header="Added Notes" [modal]="true" [(visible)]="showAddNoteModalBool" appendTo="body" (onHide)="cancelNotes()" [style]="{width: '40vw'} ">
+	
+		<p-editor [(ngModel)]="companyNoteValue" [style]="{'height': '320px'}"></p-editor>
+	
+		<div class="mt-3">
+			<button pButton type="button" label="Submit" class="p-button-rounded mr-2" [disabled]="!companyNoteValue" (click)="addNotes()"></button>
+		</div>
+	
+	</p-dialog>
+	
+	<div class="col-fixed py-0 md:mr-3 mb-xxl-2 text-right">          
+		<button pButton type="button" label="Add a Note" icon="ui-icon-note-add" class="p-button-rounded p-button-lg mr-2" [ngClass]="{ 'hasFeatureLockIcon': !userAuthService.hasFeaturePermission('Company Notes') }" (click)="showAddNoteModal(undefined)">
+			<span *ngIf="!userAuthService.hasFeaturePermission('Company Notes')" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+		</button>
+	</div>
+	<p-messages [value]="msgs"></p-messages>
+
+	<div class="card addedNotesWrapper">
+		<dg-user-list *ngIf="notesData !== undefined" [listColumns]="notesTableCols" [notesListDataValues]="notesData" [detailPage]="true" [companyDetailsParams]="companyDetailsParams" [thisPage]="'notesTabPage'" (updateNotesList)="updateNotesList($event)"></dg-user-list>
+	</div>	
+</div>
+
+<!-- </ng-container> -->
+
+<!-- <ng-template #withoutLogin>
+	<p-card>
+		<dg-without-login-modal></dg-without-login-modal>
+	</p-card>
+</ng-template> -->

@@ -1,0 +1,198 @@
+.card {
+	&.epcRatingCards {
+		box-shadow: 10px 10px 30px 0px rgb(0 0 0 / 20%);
+		border-radius: 1rem;
+		overflow: auto;
+		padding: 0;
+
+		.card-header {
+			box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+			padding: 1rem;
+			margin: 0;
+		}
+
+		.card-body {
+
+			padding: 1.3rem;
+
+			.gaugeChartContainer {
+				.gaugeLegends {
+					display: -webkit-box;
+					display: -ms-box;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					.gaugeLegendAPlus,
+					.gaugeLegendA,
+					.gaugeLegendB,
+					.gaugeLegendC,
+					.gaugeLegendD,
+					.gaugeLegendE,
+					.gaugeLegendF,
+					.gaugeLegendG,
+					.gaugePurchase,
+					.gaugeForSold,
+					.epc,
+					.nonEpc,
+					.epcDomestic,
+					.epcNonDomestic,
+					.gaugeExcell {
+						padding: 0 1rem;
+
+						&>span {
+							display: inline-block;
+							vertical-align: middle;
+							line-height: 15px;
+						}
+
+						.colorBlock {
+							width: 15px;
+							height: 15px;
+							background-color: #bbb;
+							border-radius: 50%;
+							margin-right: 0.8rem;
+							box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
+						}
+
+						.label {
+							color: #a1a1a1;
+						}
+					}
+
+					.gaugeLegendAPlus {
+						.colorBlock {
+							background-color: #197865;
+						}
+					}
+
+					.gaugeLegendA {
+						.colorBlock {
+							background-color: #008054;
+						}
+					}
+
+					.gaugeLegendB {
+						.colorBlock {
+							background-color: #19b459;
+						}
+					}
+
+					.gaugeLegendC {
+						.colorBlock {
+							background-color: #8dce46;
+						}
+					}
+
+					.gaugeLegendD {
+						.colorBlock {
+							background-color: #ffd500;
+						}
+					}
+
+					.gaugeLegendE {
+						.colorBlock {
+							background-color: #fcaa65;
+						}
+					}
+
+					.gaugeLegendF {
+						.colorBlock {
+							background-color: #ef8023;
+						}
+					}
+
+					.gaugeLegendG {
+						.colorBlock {
+							background-color: #e9153b;
+						}
+					}
+
+					.gaugePurchase {
+						.colorBlock {
+							background-color: #008054;
+						}
+					}
+
+					.gaugeForSold {
+						.colorBlock {
+							background-color: #03a9f4;
+						}
+					}
+
+					.epc {
+						.colorBlock {
+							background-color: #66bb6a;
+						}
+					}
+
+					.nonEpc {
+						.colorBlock {
+							background-color: #9ccc65;
+						}
+					}
+
+					.epcDomestic {
+						.colorBlock {
+							background-color: #ffa726;
+						}
+					}
+
+					.epcNonDomestic {
+						.colorBlock {
+							background-color: #ffca28;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	&.corporateContent {
+		padding: 1rem;
+		box-shadow: 10px 10px 30px 0px rgb(0 0 0 / 20%);
+		border-radius: 1rem;
+	}
+
+	.doughnutTotalCountStyles {
+		position: absolute;
+		font-weight: 700;
+		font-size: 30px;
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	.headerBackground {
+		background-color: #29b6f6;
+	}
+}
+
+::ng-deep {
+	.overview-status {
+		padding-left: 0.5rem !important;
+		padding-right: 0.5rem !important;
+	}
+
+	.p-divider.p-divider-vertical {
+		margin: 0 1.25rem;
+		padding: 18.05rem 0;
+	}
+}
+
+.noRecords {
+	text-align: center;
+	padding: 3em;
+	-webkit-pointer-events: none;
+	pointer-events: none;
+
+	p {
+		font-size: 1.5em;
+		font-weight: 300;
+		color: #e2e2e2;
+	}
+}
+
+.showConentCenter {
+	text-align: -webkit-center !important;
+}

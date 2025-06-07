@@ -1,0 +1,107 @@
+.card {
+    padding: 0;
+
+    .card-header {
+        color: #666;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--divider-color);
+        margin: 0;
+
+        h5 {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .p-button {
+            &.p-button-rounded {
+                font-size: 0.6rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                margin: 0;
+            }
+        }
+
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--divider-color);
+
+        &.hasDivider {
+            .p-grid {
+                &>[class*="p-col"]+[class*="p-col"] {
+                    border-left: 1px solid var(--divider-color);
+                }
+            }
+        }
+    }
+}
+
+.limitTextHeight {
+    height: 60px;
+    overflow: hidden;
+}
+
+.gaugeChartContainer {
+    .gaugeLegends {
+        display: -webkit-box;
+        display: -ms-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+
+        .gaugeAvrg,
+        .gaugeGood,
+        .gaugeExcell {
+            padding: 0 1rem;
+
+            &>span {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 15px;
+            }
+
+            .colorBlock {
+                width: 15px;
+                height: 15px;
+                background-color: #bbb;
+                border-radius: 50%;
+                margin-right: 0.8rem;
+                box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .label {
+                color: #a1a1a1;
+            }
+        }
+
+        .gaugeAvrg {
+            .colorBlock {
+                background-color: #f8bb32;
+            }
+        }
+
+        .gaugeGood {
+            .colorBlock {
+                background-color: #92d050;
+            }
+        }
+
+        .gaugeExcell {
+            .colorBlock {
+                background-color: #00b050;
+            }
+        }
+    }
+}
+
+.cardPlaceholderIcons {
+    font-size: 5rem;
+    color: var(--sustain-governance-color);
+    text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+}

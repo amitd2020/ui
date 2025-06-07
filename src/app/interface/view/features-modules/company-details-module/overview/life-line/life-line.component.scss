@@ -1,0 +1,25 @@
+p-timeline {
+
+    ::ng-deep {
+
+        .p-timeline {
+            .p-timeline-event {
+                .p-timeline-event-content {
+                    cursor: pointer;
+
+                    .p-card-title {
+                        color: attr(--data-color);
+                    }
+                }
+            }
+
+        }
+
+    }
+
+}
+
+.lifeline-timeline-height {
+    max-height: 470px;
+    overflow-y: auto;
+}
