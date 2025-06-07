@@ -1,0 +1,103 @@
+/* Add your variable customizations of theme here */
+$iconPrefix: 'ui-icon';
+
+:root {
+    --primary-dark-color: #{ $primaryMenuTextColor };
+}
+
+/* ================================================ */
+/* For Sustainability Tab                           */
+/* ================================================ */
+
+$sustainGroups: (
+    environment: #0fd569,
+    social: #1fcfeb,
+    governance: #2a8ce1,
+    finance: #1f4286
+);
+
+$colorRatingBar: (
+    colorRatingA: #008054,
+    colorRatingB: #19b459,
+    colorRatingC: #8dce46,
+    colorRatingD: #ffd500,
+    colorRatingE: #fcaa65,
+    colorRatingF: #ef8023,
+    colorRatingG: #e9153b
+);
+
+/* Below line of code is creating color variables, eg: --sustain-social-color-dark-1 */
+
+@mixin createColorVarientVars( $colorGroup, $color, $varIndx, $varFor ) {
+    @for $i from 1 through $varIndx {
+        @if $varFor == 'dark' {
+            --sustain-#{ $colorGroup }-color-#{ $varFor }-#{ $i }: #{ darken( $color, $i * 5% ) };
+        }
+        @if $varFor == 'light' {
+            --sustain-#{ $colorGroup }-color-#{ $varFor }-#{ $i }: #{ lighten( $color, ( $i + 2 ) * 5% ) };
+        }
+    }
+}
+
+@each $key, $val in $sustainGroups {
+    
+    $keyInTitlecase: to-upper-case( str-slice( $key, 1, 1 ) ) + str-slice( $key, 2 );
+    
+    %sustain#{ $keyInTitlecase }Container {
+        --sustain-#{ $key }-color: #{ $val };
+        @include createColorVarientVars( $key, $val, 5, 'dark' );
+        @include createColorVarientVars( $key, $val, 5, 'light' );
+    }
+    .sustain#{ $keyInTitlecase }Container {
+        @extend %sustain#{ $keyInTitlecase }Container;
+    }
+    
+}
+
+@each $key, $val in $colorRatingBar {
+    
+    :root {
+        --epcGrade-bg-#{ $key }: #{ $val };
+    } 
+
+    .epcGrade-bg-#{ $key } {
+        background-color: #{ $val };
+    }
+    
+}
+
+/* 
+    The above @each function is returning the results like:
+
+    .sustainSocialContainer {
+        --sustain-social-color: #1fcfeb;
+        --sustain-social-color-dark-1: #14c1dd;
+        --sustain-social-color-dark-2: #12adc5;
+        --sustain-social-color-dark-3: #1098ae;
+        --sustain-social-color-dark-4: #0d8497;
+        --sustain-social-color-dark-5: #0b6f7f;
+        --sustain-social-color-light-1: #36d4ed;
+        --sustain-social-color-light-2: #4ed9ef;
+        --sustain-social-color-light-3: #65def1;
+        --sustain-social-color-light-4: #7de3f3;
+        --sustain-social-color-light-5: #94e8f5;
+    }
+
+    ===================================================================================
+
+    Same for all Environment, Social, Governance and Finance
+    These are the variables for color tints which can be used under the respective tabs.
+
+*/
+
+.sustainESGSummaryContainer {
+    @extend %sustainEnvironmentContainer;
+    @extend %sustainSocialContainer;
+    @extend %sustainGovernanceContainer;
+    @extend %sustainFinanceContainer;
+}
+
+
+/* ================================================ */
+/* For Sustainability Tab End                       */
+/* ================================================ */

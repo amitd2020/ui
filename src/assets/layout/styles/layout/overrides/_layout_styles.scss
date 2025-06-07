@@ -1,0 +1,1615 @@
+/* Add your customizations of layout here */
+/* ========================================================================
+    Global Styles Starts
+======================================================================== */
+body {
+    background-color: var( --surface-300 );
+    line-height: 1.45rem;
+    letter-spacing: 0.25px;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    .p-dialog-mask {
+        &.p-component-overlay {
+            background-color: rgba(0,0,0,.72);
+        }
+    }
+}
+
+.p-grid > .p-col-fixed {
+    max-width: 100%;
+}
+
+html {
+    font-size: 14px;
+
+    // @media only screen and ( max-width:1680px ) {
+    //     font-size: 11px;
+    // }
+}
+
+/* ---------- Color Styles ---------- */
+.c-yellow,
+.amberYellow {
+    color: #ffd400;
+}
+
+.highlightedMarkedValue {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    padding: 0.5px 12px;
+    border-radius: 50px;
+    
+    &.yellowBg {
+        background-color: #fff2b3;
+    }
+    &.blueBg {
+        background-color: #f0faff;
+    }
+}
+
+.green,
+.c-green {
+    color: var( --primary-color ) !important;
+}
+
+.blue,
+.c-blue {
+    color: $lightblue !important;
+}
+
+.darkBlue,
+.c-darkBlue {
+    color: $indigo !important;
+}
+
+.c-greenishBlue {
+    color: #63acbd;
+}
+
+.featureGrowthRed {
+    color: #f44336;
+}
+.featureGrowthOrange {
+    color: #f57c00;
+}
+.featureGrowthGreen {
+    color: #4caf50;
+}
+.featureGrowthLightGreen {
+    color: #90cd93;
+}
+
+.c-orange {
+    color: #E4790F;
+}
+
+.c-lightGreen {
+    color: #6DC470;
+}
+
+.c-cyan {
+    color: #59BA9B;
+}
+
+.c-white {
+    color: #fff;
+}
+
+.red,
+.c-red {
+    color: $errorColor !important;
+}
+
+.grey,
+.c-light {
+    color: $textSecondaryColor !important;
+}
+
+.c-extraLight {
+    color: var( --text-color-secondary ) !important
+}
+
+.darkGrey,
+.c-darkGrey {
+    background-color: $darkGreyColor !important;
+}
+
+.svg-fill-light {
+    fill: $textSecondaryColor;
+}
+
+.voilet,
+.c-voilet {
+    color: $deeppurple !important;
+}
+
+.darkBlue,
+.c-darkBlue {
+    color: #6574c4 !important;
+}
+
+.c-xxlight {
+    color: #e2e2e2 !important;
+}
+
+/** Colored Boxed Styles Start **/
+            
+.greenCard {
+    background-color: #1a89b3;
+    background-image: -moz-linear-gradient(150deg, #1a89b3 0%, #18a387 80%);
+    background-image: -webkit-linear-gradient(150deg, #1a89b3 0%, #18a387 80%);
+    background-image: linear-gradient(150deg, #1a89b3 0%, #18a387 80%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1a89b3",endColorstr="#18a387",GradientType=1);
+    color: var( --surface-a );
+}
+.blueCard {
+    background-color: #005d95;
+    background-image: -moz-linear-gradient(150deg, #005d95 0%, #0086d6 80%);
+    background-image: -webkit-linear-gradient(150deg, #005d95 0%, #0086d6 80%);
+    background-image: linear-gradient(150deg, #005d95 0%, #0086d6 80%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#005d95",endColorstr="#0086d6",GradientType=1);
+    color: var( --surface-a );
+}
+.voiletCard {
+    background-color: #673AB7;
+    background-image: -moz-linear-gradient(150deg, #673AB7 0%, #5f52df 80%);
+    background-image: -webkit-linear-gradient(150deg, #673AB7 0%, #5f52df 80%);
+    background-image: linear-gradient(150deg, #673AB7 0%, #5f52df 80%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#673AB7",endColorstr="#5f52df",GradientType=1);
+    color: var( --surface-a );
+}
+.skyBlueCard {
+    background-color: #017ba5;
+    background-image: -moz-linear-gradient(linear-gradient(150deg, #017ba5 0%, #1caac8 80%));
+    background-image: -webkit-linear-gradient(linear-gradient(150deg, #017ba5 0%, #1caac8 80%));
+    background-image: linear-gradient(150deg, #017ba5 0%, #1caac8 80%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#017ba5",endColorstr="#1caac8",GradientType=1);
+    color: var( --surface-a );
+}
+
+.badge {
+    
+    $primary  : #2b9348;
+    $purple   : #662e9b;
+    $blue     : #43bccd;
+    $red      : #ea3546;
+    $yellow   : #f9c80e;
+
+    display      : inline-block;
+    padding      : 0.4rem 0.85rem;
+    font-size    : 0.75rem;
+    font-weight  : bold;
+    border-radius: 0.5rem;
+    border       : 1px solid transparent;
+    margin : 0.25em;
+    list-style: none;
+
+    &.badge-primary {
+        background-color: lighten($primary, 50%);
+        color           : $primary;
+        border-color    : $primary;
+
+        &.badge-round {
+            border-radius: 1rem;
+        }
+    }
+    &.badge-purple {
+		background-color: lighten($purple, 50%);
+		color: $purple;
+		border-color: $purple;
+        &.badge-round {
+            border-radius: 1rem;
+            &.listStyle {
+                list-style:none;
+            }
+        }
+	}
+    &.badge-blue {
+		background-color: lighten($blue, 40%);
+		color: $blue;
+		border-color: $blue;
+        &.badge-round {
+            border-radius: 1rem;
+            &.listStyle {
+                list-style:none;
+            }
+        }
+	}
+    &.badge-red {
+		background-color: lighten($red, 40%);
+		color: $red;
+		border-color: $red;
+        &.badge-round {
+            border-radius: 1rem;
+        }
+	}
+    &.badge-yellow {
+		background-color: lighten($yellow, 40%);
+		color: darken($yellow, 5%);
+		border-color: darken($yellow, 5%);
+        &.badge-round {
+            border-radius: 1rem;
+        }
+	}
+}
+
+/** Colored Boxed Styles End **/
+
+/* ---------- Color Styles ---------- */
+
+/* ---------- Typography Styles ---------- */
+
+.fs-xmedium {
+    font-size: 1.1rem !important;
+}
+
+.fs-medium {
+    font-size: 1.2rem !important;
+}
+
+h1 {
+    font-size: 1.8rem;
+
+    @media only screen and ( max-width:992px ) {
+        font-size: 1rem;
+    }
+    
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-size: 1.17rem;
+}
+
+h4 {
+    font-size: 1.35rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1.15rem;
+}
+
+.pi {
+    font-size: 1em;
+}
+
+// Font Classes Starts //
+.font-light {
+    font-weight: 300 !important;
+}
+
+.font-normal {
+    font-weight: 400 !important;
+}
+
+.font-medium {
+    font-weight: 500 !important;
+}
+
+.font-semibold {
+    font-weight: 600 !important;
+}
+
+.font-bold {
+    font-weight: 700 !important;
+}
+
+.font-italic {
+    font-style: italic;
+}
+
+.text-base {
+    font-size: 1rem !important;
+}
+
+.text-lg {
+    font-size: 1.125rem !important;
+}
+
+.text-xl {
+    font-size: 1.25rem !important;
+}
+
+.text-2xl {
+    font-size: 1.5rem !important;
+}
+
+.p-text-uppercase {
+    text-transform: uppercase;
+}
+.p-text-transform-normal {
+    text-transform: none !important;
+}
+// Font Classes Ends //
+
+.pos-relative {
+    position: relative;
+}
+
+@for $i from 1 through 5 {
+    .pi-#{$i}x {
+        font-size: #{$i}em;
+    }
+}
+
+.card, .p-card {
+
+    @media only screen and ( max-width: 1024px ) {
+        box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 20%);
+        border-radius: 8px;
+    }
+
+    margin-bottom: 1rem;
+    border-radius: 8px;
+
+    &:last-child {
+		margin-bottom: 1rem;
+	}
+
+    &.onlyLinesAround {
+        box-shadow: none;
+        border: 1px solid var( --surface-d );
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 400;
+    }
+
+}
+.svg-fill-light {
+    fill: #9b9b9b;
+}
+
+.svg-fill-grey {
+    fill: #00000099;
+}
+/* ---------- Typography Styles End ---------- */
+
+/* ---------- Loader Styles ---------- */
+
+/* Full screen loader */
+.fluidFixedLoader {
+    
+    .p-progress-spinner {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 9999;
+
+        &::after {
+            content: 'Loading...';
+            font-size: 0.8em;
+            color: var( --surface-a );
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .p-progress-spinner-svg {
+            width: 100px;
+            height: 100px;
+            
+            @media only screen and ( max-width: 767px ) {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+}
+
+.responsiveWhiteOuterCard {
+    .customLoader {
+        position: relative;
+        
+        .fluidFixedLoader {
+            .p-progress-spinner {
+                position: absolute;
+                overflow: hidden;
+            }
+        }
+    }
+}
+/* Full screen loader End */
+
+/* ---------- Loader Styles End ---------- */
+
+
+/* ---------- Map Styles Starts ---------- */
+
+.insightsViewContainer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    margin: -1rem;
+    position: relative;
+    z-index: 0;
+    
+    @media only screen and (max-width: 991px) {
+        margin: 0 -4px;
+    }
+
+    .insightsSideNav {
+        margin-bottom: 20px;
+    }
+
+    & > .card {
+        .chooseOptionsBlock {
+            .ui-button.transparent-btn {
+                * {
+                    -webkit-pointer-events: none;
+                    pointer-events: none;
+                }
+            }
+        }
+    }
+
+    .insightsRegionalMap {
+
+        &.leaflet-container {
+            font-family: Roboto, "Helvetica Neue", sans-serif;
+            
+            .leaflet-marker-pane {
+
+                @media only screen and (max-width: 991px) {
+                    font-size: 0.9em;
+                }
+
+                @media only screen and (max-width: 768px) {
+                    font-size: 0.6em;
+                }
+
+                .leaflet-marker-icon {
+                    -webkit-pointer-events: none;
+                    pointer-events: none;
+                }
+            }
+
+            .leaflet-control-container {
+                position: relative;
+                z-index: 401;
+
+                .leaflet-top,
+                .leaflet-bottom {
+                    z-index: 9;
+                }
+                .leaflet-control-zoom {
+                    border: 0;
+
+                    & > a {
+                        &:first-child {
+                            border-top-left-radius: 30px;
+                            border-top-right-radius: 30px;
+                        }
+                        &:last-child {
+                            border-bottom-left-radius: 30px;
+                            border-bottom-right-radius: 30px;
+                        }
+
+                        @media only screen and (max-width: 991px) {
+                            width: 25px;
+                            height: 25px;
+                            font-size: 1.3em;
+                            line-height: 25px;
+                        }
+                    }
+                }
+
+                .leaflet-control-attribution {
+                    display: none;
+                }
+            }
+        }
+
+        .regionInfoCard {
+            background-color: transparent;
+            font-size: 1.25em;
+            color: var( --surface-a );
+            text-align: right;
+            position: relative;
+            border-radius: 0;
+            padding: 0;
+    
+            @media only screen and (max-width: 991px) {
+                font-size: 0.95em;
+            }
+
+            @media only screen and (max-width: 991px) and (orientation: landscape) {
+                max-width: 330px;
+                
+                &:after {
+                    content: '';
+                    display: table;
+                    clear: both;
+                }
+            }
+
+            h2 {
+                line-height: 1;
+                margin: 0 0 20px;
+            }
+
+            h1 {
+                line-height: 1;
+                margin: 0;
+            }
+
+            & > div {
+                padding: 10px 0;
+    
+                @media only screen and (max-width: 991px) {
+                    padding: 5px 0;
+                }
+
+                @media only screen and (max-width: 991px) and (orientation: landscape) {
+                    float: right;
+                    width: 50%;
+                }
+            }
+
+        }
+        
+    }
+
+    &.darkLayout {
+        background-color: #225256;
+
+        & > .insightsChartViewContainer {
+
+            .card {
+                background-color:rgba(255,255,255,.2);
+            }
+
+            .leaflet-container {                  
+                .leaflet-marker-pane {
+                    .leaflet-marker-icon {
+
+                        img.darkArrow {
+                            display: none;
+                        }
+
+                        .darkRegionText {
+                            color: var( --surface-a ) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.lightLayout {
+        // background-color: #e8eaea;
+
+        & > .insightsChartViewContainer {
+
+            .card {
+                background-color: white;
+            }
+
+            .leaflet-container {                  
+                .leaflet-marker-pane {
+                    .leaflet-marker-icon {
+                        
+                        img.lightArrow {
+                            display: none;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.text-labels {
+    font-size: 1em;
+    font-weight: 500;
+    color: #000000;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* ---------- Map Styles Ends ---------- */
+
+.status {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 0 8px;
+    
+    &.small {
+        font-size: 11px;
+        padding: 0px 5px;
+    }
+}
+
+.roundedColoredChipLabel {
+    display: inline-block;
+    letter-spacing: 0.7px;
+    border: 1px solid;
+    border-radius: 40px;
+    padding: 0.2em 0.8em;
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+    
+    &:not( [class*="c-"] ) {
+        background-color: rgba(0, 0, 0, 0.03);
+        color: #9b9b9b;
+    }
+    &.c-green {
+        background-color: rgba(26, 179, 148, 0.05);
+    }
+    &.c-blue {
+        background-color: rgba(69, 147, 189, 0.05);
+    }
+    &.c-yellow {
+        color: #ffd400;
+        background-color: rgba(255, 212, 0, 0.05);
+    }
+    &.c-red {
+        background-color: rgba(223, 32, 32, 0.05);
+    }
+    &.c-voilet {
+        background-color: rgba(103, 58, 183, 0.05);
+    }
+    &.c-royalBlue {
+        color: #03a9f4;
+        background-color: rgba(3, 169, 244, 0.05);
+    }
+}
+
+.cName {
+    position: relative;
+    color: #4593bd;
+    font-weight: 600;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.x-big-data-font {
+    font-size: 1.5rem;
+    font-weight: 400;
+
+    @media only screen and ( max-width:992px ) { 
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+/* Salesforce Button & Alignment Styling Starts */
+
+.ui-salesforce-btn {
+
+    background-color: #00a1e0 !important;
+    
+    .p-button-label {
+        margin-left: 1em;
+    }
+    &.p-button {
+        &:disabled {
+            background-color: #00a1e0 !important;;
+        }
+    }
+}
+.startPlanBtn {
+    background-image: linear-gradient(90deg,#ffe14d 0%,#e75d0e 100%) !important;
+    color: black !important;
+}
+
+/* Salesforce Button & Alignment Styling End */
+
+// Extension Button
+.extensionBlueBtn {
+    background-color: #00A1E0 !important;
+    border: 2px solid #00A1E0 !important;
+    
+    &:hover {
+        background-color: #fff !important;
+        color: #00A1E0 !important;
+        border: 2px solid #00A1E0 !important;
+    }
+}
+.extension-text-color {
+    color: #00A1E0 !important;
+}
+.buyFullCreditReportBtn, .monitorPlusBtn {
+    background-color: #1F4286 !important;
+}
+
+/* ---------- For Country Flag Style Starts ---------- */
+body {
+    
+    img.flag {
+        width: 25px;
+    }
+
+}
+/* ---------- For Country Flag Style Starts ---------- */
+
+
+/* ---------- Overlaypanel Styles Start ---------- */
+
+.shareButtonsOverlayPanel {
+    &.p-overlaypanel {
+        margin-top: 6px;
+        border-radius: 50px;
+        box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.2);
+
+        &::after,
+        &::before {
+            left: 3em;
+            border-color: rgba(189, 189, 189, 0);
+            border-bottom-color: #eee;
+        }
+        &::after {
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: var( --surface-a );
+        }
+        &.p-overlaypanel-shifted {
+            margin-left: 20px;
+
+            &::before {
+                @media only screen and ( min-width: 1025px ) {
+                    border-color: transparent;
+                }
+            }
+            &::after,
+            &::before {
+                right: 3em;
+            }
+        }
+        
+        .p-overlaypanel-content {
+            padding: 5px;
+
+            .sb-circles-dark {
+                .sb-wrapper {
+                    .sb-icon {
+                        width: 2em;
+                        height: 2em;
+                        box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.2);
+
+                        @media only screen and ( max-width: 1024px ) {
+                            font-size: 1.2em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ---------- Overlaypanel Styles End ---------- */
+
+
+/* ---------- Dialog Box Styles Starts ---------- */
+
+.p-dialog {
+
+    @media only screen and ( max-width: 1024px ) {
+        max-width: 95%;
+        position: absolute !important;
+        width: 100% !important;
+        left: 50% !important;
+        -webkit-transform: translateX(-50%) !important;
+        -moz-transform: translateX(-50%) !important;
+        -ms-transform: translateX(-50%) !important;
+        transform: translateX(-50%) !important;
+    }
+
+    &.updateUserDialog {
+        width: 95% !important;
+        max-width: 800px;
+    }
+
+    &.logoutConfirmationDialogStyling {
+        .p-dialog-header {
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            .p-dialog-header-icons {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+        
+    }
+
+    .p-dialog-footer {
+        display: flex;
+        justify-content: center;
+        button {
+            &.p-confirm-dialog-reject {
+                order: 1;
+                border-radius: 2em;
+                background-color: $darkGreyColor !important;
+            }
+            &.p-confirm-dialog-accept {
+                border-radius: 2em;
+            }
+        }
+    }
+
+    .p-dialog-titlebar {
+
+        @media only screen and ( max-width: 767px ) {
+            padding: 0.4em 0.7em;
+        }
+
+        .p-dialog-titlebar-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            margin: 0;
+        }
+    }
+
+    .p-scrollpanel {
+        background-color: transparent;
+    }
+
+    .p-button {
+        &.p-button-sm {
+            font-size: 0.65em;
+        }
+    }
+
+    .card {
+        min-height: auto;
+        padding: 0.5em 0.8em;
+    }
+    &.pepAndSanctionDilogBox {
+        &.p-dialog-resizable .p-dialog-content {
+            max-height: 65vh;
+        }
+    }
+}
+/* ---------- Dialog Box Styles End ---------- */
+
+/* ---------- BreadCrumb Styles Starts ---------- */
+
+.p-breadcrumb {
+    ul {
+        li {
+            .p-menuitem-link {
+                .p-menuitem-icon {
+                    margin: 0 .5rem 0 .5rem;
+                }
+            }
+        }
+    }
+}
+
+/* ---------- BreadCrumb Styles End ---------- */
+
+
+
+
+/* ========================================================================
+    Global Styles End
+======================================================================== */
+
+.menu-wrapper {
+    width: 20rem;
+}
+
+.p-splitbutton.p-button-rounded {
+    & > .p-splitbutton-defaultbutton {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    & > .p-splitbutton-menubutton {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+
+.layout-container {
+    
+    .layout-content-wrapper {
+        padding-top: 4.5rem;
+        @media only screen and ( max-width: 992px) {
+            // padding: 1rem;
+            padding-top: 4rem;
+        }
+
+        .layout-content {
+            padding: 1rem;
+
+            // @media only screen and ( max-width: 767px) {
+            //     padding: 8.8rem;
+            // }
+
+            @media only screen and ( max-width: 992px) {
+                padding: 2rem;
+            }
+        }
+    }
+    
+    &.layout-static {
+        &.layout-sidebar-active {
+            .layout-content-wrapper {
+                @media (min-width: 992px) {
+                    margin-left: 20rem;
+                }
+            }
+        }
+    }
+
+    .menu-wrapper {
+        height: calc( 100% - 4.5rem );
+        top: 4.5rem;
+        
+        @media only screen and ( max-width: 991px ) {
+            transform: translate3d(-20rem, 0px, 0px);
+            height: calc( 100% - 4rem );
+            top: 4rem;
+        }
+
+        .layout-menu-button {
+            position: absolute;
+            top: 3.25rem;
+            left: 3.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            margin-top: -1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            color: var(--topbar-menu-button-text-color);
+            background-color: var(--topbar-menu-button-bg);
+            transition: all $transitionDuration;
+
+            @media only screen and (max-width: 992px) {
+                left: 18.75rem;
+            }
+
+            &:hover {
+                background-color: var(--topbar-menu-button-hover-bg);
+            }
+
+            i {
+                transition: transform $transitionDuration;
+            }
+
+        }
+
+        .layout-menu-container {
+            .layout-menu {
+                li {
+                    a {
+                        &:hover {
+                            background-color: var( --surface-c );
+                        }
+                    }
+                    & > a {
+                        padding: 0.45rem 0.75rem;
+                        color: #212121;
+                        position: relative;
+                        
+                        .lockIconForFilters {
+                            position: absolute;
+                            right: 0px;
+                        }
+                    }
+                    &.active-menuitem {
+                        > a {
+                            background-color: #e9fcf8;
+                            color: var( --primary-color );
+                            border-radius: 0;
+    
+                            > i {
+                                color: var( --primary-color );
+                            }
+                        }
+                    }
+                }
+            }
+
+            @media only screen and (max-width:992px) {
+                // padding-top: 4rem;
+                padding-top: 0rem;
+            }
+        }
+    
+    }
+
+    &.layout-static {
+        .menu-wrapper {
+        
+            @media only screen and ( min-width: 992px ) {
+                transform: translate3d(-20rem, 0px, 0px);
+            }
+
+            .layout-menu-button {
+                left: 18.75rem;
+            }
+        }
+    }
+
+    &.layout-sidebar-active {
+        .menu-wrapper {
+        
+            @media only screen and ( min-width: 992px ) {
+                transform: translate3d(0rem, 0px, 0px);
+            }
+
+            .layout-menu-button {
+                & > i {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+
+    &.layout-topbar-mobile-active {
+        .menu-wrapper {
+            @media only screen and ( max-width: 991px ) {
+                height: calc( 100% - 8.5rem );
+                top: 8.5rem;
+            }
+        }
+    }
+
+    .layout-topbar {
+        .layout-topbar-right {
+            .layout-topbar-actions-right {
+                .layout-topbar-items {
+                    .layout-topbar-item {
+                        .layout-topbar-action-panel {
+                            top: 4.5rem;
+                            min-width: 39rem;
+                            max-height: 19.3rem;
+                            overflow-y: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Insights Styling Starts
+
+    &.p-input-filled {
+        .p-dropdown,
+        .p-multiselect {
+            &.roundedCorners {
+                &:not(.p-disabled):hover {
+                    background-image: none;
+                    background-color: var(--surface-a);
+                }
+            }
+        }
+    }
+    
+    .p-multiselect,
+    .p-dropdown,
+    .p-multiselect-panel,
+    .p-dropdown-panel {
+        font-size: 14px;
+        
+        @media only screen and ( max-width: 767px ) {
+            font-size: 1em;
+        }
+        
+        .p-radiobutton {
+            .p-radiobutton-box.p-highlight {
+                &:not(.p-disabled) {
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+        
+        .p-multiselect-label,
+        .p-multiselect-item:not(.p-state-highlight),
+        .p-dropdown-item {
+            color: var( --text-color );
+            white-space: normal;
+            
+            &:focus,
+            &:active,
+            &:active:focus {
+                outline: none;
+            }
+        }
+        .p-highlight {
+            background-color: transparent;
+            
+            &:focus,
+            &:active,
+            &:active:focus {
+                outline: none;
+            }
+        }
+        
+        &,
+        &.p-focus,
+        &:not(.p-disabled).p-focus  {
+            
+            &.roundedCorners {
+                min-width: 300px;
+                background-color: var(--surface-a);
+                background-image: none;
+                padding: 0;
+                border: 0;
+                border-radius: 20px;
+                box-shadow: none;
+                
+        
+                @media only screen and ( max-width: 280px ) {
+                    min-width: 255px;
+                }
+                .p-inputtext {
+                    &.p-inputtext-sm {
+                        padding: 0;
+                        border-radius: 0;
+                        border-width: 0 0 1px 0;
+                        border-color: #bdbdbd;
+                        font-style: italic;
+                        max-width: 100px;
+
+                        &.avoidItalic{
+                            font-style:normal
+
+                        }
+                    }
+                    &:enabled {
+                        &:focus {
+                            box-shadow: none;
+                            transition: 0.5s ease-in all;
+                            border-bottom-color: #212121;
+                        }
+                    }
+                }
+
+                .p-dropdown-label,
+                .p-multiselect-label {
+                    background-color: var( --surface-a )!important;
+                    font-weight: 600;
+                    color: #898989;
+                    padding: 10px 35px 10px 20px;
+                    border-radius: 20px;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+
+                    @media only screen and ( max-width: 320px ) { 
+                    max-width: 215px;
+                    }
+
+                    &.p-inputtext {
+                        font-size: 1em;
+                    }
+
+                }
+                .p-dropdown-trigger,
+                .p-multiselect-trigger {
+                    top: 10px;
+                    right: 15px;
+                }
+
+                .p-multiselect-label-container {
+                    padding: 0;
+                }
+    
+                .p-dropdown-panel,
+                .p-dropdown-items-wrapper,
+                .p-multiselect-panel,
+                .p-multiselect-items-wrapper {
+                    border-bottom-left-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                }
+                
+                &.p-dropdown-open,
+                &.p-multiselect-open {
+                    .p-dropdown-label,
+                    .p-multiselect-label {
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+
+                .p-multiselect-panel {
+                    max-width: 300px;
+
+                    .p-multiselect-items-wrapper {
+                        .p-multiselect-item {
+                            white-space: normal;
+                            padding-left: 3em;
+
+                            .p-checkbox {
+                                position: absolute;
+                                left: 1.1em;
+                                top: 0.571em;
+                            }
+                        }
+                    }
+                }
+    
+            }
+    
+        }
+
+    }
+
+    .p-calendar {
+        &.roundedCorners {
+            display: block;
+            min-width: 300px;
+            background-image: none;
+            padding: 0;
+            border: 0;
+    
+            @media only screen and ( max-width: 480px ) {
+                min-width: 225px;
+            }
+
+            .p-inputtext {
+                background: var( --surface-a ) !important;
+                font-weight: 600;
+                color: #898989;
+                padding: 10px 35px 10px 20px;
+                border-radius: 20px;
+                max-width: 300px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
+                &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                    font-weight: 600 !important;
+                    font-style: normal;
+                    color: #898989;
+                }
+                &::-moz-placeholder { /* Firefox 19+ */
+                    font-weight: 600 !important;
+                    font-style: normal;
+                    color: #898989;
+                }
+                &:-ms-input-placeholder { /* IE 10+ */
+                    font-weight: 600 !important;
+                    font-style: normal;
+                    color: #898989;
+                }
+                &:-moz-placeholder { /* Firefox 18- */
+                    font-weight: 600 !important;
+                    font-style: normal;
+                    color: #898989;
+                }
+            }
+        }
+    }
+
+    //Insights Styling Ends
+}
+
+.p-dialog {
+
+    box-shadow: none;
+    
+    &.loginDialogModal {
+        width: 100% !important;
+        max-width: 460px;
+        background-color: transparent;
+        
+        @media only screen and ( max-width: 640px ) {
+            max-width: 380px;
+        }
+        @media only screen and ( max-width: 480px ) {
+            max-width: 280px;
+        }
+    
+        &.hasSignUPComponent {
+            width: auto !important;
+            min-width: 350px;
+            max-width: 100%;
+
+            @media only screen and (max-width:1024px) {
+                min-width: auto;
+                position: absolute;
+            }
+        }
+        
+        .p-dialog-header {
+            background: transparent;
+            padding: 0;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+        .fluidFixedLoader {
+            .p-progress-spinner {
+                background-color: transparent;
+            }
+        }
+
+        .p-dialog-titlebar {
+            padding: 0;
+    
+            .p-dialog-titlebar-close {
+                top: 28px;
+                right: 28px;
+                z-index: 1;
+    
+                @media only screen and ( max-width: 1024px ) {
+                    top: 128px;
+                }
+                @media only screen and ( max-width: 640px ) {
+                    top: 65px;
+                    right: 65px;
+                }
+                @media only screen and ( max-width: 480px ) {
+                    top: 100px;
+                    right: 25px;
+                }
+                @media only screen and ( min-width: 768px ) and ( max-width: 768px ) {
+                    top: 46px;
+            
+                }
+            }
+        }
+        
+        .p-dialog-content {
+            padding: 0;
+            background: transparent;
+            overflow-y: hidden;
+            
+            @media only screen and ( min-width: 768px ) and ( max-width: 768px ) {
+                height: auto !important;
+                // margin-top: -89px !important;
+            }
+    
+            .login-body {
+                background-color: transparent;
+                min-height: auto;
+                padding: 20px;
+    
+                .login-panel {
+                    @media only screen and (max-width: 480px) {
+                        padding: 0 !important;
+                        // margin: 75px auto 0 auto;
+                    }
+                }
+    
+                .logo {
+                    display: none;
+                }
+    
+                .card {
+                    padding: 1.5em 2em 0;
+                    border-radius: 20px;
+                    @media only screen and ( max-width: 992px ) {
+                        padding: 2em;
+                    }
+                }
+    
+                .login-panel-footer {
+                    padding: 0;
+                }
+            }
+    
+        }
+        .signUpBox {
+            max-height: 63vh;
+            overflow: auto;
+        }
+    }
+
+    &.confirmDialogModalLogoutAll {
+        .p-dialog-header {
+            padding: 1.25rem;
+            background-color: #fff !important;
+            position: initial;
+        }
+        .p-dialog-content {
+            padding: 1.25rem !important;
+            background-color: #fff !important;
+        }
+    }
+    
+}
+
+@media only screen and ( max-width: 992px ) {
+
+    .p-autocomplete-panel {
+        max-width: 190px;
+        position: absolute;
+        left: 42px;
+    }
+    .p-autocomplete-items { 
+        .p-autocomplete-item {
+            white-space: normal;
+        }
+    }
+
+}
+
+.hideBlockForMobileView { 
+	@media only screen and ( max-width: 991px )  {	
+			display: none !important;
+		}
+}
+
+@media screen and (max-width: 992px) {
+    .card-pt-ForMobileView {
+        margin-top: -30px !important;
+    }
+}
+
+.fontViewForMobile { 
+    @media only screen and (max-width: 992px) {
+        font-size: 0.87rem !important;
+    }
+ }
+
+ .whiteSpaceForMobile { 
+    @media only screen and (max-width: 992px) {
+        white-space: nowrap;
+    }
+ }
+
+
+.riskAssessmentPoverlay {
+    &.p-overlaypanel {
+        border-radius: 1rem;
+
+        .p-overlaypanel-content {
+            padding: 0.4rem 0.4rem 0;
+        }
+    }
+    .riskAssessmentOnHover {
+        width: 316px;
+    }
+}
+
+.complianceBandsoverlay {
+    &.p-overlaypanel {
+        border-radius: 1.2rem;
+
+        .p-overlaypanel-content {
+            padding: 0.4rem 0.4rem 0;
+        }
+    }
+    .complianceBandsOnHover {
+        width: 600px;
+        border-radius: 1.2rem;
+    }
+}
+
+
+@media only screen and ( max-width: 1600px ) {
+    .mb-xxl-2 {
+        margin-bottom: .5em !important;
+    }
+}
+.p-tree {
+    border: none;
+}
+
+.showContectOnSideBarOnly {
+	display: none;
+}
+
+.displayContentOnFullScreen {
+    display: block;
+}
+
+.dgExtensionPopup {
+    &.p-dialog {
+        top: 0px;
+        border-radius: 15px;
+        max-width: 365px;
+        box-shadow: 0px 3px 20px 0 rgba(0, 0, 0, 0.2);
+        .p-dialog-header {
+            background-color: white;
+            border-radius: 15px 15px 0px 0px;
+        }
+
+        .p-dialog-content {
+            background-color: white;
+            border-radius: 0px 0px 15px 15px;
+            padding: 0.5rem 1.25rem 1.25rem 1.25rem;
+        }
+    }
+    .dgExtensionDGLogo {
+        position: absolute;
+        top: 13px;
+        right: 20px;
+    }
+
+}
+.valentineLockIcon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    padding: 6px;
+    border-radius: 100%;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.lockIconForFilters {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.layout-content {
+    width: 100%;
+}
+
+.msme-count:hover {
+    transform: scale(1.1);
+    transition: all 0.4s ease-in;
+}
+
+.read-more-text {
+	display: block;
+	transition: max-height 0.8s ease-in-out;
+}
+.hypersonic{
+    background-color: #a9d08e;
+}
+.supersonic{
+    background-color: #fce4d6;
+}
+.transonic{
+    background-color: #fce4d6;
+}
+.subsonic{
+    background-color: #ededed;
+}
+.acelerator{
+    background-color: #e2efda;
+}
+.momentum{
+    background-color: #bdd7ee;
+}
+.drift{
+    background-color: #ffe699;
+}
+.byte{
+    background-color: #f4b084;
+}
+
+
+

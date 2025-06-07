@@ -1,0 +1,22 @@
+$transitionDuration: 0.3s;
+
+$errorColor:#B00020;
+$textSecondaryColor:#616161 !default;
+$bluegrey: #546E7A !default;
+$deeppurple: #673AB7 !default;
+$cyan: #00ACC1 !default;
+$darkGreyColor: #607D8B !default;
+$lightblue: #03A9F4 !default;
+$indigo: #3F51B5 !default;
+$white: white !default;
+
+:root {
+    --text-secondary-color: #{ $textSecondaryColor };
+    --error-color: #{ $errorColor };
+    --blue-grey: #{ $bluegrey };
+    --deep-purple: #{ $deeppurple };
+    --light-blue: #{ $cyan };
+    --dark-grey: #{ $darkGreyColor };
+    --lighten-dark-grey: #{ lighten( $darkGreyColor, 10% ) };
+    --surface-a: #{ $white };
+}
