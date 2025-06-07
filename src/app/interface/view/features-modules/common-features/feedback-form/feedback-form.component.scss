@@ -1,0 +1,145 @@
+.upload-file {
+    line-height: 2.5;
+    
+    button {
+        float: right;
+        width: 0px;
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+}
+
+.feedbackContainer {
+
+    .feedbackCard{
+        min-height: 0px;
+        background-color: white;
+        position: relative;
+        left: 35%;
+        top: 202px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .radioButtonSpace {
+        margin-left: 14px;
+    }
+
+    .textareaBorder {
+        border: 1px solid;
+        width: 70%;
+        @media only screen and ( max-width: 991px ) {
+            width: 100%;
+        }
+    }
+
+    .questionSpace{
+        padding: 5px;
+        @media only screen and ( max-width:991px ) {
+            position: relative;
+        }
+    }
+}
+
+@media only screen and (max-width:1400px) {
+    .feedbackContainer {
+        .feedbackCardResponsivess {
+            min-height: 0px;
+            background-color: white;
+            position: relative;
+            left: 35%;
+            top: 49px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+@media only screen and (max-width:1024px) {
+
+    .selectionGroupContainer {
+        &.md-inputfield {
+            display: inline-grid !important;
+            // line-height: 2;
+        } 
+    }
+}
+@media only screen and ( max-width:991px )
+{
+    .insideContainer{
+        position: absolute;
+        margin-left: 0.5em;
+    }
+    .QuestionContainer {
+      margin-bottom: 0.4em !important;
+    }
+   
+    .insideContainer {
+        font-size: 14px !important;
+    }
+    .selectionGroupContainer {
+        &.md-inputfield {
+            font-size: 14px;
+            line-height: 2;
+        } 
+    }
+    .pad-t-xxl {
+        padding-top: 1.5em;
+    }
+}
+@media only screen and ( max-width:376px ) {
+    .q-mt {
+        margin-top: 0em;
+    }
+
+    .QuestionContainer {
+        margin-bottom: 0.4em !important;
+    }
+    .pad-t-xxl {
+        padding-top: 2.5em;
+    }
+}
+
+@media only screen and ( max-width:281px ) {
+    .insideContainer {
+        font-size: 12px !important;
+    }
+    .selectionGroupContainer {
+        &.md-inputfield {
+            font-size: 12px;
+        } 
+    }
+
+    .feedbackContainer {
+        h3 {
+            font-size: 1.1em;
+        }
+    }
+}
+.q-fonts {
+    font-size: 1.25em;
+    font-weight: 400;
+}
+.QuestionContainer {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+.p-formgroup-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+@media only screen and ( max-width: 991px ) {
+
+    .p-formgroup-inline {
+        line-height: 5px;
+        display: block;
+    }
+
+    .p-field-checkbox {
+        padding: 2px;
+    }
+
+}

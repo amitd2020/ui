@@ -1,0 +1,430 @@
+<div class="col">
+	<div class="col-12">
+		<div *ngIf="!showThankyouDiv" class="card">
+
+			<form #feedbackFormData="ngForm" (submit)="feedbackDataArray(feedbackFormData)">
+
+				<h3 class="text-left">Please Share Your Experience</h3>
+
+				<h5>Q1. {{ feedbackDetails['questionOne'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q1" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerOne"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q1" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerOne"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q1" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerOne"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q1" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerOne"></p-radioButton>
+					</div>
+
+				</div>
+
+				<h5>Q2. {{ feedbackDetails['questionTwo'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q2" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerTwo"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q2" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerTwo"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q2" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerTwo"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q2" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerTwo"></p-radioButton>
+					</div>
+
+				</div>
+
+				<h5>Q3. {{ feedbackDetails['questionThree'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q3" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerThree"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q3" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerThree"></p-radioButton>
+					</div>
+					
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q3" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerThree"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q3" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerThree" ></p-radioButton>
+					</div>
+
+				</div>
+
+				<h5>Q4. {{ feedbackDetails['questionFour'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q4" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerFour"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q4" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerFour"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q4" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerFour"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q4" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerFour" ></p-radioButton>
+					</div>
+
+				</div>
+
+				<h5>Q5. {{ feedbackDetails['questionFive'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q5" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerFive"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q5" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerFive"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q5" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerFive"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q5" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerFive"></p-radioButton>
+					</div>
+
+				</div>
+
+				<h5>Q6. {{ feedbackDetails['questionSix'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q6" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerSix"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q6" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerSix"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q6" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerSix"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q6" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerSix"></p-radioButton>
+					</div>
+
+				</div>
+
+				<h5>Q7. {{ feedbackDetails['questionSeven'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q7" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerSeven"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q7" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerSeven"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q7" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerSeven"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q7" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerSeven"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q8. {{ feedbackDetails['questionEight'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q8" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerEight"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q8" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerEight"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q8" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerEight"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q8" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerEight" ></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q9. {{ feedbackDetails['questionNine'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q9" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerNine"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q9" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerNine"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q9" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerNine"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q9" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerNine"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q10. {{ feedbackDetails['questionTen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q10" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerTen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q10" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerTen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q10" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerTen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q10" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerTen"></p-radioButton>
+					</div>
+				
+				</div>
+				
+				<h5>Q11. {{ feedbackDetails['questionEleven'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q11" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerEleven"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q11" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerEleven"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q11" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerEleven"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q11" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerEleven"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q12. {{ feedbackDetails['questionTwelve'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q12" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerTwelve"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q12" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerTwelve"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q12" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerTwelve"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q12" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerTwelve"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q13. {{ feedbackDetails['questionThirteen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q13" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerThirteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q13" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerThirteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q13" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerThirteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q13" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerThirteen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q14. {{ feedbackDetails['questionFourteen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q14" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerFourteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q14" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerFourteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q14" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerFourteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q14" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerFourteen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q15. {{ feedbackDetails['questionFifteen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q15" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerFifteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q15" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerFifteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q15" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerFifteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q15" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerFifteen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q16. {{ feedbackDetails['questionSixteen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q16" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerSixteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q16" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerSixteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q16" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerSixteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q16" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerSixteen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q17. {{ feedbackDetails['questionSeventeen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q17" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerSeventeen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q17" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerSeventeen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q17" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerSeventeen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q17" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerSeventeen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q18. {{ feedbackDetails['questionEighteen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q18" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerEighteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q18" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerEighteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q18" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerEighteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q18" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerEighteen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q19. {{ feedbackDetails['questionNineteen'] }}</h5>
+				<div class="p-formgroup-inline">
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q19" value="Very Dissatisfied" label="Very Dissatisfied" [(ngModel)]="feedbackAnswerNineteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q19" value="Dissatisfied" label="Dissatisfied" [(ngModel)]="feedbackAnswerNineteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q19" value="Satisfied" label="Satisfied" [(ngModel)]="feedbackAnswerNineteen"></p-radioButton>
+					</div>
+
+					<div class="p-field-checkbox mr-4">
+						<p-radioButton name="q19" value="Very Satisfied" label="Very Satisfied" [(ngModel)]="feedbackAnswerNineteen"></p-radioButton>
+					</div>
+				
+				</div>
+
+				<h5>Q20. {{ feedbackDetails['questionTwenty'] }}</h5>
+				<div class="p-formgroup-inline">
+					<textarea name="q20" rows="5" cols="30" pInputTextarea [(ngModel)]="feedbackAnswerTwenty" autoResize="autoResize"></textarea>
+				</div>
+
+				<div class="p-text-center mt-2">
+					<button pButton type="submit" label="Submit" class="p-button-rounded"></button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<div *ngIf="showThankyouDiv" class="text-center">
+		<div class="card col-12">
+			<h1>Thank you for Feedback!</h1>
+			<img src="../../assets/layout/images/tick-gif.gif" alt="Feedback Confirmation">
+			<div class="text-center mb-4">Please click on below button to go to the Dashboard.</div>
+			<div class="text-center mb-4">
+				<button pButton type="submit" label="Go to Dashboard" (click)="gotToDashboard()" styleClass="feedbackButtons"></button>
+			</div>
+		</div>
+	</div>
+</div>

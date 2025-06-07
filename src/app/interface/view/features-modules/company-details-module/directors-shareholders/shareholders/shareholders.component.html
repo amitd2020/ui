@@ -1,0 +1,20 @@
+<div [ngClass]="{'card': !isLoggedIn}" featureAccess="Shareholders" [optionalTemplate]="true">
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Shareholders' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyNumber ) ); else showShareholdersInfoTab"> -->
+	<dg-user-list *ngIf="shareHolderData !== undefined" [listColumns]="shareHolderDataColumn" [listDataValues]="shareHolderData" [listPage]="true" [thisPage]="'shareHolders'" [searchTotalCount]="shareHolderDataLength"></dg-user-list>
+
+<!-- </ng-container> -->
+</div>
+
+<!-- <ng-template #showShareholdersInfoTab>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="card text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+		</ng-template>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+	</p-card>
+</ng-template> -->

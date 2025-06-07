@@ -1,0 +1,124 @@
+<p-tabView orientation="left">
+	<p-tabPanel header="Introduction">
+		<h2>Introduction</h2>
+		<div class="head">
+			<div class="intro">
+				<span class="prefix ml-3">DATAGARDENER API</span><span>will provide you all the data needed for the
+					analysis of a Company, Director or PSC.</span>
+			</div>
+		</div>
+		<h3>Why use this?</h3>
+		<ul>
+			<li>You will get all the company data on the go.</li>
+			<li>You will get the JSON file of the company data at your own system.</li>
+			<li>No need to search the company manually, just use the API service with the company number and data is all
+				yours.</li>
+		</ul>
+		<h3>What is included?</h3>
+		<span>All the data of a company is included in this service, Such as:</span>
+		<ul>
+			<li>Company Details</li>
+			<li>Financial Data</li>
+			<li>Document Data</li>
+			<li>Related Companies and Directors Data</li>
+			<li>Corporate Land Data and many more.</li>
+		</ul>
+		<h3>Steps to implement it?</h3>
+		<ul>
+			<li>Be ready with your User ID, API Access Token and API link provided by us.</li>
+			<li>Select any company you want and extract it's Company Number.</li>
+			<li>Now you are ready to use this service, just input all the three parameters (companyNumber , accessToken
+				, userId).</li>
+		</ul>
+	</p-tabPanel>
+	<p-tabPanel header="Company Detail">
+		<h2>Company Detail</h2>
+		<div class="head">
+			<pre>
+				<span class="prefix">GET</span><span>/dg-api/getCompanyByCmpNo/'company number'</span>
+			</pre>
+		</div>
+		<div class="json">
+			<h3>Sample Response</h3>
+			<pre>
+				<p-scrollPanel [style]="{width: '100%', height: '420px'}">
+					<code>
+						{{companyDetail | json}}
+					</code>
+				</p-scrollPanel>
+			</pre>
+		</div>
+	</p-tabPanel>
+	<p-tabPanel header="Company Key Financials">
+		<h2>Company Key Financials</h2>
+		<div class="head">
+			<pre>
+				<span class="prefix">GET</span><span>/dg-api/getFinancialData/'company number'</span>
+			</pre>
+		</div>
+		<div class="json">
+			<h3>Sample Response</h3>
+			<pre>
+				<p-scrollPanel [style]="{width: '100%', height: '420px'}">
+					<code>
+						{{financialData | json}}
+					</code>
+				</p-scrollPanel>
+			</pre>
+		</div>
+	</p-tabPanel>
+	<p-tabPanel header="Company Documents">
+		<h2>Company Documents</h2>
+		<div class="head">
+			<pre>
+				<span class="prefix">GET</span><span>/dg-api/getListOfCompanyDocuments/'company number'</span>
+			</pre>
+		</div>
+		<div class="json">
+			<h3>Sample Response</h3>
+			<pre>
+				<p-scrollPanel [style]="{width: '100%', height: '420px'}">
+					<code> 
+						{{companyDocument | json}}
+					</code>
+				</p-scrollPanel>
+			</pre>
+		</div>
+	</p-tabPanel>
+	<p-tabPanel header="Related Companies and Directors">
+		<h2>Related Company and Directors</h2>
+		<div class="head">
+			<pre>
+				<span class="prefix">GET</span><span>/dg-api/getRelatedCompaniesAndDirectorsByCmpNo/'company number'</span>
+			</pre>
+		</div>
+		<div class="json">
+			<h3>Sample Response</h3>
+			<pre>
+				<p-scrollPanel [style]="{width: '100%', height: '420px'}">
+					<code>
+						{{relatedCompaniesAndDirector | json}}
+					</code>
+				</p-scrollPanel>
+			</pre>
+		</div>
+	</p-tabPanel>
+	<p-tabPanel header="Complete Company Data">
+		<h2>Complete Company Data</h2>
+		<div class="head">
+			<pre>
+				<span class="prefix">GET</span><span>/dg-api/getcompleteInformation?token='token_number'&number='company_number'</span>
+			</pre>
+		</div>
+		<div class="json">
+			<h3>Sample Response</h3>
+			<pre>
+				<p-scrollPanel [style]="{width: '100%', height: '420px'}">
+					<code>
+						{{companyCompleteInfo | json}}
+					</code>
+				</p-scrollPanel>
+			</pre>
+		</div>
+	</p-tabPanel>
+</p-tabView>

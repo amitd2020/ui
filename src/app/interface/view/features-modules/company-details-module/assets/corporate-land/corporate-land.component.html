@@ -1,0 +1,142 @@
+<div>
+	<div class="grid" *ngIf="countKeys">
+		<div class="col-12 md:col-6 lg:col-7">
+			<div class="epcRatingCards card overview-box flex flex-column h-full">
+				<div class="card-body flex flex-column ">
+					<div class="gaugeChartContainer">
+						<div class="gaugeLegends">
+							<div class="epc">
+								<span class="colorBlock"></span>
+								<span class="label">EPC</span>
+							</div>
+							<div class="nonEpc">
+								<span class="colorBlock"></span>
+								<span class="label">Non EPC</span>
+							</div>
+							<div class="epcDomestic">
+								<span class="colorBlock"></span>
+								<span class="label">Domestic</span>
+							</div>
+							<div class="epcNonDomestic">
+								<span class="colorBlock"></span>
+								<span class="label">Non Domestic</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-body flex flex-column col justify-content-center showConentCenter">
+					<div class="flex align-items-center flex-wrap">
+						<div class="col-3">
+							<div class="col flex align-items-center justify-content-center">
+								<p-chart type="doughnut" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" [data]="totalCountsDoughnut" height="180px" width="180px" [responsive]="true"></p-chart>
+								<div class="doughnutTotalCountStyles">{{corporateLandPurchaseCount}}<div class="text-sm">Total</div></div>
+							</div>
+						</div>
+						<div class="col-1">
+							<p-divider layout="vertical"></p-divider>
+						</div>
+						<div class="col-8">
+							<div class="card-body flex flex-column col justify-content-center">
+								<div class="flex align-items-center flex-wrap">
+									<div class="col">
+										<p-chart *ngIf="purchasedEpcNonEpcArray.length; else noRecordTemplate" type="doughnut" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" [data]="totalEPCPurchaseCountsData" height="140px" width="140px" [responsive]="true">
+										</p-chart>
+										<div class="col">
+											<small>EPC & Non EPC</small>
+										</div>
+									</div>
+									<div class="col">
+										<p-chart *ngIf="purchasedDomesticNonDomesticArray.length; else noRecordTemplate" type="doughnut" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" [data]="purchasedDomesticNonDomesticCountsData" height="140px" width="140px" [responsive]="true"></p-chart>
+										<div class="col">
+											<small>Domestic EPC & Non Domestic EPC</small>
+										</div>
+									</div>			
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-12 md:col-6 lg:col-5">
+
+			<div class="epcRatingCards card overview-box flex flex-column h-full">
+				
+				<div class="card-body flex flex-column">
+					<div class="gaugeChartContainer">
+						<div class="gaugeLegends">
+							<div class="gaugeLegendAPlus">
+								<span class="colorBlock"></span>
+								<span class="label">A+</span>
+							</div>
+							<div class="gaugeLegendA">
+								<span class="colorBlock"></span>
+								<span class="label">A</span>
+							</div>
+							<div class="gaugeLegendB">
+								<span class="colorBlock"></span>
+								<span class="label">B</span>
+							</div>
+							<div class="gaugeLegendC">
+								<span class="colorBlock"></span>
+								<span class="label">C</span>
+							</div>
+							<div class="gaugeLegendD">
+								<span class="colorBlock"></span>
+								<span class="label">D</span>
+							</div>
+							<div class="gaugeLegendE">
+								<span class="colorBlock"></span>
+								<span class="label">E</span>
+							</div>
+							<div class="gaugeLegendF">
+								<span class="colorBlock"></span>
+								<span class="label">F</span>
+							</div>
+							<div class="gaugeLegendG">
+								<span class="colorBlock"></span>
+								<span class="label">G</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card-body flex flex-column col justify-content-center showConentCenter">
+					<span class="p-text-center"><span class="overview-status headerBackground">EPC Rating</span></span>
+					<div class="flex align-items-center flex-wrap">
+						<div class="col">
+							<p-chart *ngIf="purchaseGradeCountArray.length; else noRecordTemplate" type="doughnut" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" [data]="overallDoughnutData" height="230px" width="230px" [responsive]="true">
+							</p-chart>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<div addOnAccess="propertyIntelligence" [optionalTemplate]="true">
+
+	<ng-container *ngIf="corporateLandPurchaseCount">
+		<dg-user-list [listColumns]="corporateLandDataPurchaseColumn" [listDataValues]="landCorporatePurchaseInfo"
+			[listPage]="true" [sampleLrmPdf]="sampleLrmPdf" [companyLogo]="companyLogo"
+			[searchTotalCount]="corporateLandPurchaseCount" [thisPage]="'corporateLand'"></dg-user-list>
+	</ng-container>
+	<div class="grid hideBlockForMobileView">
+		<div class="col">
+			<div class="col-12">
+				<sup>*</sup>Inconsistencies happen because of human error or because we do not have the data. For
+				example, companies who bought property before 1996 did not need to tell us their registration number.
+			</div>
+		</div>
+	</div>
+
+</div>
+<ng-template #noRecordTemplate>
+	<div class="noRecords">
+		<p>No Records Found</p>
+	</div>
+</ng-template>

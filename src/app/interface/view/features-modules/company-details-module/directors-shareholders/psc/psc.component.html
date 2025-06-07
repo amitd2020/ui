@@ -1,0 +1,12 @@
+<ng-container *ngIf="companyData?.pscDetails?.length > 0 || companyData?.pscStatementControlPersonDetails?.length > 0 || companyData?.pscSuperSecurePersonDetails?.length > 0">
+	
+	<h3 *ngIf="companyData?.pscDetails?.length > 0" #target class="c-darkBlue mb-2 font-bold">Person With Significant Control</h3>
+	<dg-user-list *ngIf="companyData?.pscDetails?.length > 0"  [listColumns]="pscDataColumn" [listDataValues]="companyData?.pscDetails" [listPage]="true" [thisPage]="'pscData'" (updateTableForPsc)="updateTableForPsc( $event )"></dg-user-list>
+	
+	<h3 *ngIf="companyData?.pscStatementControlPersonDetails?.length > 0" #target class="c-darkBlue font-bold">Statement</h3>
+	<dg-user-list *ngIf="companyData?.pscStatementControlPersonDetails?.length > 0"  [listColumns]="pscStatementControlPersonDataColumn" [listDataValues]="companyData?.pscStatementControlPersonDetails" [listPage]="true" [thisPage]="'pscStatementControlPersonDetails'" [showExportButton]="false" (updateTableForPsc)="updateTableForPsc( $event )"></dg-user-list>
+	
+	<h3 *ngIf="companyData?.pscSuperSecurePersonDetails?.length > 0" #target class="c-darkBlue font-bold">Protected Person With Significant Control</h3>
+	<dg-user-list *ngIf="companyData?.pscSuperSecurePersonDetails?.length > 0" [listColumns]="pscSuperSecurePersonDataColumn" [listDataValues]="companyData?.pscSuperSecurePersonDetails" [listPage]="true" [thisPage]="'pscSuperSecurePersonDetails'" [showExportButton]="false" (updateTableForPsc)="updateTableForPsc( $event )"></dg-user-list>
+	
+</ng-container>

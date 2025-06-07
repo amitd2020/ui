@@ -1,0 +1,651 @@
+<p-messages [value]="msgs"></p-messages>
+
+<!-- card contain table -->
+<div class="card">
+    <div class="col">
+        <h2 class="mt-0 ml-2 text-left">Automation Scheduler List</h2>
+        <div class="col-12">
+            <ng-container>
+                <p-table [value]="limitsDetailsForEmailsData" responsiveLayout="scroll" [columns]="schedulerFilterCols" [paginator]="false">
+                    
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign }"> {{col.header}} </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.width, 'text-align':col.textAlign}" [ngSwitch]="col.field">
+                                <ng-container *ngSwitchDefault>
+                                    {{ rowData[col.field] }}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="['jobName'].includes( col.field ) ? col.field : ''">
+                                    {{ ( rowData[col.field] ? rowData[col.field] : '-' ) | titlecase }}
+                                </ng-container>
+                                <ng-container
+                                    *ngSwitchCase="['schedulerFrequency'].includes( col.field ) ? col.field : ''">
+                                    {{ ( rowData[col.field] ? rowData[col.field] : '-' ) | titlecase }}
+                                </ng-container>
+                                <ng-container
+                                    *ngSwitchCase="['updationDate', 'creationDate', 'currentRunDate'].includes( col.field ) ? col.field : ''">
+                                    {{ rowData[col.field] ? ( rowData[col.field] | date: 'dd-MM-yyyy, HH:mm' ) : '-' }}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="['action'].includes( col.field ) ? col.field : ''">
+                                    <button pButton type="button" icon="pi pi-pencil"
+                                        class="p-mr-2 p-button-rounded p-button p-button-lg"
+                                        (click)="editDialogOpen(rowData)"></button>
+                                    <button pButton type="button" icon="ui-icon-delete"
+                                        class="p-mr-2 p-button-rounded p-button-lg p-button-danger"
+                                        (click)="deleteScheduler(rowData)"></button>
+                                    <button pButton type="button" icon="ui-icon-stop"
+                                        class="p-mr-2 p-button-rounded p-button-lg p-button-danger"
+                                        (click)="stopScheduler(rowData)"></button>
+                                </ng-container>
+
+                                <!-- Fields For User Saved Filters Goes Here -->
+                                <ng-container *ngSwitchCase="'chipData'">
+                                    <div *ngFor="let data of rowData[col.field]; let i = index">
+
+                                        <div
+                                            *ngIf="[ 'Key Financials', 'Advanced Key Financials', '3 Years Growth', '5 Years Growth', 'Financial Ratio', '1 Year Growth'].includes( data?.chip_group )">
+                                            <span>
+                                                <strong>{{ data?.chip_group }}:</strong>
+                                            </span>
+                                            <span *ngFor="let value of data?.chip_values; let j = index">
+                                                <ng-container *ngIf="value">
+                                                    {{ commonService.camelCaseToTitleCaseStr( value.key ) }}
+
+                                                    <ng-container *ngIf="data?.chip_group == 'Advanced Key Financials'">
+                                                        {{ value.selected_year ? 'in ' + value.selected_year : ""}}
+                                                    </ng-container>
+
+                                                    <ng-container
+                                                        *ngIf="value.key == 'numberOfEmployees'; else defaultFinValBlock">
+                                                        {{ value.less_than ? '' : '&gt; ' }}{{ value.greater_than
+                                                        }}{{ value.greater_than && value.less_than ? ' - ' : '' }}{{
+                                                        value.greater_than ? '' : '&lt; ' }}{{ value.less_than
+                                                        }}<span *ngIf="j+1 != data?.chip_values.length">, </span>
+                                                    </ng-container>
+                                                    <ng-template #defaultFinValBlock>
+                                                        <ng-container
+                                                            *ngIf="data?.chip_group !== '5 Years Growth' && data?.chip_group !== '3 Years Growth' && data?.chip_group !== 'Financial Ratio' && data?.chip_group !== '1 Year Growth'; else growthBlock">
+                                                            {{ value.less_than ? '' : '&gt; ' }}{{
+                                                            value.greater_than | currency: selectedGlobalCurrency : 'symbol' :
+                                                            '1.0-0' }}{{ value.greater_than && value.less_than ? ' -
+                                                            ' : '' }}{{ value.greater_than ? '' : '&lt; ' }}{{
+                                                            value.less_than | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'
+                                                            }}<span *ngIf="j+1 != data?.chip_values.length">,
+                                                            </span>
+                                                        </ng-container>
+                                                        <ng-template #growthBlock>
+                                                            {{ value.less_than ? '' : '&gt; ' }}{{
+                                                            value.greater_than | number: '1.2-2' }}{{
+                                                            value.greater_than ? "%" : "" }}{{ value.greater_than &&
+                                                            value.less_than ? ' - ' : '' }}{{ value.greater_than ?
+                                                            '' : '&lt; ' }}{{ value.less_than | number: '1.2-2' }}{{
+                                                            value.less_than ? "%" : "" }}<span
+                                                                *ngIf="j+1 != data?.chip_values.length">, </span>
+                                                        </ng-template>
+                                                    </ng-template>
+
+                                                </ng-container>
+                                            </span>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </div>
+
+                                        <span
+                                            *ngIf="![ 'Key Financials', 'Price', 'CCJ Amount', 'Post Town', 'Post Code', 'Advanced Key Financials', 'Incorporation Date', 'Proprietor Added Date', 'Charges Registered Date', 'Accounts Due Date', 'Accounts Made Up Date', 'Confirmation Statement', 'Date', 'CCJ Date', '5 Years Growth', '3 Years Growth', '1 Year Growth', 'PostCode', 'Financial Ratio', 'Project Start Date', 'Project End Date', 'tradingPostTown', 'tradingPostCode', 'tradingCounty','tradingRegion', 'Filed Date', 'landCoporateDetailsPostCode', 'landCoporateDetailsPostTown', 'landCoporateDetailsCounty', 'landCoporateDetailsRegion', 'Charges Person Entitled', 'Status', 'Case Status', 'Category', 'Company Name/Number', 'Import Date', 'Export Date', 'Bands', 'Furlough Amount Band (In Pounds)', 'Sold Date', 'Person Positions', 'CAGR', 'Import/Export Period', 'Search by Email', 'tradingConstituency', 'Account Type', 'Website' ].includes( data?.chip_group )">
+                                            <strong>{{ data?.chip_group }}: </strong>
+
+                                            <ng-container
+                                                *ngFor="let chipVal of data.chip_values; let chipIndx = index">
+                                                <ng-container
+                                                    *ngIf="[ 'Business Valuation', 'Grant Offered' ].includes( data?.chip_group ) && chipVal[0] && chipVal[1]">
+                                                    {{ chipVal[0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }} - {{
+                                                    chipVal[1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="[ 'Business Valuation', 'Grant Offered' ].includes( data?.chip_group ) && chipVal[0] && !chipVal[1]">
+                                                    Minimum: {{ chipVal[0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="[ 'Business Valuation', 'Grant Offered' ].includes( data?.chip_group ) && !chipVal[0] && chipVal[1]">
+                                                    Maximum: {{ chipVal[1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="data?.chip_group == 'Return on Equity' && chipVal[0] && chipVal[1]">
+                                                    {{chipVal[0] | number}}% - {{chipVal[1] | number}}%
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="data?.chip_group == 'Return on Equity' && chipVal[0] && !chipVal[1]">
+                                                    Minimum: {{chipVal[0] | number}}%
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="data?.chip_group == 'Return on Equity' && !chipVal[0] && chipVal[1]">
+                                                    Maximum: {{chipVal[1] | number}}%
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="[ 'Number of Employees', 'Number of Shareholders', 'Number of Shareholdings' ].includes( data?.chip_group )">
+
+                                                    <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                                        {{ chipVal[0] | number }} - {{ chipVal[1] | number }}
+                                                    </ng-container>
+
+                                                    <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                                        1000+
+                                                    </ng-container>
+
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="[ 'Investor Number of Shareholdings', 'Export Amount (in £)' ].includes( data?.chip_group )">
+
+                                                    <ng-container
+                                                        *ngIf="[ 'Export Amount (in £)' ].includes( data?.chip_group ); else withoutPoundSymbolChip">
+
+                                                        <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                                            &pound;{{ chipVal[0] | number }} - &pound;{{ chipVal[1]
+                                                            | number }}
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                                            &gt; &pound;{{ chipVal[0] | number }}
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                                            &lt; &pound;{{ chipVal[1] | number }}
+                                                        </ng-container>
+
+                                                    </ng-container>
+
+                                                    <ng-template #withoutPoundSymbolChip>
+
+                                                        <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                                            {{ chipVal[0] | number }} - {{ chipVal[1] | number }}
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                                            &gt; {{ chipVal[0] | number }}
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                                            &lt; {{ chipVal[1] | number }}
+                                                        </ng-container>
+
+                                                    </ng-template>
+
+                                                </ng-container>
+
+                                                <ng-container *ngIf="data?.chip_group == 'Director Age'">
+
+                                                    <ng-container
+                                                        *ngIf="commonService.typeOfData( chipVal ) === 'string'">
+                                                        {{ chipVal | titlecase }}
+                                                    </ng-container>
+
+                                                    <ng-container
+                                                        *ngIf="commonService.typeOfData( chipVal ) !== 'string'">
+
+                                                        <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                                            {{ chipVal[0] }} - {{ chipVal[1] }}
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                                            &gt; {{ chipVal[0] }}
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                                            &lt; {{ chipVal[1] }}
+                                                        </ng-container>
+
+                                                    </ng-container>
+
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="( data?.chip_group == 'Active Directors' || data?.chip_group == 'Property Count' || data?.chip_group == 'Properties Count' || data?.chip_group == 'Directorship Count' )">
+
+                                                    <ng-container *ngIf="chipVal[0] && chipVal[1]">
+                                                        {{chipVal[0] | number}} - {{chipVal[1] | number}}
+                                                    </ng-container>
+
+                                                    <ng-container *ngIf="chipVal[0] && !chipVal[1]">
+                                                        Minimum: {{chipVal[0] | number}}
+                                                    </ng-container>
+
+                                                    <ng-container *ngIf="!chipVal[0] && chipVal[1]">
+                                                        Maximum: {{chipVal[1] | number}}
+                                                    </ng-container>
+
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="data?.chip_group == 'Company Events' || data?.chip_group == 'Company Commentary'">
+                                                    {{ data?.chip_values[0][2] }}
+                                                </ng-container>
+
+                                                <ng-container *ngIf="data?.chip_group == 'Last Filing Date'">
+                                                    {{ data?.chip_values[0][2] }}
+                                                </ng-container>
+
+                                                <ng-container *ngIf="data?.chip_group == 'Write-off Date'">
+                                                    {{ data?.chip_values[0][2] }}
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="chipVal == 'Company must have CCJ' || chipVal == 'Company must not have CCJ' || chipVal == 'Company must have finances' || chipVal == 'Company must not have finances' || chipVal == 'Company must have charges details' || chipVal == 'Company must not have charges details' || chipVal == 'Company must have email' || chipVal == 'Company must not have email' || chipVal == 'Company must have phone number' || chipVal == 'Company must not have phone number' || chipVal == 'Company must have mobile number' || chipVal == 'Company must not have mobile number' || chipVal == 'Company must have website' || chipVal == 'Company must not have website' || chipVal == 'Include  liquidation companies' || chipVal == 'Exclude  liquidation companies' || chipVal == 'Only  liquidation companies' || chipVal == 'Company must have acquiring' || chipVal == 'Company must not have acquiring' || chipVal == 'Company must have PSC information' || chipVal == 'Company must not have PSC information' || chipVal == 'Company must have HNW1' || chipVal == 'Company must not have HNW1' || chipVal == 'Company must not have  CTPS' || chipVal == 'Company must have Linkedin' || chipVal == 'Company must have Director\'s Linkedin' || chipVal == 'Company must not have Linkedin' || chipVal == 'Company must not have Director\'s Linkedin' || chipVal == 'Include  CTPS' || chipVal == 'Person must be PSC' || chipVal == 'Person must be preferences_1' || chipVal == 'Person must be preferences_2' || chipVal == 'Person must be preferences_3'; else defaultChipValues">
+                                                    <ng-container *ngIf="chipVal == 'Company must have acquiring'">
+                                                        Company Must Have Acquiring Company</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have acquiring'">
+                                                        Company
+                                                        Must Not Have Acquiring Company</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have CCJ'">
+                                                        Companies With CCJs</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have CCJ'">
+                                                        Companies Without CCJs</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have finances'">
+                                                        Company Must Have Key Financials Filed</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have finances'">
+                                                        Company
+                                                        Must Not Have Key Financials Filed</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must have charges details'">
+                                                        Company Must Have Charge Registered</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must not have charges details'">
+                                                        Company Must Not Have Charge Registered</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have email'">
+                                                        Company Must Have A Generic Email Address</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have email'">
+                                                        Company Must Not Have A Generic Email Address</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have phone number'">
+                                                        Company
+                                                        Must Have A Phone Number</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must not have phone number'">
+                                                        Company Must Not Have A Phone Number</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have mobile number'">
+                                                        Company
+                                                        Must Have A Mobile Number</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must not have mobile number'">
+                                                        Company Must Not Have A Mobile Number</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have website'">
+                                                        Company Must Have A Website</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have website'">
+                                                        Company
+                                                        Must Not Have A Website</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Include  liquidation companies'">
+                                                        Include
+                                                        Companies In Liquidation</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Exclude  liquidation companies'">
+                                                        Exclude
+                                                        Companies In Liquidation</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Only  liquidation companies'">
+                                                        Only Companies In Liquidation</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must have PSC information'">
+                                                        Company Must Have PSC Information</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must not have PSC information'">
+                                                        Company Must Not Have PSC information</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have HNW1'">
+                                                        Company Must Have HNWI</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have HNW1'">
+                                                        Company Must Not Have HNWI</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Include  CTPS'">Include CTPS
+                                                    </ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have  CTPS'">
+                                                        Company Must Not Have CTPS</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must have Linkedin'">
+                                                        Company Must Have LinkedIn</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must have Director\'s Linkedin'">
+                                                        Company Must Have Director's LinkedIn</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Company must not have Linkedin'">
+                                                        Company
+                                                        Must Not Have LinkedIn</ng-container>
+                                                    <ng-container
+                                                        *ngIf="chipVal == 'Company must not have Director\'s Linkedin'">
+                                                        Company Must Not Have Director's LinkedIn</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Person must be PSC'">Person
+                                                        Must Be PSC</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Person must be preferences_1'">
+                                                        Person Must Be Shareholders</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Person must be preferences_2'">
+                                                        Person Must Be Highest Shareholders</ng-container>
+                                                    <ng-container *ngIf="chipVal == 'Person must be preferences_3'">
+                                                        Person Must Be Second Highest Shareholders</ng-container>
+                                                </ng-container>
+                                                <ng-template #defaultChipValues>
+                                                    <ng-container
+                                                        *ngIf="![ 'Last Filing Date', 'Company Events','Company Commentary','Business Valuation', 'Return on Equity', 'Active Directors', 'Grant Offered', 'Number of Employees', 'Director Age', 'Number of Shareholders','Number of Shareholdings', 'Properties Count', 'Property Count', 'Directorship Count', 'Write-off Date', 'Export Amount (in £)', 'Investor Number of Shareholdings' ].includes( data?.chip_group )">
+                                                        <span class="capitalise"
+                                                            *ngIf="data?.chip_group == 'Enterprise Size' else elseBlock">
+                                                            {{ commonService.typeOfData( chipVal ) == 'string' ?
+                                                            chipVal : chipVal }}
+                                                        </span>
+
+                                                        <ng-template #elseBlock>
+                                                            {{ commonService.typeOfData( chipVal ) == 'string' ? (
+                                                            chipVal | titlecase ) : chipVal }}
+                                                        </ng-template>
+                                                    </ng-container>
+                                                </ng-template>
+                                                <span class="responsiveLine"
+                                                    *ngIf="chipIndx != data.chip_values.length"> | </span>
+                                            </ng-container>
+                                        </span>
+
+                                        <span
+                                            *ngIf="data?.chip_group != 'Key Financials' && data?.chip_group == 'Post Code'">
+                                            <strong>{{ data?.chip_group }}: </strong> {{
+                                            arraytoString(data?.chip_values) }}
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Account Type'">
+                                            <strong>Account Type: </strong> {{ arraytoString(data?.chip_values) }}
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Furlough Amount Band (In Pounds)'">
+                                            <strong>Furlough Amount Band (GBP): </strong> {{
+                                            furloughDataFormat(data?.chip_values) }}
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Person Positions'">
+                                            <strong>Occupation: </strong> {{ arraytoString(data?.chip_values) |
+                                            titlecase }}
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Charges Person Entitled'">
+                                            <ng-container *ngIf="data.chip_group == 'Charges Person Entitled'">
+                                                <strong>Charges Person Entitled: </strong> {{
+                                                arraytoString(data.chip_values) | titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Bands'">
+                                            <strong>Bands: </strong> {{ arraytoString(data?.chip_values) | titlecase
+                                            }}
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Charges Registered Date'">
+                                            <strong>Charges Created Date: </strong> {{ data?.chip_values[0][2] }}
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Status'">
+                                            <ng-container *ngIf="data.chip_group == 'Status'">
+                                                <strong>Status: </strong> {{ arraytoString(data.chip_values) |
+                                                titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Sold Date'">
+                                            <ng-container *ngIf="data.chip_group == 'Sold Date'">
+                                                <strong>Sold Date: </strong> {{ data?.chip_values[0][2] | titlecase
+                                                }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Category'">
+                                            <ng-container *ngIf="data.chip_group == 'Category'">
+                                                <strong>Category: </strong> {{ arraytoString(data.chip_values) |
+                                                titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Case Status'">
+                                            <ng-container *ngIf="data.chip_group == 'Case Status'">
+                                                <strong>Case Status: </strong> {{ arraytoString(data.chip_values) |
+                                                titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Company Name/Number'">
+                                            <ng-container *ngIf="data.chip_group == 'Company Name/Number'">
+                                                <strong>Company Name/Number: </strong> {{
+                                                arraytoString(data.chip_values) | titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Price'">
+                                            <ng-container *ngIf="data.chip_group == 'Price'"><strong>Transaction
+                                                    Price: </strong>
+                                                {{ data?.chip_values[0][0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'
+                                                }}{{ data?.chip_values[0].length > 1 ? ' - ' : '' }}{{
+                                                data?.chip_values[0][1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'CCJ Amount'">
+                                            <ng-container *ngIf="data.chip_group == 'CCJ Amount'"><strong>CCJ
+                                                    Amount: </strong>
+                                                {{ data?.chip_values[0][0] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0'
+                                                }}{{ data?.chip_values[0].length > 1 ? ' - ' : '' }}{{
+                                                data?.chip_values[0][1] | currency: selectedGlobalCurrency : 'symbol' : '1.0-0' }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Post Town'">
+                                            <ng-container *ngIf="data.chip_group == 'Post Town'"><strong>Town /
+                                                    City: </strong>{{ arraytoString(data?.chip_values) | titlecase
+                                                }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'tradingPostTown'">
+                                            <ng-container *ngIf="data?.chip_group == 'tradingPostTown'"><strong>Town
+                                                    / City ( Trading Address ) : </strong>{{
+                                                arraytoString(data?.chip_values) | titlecase }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'tradingConstituency'">
+                                            <ng-container *ngIf="data?.chip_group == 'tradingConstituency'">
+                                                <strong>Constituency : </strong>{{ arraytoString(data?.chip_values)
+                                                | titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'landCoporateDetailsPostTown'">
+                                            <ng-container *ngIf="data.chip_group == 'landCoporateDetailsPostTown'">
+                                                <strong>Town / City ( Property Register ) : </strong>{{
+                                                dataFormatForTownCity( data?.chip_values ) | titlecase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'CAGR'">
+                                            <ng-container *ngIf="data.chip_group == 'CAGR'"><strong>CAGR : </strong>
+                                                <ng-container
+                                                    *ngIf="data?.chip_values == 'under_observation' || data?.chip_values == 'under_lens' || data?.chip_values == 'joining_league' || data?.chip_values == 'gearing_up' || data?.chip_values == 'under_radar'; else otherChipValues">
+                                                    <ng-container *ngIf="data?.chip_values == 'under_observation'">
+                                                        Under Observation</ng-container>
+                                                    <ng-container *ngIf="data?.chip_values == 'under_lens'">Under
+                                                        Lens</ng-container>
+                                                    <ng-container *ngIf="data?.chip_values == 'joining_league'">
+                                                        Joining League</ng-container>
+                                                    <ng-container *ngIf="data?.chip_values == 'gearing_up'">Gearing
+                                                        Up</ng-container>
+                                                    <ng-container *ngIf="data?.chip_values == 'under_radar'">Under
+                                                        Radar</ng-container>
+                                                </ng-container>
+                                                <ng-template #otherChipValues>
+                                                    {{ data?.chip_values }}
+                                                </ng-template>
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'PostCode'">
+                                            <ng-container *ngIf="data.chip_group == 'PostCode'"><strong>Post Code :
+                                                </strong>{{ arraytoString(data?.chip_values) | uppercase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'tradingPostCode'">
+                                            <ng-container *ngIf="data?.chip_group == 'tradingPostCode'"><strong>Post
+                                                    Code ( Trading Address ): </strong>{{
+                                                arraytoString(data?.chip_values) | uppercase }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'landCoporateDetailsPostCode'">
+                                            <ng-container *ngIf="data.chip_group == 'landCoporateDetailsPostCode'">
+                                                <strong>Post Code ( Property Register ) : </strong>{{
+                                                arraytoString(data?.chip_values) | uppercase }}
+                                            </ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span
+                                            *ngIf="data?.chip_group == 'landCoporateDetailsRegion' || data?.chip_group == 'landCoporateDetailsCounty'">
+                                            <ng-container><strong>{{
+                                                    data?.chip_group.replace("landCoporateDetails","") }} (
+                                                        Property Register ) : </strong>{{ arraytoString(data?.chip_values)
+                                                | titlecase }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span
+                                            *ngIf="data?.chip_group == 'tradingRegion' || data?.chip_group == 'tradingCounty'">
+                                            <ng-container><strong>{{ data?.chip_group.replace("trading","") }} (
+                                                    Trading Address ): </strong>{{ arraytoString(data?.chip_values)
+                                                | titlecase }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span *ngIf="data?.chip_group == 'Search by Email'">
+                                            <ng-container><strong>Search by Email: </strong>{{
+                                                arraytoString(data?.chip_values) | lowercase }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+                                        <span *ngIf="data?.chip_group == 'Website'">
+                                            <ng-container><strong> Website: </strong>{{
+                                                arraytoString(data?.chip_values) | lowercase }}</ng-container>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                        <span
+                                            *ngIf="[ 'Incorporation Date', 'Proprietor Added Date', 'Accounts Due Date', 'Accounts Made Up Date', 'Confirmation Statement', 'Date', 'CCJ Date', 'Project Start Date', 'Project End Date','Filed Date', 'Import Date', 'Export Date', 'Import/Export Period' ].includes( data?.chip_group )">
+                                            <ng-container
+                                                *ngIf="data.chip_group == 'Date' || data.chip_group == 'Accounts Made Up Date'; else otherDateDefaultChips">
+                                                <ng-container *ngIf="data.chip_group == 'Accounts Made Up Date'">
+                                                    <strong>Last Made Up Date: </strong>{{ data?.chip_values[0][2]}}
+                                                </ng-container>
+                                                <ng-container *ngIf="data.chip_group == 'Date'"><strong>Date of sale
+                                                        or transaction: </strong>{{ data?.chip_values[0][2]}}
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-template #otherDateDefaultChips><strong>{{ data?.chip_group }}:
+                                                </strong> {{ data?.chip_values[0][2]}}</ng-template>
+                                            <span class="responsiveLine" *ngIf="i+1 != rowData[col.field].length"> |
+                                            </span>
+                                        </span>
+
+                                    </div>
+                                </ng-container>
+                                <!-- Fields For User Saved Filters Goes Here End -->
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="columns?.length">No records found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<!-- card end -->
+
+
+<!-- Dialog box start for Edit scheduler data -->
+<p-dialog header="Edit Scheduler" [modal]="true" [(visible)]="displayEditDialog" [baseZIndex]="999999998"
+    appendTo="body" [focusOnShow]="false" [style]="{width: '30vw'}">
+    <form #editSchedulerForm="ngForm" (ngSubmit)="editScheduler(editSchedulerForm)">
+        <div class="p-grid">
+            <div class="p-input-filled col-12">
+                <span class="p-float-label">
+                    <input id="float-input" type="text" name="schedulername" [(ngModel)]="schedulerNameData"
+                        #schedulername="ngModel" pInputText ngModel required>
+                    <label for="float-input"></label>
+                    <span
+                        *ngIf="(schedulername.touched || editSchedulerForm.submitted) && schedulername.errors?.required && saveSchedulerData"
+                        style="color: red;">
+                        <span style="float: left;font-size: small;">
+                            scheduler Name is required
+                        </span>
+                    </span>
+                </span>
+            </div>
+            <div class="p-input-filled col-6">
+                <span class="p-float-label">
+                    <p-dropdown id="float-input" [options]="schedulerTimeData" name="schedulertime"
+                        #schedulertime="ngModel" [(ngModel)]="selectedSchedulerTime" optionLabel="label"
+                        optionValue="key" scrollHeight="10vh"></p-dropdown>
+                    <label for="float-input">Scheduler Time</label>
+                </span>
+            </div>
+        </div>
+        <div class="col-12 pb-0 my-3 text-center">
+            <button pButton type="submit" label="Save" class="p-button-rounded p-button-lg"></button>
+        </div>
+    </form>
+</p-dialog>
+<!-- Dialog box end for Edit scheduler data -->
+
+<!-- confirmation Dialog -->
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>

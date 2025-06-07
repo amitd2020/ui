@@ -1,0 +1,65 @@
+.dgVideoWindowSize {
+    height: 310px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 280px) {
+    .dgVideoWindowSize {
+        height: 125px;
+    }
+}
+
+@media only screen and (min-width: 281px) and (max-width: 320px) {
+    .dgVideoWindowSize {
+        height: 146px;
+    }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 360px) {
+    .dgVideoWindowSize {
+        height: 167px;
+    }
+}
+
+@media only screen and (min-width: 361px) and (max-width: 375px) {
+    .dgVideoWindowSize {
+        height: 175px;
+    }
+}
+
+@media only screen and (min-width: 376px) and (max-width: 420px) {
+    .dgVideoWindowSize {
+        height: 196px;
+    }
+}
+
+@media only screen and (min-width: 421px) and (max-width: 540px) {
+    .dgVideoWindowSize {
+        height: 131px;
+    }
+}
+
+@media only screen and (min-width: 541px) and (max-width: 770px) {
+    .dgVideoWindowSize {
+        height: 129px;
+    }
+}
+
+@media only screen and (min-width: 771px) and (max-width: 1024px) {
+    .dgVideoWindowSize {
+        height: 173px;
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1400px) {
+    .dgVideoWindowSize {
+        height: 188px;
+    }
+}
+
+@media only screen and (min-width: 1401px) and (max-width: 1920px) {
+    .dgVideoWindowSize {
+        height: 288px;
+    }
+}

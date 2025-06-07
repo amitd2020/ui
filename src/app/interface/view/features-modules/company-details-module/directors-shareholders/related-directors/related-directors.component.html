@@ -1,0 +1,21 @@
+<!-- <ng-container *ngIf="isLoggedIn; else withoutLogin"> -->
+<div [ngClass]="{'card': !isLoggedIn}" loginAccessModal>
+	<ng-container *ngIf="!( ['dissolved','converted/closed','deleted','removed'].includes( companyData.companyStatus ) ); else otherBlock">
+	
+		<dg-record-list [listColumns]="relatedDirectorsDataColumn" [listDataValues]="relatedDirectors" [relatedDirectorsAndCompaniesCmpNo]="companyData.companyRegistrationNumber" [searchTotalCount]="relatedDirectorsAndCompaniesCount" [relCompDirDataValueStatus]= "relCompDirDataValueStatus" [thisPage]="'related_Directors'"></dg-record-list>
+	
+	</ng-container>
+	
+	<ng-template #otherBlock>
+		<p-card>
+			No Records Found
+		</p-card>
+	</ng-template>
+</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #withoutLogin>
+	<p-card>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+	</p-card>
+</ng-template> -->

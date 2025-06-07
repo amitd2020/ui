@@ -1,0 +1,139 @@
+.carbonCalculatorFormContainer {
+
+    .goBackButton {
+        &.p-button {
+            background-color: #fff;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            margin: 0 0 0.9rem;
+
+            &:enabled:hover {
+                background-color: #2cf9ad;
+                color: #15704e;
+            }
+
+            ::ng-deep {
+                .p-button-icon {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+
+    .removeMaterialField {
+        &.p-button {
+            width: 1.5rem;
+            height: 1.5rem;
+            padding: 0.4rem 0;
+            margin: 0;
+            text-indent: 3.5px;
+
+            ::ng-deep {
+                .p-button-icon {
+                    font-size: 0.6rem;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .p-inputgroup {
+
+        p-inputnumber {
+            display: inherit;
+            width: 100%;
+
+            ::ng-deep {
+
+                .p-inputnumber {
+                    flex: 1;
+
+                    .p-inputnumber-input {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+
+                }
+
+            }
+
+        }
+
+        .p-inputgroup-addon {
+            min-width: 3rem;
+            background-color: #efefef;
+            font-size: 0.9rem;
+            border-left: 0;
+            padding: 0.5rem;
+            position: relative;
+
+            .removeMaterialField {
+                position: absolute;
+                top: 0;
+                right: 0;
+                transform: translate(50%, -50%);
+            }
+        }
+    }
+
+    ::ng-deep {
+        .p-dropdown {
+            font-size: 1rem;
+            border-radius: 4px;
+
+            .p-inputtext {
+                padding: 0.75rem;
+            }
+        }
+    }
+
+    .calculatedValuesOverviewCard {
+        font-size: 12px;
+
+        .calculatedValuesOverview {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .submitCalculationButton {
+            &.p-button {
+                width: 100%;
+                background-color: #2cf9ad;
+                font-size: 1.5rem;
+                font-weight: 400;
+                letter-spacing: 0.5px;
+                color: #15704e;
+                padding: 0.8rem 1.5rem;
+                margin-top: 1.5rem;
+
+                &:enabled:hover {
+                    background-color: #15704e;
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+
+    .card.carbonCalculationYearOrMonthWiseCard {
+        border-radius: 2rem;
+        padding: 0.6rem 0.8rem;
+        margin: 0 0 0.5rem;
+
+        p-radiobutton {
+            font-size: 0.9rem;
+
+            &:not( :first-child) {
+                margin-left: 0.8rem;
+            }
+
+        }
+    }
+
+}

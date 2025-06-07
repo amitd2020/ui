@@ -1,0 +1,471 @@
+<div class="carbonCalculatorModuleContainer" [ngClass]="{ 'compactView': compactView }">
+    
+    <ng-container *ngIf="savedCarbonCalculatedData.length || compactView; else carbonCalcLandingTemplate">
+        
+        <div class="carbonCalculatorDashboardContainer" [ngClass]="{ 'flex': compactView }">
+
+            <ng-container *ngIf="!compactView">
+                
+                <div class="card pageTitle px-4 py-3">
+    
+                    <div class="grid justify-content-between align-items-center my-0">
+    
+                        <div class="col-fixed py-0">
+                            
+                            <h2>{{ companyName | uppercase }}</h2>
+                            <p>Climate and Net-Zero Solutions are here for you. The below analytics are based on the information provided by you for the Carbon Calculations.</p>
+    
+                        </div>
+    
+                        <div class="col-fixed py-0">
+    
+                            <button pButton type="button" label="Calculate More" icon="pi pi-arrow-right" iconPos="right" class="p-button-rounded p-button-sm startCalculationButton m-0" [routerLink]="['/carbon-calculator/calculate']"></button>
+    
+                        </div>
+    
+                    </div>
+    
+                </div>
+
+            </ng-container>
+
+            <div class="grid" [ngClass]="{ 'col-12 p-0 m-0': compactView }">
+    
+                <div class="col-12 lg:col-5" [ngClass]="{ 'lg:pl-0 lg:py-0': compactView }">
+    
+                    <div class="card h-full" [ngClass]="{ 'flex flex-column': compactView }">
+                        <div class="card-header">
+                            <h3>Total Carbon Emission</h3>
+                        </div>
+                        <div class="card-body" [ngClass]="{ 'flex flex-column col justify-content-center': compactView }">
+
+                            <ng-container *ngIf="savedCarbonCalculatedData.length; else noRecordTemplate">
+                                
+                                <div class="grid align-items-center">
+                                    
+                                    <div class="col-12 md:col-6">
+                                    
+                                        <div class="totalCarbonValueContainer">
+                                            <p class="mb-2"><small>Current</small></p>
+                                            <h2>{{ totalCarbonCalculatedCurrent ? ( totalCarbonCalculatedCurrent | number: '1.2-2' ) : 0 }}</h2>
+                                            <p><small>Tonnes of CO<sub>2</sub>e</small></p>
+                                        </div>
+                                        
+                                        <div class="diffCarbonValueContainer">
+    
+                                            <div class="flex align-items-end justify-content-end">
+                                                <div class="col-fixed p-0">
+                                                    <i class="material-icons c-green" *ngIf="totalDiffIncrsDcrs <= 0">south</i>
+                                                    <i class="material-icons c-red" *ngIf="totalDiffIncrsDcrs > 0">north</i>
+                                                </div>
+                                                <div class="col-fixed p-0">
+                                                    <h3 [ngClass]="{ 'c-green': totalDiffIncrsDcrs <= 0, 'c-red': totalDiffIncrsDcrs > 0 }">{{ totalDiffIncrsDcrs ? ( ( totalDiffIncrsDcrs < 0 ? totalDiffIncrsDcrs * -1 : totalDiffIncrsDcrs ) | number: '1.2-2' ) : 0 }}%</h3>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                        
+                                        <div class="prevCarbonValueContainer">
+                                            <p class="mb-2"><small>Previous</small></p>
+                                            <h2>{{ totalCarbonCalculatedPrevious ? ( totalCarbonCalculatedPrevious | number: '1.2-2' ) : 0 }}</h2>
+                                            <p><small>Tonnes of CO<sub>2</sub>e</small></p>
+                                        </div>
+    
+                                    </div>
+                                    
+                                    <div class="col-12 md:col-6 text-center" style="overflow: hidden;">
+                                        <span class="carbonPlaceholderIcon">
+                                            <i class="material-icons">compost</i>
+                                        </span>
+                                    </div>
+    
+                                </div>
+                                
+                            </ng-container>
+
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="col-12 lg:col-7" [ngClass]="{ 'lg:pr-0 lg:py-0': compactView }">
+    
+                    <div class="card h-full" [ngClass]="{ 'flex flex-column': compactView }">
+                        <div class="card-header">
+                            <h3>Overall Carbon Emission</h3>
+                        </div>
+                        <div class="card-body" [ngClass]="{ 'flex flex-column col justify-content-center': compactView }">
+
+                            <ng-container *ngIf="savedCarbonCalculatedData.length; else noRecordTemplate">
+
+                                <div class="grid align-items-center">
+    
+                                    <div class="col-12" [ngClass]="{ 'md:col-5': compactView, 'md:col-6': !compactView }">
+    
+                                        <p-chart type="doughnut" [options]="overallComapreDoughnutChartOptions" [data]="overallComapreDoughnutChartData" responsive="true" height="250px"></p-chart>
+    
+                                    </div>
+    
+                                    <div class="col-12" [ngClass]="{ 'md:col-7': compactView, 'md:col-6': !compactView }">
+    
+                                        <div class="overallCarbonDetails">
+    
+                                            <div class="grid">
+    
+                                                <div class="col-12 md:col-6">
+                                                    <h5>Energy</h5>
+                                                    <h2>{{ currentCarbonData.energyCarbonTotal ? ( currentCarbonData.energyCarbonTotal | number: '1.2-2' ) : 0 }}</h2>
+                                                    <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                                </div>
+                                                <div class="col-12 md:col-6">
+                                                    <p-chart type="line" [data]="overallValuesSmallData.energy" [options]="overallValuesSmallOptions" responsive="true" height="60px" width="160px"></p-chart>
+                                                </div>
+    
+                                            </div>
+    
+                                        </div>
+    
+                                        <div class="overallCarbonDetails">
+    
+                                            <div class="grid">
+    
+                                                <div class="col-12 md:col-6">
+                                                    <h5>Business Travel</h5>
+                                                    <h2>{{ currentCarbonData.businessTravelCarbonTotal ? ( currentCarbonData.businessTravelCarbonTotal | number: '1.2-2' ) : 0 }}</h2>
+                                                    <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                                </div>
+                                                <div class="col-12 md:col-6">
+                                                    <p-chart type="line" [data]="overallValuesSmallData.businessTravel" [options]="overallValuesSmallOptions" responsive="true" height="60px" width="160px"></p-chart>
+                                                </div>
+    
+                                            </div>
+    
+                                        </div>
+    
+                                        <div class="overallCarbonDetails">
+    
+                                            <div class="grid">
+    
+                                                <div class="col-12 md:col-6">
+                                                    <h5>Flight</h5>
+                                                    <h2>{{ currentCarbonData.flightCarbonTotal ? ( currentCarbonData.flightCarbonTotal | number: '1.2-2' ) : 0 }}</h2>
+                                                    <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                                </div>
+                                                <div class="col-12 md:col-6">
+                                                    <p-chart type="line" [data]="overallValuesSmallData.flight" [options]="overallValuesSmallOptions" responsive="true" height="60px" width="160px"></p-chart>
+                                                </div>
+    
+                                            </div>
+    
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+                                
+                            </ng-container>
+
+                        </div>
+                    </div>
+    
+                </div>
+                
+            </div>
+
+            <ng-container *ngIf="!compactView">
+
+                <div class="grid">
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Electricity</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': currentCarbonData.energyElectricity > previousCarbonData.energyElectricity }">light</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="currentCarbonData.energyElectricity <= previousCarbonData.energyElectricity">south</i>
+                                                <i class="material-icons c-red" *ngIf="currentCarbonData.energyElectricity > previousCarbonData.energyElectricity">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ currentCarbonData.energyElectricity ? ( currentCarbonData.energyElectricity  | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Natural Gas</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': currentCarbonData.energyNaturalGas > previousCarbonData.energyNaturalGas }">propane_tank</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="currentCarbonData.energyNaturalGas <= previousCarbonData.energyNaturalGas">south</i>
+                                                <i class="material-icons c-red" *ngIf="currentCarbonData.energyNaturalGas > previousCarbonData.energyNaturalGas">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ currentCarbonData.energyNaturalGas ? ( currentCarbonData.energyNaturalGas | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Wood</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': currentCarbonData.energyWood > previousCarbonData.energyWood }">park</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="currentCarbonData.energyWood <= previousCarbonData.energyWood">south</i>
+                                                <i class="material-icons c-red" *ngIf="currentCarbonData.energyWood > previousCarbonData.energyWood">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ currentCarbonData.energyWood ? ( currentCarbonData.energyWood | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Heating Oil</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': currentCarbonData.energyHeatingOil > previousCarbonData.energyHeatingOil }">oil_barrel</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="currentCarbonData.energyHeatingOil <= previousCarbonData.energyHeatingOil">south</i>
+                                                <i class="material-icons c-red" *ngIf="currentCarbonData.energyHeatingOil > previousCarbonData.energyHeatingOil">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ currentCarbonData.energyHeatingOil ? ( currentCarbonData.energyHeatingOil | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Light Vehicles</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': lightVehiclesTotal.current > lightVehiclesTotal.previous }">directions_car</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="lightVehiclesTotal.current <= lightVehiclesTotal.previous">south</i>
+                                                <i class="material-icons c-red" *ngIf="lightVehiclesTotal.current > lightVehiclesTotal.previous">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ lightVehiclesTotal.current ? ( lightVehiclesTotal.current | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Heavy Vehicles</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': heavyVehiclesTotal.current > heavyVehiclesTotal.previous }">local_shipping</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="heavyVehiclesTotal.current <= heavyVehiclesTotal.previous">south</i>
+                                                <i class="material-icons c-red" *ngIf="heavyVehiclesTotal.current > heavyVehiclesTotal.previous">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ heavyVehiclesTotal.current ? ( heavyVehiclesTotal.current | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Bus / Train</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': busTrainVehiclesTotal.current > busTrainVehiclesTotal.previous }">directions_bus</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="busTrainVehiclesTotal.current <= busTrainVehiclesTotal.previous">south</i>
+                                                <i class="material-icons c-red" *ngIf="busTrainVehiclesTotal.current > busTrainVehiclesTotal.previous">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ busTrainVehiclesTotal.current ? ( busTrainVehiclesTotal.current | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="col-12 md:col-3">
+        
+                        <div class="card h-full otherEmissionValueDetails">
+                            <div class="card-header">
+                                <h3>Flight</h3>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="grid align-items-center">
+                                    <div class="col-12 md:col-6">
+                                        <span class="largeIcon"><i class="material-icons" [ngClass]="{ 'c-red': currentCarbonData.totalFlyingHours > previousCarbonData.totalFlyingHours }">flight</i></span>
+                                    </div>
+                                    <div class="col-12 md:col-6 text-right">
+    
+                                        <div class="flex align-items-center justify-content-end">
+                                            <div class="col-fixed p-0">
+                                                <i class="material-icons c-green" *ngIf="currentCarbonData.totalFlyingHours <= previousCarbonData.totalFlyingHours">south</i>
+                                                <i class="material-icons c-red" *ngIf="currentCarbonData.totalFlyingHours > previousCarbonData.totalFlyingHours">north</i>
+                                            </div>
+                                            <div class="col-fixed p-0">
+                                                <h2>{{ currentCarbonData.totalFlyingHours ? ( currentCarbonData.totalFlyingHours | number: '1.2-2' ) : 0 }}</h2>
+                                                <p><small><small>kg CO<sub>2</sub>e</small></small></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                </div>
+
+            </ng-container>
+
+        </div>
+
+    </ng-container>
+    
+    <ng-template #carbonCalcLandingTemplate>
+
+        <div class="carbonCalcLanding">
+    
+            <h3>Let's go with</h3>
+            <h2>The Net-Zero Solutions</h2>
+            <p>Climate and Net-Zero Solutions helps investors make their portfolios more resilient to the transition to a net-zero economy and overall effects of a warming climate. It combines in one easy-to-use platform: Climate data and financial modeling capabilities across multiple asset classes.</p>
+    
+            <button pButton type="button" label="Start Calculation" icon="pi pi-arrow-right" iconPos="right" class="p-button-rounded startCalculationButton" [routerLink]="['/carbon-calculator/calculate']"></button>
+    
+        </div>
+
+    </ng-template>
+		
+    <ng-template #noRecordTemplate>
+        <div class="noRecords">
+            <p>No Records Found</p>
+        </div>
+    </ng-template>
+
+</div>

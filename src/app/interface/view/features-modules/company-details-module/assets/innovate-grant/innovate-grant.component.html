@@ -1,0 +1,25 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+	<div addOnAccess="specialFilter" [optionalTemplate]="true">
+		<!-- <ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasAddOnPermission('specialFilter') || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData?.companyRegistrationNumber ) ); else withouLogin"> -->
+		
+			<ng-container *ngIf="innovateGrantData">
+				<dg-user-list *ngIf="innovateGrantData !== undefined && innovateGrantData.length > 0" [listColumns]="innovateGrantColumns" [listDataValues]="innovateGrantData" [listPage]="true" [thisPage]="'innovateGrant'"></dg-user-list>
+				<div class="card" *ngIf="innovateGrantData.length <= 0">
+					<h3 class="c-light">No records found.</h3>
+				</div>
+			</ng-container>
+		
+		<!-- </ng-container> -->
+	</div>
+	<!-- <ng-template #withouLogin>
+		<p-card>
+            <dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+        </p-card>
+	</ng-template> -->
+	
+</ng-template>

@@ -1,0 +1,25 @@
+<div [ngClass]="{'card': !isLoggedIn}" featureAccess="Shareholdings" [optionalTemplate]="true">
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Shareholdings' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData?.companyRegistrationNumber ) ); else showShareholdersInfoTab"> -->
+	<div class="card">
+
+		<h3 class="mt-2">Companies Shareholdings ({{ shareHolderDetailsSummaryColumnsData.length }})</h3>
+	
+		<dg-user-list *ngIf="shareHolderDetailsSummaryColumnsData" [listColumns]="shareHolderDetailsSummaryColumns" [listDataValues]="shareHolderDetailsSummaryColumnsData" [companyLogo]="companyLogo" [listPage]="true" [thisPage]="'shareHolderDetails'"></dg-user-list>
+
+	</div>
+
+<!-- </ng-container> -->
+</div>
+<!-- <ng-template #showShareholdersInfoTab>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+			<div class="text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<dg-upgrade-plan [currentPlan]="currentPlan" *ngIf="isLoggedIn"></dg-upgrade-plan>
+		</ng-template>
+		<dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+	</p-card>
+</ng-template> -->

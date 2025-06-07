@@ -1,0 +1,712 @@
+.companyDetailsHeaderCard {
+    position: relative;
+    box-shadow: none;
+    padding-bottom: 0.5em;
+
+    @media only screen and (max-width: 1024px) {
+        padding: 0;
+    }
+
+    @media only screen and (max-width: 991px) {
+        font-size: 0.9em;
+    }
+
+    ::ng-deep {
+        .forPreviewButton {
+            position: absolute;
+            right: 0.5em;
+            top: 0.5em;
+            display: none;
+
+            &.p-button {
+                &.p-button-sm {
+                    .p-button-icon {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+
+        forPreviewButtonNon {
+            display: none;
+        }
+
+    }
+
+    .hideShareButon {
+        display: inline-flex;
+    }
+
+    .companyLogo {
+        display: block;
+        width: 7.143em;
+        height: 7.143em;
+        position: relative;
+        text-align: center;
+        border: 1px solid #d7d7d7;
+        border-radius: 10px;
+        padding: 5px;
+
+        img,
+        .defaultCompanyLogo {
+            display: inline-block;
+            vertical-align: middle;
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 6px;
+            font-size: 48px;
+            color: #4593bd;
+            font-size: 5em;
+            line-height: 1.28;
+
+            -webkit-pointer-events: none;
+            pointer-events: none;
+            max-width: -webkit-fill-available;
+            max-width: -moz-available;
+            max-width: stretch;
+        }
+
+        .addToFavouriteListBtn {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            font-size: 1.2rem;
+            line-height: 1.65;
+            color: #ffd400;
+            text-align: center;
+            border: 1px solid #ffd400;
+            border-radius: 100%;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+
+            &.active {
+                background-color: #ffd400;
+                color: #fff;
+            }
+
+            @media only screen and (max-width: 767px) {
+                width: 20px;
+                height: 20px;
+                font-size: 0.8em;
+                line-height: 1.8;
+            }
+        }
+
+    }
+
+    .nimblaLogo {
+        display: inline-block;
+        text-align: center;
+        border: 1px solid #bdbdbd;
+        border-radius: 18px;
+        padding: 0.8em;
+
+        img {
+            height: 35px;
+        }
+    }
+
+    .nimblaLogoForSidebar {
+        display: none
+    }
+
+    .cardHeaderTitle {
+        font-size: 1.375em;
+        font-weight: 400;
+    }
+
+    .companyDetailsLabel {
+        font-size: 0.9em;
+        font-weight: 600;
+    }
+
+    .companyDetailsInfoText {
+        font-size: 1.1em;
+        margin: 4px 0 0;
+
+        @media only screen and (max-width: 767px) {
+            margin-top: 2px;
+        }
+    }
+}
+
+/** Tab Menu Styles **/
+
+.mainTabMenuBar,
+.tabSubMenuBar {
+    ::ng-deep {
+        .p-menubar {
+            background-color: #fff;
+            font-size: 0.95rem;
+            border: 0;
+            border-radius: 0;
+            padding: 0.5rem 0.5rem 0;
+
+            @media only screen and (max-width:992px) {
+                border: 1px solid #bdbdbd;
+            }
+
+            .p-menubar-root-list {
+                flex-wrap: wrap;
+            }
+
+            .p-menuitem {
+
+                a.p-menuitem-link {
+                    position: relative;
+                    border-radius: 0;
+                    border-top-left-radius: 0.8rem;
+                    border-top-right-radius: 0.8rem;
+                    padding-left: 1.3rem;
+                    padding-right: 1.3rem;
+                    overflow: visible;
+
+                    @media only screen and (max-width:992px) {
+                        white-space: nowrap;
+                    }
+
+                    @media only screen and (max-width:280px) {
+                        font-size: 0.8em;
+                    }
+
+                    .p-menuitem-icon {
+                        color: var(--primary-color);
+
+                        &.ui-icon-signal-cellular-alt {
+                            transform: rotate(90deg) !important;
+                        }
+                    }
+
+                }
+
+                &.p-menuitem-link-active {
+
+                    &:first-child {
+                        a.p-menuitem-link::before {
+                            display: none;
+                        }
+                    }
+
+                    &:last-child {
+                        a.p-menuitem-link::after {
+                            display: none;
+                        }
+                    }
+
+                    a.p-menuitem-link {
+
+                        &::after,
+                        &::before {
+                            content: '';
+                            border-bottom: 2.5rem solid;
+                            position: absolute;
+                            bottom: 0;
+                        }
+
+                        &::before {
+                            border-left: 0.8rem solid transparent;
+
+                            @media only screen and (max-width: 992px) {
+                                border-left: 0;
+                            }
+
+                            left: -0.8rem;
+                        }
+
+                        &::after {
+                            border-right: 0.8rem solid transparent;
+
+                            @media only screen and (max-width: 992px) {
+                                border-right: 0;
+                            }
+
+                            right: -0.8rem;
+                        }
+
+                    }
+
+
+                }
+
+            }
+        }
+    }
+}
+
+.mainTabMenuBar {
+    ::ng-deep {
+        .p-menubar {
+            border-top-left-radius: 0.8rem;
+            border-top-right-radius: 0.8rem;
+
+            .p-menubar-root-list {
+
+                @media only screen and (max-width:992px) {
+                    padding: 0;
+                }
+
+            }
+
+            .p-menuitem {
+
+                a.p-menuitem-link {
+                    min-height: 45px;
+                    border: 1px solid var(--primary-color);
+                    border-bottom-width: 0;
+
+                    @media only screen and (max-width: 1200px) {
+                        border-bottom-width: 1px;
+                    }
+
+                    @media only screen and (max-width: 992px) {
+                        border-radius: 0;
+                        border-left: 0;
+                        border-right: 0;
+                    }
+
+                    .p-menuitem-text,
+                    .p-menuitem-icon {
+                        color: var(--primary-color);
+                    }
+
+                }
+
+                &.p-menuitem-link-active,
+                &.p-menuitem-link-active:hover,
+                &.p-menuitem-link-active:focus,
+                &.p-menuitem-link-active:active,
+                &.p-menuitem-link-active:active:focus {
+
+                    a.p-menuitem-link {
+
+                        background-color: var(--primary-color);
+                        z-index: 1;
+
+                        .p-menuitem-text,
+                        .p-menuitem-icon {
+                            color: #fff;
+                        }
+
+                        &::after,
+                        &::before {
+                            border-bottom-color: var(--primary-color);
+                        }
+
+                    }
+
+                    ;
+
+                }
+            }
+        }
+    }
+}
+
+.tabSubMenuBar {
+    ::ng-deep {
+        .p-menubar {
+            background-color: var(--primary-color);
+            box-shadow: 0px -5px 0px 0px var(--primary-dark-color);
+
+            .p-menuitem {
+
+                a.p-menuitem-link {
+
+                    .p-menuitem-text,
+                    .p-menuitem-icon {
+                        color: #fff;
+                    }
+
+                }
+
+                &.p-menuitem-link-active,
+                &.p-menuitem-link-active:hover,
+                &.p-menuitem-link-active:focus,
+                &.p-menuitem-link-active:active,
+                &.p-menuitem-link-active:active:focus {
+
+                    a.p-menuitem-link {
+                        background-color: var(--primary-dark-color);
+
+                        .p-menuitem-text,
+                        .p-menuitem-icon {
+                            color: #fff;
+                        }
+
+                        &::after,
+                        &::before {
+                            border-bottom-color: var(--primary-dark-color);
+                        }
+
+                    }
+
+                    ;
+
+                }
+
+            }
+
+            .p-menubar-button {
+                @media only screen and (max-width:992px) {
+                    display: none;
+                }
+            }
+
+            @media only screen and (max-width:992px) {
+                display: block;
+                padding: 0 0.5rem;
+            }
+
+            .p-menubar-root-list {
+
+                @media only screen and (max-width:992px) {
+
+                    .p-menuitem {
+                        width: auto;
+                        position: static;
+                        margin: 0.2em;
+
+                        .p-menubar-button {
+                            display: none;
+                        }
+                    }
+
+                    display: flex;
+                    position: static;
+                    background-color: transparent;
+                    box-shadow: none;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                }
+
+            }
+        }
+    }
+}
+
+/** Tab Menu Styles End **/
+
+/* ================================================ */
+/*    Responsive Styles                             */
+/* ================================================ */
+
+@media only screen and (max-width: 1024px) {
+
+    .responsiveWhiteOuterCard {
+        padding: 1em;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+
+}
+
+::ng-deep {
+    @media only screen and (max-width:992px) {
+        .notesResponsive {
+            &.p-dialog {
+                .p-dialog-header {
+                    margin-top: 8em;
+                }
+            }
+        }
+    }
+
+    .monitorPlusPopup {
+
+        .p-dialog-mask {
+            position: absolute;
+            display: block;
+            top: 2.5rem;
+
+            .p-dialog {
+                max-width: 450px;
+                box-shadow: 0px 3px 20px 0 rgba(0, 0, 0, 0.2);
+                display: block;
+
+                .p-dialog-header {
+                    background-color: #e0e0e0;
+                    padding: 0;
+
+                    .p-dialog-header-icons {
+                        .p-dialog-header-close {
+                            position: absolute;
+                            right: 10px;
+                            top: 8px;
+                        }
+                    }
+                }
+
+                .p-dialog-content {
+                    background-color: #e0e0e0;
+                }
+
+            }
+        }
+
+    }
+
+    .monitorPlusPopupInnerdiv {
+        border-radius: 55px;
+        background-color: #fff;
+        margin-top: 10px;
+        padding: 2rem;
+        font-size: small;
+
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+
+            li {
+                margin-bottom: 1rem;
+                position: relative;
+                padding-left: 1.2rem;
+
+                .pi-check {
+                    position: absolute;
+                    left: 0;
+                }
+            }
+        }
+    }
+
+}
+
+.divider {
+    border-bottom: 1px solid #616161;
+}
+
+.limitTextHeight {
+    height: 18px;
+    overflow: hidden;
+}
+
+.headerIconStyle {
+    color: #1ab394;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.hideOverflowX {
+    overflow-x: hidden !important;
+}
+
+.overallScoringCard {
+    text-align: center;
+
+    .margin {
+        h2 {
+            font-size: 4em;
+            font-weight: 500;
+            line-height: 1;
+            color: #58B19F
+        }
+
+        h4 {
+            text-transform: uppercase;
+            color: #666;
+        }
+    }
+
+    .totalAwardValueIcon {
+        margin-top: 5rem;
+        font-size: 5rem;
+        color: #12c381;
+        text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+    }
+
+}
+
+.icon {
+    font-size: 1.2rem;
+    color: #666;
+    text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+
+    &.totalAwardIcon {
+        color: #009688;
+    }
+
+    &.totalAwardValueIcon {
+        color: #1f4286;
+    }
+
+    &.averegeAwardValueIcon {
+        color: #673ab7;
+    }
+}
+
+.supplierIconStyle {
+    font-size: 1rem;
+    color: #616161;
+
+    &.emoji_events {
+        color: #d9a429;
+    }
+
+    &.business {
+        color: #4593bd;
+    }
+}
+
+.iconContract {
+    font-size: 8em;
+    color: #30336b;
+    text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+}
+
+.heading {
+    font-size: 2.5rem;
+}
+
+.iconAward {
+    font-size: 8em;
+    color: #f0932b;
+    text-shadow: 5px 5px 10px rgb(0 0 0 / 20%);
+}
+
+.overallCarbonDetails {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    &:not( :last-child) {
+        border-bottom: 1px solid #eee;
+    }
+
+    h2,
+    h5 {
+        margin: 0;
+    }
+
+    h5 {
+        font-size: 1.2rem;
+        margin: 0 0 0.5rem;
+        color: #666;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        color: #444;
+        line-height: 1;
+    }
+
+    p {
+        line-height: 1;
+    }
+}
+
+.cName {
+    cursor: pointer;
+}
+
+p-timeline {
+
+    ::ng-deep {
+        .p-timeline {
+            .p-timeline-event:last-child {
+                flex: 1 !important;
+            }
+
+            .p-timeline-event-marker {
+                background-color: var(--primary-color);
+            }
+        }
+    }
+
+}
+
+.goToESGPlatform {
+
+    position: absolute;
+    right: 0;
+
+    .esgPlatformBtn {
+
+        margin: 0.5rem 2rem 0.5rem 2rem;
+        background-color: #0fd569;
+
+        &:enabled:hover {
+            background-color: #0fd569;
+            color: #fff;
+        }
+
+    }
+
+    ::ng-deep {
+        .p-button {
+            .p-button-icon {
+                font-size: 1.1rem;
+                margin-left: 0.5rem;
+            }
+
+        }
+    }
+}
+
+.goToESGPlatformSidebar {
+
+    .esgPlatformBtnSidebar {
+
+        background-color: #0fd569;
+
+        &:enabled:hover {
+            background-color: #0fd569;
+            color: #fff;
+        }
+    }
+
+    ::ng-deep {
+        .p-button {
+            .p-button-icon {
+                font-size: 1.1rem;
+                margin-left: 0.5rem;
+            }
+
+        }
+    }
+}
+
+::ng-deep {
+    .companyDetailsHeaderCard {
+        .p-splitbutton {
+            height: 2.4em !important;
+            
+            .p-button .pi {
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+}
+
+::ng-deep {
+    @media screen and (min-width: 992px) and (max-width: 1024px) {
+        body {
+            .p-button.p-button-sm {
+                margin-top: 13px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        body {
+            .p-button {
+                font-size: 0.8em;
+                margin-top: 0.8em;
+            }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        body {
+            .p-button.p-button-sm {
+                margin-top: 13px;
+            }
+        }
+    }
+} 

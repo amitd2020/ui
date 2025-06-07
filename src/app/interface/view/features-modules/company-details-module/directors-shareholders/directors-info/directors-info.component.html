@@ -1,0 +1,68 @@
+<p-messages [value]="msgs"></p-messages>
+<span loginAccessModal>
+<!-- <ng-container *ngIf="isLoggedIn"> -->
+	<!-- Director Update Dialog Box Starts here -->
+   <p-dialog header="Update Info" [(visible)]="showOrHideDirectorContactInfoModal" [modal]="true" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [draggable]="false" styleClass="dialog" [style]="{'max-width': 'max-content'}">
+	   <form>
+		   <div class="flex flex-column justify-conten-center align-items-center pt-0">
+			   <div class="col-12">
+				   <div class="p-inputgroup mb-3">
+					   <span class="p-inputgroup-addon iconcolor"><i class="material-icons">mail</i></span>
+					   <input class="inputarea" type="text" pInputText placeholder="Email" [(ngModel)]="directorDataInfoObj.directorEmail" [ngModelOptions]="{standalone: true}">
+				   </div>
+				   <!-- <div class="p-inputgroup mb-3">
+					   <span class="p-inputgroup-addon iconcolor"><i class="material-icons">link</i></span>
+					   <input class="inputarea" type="text" pInputText placeholder="Job Title" [(ngModel)]="directorDataInfoObj.directorJobTitle" [ngModelOptions]="{standalone: true}">
+				   </div>
+				   <div class="p-inputgroup mb-3">
+					   <span class="p-inputgroup-addon iconcolor"><i class="material-icons">local_phone</i></span>
+					   <input class="inputarea" type="text" pInputText placeholder="Contact Number" [(ngModel)]="directorDataInfoObj.directorTelephone" [ngModelOptions]="{standalone: true}">
+				   </div> -->
+				   <div class="p-inputgroup">
+					   <span class="p-inputgroup-addon iconcolor" style="color: #4285F4; width: 43px"><i class="pi pi-linkedin"></i></span>
+					   <input class="inputarea" type="text" pInputText placeholder="LinkedIn Profile" [(ngModel)]="directorDataInfoObj.directorLinkedin" [ngModelOptions]="{standalone: true}">
+				   </div>
+			   </div>
+			   
+		   </div>
+   
+		   <div class="text-center mt-3 md:mt-4">
+			   <button style="width:290px" pButton type="button" label="Submit" class="p-button-rounded" (click)="onDirectorUpdateInformation()"></button>
+		   </div>
+	   </form>
+   </p-dialog>
+   <!-- Director Update Dialog Box Ends here -->
+   <!-- </ng-container> -->
+</span>
+
+<!-- DIRECTOR INFO CODE START HERE -->
+	
+<div class="grid directorCountsCards mt-2 mb-1 flex">
+	<div class="col md:col-3 text-center">
+		<div class="card">
+			<span class="boxTextSize"><strong>Total</strong></span>
+			<h1 class="m-0">{{ directorTabData?.['directorsCounts']?.totalDirectorsCount || 0 }}</h1>
+		</div>
+	</div>
+	<div class="col md:col-3 text-center c-green">
+		<div class="card">
+			<span class="boxTextSize"><strong>Active</strong></span>
+			<h1 class="m-0">{{ directorTabData?.['directorsCounts']?.activeDirectorsCount + directorTabData?.['directorsCounts']?.activeSecretaryCount || 0 }}</h1>
+		</div>
+	</div>
+	<div class="col md:col-3 text-center c-light">
+		<div class="card">
+			<span class="boxTextSize"><strong>Inactive</strong></span>
+			<h1 class="m-0">{{ directorTabData?.['directorsCounts']?.inactiveDirectorsCount || 0 }}</h1>
+		</div>
+	</div>
+	<div class="col md:col-3 text-center c-red">
+		<div class="card">
+			<span class="boxTextSize"><strong>Resigned</strong></span>
+			<h1 class="m-0">{{ directorTabData?.['directorsCounts']?.resignedDirectorsCount || 0 }}</h1>
+		</div>
+	</div>
+</div>
+<ng-container *ngIf="isLoggedIn">
+	<dg-user-list [listColumns]="directorDataColumn" [listDataValues]="directorTableData" [listPage]="true" [showCheckBox]="true" [thisPage]="'directorsInfo'" [compName]="companyRegFromChildCommunicator" (messageCommunicator)="messageCommunicator( $event )" (updateTableDataList)="updateTableDataList( $event )" (directorDataInfo)="directorDataInfo( $event )"></dg-user-list>
+</ng-container>

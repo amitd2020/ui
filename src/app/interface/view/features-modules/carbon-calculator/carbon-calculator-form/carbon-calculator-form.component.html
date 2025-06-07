@@ -1,0 +1,747 @@
+
+<div class="carbonCalculatorModuleContainer">
+
+    <div class="carbonCalculatorFormContainer col p-0">
+
+        <div>
+            <button pButton type="button" label="Go Back" icon="pi pi-arrow-left" class="p-button-rounded goBackButton" [routerLink]="['/carbon-calculator/dashboard']"></button>
+        </div>
+
+        <form #carbonCalculatorForm="ngForm" (ngSubmit)="saveCalculateCarbonValues( carbonCalculatorForm )">
+            
+            <div class="grid">
+                
+                <div class="col-12 md:col-8 lg:col-9">
+                    
+                    <div class="flex align-items-center justify-content-center">
+
+                        <div class="pageTitle"><h2>Carbon Footprint Calculator</h2></div>
+                        
+                        <div class="card carbonCalculationYearOrMonthWiseCard">
+                            <p-radioButton label="Monthly" value="Monthly" [(ngModel)]="carbonCalculationYearOrMonthWise" [ngModelOptions]="{ standalone: true }"></p-radioButton>
+                            <p-radioButton label="Annually" value="Annually" [(ngModel)]="carbonCalculationYearOrMonthWise" [ngModelOptions]="{ standalone: true }"></p-radioButton>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            
+            <div class="grid">
+                
+                <div class="col-12 md:col-4 lg:col-3 md:order-2">
+    
+                    <div class="card calculatedValuesOverviewCard">
+    
+                        <div class="card-header">
+                            <h3>Overview</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <p class="mt-0 mb-1"><strong>Energy</strong></p>
+
+                            <div class="calculatedValuesOverview pl-3">
+
+                                <div class="flex justify-content-center">
+                                    <p>Water Consumption</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyWaterConsumption | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>Electricity</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyElectricity | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>Natural Gas</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyNaturalGas | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>Heating Oil</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyHeatingOil | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>Coal</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyCoal | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>LPG</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyLpg | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>Wood</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyWood | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <p>Diesel</p>
+                                    <p>{{ ( carbonCalulatedFields?.energyDiesel | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+
+                                <h6 class="text-right mb-0 mt-3"><small class="font-bold">Sub Total:</small> {{ carbonCalulatedFields?.energyCarbonTotal | number: '1.0-2' }} <small><small>kg CO<sub>2</sub>e</small></small></h6>
+
+                            </div>
+
+                            <p class="mt-0 mb-1"><strong>Business Travel</strong></p>
+
+                            <div class="calculatedValuesOverview pl-3">
+
+                                <div class="flex justify-content-center mt-2 mb-1">
+                                    <p>Mac vehicle/Lease vehicles...</p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Petrol</p>
+                                    <p>{{ ( carbonCalulatedFields?.macLeaseVehiclePetrol | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Diesel</p>
+                                    <p>{{ ( carbonCalulatedFields?.macLeaseVehicleDiesel | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>LPG</p>
+                                    <p>{{ ( carbonCalulatedFields?.macLeaseVehicleLpg | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+
+                                <div class="flex justify-content-center mt-2 mb-1">
+                                    <p>Transportation of fuel to site...</p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Petrol</p>
+                                    <p>{{ ( carbonCalulatedFields?.transportFuelToSitePetrol | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Diesel</p>
+                                    <p>{{ ( carbonCalulatedFields?.transportFuelToSiteDiesel | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>LPG</p>
+                                    <p>{{ ( carbonCalulatedFields?.transportFuelToSiteLpg | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+
+                                <div class="flex justify-content-center mt-2 mb-1">
+                                    <p>Bus and Train travel...</p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Total Distance By Bus</p>
+                                    <p>{{ ( carbonCalulatedFields?.busTrainUsageByOrgzDistLocalBus | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>National Coach</p>
+                                    <p>{{ ( carbonCalulatedFields?.busTrainUsageByOrgzNationalCoach | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>National Rail</p>
+                                    <p>{{ ( carbonCalulatedFields?.busTrainUsageByOrgzNationalRail | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Underground Rail</p>
+                                    <p>{{ ( carbonCalulatedFields?.busTrainUsageByOrgzUndergroundRail | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+                                <div class="flex justify-content-center pl-3">
+                                    <p>Tram/Light Rail</p>
+                                    <p>{{ ( carbonCalulatedFields?.busTrainUsageByOrgzTramLightRail | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+
+                                <h6 class="text-right mb-0 mt-3"><small class="font-bold">Sub Total:</small> {{ carbonCalulatedFields?.businessTravelCarbonTotal | number: '1.0-2' }} <small><small>kg CO<sub>2</sub>e</small></small></h6>
+
+                            </div>
+
+                            <p class="mt-0 mb-1"><strong>Flight</strong></p>
+
+                            <div class="calculatedValuesOverview pl-3">
+
+                                <div class="flex justify-content-center">
+                                    <p>Total Hours Flying</p>
+                                    <p>{{ ( carbonCalulatedFields?.totalFlyingHours | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                </div>
+
+                                <h6 class="text-right mb-0 mt-3"><small class="font-bold">Sub Total:</small> {{ carbonCalulatedFields?.flightCarbonTotal | number: '1.0-2' }} <small><small>kg CO<sub>2</sub>e</small></small></h6>
+
+                            </div>
+
+                            <p class="mt-0 mb-1"><strong>Material Use</strong></p>
+
+                            <div class="calculatedValuesOverview pl-3">
+
+                                <div class="flex justify-content-center"*ngIf="!addedMaterialUseFields.length">
+                                    <p>No Material Added</p>
+                                </div>
+
+                                <ng-container *ngIf="addedMaterialUseFields.length">
+
+                                    <ng-container *ngFor="let material of addedMaterialUseFields">
+
+                                        <div class="flex justify-content-center">
+                                            <p>{{ material.label }} <small class="c-extraLight">({{ material.method }})</small> </p>
+                                            <p>{{ ( material.calculatedValue | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+
+                                        </div>
+
+                                    </ng-container>
+
+                                </ng-container>
+
+                                <h6 class="text-right mb-0 mt-3"><small class="font-bold">Sub Total:</small> {{ materialUseCarbonCalculationFields?.materialUseTotal | number: '1.0-2' }} <small>kg CO<sub>2</sub>e</small></h6>
+
+                            </div>
+
+                            <p class="mt-0 mb-1"><strong>Waste Management</strong></p>
+
+                            <div class="calculatedValuesOverview pl-3">
+
+                                <div class="flex justify-content-center"*ngIf="!addedWasteManagementUseFields.length">
+                                    <p>No Waste Management Added</p>
+                                </div>
+
+                                <ng-container *ngIf="addedWasteManagementUseFields.length">
+
+                                    <ng-container *ngFor="let wasteManagement of addedWasteManagementUseFields">
+
+                                        <div class="flex justify-content-center">
+                                            <p>{{ wasteManagement.label }} <small class="c-extraLight">({{ wasteManagement.method }})</small> </p>
+                                            <p>{{ ( wasteManagement.calculatedValue | number: '1.0-2' ) || 0 }} <small>kg CO<sub>2</sub>e</small></p>
+                                        </div>
+
+                                    </ng-container>
+
+                                </ng-container>
+
+                                <h6 class="text-right mb-0 mt-3"><small class="font-bold">Sub Total:</small> {{ wasteManagementCarbonCalculationFields?.wasteManagementTotal | number: '1.0-2' }} <small>kg CO<sub>2</sub>e</small></h6>
+
+                            </div>
+                            
+                            <h2 class="text-right font-bold mb-2"><small><small>Total Carbon</small></small></h2>                            
+                            <h2 class="text-right p-m-0">{{ totalCarbonCalculatedValues / 1000 | number: '1.0-2' }}</h2>
+                            <p class="text-right p-m-0">Tonnes of CO<sub>2</sub>e</p>
+
+                            <div class="mt-3">
+                                <h6 class="c-green text-center mb-0">Updated Successfully, Thank You!</h6>
+                                <button pButton type="submit" label="Save" class="p-button-rounded submitCalculationButton" [disabled]="!totalCarbonCalculatedValues"></button>
+                            </div>
+
+                        </div>
+    
+                    </div>
+    
+                </div>
+            
+                <div class="col-12 md:col-8 lg:col-9">
+            
+                    <!-- Energy Carbon Form Fields -->
+                    <div class="card">
+        
+                        <div class="card-header">
+                            <h3><i class="material-icons mr-2">energy_savings_leaf</i> Energy</h3>
+                        </div>
+        
+                        <div class="card-body">
+        
+                            <div class="grid">
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyWaterConsumption" #energyWaterConsumption="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyWaterConsumption' )" (onBlur)="calculateFieldValue( $event, 'energyWaterConsumption' )"></p-inputNumber>
+                                            <label>Water Consumption</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>m3</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyElectricity" #energyElectricity="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyElectricity' )" (onBlur)="calculateFieldValue( $event, 'energyElectricity' )"></p-inputNumber>
+                                            <label>Electricity</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>kWh</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyNaturalGas" #energyNaturalGas="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyNaturalGas' )" (onBlur)="calculateFieldValue( $event, 'energyNaturalGas' )"></p-inputNumber>
+                                            <label>Natural Gas</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>kWh</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyHeatingOil" #energyHeatingOil="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyHeatingOil' )" (onBlur)="calculateFieldValue( $event, 'energyHeatingOil' )"></p-inputNumber>
+                                            <label>Heating Oil</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyCoal" #energyCoal="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyCoal' )" (onBlur)="calculateFieldValue( $event, 'energyCoal' )"></p-inputNumber>
+                                            <label>Coal</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>kg</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyLpg" #energyLpg="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyLpg' )" (onBlur)="calculateFieldValue( $event, 'energyLpg' )"></p-inputNumber>
+                                            <label>LPG</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyWood" #energyWood="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyWood' )" (onBlur)="calculateFieldValue( $event, 'energyWood' )"></p-inputNumber>
+                                            <label>Wood</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>kg</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="energyDiesel" #energyDiesel="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'energyDiesel' )" (onBlur)="calculateFieldValue( $event, 'energyDiesel' )"></p-inputNumber>
+                                            <label>Diesel</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+            
+                    <!-- Business Travel Carbon Form Fields -->
+                    <div class="card">
+        
+                        <div class="card-header">
+                            <h3><i class="material-icons mr-2">commute</i> Business Travel</h3>
+                        </div>
+        
+                        <div class="card-body">
+
+                            <p class="mt-0 mb-1">Mac vehicle/Lease vehicles ( Car, Motobikes ) and employee owned vehicle used for business</p>
+        
+                            <div class="grid">
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="macLeaseVehiclePetrol" #macLeaseVehiclePetrol="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'macLeaseVehiclePetrol' )" (onBlur)="calculateFieldValue( $event, 'macLeaseVehiclePetrol' )"></p-inputNumber>
+                                            <label>Petrol</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="macLeaseVehicleDiesel" #macLeaseVehicleDiesel="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'macLeaseVehicleDiesel' )" (onBlur)="calculateFieldValue( $event, 'macLeaseVehicleDiesel' )"></p-inputNumber>
+                                            <label>Diesel</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="macLeaseVehicleLpg" #macLeaseVehicleLpg="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'macLeaseVehicleLpg' )" (onBlur)="calculateFieldValue( $event, 'macLeaseVehicleLpg' )"></p-inputNumber>
+                                            <label>LPG</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+        
+                            </div>
+
+                            <p class="mt-3 mb-1">Transportation of fuel to site ( Lorrys, Heavy and Large vehicles )</p>
+        
+                            <div class="grid">
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="transportFuelToSitePetrol" #transportFuelToSitePetrol="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'transportFuelToSitePetrol' )" (onBlur)="calculateFieldValue( $event, 'transportFuelToSitePetrol' )"></p-inputNumber>
+                                            <label>Petrol</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="transportFuelToSiteDiesel" #transportFuelToSiteDiesel="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'transportFuelToSiteDiesel' )" (onBlur)="calculateFieldValue( $event, 'transportFuelToSiteDiesel' )"></p-inputNumber>
+                                            <label>Diesel</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="transportFuelToSiteLpg" #transportFuelToSiteLpg="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'transportFuelToSiteLpg' )" (onBlur)="calculateFieldValue( $event, 'transportFuelToSiteLpg' )"></p-inputNumber>
+                                            <label>LPG</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>lit</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+        
+                            </div>
+
+                            <p class="mt-3 mb-1">Bus and Train travel usage by organization</p>
+        
+                            <div class="grid">
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="busTrainUsageByOrgzDistLocalBus" #busTrainUsageByOrgzDistLocalBus="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'busTrainUsageByOrgzDistLocalBus' )" (onBlur)="calculateFieldValue( $event, 'busTrainUsageByOrgzDistLocalBus' )"></p-inputNumber>
+                                            <label>Total Distance By Bus</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>km</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="busTrainUsageByOrgzNationalCoach" #busTrainUsageByOrgzNationalCoach="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'busTrainUsageByOrgzNationalCoach' )" (onBlur)="calculateFieldValue( $event, 'busTrainUsageByOrgzNationalCoach' )"></p-inputNumber>
+                                            <label>National Coach</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>km</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="busTrainUsageByOrgzNationalRail" #busTrainUsageByOrgzNationalRail="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'busTrainUsageByOrgzNationalRail' )" (onBlur)="calculateFieldValue( $event, 'busTrainUsageByOrgzNationalRail' )"></p-inputNumber>
+                                            <label>National Rail</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>km</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="busTrainUsageByOrgzUndergroundRail" #busTrainUsageByOrgzUndergroundRail="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'busTrainUsageByOrgzUndergroundRail' )" (onBlur)="calculateFieldValue( $event, 'busTrainUsageByOrgzUndergroundRail' )"></p-inputNumber>
+                                            <label>Underground Rail</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>km</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="busTrainUsageByOrgzTramLightRail" #busTrainUsageByOrgzTramLightRail="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'busTrainUsageByOrgzTramLightRail' )" (onBlur)="calculateFieldValue( $event, 'busTrainUsageByOrgzTramLightRail' )"></p-inputNumber>
+                                            <label>Tram/Light Rail</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>km</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+            
+                    <!-- Flight Carbon Form Fields -->
+                    <div class="card">
+        
+                        <div class="card-header">
+                            <h3><i class="material-icons mr-2">flight</i> Flight</h3>
+                        </div>
+        
+                        <div class="card-body">
+        
+                            <div class="grid">
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" name="totalFlyingHours" #totalFlyingHours="ngModel" ngModel (onInput)="calculateFieldValue( $event, 'totalFlyingHours' )" (onBlur)="calculateFieldValue( $event, 'totalFlyingHours' )"></p-inputNumber>
+                                            <label>Total Hours Flying</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>hrs</span>
+                                        </span>
+                                    </span>
+        
+                                </div>
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+            
+                    <!-- Material User Form Fields -->
+                    <div class="card">
+        
+                        <div class="card-header">
+                            <h3><i class="material-icons mr-2">design_services</i> Material Use</h3>
+                        </div>
+        
+                        <div class="card-body">
+
+                            <p class="mt-0 mb-1 c-red" *ngIf="materialUseFieldsValidation">Please select the material type and enter the value.</p>
+
+                            <!-- Functional Placeholder Field Starts -->
+                            <div class="grid align-items-center">
+                                
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-float-label">
+                                        <p-dropdown [autoDisplayFirst]="false" [options]="materialTypeOptions" [(ngModel)]="selectedMaterialType" optionLabel="label"  [filter]="true" filterBy="label" [ngModelOptions]="{ standalone: true }" appendTo="body">
+                                            <ng-template pTemplate="selectedItem">
+                                                <span> {{ selectedMaterialType.label }} </span>
+                                                <small class="c-extraLight"> ({{ selectedMaterialType.method }}) </small>
+                                            </ng-template>
+                                            <ng-template let-materialUse pTemplate="materialUse">
+                                                <span> {{ materialUse.label }} </span>
+                                                <small class="c-extraLight"> ({{ materialUse.method }}) </small>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <label>Select Material Type</label>
+                                    </span>
+                                    
+                                </div>
+                                
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" [(ngModel)]="selectedMaterialValue" [ngModelOptions]="{ standalone: true }"></p-inputNumber>
+                                            <label>Material Value</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>t</span>
+                                        </span>
+                                    </span>
+                                    
+                                </div>
+                                
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <button pButton type="button" label="" icon="pi pi-plus" iconPos="left" class="p-button-rounded p-button-sm startCalculationButton p-m-0" (click)="addMaterialField()"></button>
+                                    
+                                </div>
+                                
+                            </div>
+                            <!-- Functional Placeholder Field Ends -->
+
+                            <div class="grid mt-5" *ngIf="addedMaterialUseFields.length">
+
+                                <ng-container *ngFor="let material of addedMaterialUseFields; let i = index">
+
+                                    <div class="col-12 md:col-6 lg:col-4">
+                                        
+                                        <span class="p-inputgroup">
+                                            <span class="p-float-label">
+                                                <p-inputNumber mode="decimal" name="{{ material.key }}" [(ngModel)]="material.value" [ngModelOptions]="{ standalone: true }" (onInput)="calculateFieldValue( $event, material.key )" (onBlur)="calculateFieldValue( $event, material.key )"></p-inputNumber>
+                                                <label><span>{{ material.label }} <small class="c-extraLight">({{ material.method }})</small></span></label>
+                                            </span>
+                                            <span class="p-inputgroup-addon">
+                                                <span>t</span>
+                                                <button pButton type="button" label="" icon="pi pi-minus" iconPos="left" class="p-button-rounded p-button-sm p-button-danger removeMaterialField" (click)="removeMaterialField( i, material )"></button>
+                                            </span>
+                                        </span>
+            
+                                    </div>
+
+                                </ng-container>
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+
+                    <!-- Waste Management Form Field -->
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h3><i class="material-icons mr-2">recycling</i> Waste Management</h3>
+                        </div>
+
+                        <div class="card-body">
+
+                            <p class="mt-0 mb-1 c-red" *ngIf="wasteManagementFieldsValidation">Please select the waste management and enter the value.</p>
+
+                            <!-- Functional Plaeholder Fields Starts -->
+                            <div class="grid align-items-center">
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-float-label">
+                                        <p-dropdown [autoDisplayFirst]="false" [options]="wasteManagementOptions" [(ngModel)]="selectedWasteManagementType" optionLabel="label"  [filter]="true" filterBy="label" [ngModelOptions]="{ standalone: true }" appendTo="body">
+                                            <ng-template pTemplate="selectedItem">
+                                                <span> {{ selectedWasteManagementType.label }} </span>
+                                                <small class="c-extraLight"> ({{ selectedWasteManagementType.method }}) </small>
+                                            </ng-template>
+                                            <ng-template let-waste pTemplate="waste">
+                                                <span> {{ waste.label }} </span>
+                                                <small class="c-extraLight"> ({{ waste.method }}) </small>
+                                            </ng-template>
+                                        </p-dropdown>
+                                        <label>Select Waste Management</label>
+                                    </span>
+                                    
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <span class="p-inputgroup">
+                                        <span class="p-float-label">
+                                            <p-inputNumber mode="decimal" [(ngModel)]="selectedWasteManagementValue" [ngModelOptions]="{ standalone: true }"></p-inputNumber>
+                                            <label>Waste Management Value</label>
+                                        </span>
+                                        <span class="p-inputgroup-addon">
+                                            <span>t</span>
+                                        </span>
+                                    </span>
+                                    
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    
+                                    <button pButton type="button" label="" icon="pi pi-plus" iconPos="left" class="p-button-rounded p-button-sm startCalculationButton p-m-0" (click)="addWasteManagementField()"></button>
+                                    
+                                </div>
+
+                            </div>
+                            <!-- Functional Placeholder Fields Ends -->
+
+                            <div class="grid mt-5" *ngIf="addedWasteManagementUseFields.length">
+
+                                <ng-container *ngFor="let wasteManagement of addedWasteManagementUseFields; let i = index">
+
+                                    <div class="col-12 md:col-6 lg:col-4">
+                                        
+                                        <span class="p-inputgroup">
+                                            <span class="p-float-label">
+                                                <p-inputNumber mode="decimal" name="{{ wasteManagement.key }}" [(ngModel)]="wasteManagement.value" [ngModelOptions]="{ standalone: true }" (onInput)="calculateFieldValue( $event, wasteManagement.key )" (onBlur)="calculateFieldValue( $event, wasteManagement.key )"></p-inputNumber>
+                                                <label><span>{{ wasteManagement.label }} <small class="c-extraLight">({{ wasteManagement.method }})</small></span></label>
+                                            </span>
+                                            <span class="p-inputgroup-addon">
+                                                <span>t</span>
+                                                <button pButton type="button" label="" icon="pi pi-minus" iconPos="left" class="p-button-rounded p-button-sm p-button-danger removeMaterialField" (click)="removeWasteManagementField( i, wasteManagement )"></button>
+                                            </span>
+                                        </span>
+            
+                                    </div>
+
+                                </ng-container>
+        
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                
+            </div>
+            
+        </form>
+    
+    
+    </div>
+
+</div>

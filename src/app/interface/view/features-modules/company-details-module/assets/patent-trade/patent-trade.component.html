@@ -1,0 +1,25 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+
+<ng-template #otherPlansCheck>
+    <div [ngClass]="{'card': !isLoggedIn}" addOnAccess="specialFilter" [optionalTemplate]="true">
+    <!-- <ng-container *ngIf="userAuthService.hasAddOnPermission('specialFilter') || userAuthService.hasRolePermission( ['Super Admin'] ) || ( !isLoggedIn && companiesEligibleForDataWithoutLogin.includes( companyData?.companyRegistrationNumber ) ) || subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else withOutLogin"> -->
+        
+        <ng-container *ngIf="companyData.patentData && companyData.patentData.length > 0">
+            
+            <dg-user-list *ngIf="patentTradeData !== undefined" [listColumns]="patentTradeColumns" [listDataValues]="patentTradeData" [listPage]="true" [thisPage]="'patentTradeData'"></dg-user-list>
+            
+        </ng-container>
+    
+    <!-- </ng-container> -->
+    </div>
+    <!-- <ng-template #withOutLogin>
+        <p-card>
+            <dg-without-login-modal *ngIf="!isLoggedIn"></dg-without-login-modal>
+        </p-card>
+    </ng-template> -->
+
+</ng-template>

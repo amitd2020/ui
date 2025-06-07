@@ -1,0 +1,436 @@
+<button pButton type="button" label="Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm p-button-inline mb-xxl-2 mr-2"  [ngClass]="{ 'hasFeatureLockIcon': userAuthService.hasFeaturePermission( 'Company Report' ) == false }" title="Create Report" (click)="showDialog()" *ngIf="[ 'all', 'companyPdfReport' ].includes(showButtonFor)">
+    <span *ngIf="userAuthService.hasFeaturePermission( 'Company Report' ) == false" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+</button>
+
+<ng-container *ngIf="creditReportPdfLimit != undefined">
+
+    <ng-container *ngIf="!isLoggedIn || creditReportPdfLimit == 0;">
+        <button pButton type="button" label="Buy Full Credit Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm mb-xxl-2 mr-2 buyFullCreditReportBtn hideBlockForMobileView" title="Buy Full Credit Report" (click)="showCreditReportDialog()"></button>
+    
+    </ng-container>
+
+    <!-- <ng-template #defaultCreditReportButton>
+        <ng-container *ngIf="authGuardService.isLoggedin()">
+            <button pButton type="button" label="Full Credit Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm mb-xxl-2 mr-2 hideBlockForMobileView" title="Full Credit Report" (click)="showCreditReportDialog()">
+            </button>
+        </ng-container>
+    
+    </ng-template> -->
+
+</ng-container>
+
+<!-- Login Modal Dialog -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false">
+    <dg-login></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<!-- Upgrade Plan Dialog -->
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'}">
+    <dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+</p-dialog>
+<!-- Upgrade Plan Dialog End -->
+
+<p-dialog styleClass="subscriptionPlanDialogModalForClientUser" [modal]="true" [draggable]="false" [(visible)]="addcreditDialogForClientuser" [baseZIndex]="999999998" appendTo="body" [style]="{ width: '40vw', 'overflow-y': 'auto' }">
+	<div class="text-center">
+		To add credit, Please contact your Administrator.
+	</div>
+</p-dialog>
+
+<p-dialog header="Select Fields:" styleClass="downloadReportModalDialog" [(visible)]="companyReportButtonBool" [modal]="true" [focusOnShow]="false" [style]="{width: '50vw'}" [baseZIndex]="10000" appendTo="body" [draggable]="false" [resizable]="true" (onHide)="resetOnHideDialog(); onModalClose()">
+
+    <div class="mb-3">
+        <p-checkbox name="selectAll" label="All" binary="true" [(ngModel)]="selectAllChecked" (click)="selectAll()" ></p-checkbox>
+    </div>
+
+    <div class="grid checkBoxStyle">
+
+        <div class="col-4 md-4">
+            <div class="card h-full greenCard">
+
+                <h3 class="mt-0 mb-2">Risk Profiles</h3>
+        
+                <div class="mb-1" *ngIf="companyReportParams.hasFinances">
+                    <p-checkbox name="group2" value="Financial" label="Financial" [(ngModel)]="financialChecked" binary="true" inputId="financial" (onChange)="selectCheckBox( $event, 'financialChecked' )"></p-checkbox>
+                </div>
+        
+                <div class="mb-1" *ngIf="companyReportParams.hasCCJInfo">
+                    <p-checkbox name="group2" value="CCJ" label="CCJ's" [disabled]="!userAuthService.hasFeaturePermission('CCJs') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="ccjChecked" binary="true" inputId="ccj" (onChange)="selectCheckBox( $event, 'ccjChecked' )"></p-checkbox>
+                </div>
+        
+                <div class="mb-1" *ngIf="companyReportParams.hasCharges">
+                    <p-checkbox name="group2" value="Charges" label="Charges" [disabled]="!userAuthService.hasFeaturePermission('Charges') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="chargesChecked" binary="true" inputId="charges" (onChange)="selectCheckBox( $event, 'chargesChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasLandCorporate">
+                    <p-checkbox name="group2" value="Corporate Land" label="Property Register" [disabled]="!userAuthService.hasFeaturePermission('Corporate Land') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="corporate_landChecked" binary="true" inputId="corporate_land" (onChange)="selectCheckBox( $event, 'corporate_landChecked' )"></p-checkbox>
+                </div>
+        
+                <div class="mb-1" *ngIf="companyReportParams.hasGroupStructure">
+                    <p-checkbox name="group2" value="Group Structure" [disabled]="!userAuthService.hasFeaturePermission('Group Structure') && !userAuthService.hasRolePermission( ['Super Admin'] )" label="Group Structure" [(ngModel)]="groupStructureChecked" binary="true" inputId="group_structure" (onChange)="selectCheckBox( $event, 'groupStructureChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasAcquiredCompany || companyReportParams.hasAcquiringCompany">
+                    <p-checkbox name="group2" value="Acquisition & Mergers" label="Acquisition & Mergers" [(ngModel)]="aquasitionsAndMergersChecked" binary="true" inputId="aquasitions_and_mergers" (onChange)="selectCheckBox( $event, 'aquasitionsAndMergersChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCreditor">
+                    <p-checkbox name="group2" value="Impacted Creditors" label="Impacted Creditors" [(ngModel)]="creditorsChecked" binary="true" inputId="creditors" (onChange)="selectCheckBox( $event, 'creditorsChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasDebtor">
+                    <p-checkbox name="group2" value="Write-offs" label="Write-offs" [disabled]="!userAuthService.hasFeaturePermission('Write Off') && !userAuthService.hasRolePermission( ['Super Admin'] )"  [(ngModel)]="badDebtorsChecked" binary="true" inputId="bad_Debtors" (onChange)="selectCheckBox( $event, 'badDebtorsChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasFurloughData && companyReportParams?.furloughData[0]?.amountBandsInPounds != ''">
+                    <p-checkbox name="group2" value="Furlough Data" label="Furlough Data" [(ngModel)]="furloughChecked" binary="true" inputId="furlough" (onChange)="selectCheckBox( $event, 'furloughChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.patentData">
+                    <p-checkbox name="group2" value="Patent and Trade" label="Patent and Trade" [disabled]="!userAuthService.hasAddOnPermission('specialFilter') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="patentDataChecked" binary="true" inputId="paten" (onChange)="selectCheckBox( $event, 'patentDataChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.innovate_uk_funded_updated">
+                    <p-checkbox name="group2" value="Innovate Grant" label="Innovate Grant" [disabled]="!userAuthService.hasAddOnPermission('specialFilter') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="innovateGrantDataChecked" binary="true" inputId="Innovate" (onChange)="selectCheckBox( $event, 'innovateGrantDataChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasImportData && isLoggedIn">
+                    <p-checkbox name="group2" value="Import Data" label="Import Data" [disabled]="!userAuthService.hasAddOnPermission('internationalTradeFilter') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="importDataChecked" binary="true" inputId="Import" (onChange)="selectCheckBox( $event, 'importDataChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasExportData && isLoggedIn">
+                    <p-checkbox name="group2" value="Export Data" label="Export Data" [disabled]="!userAuthService.hasAddOnPermission('internationalTradeFilter') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="exportDataChecked" binary="true" inputId="Export" (onChange)="selectCheckBox( $event, 'exportDataChecked' )"></p-checkbox>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-4 md-4">
+            <div class="card h-full blueCard">
+
+                <h3 class="mt-0 mb-2">Related Entities</h3>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasShareHolders">
+                    <p-checkbox name="group2" value="Shareholders" label="Shareholders" [disabled]="!userAuthService.hasFeaturePermission('Shareholders') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="shareholdersChecked" binary="true" inputId="shareholders" (onChange)="selectCheckBox( $event, 'shareholdersChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCompanyCommentary">
+                    <p-checkbox name="group2" value="Commentary" label="Commentary" [disabled]="!userAuthService.hasFeaturePermission('Commentary') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="commentaryChecked" binary="true" inputId="commentary" (onChange)="selectCheckBox( $event, 'commentaryChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.directorsData">
+                    <p-checkbox name="group2" value="Directors" label="Directors" [(ngModel)]="directorsChecked" binary="true" inputId="directors" (onChange)="selectCheckBox( $event, 'directorsChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasPscDetails">
+                    <p-checkbox name="group2" value="PSC" label="PSC" [(ngModel)]="pscChecked" binary="true" inputId="psc" (onChange)="selectCheckBox( $event, 'pscChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasTradingAddress">
+                    <p-checkbox name="group2" value="Trading Address" label="Trading Address" [disabled]="!userAuthService.hasFeaturePermission('Trading Address') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="tradingAddressesChecked" binary="true" inputId="trading_addresses" (onChange)="selectCheckBox( $event, 'tradingAddressesChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasZScore && ( ( currentDate.getMonth() + 1 ) <= 4 && ( ( currentDate.getFullYear() - 1 ) == lastAccountFiledDate.getFullYear() || currentDate.getFullYear() == lastAccountFiledDate.getFullYear() )  || ( currentDate.getMonth() + 1 ) > 4 && currentDate.getFullYear() == lastAccountFiledDate.getFullYear() )">
+                    <p-checkbox name="group2" value="Z Score" label="Z Score" [disabled]="!userAuthService.hasAddOnPermission('industryAnalysis') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="zScoreChecked" binary="true" inputId="z_Score" (onChange)="selectCheckBox( $event, 'zScoreChecked' )"></p-checkbox>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCAGR && ( ( currentDate.getMonth() + 1 ) <= 4 && ( ( currentDate.getFullYear() - 1 ) == lastAccountFiledDate.getFullYear() || currentDate.getFullYear() == lastAccountFiledDate.getFullYear() ) || ( currentDate.getMonth() + 1 ) > 4 && currentDate.getFullYear() == lastAccountFiledDate.getFullYear() )">
+                    <p-checkbox name="group2" value="CAGR" label="CAGR" [disabled]="!userAuthService.hasAddOnPermission('industryAnalysis') && !userAuthService.hasRolePermission( ['Super Admin'] )" [(ngModel)]="CAGRChecked" binary="true" inputId="CAGR" (onChange)="selectCheckBox( $event, 'CAGRChecked' )"></p-checkbox>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-4 md-4">
+            <div class="card h-full voiletCard">
+
+                <h3 class="mt-0 mb-2">Documents</h3>
+
+                <div class="mb-1">
+                    <p-checkbox name="group2" value="Documents" label="Documents" [(ngModel)]="documentsChecked" binary="true" inputId="documents" (onChange)="selectCheckBox( $event, 'documentsChecked' )"></p-checkbox>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <p-footer>
+        <div class="text-center">
+            <button pButton type="button" label="Download Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-inline p-button-sm mr-0 mb-2" [ngClass]="{ 'hasFeatureLockIcon': [ subscribedPlanModal['Start'] ].includes( userDetails?.planId ) }" title="Download Report" (click)='checkPdfReportLimit()'>
+                <span *ngIf="( [ subscribedPlanModal['Start'] ].includes( userDetails?.planId ) )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+            </button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-inline p-button-sm p-button-secondary mr-0 mb-2" (click)="onModalClose()"></button>
+        </div> 
+    </p-footer>
+</p-dialog>
+
+<!-- Credit Report Dialog -->
+<p-dialog header="{{ hasAvailableCredit ? 'Download Credit Report' : '' }}" styleClass="downloadReportModalDialog" [(visible)]="showCreditReportPlanDialog" [modal]="true" [style]="{width: '55vw'}" [baseZIndex]="999999998" [focusOnShow]="false" appendTo="body" [draggable]="false" [resizable]="true" (onHide)="closeDialouge()" > 
+
+    <div class="subscriptionPlanDialogModal" *ngIf="!hasAvailableCredit">
+        <h3 class="mt-0 mb-2 text-center">Choose Your Plan</h3>
+        <p class="mt-0 text-center">To enable this feature, please choose the plan.</p>
+
+        <div class="grid">
+            <div class="col-4" *ngFor="let result of creditReportPlans">
+                <div class="card responsivePdfCard text-center mb-2">
+                    <div class="planCard">
+                        <h1 class="planCardHeader">
+                            {{ result.reportCount }}
+                        </h1>
+                        <h4>Company Report</h4>
+                        <h2>
+                            <span class="c-voilet">&pound;{{ result.costPerReport }}</span>
+                            <small>
+                                <span class="c-voilet">+VAT</span>
+                                <small>/report</small>
+                            </small>
+                        </h2>
+                    </div>
+                    <div class="planCardFooter mt-4">
+
+                        <button pButton label="Buy" (click)="buyCreditReport( result )"></button>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="grid align-items-center" *ngIf="hasAvailableCredit">
+        <div class="col">
+            <small class="c-light mr-2"><em>Available credits:</em></small> <span [ngClass]="{ 'c-green': creditReportPdfLimit > 100, 'c-red': creditReportPdfLimit < 101 }">{{ creditReportPdfLimit | number: '1.0-0'}}</span>
+        </div>
+        <div class="col text-right">
+            <button pButton type="button" icon="pi pi-plus" label="Add Credits" class="p-button-rounded p-button-sm p-ml-3" title="Add more credits" (click)="increaseCredit()"></button>
+        </div>
+    </div>
+
+    <div class="grid" [ngClass]="{ 'my-4': hasAvailableCredit }">
+
+        <div class="col-4 md-4">
+            <div class="card h-full greenCard">
+
+                <h3 class="mt-0 mb-2">Risk Profiles</h3>
+        
+                <div class="mb-1">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Credit Score</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasFinances">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Financial</span>
+                    </small>
+                </div>
+        
+                <div class="mb-1" *ngIf="companyReportParams.hasCCJInfo">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>CCJ's</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCharges">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Charges</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasLandCorporate">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Property Register</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasGroupStructure">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Group Structure</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasAcquiredCompany || companyReportParams.hasAcquiringCompany">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Acquisition & Mergers</span>
+                    </small>
+                    <!-- <p-checkbox name="group2" value="Acquisition & Mergers" label="Acquisition & Mergers" [(ngModel)]="aquasitionsAndMergersChecked" binary="true" inputId="aquasitions_and_mergers"></p-checkbox> -->
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCreditor">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Impacted Creditors</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasDebtor">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Write-offs</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasFurloughData && companyReportParams?.furloughData[0]?.amountBandsInPounds != ''">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Furlough</span>
+                    </small>
+                </div>
+                
+                <div class="mb-1" *ngIf="companyReportParams.patentData">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Patent & Trade</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.innovate_uk_funded_updated">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Innovate Grant</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasImportData">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Import Data</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasExportData">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Export Data</span>
+                    </small>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-4 md-4">
+            <div class="card h-full blueCard">
+
+                <h3 class="mt-0 mb-2">Related Entities</h3>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasShareHolders"> 
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Shareholders</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.directorsData">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Directors</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCompanyCommentary">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Commentary</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasPscDetails">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>PSC</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasTradingAddress">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Trading Address</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasZScore && ( ( currentDate.getMonth() + 1 ) <= 4 && ( ( currentDate.getFullYear() - 1 ) == lastAccountFiledDate.getFullYear() || currentDate.getFullYear() == lastAccountFiledDate.getFullYear() ) || ( currentDate.getMonth() + 1 ) > 4 && currentDate.getFullYear() == lastAccountFiledDate.getFullYear() )">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Z Score</span>
+                    </small>
+                </div>
+
+                <div class="mb-1" *ngIf="companyReportParams.hasCAGR && ( ( currentDate.getMonth() + 1 ) <= 4 && ( ( currentDate.getFullYear() - 1 ) == lastAccountFiledDate.getFullYear() || currentDate.getFullYear() == lastAccountFiledDate.getFullYear() ) || ( currentDate.getMonth() + 1 ) > 4 && currentDate.getFullYear() == lastAccountFiledDate.getFullYear() )">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>CAGR</span>
+                    </small>
+                </div>
+
+                <!-- The below code done hide as per the request from the ticket [ DG-4138 ] ======== >
+
+                <div class="mb-1" *ngIf="companyReportParams.hasIScore">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>IScore</span>
+                    </small>
+                </div>
+
+                < =================================================================================== -->
+
+            </div>
+        </div>
+
+        <div class="col-4 md-4">
+            <div class="card h-full voiletCard">
+
+                <h3 class="mt-0 mb-2">Documents</h3>
+
+                <div class="mb-1">
+                    <small>
+                        <i class="material-icons mr-1">done</i>
+                        <span>Documents</span>
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <p-footer *ngIf="hasAvailableCredit" class="mt-4">
+        <div class="text-center">
+            <!-- //(click)="creditReportDownload()" -->
+            <button pButton type="button" label="Download Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-inline p-button-sm mr-0 mb-2" title="Download Report" (click)="checkPdfReportLimit( 'fullCreditReport' )" [disabled] = "disableDownloadCreditLimitBtn"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-inline p-button-sm p-button-secondary mr-0 mb-2" (click)="closeFullcreditDialouge()"></button>
+        </div>
+    </p-footer>
+
+</p-dialog>
+
+<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showBuyCreditReportDialog" [baseZIndex]="9999999999" appendTo="body" [focusOnShow]="false" [closable]="false" [blockScroll]="true" >
+    <dg-credit-report-purchase *ngIf="showBuyCreditReportDialog" [selectedReportPlanDetails]="selectedReportPlanDetails" (messageCommunicator)="hideDialogBox($event)" [componentView]="'inModal'"></dg-credit-report-purchase>
+</p-dialog>
+
+<p-dialog header="Hi {{ creditReportDownloadingUsername }}" [modal]="true" [(visible)]="loginConfirmationDialog" [focusOnShow]="false" styleClass="text-center" [style]="{width: '30vw'}" [baseZIndex]="999999998" appendTo="body">
+    <div class="col-12 p-p-0">
+        <i  class="pi pi-check-circle c-green iconSize"></i>
+        <h3>Report has been downloaded successfully.</h3>
+        <p>Your account is ready with us!</p>
+        <p>You can login with your email, by default password has been sent your email id. Kindly reset it.</p>
+    </div>
+     <div class="p-pt-2 text-center">
+         <button pButton type="submit" label="Login" class="p-button-inline" [routerLink]="'/login'"></button>
+         <button pButton type="button" label="Skip" class="p-button-inline p-button-secondary" (click)="loginConfirmationDialog = false;"></button>
+     </div>
+ </p-dialog>
+<!-- Credit Report Dialog End -->
+
+<p-overlayPanel #shareButtonsOverlayPanel styleClass="shareButtonsOverlayPanel" appendTo="body">
+    <div>
+        <share-buttons [theme]="'circles-dark'" [include]="[ 'linkedin','whatsapp','copy' ]" [show]="5" ></share-buttons>
+    </div>
+</p-overlayPanel>

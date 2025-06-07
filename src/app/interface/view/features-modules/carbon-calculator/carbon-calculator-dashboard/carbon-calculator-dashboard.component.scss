@@ -1,0 +1,220 @@
+.carbonCalculatorModuleContainer {
+
+    .carbonCalcLanding {
+        max-width: 760px;
+        margin: 0 auto;
+
+        * {
+            color: #fff;
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 100;
+            line-height: 1;
+            text-transform: capitalize;
+        }
+
+        h2 {
+            font-size: 4rem;
+            font-weight: 100;
+            line-height: 1;
+            color: #2cf9ad;
+            text-transform: capitalize;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            letter-spacing: 0.5px;
+        }
+
+    }
+
+    .carbonCalculatorDashboardContainer {
+        width: 100%;
+        max-width: 1400px;
+        flex: 1;
+        align-self: flex-start;
+        margin: 0 auto;
+
+        p {
+            line-height: 1;
+            margin: 0;
+        }
+
+        .carbonPlaceholderIcon {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 9.5rem;
+            text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-pointer-events: none;
+            pointer-events: none;
+            animation: rotate360 55s linear infinite;
+
+            .material-icons {
+                color: #12c381;
+            }
+        }
+
+        .pageTitle {
+            margin-bottom: 1rem;
+
+            h2 {
+                font-size: 1.3rem;
+                font-weight: 500;
+                color: #444;
+                margin-bottom: 0.3rem;
+            }
+
+            p {
+                font-size: 0.85rem;
+                color: #444;
+            }
+        }
+
+        .card {
+
+            &.h-full {
+                height: calc(100% - 1rem) !important;
+            }
+
+            .card-header {
+                padding: 0.8rem 1.2rem;
+
+                h3 {
+                    font-size: 1.15rem;
+                    color: #444;
+                    letter-spacing: 0.5px;
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .totalCarbonValueContainer,
+        .prevCarbonValueContainer,
+        .diffCarbonValueContainer {
+            * {
+                margin: 0;
+            }
+        }
+
+        .totalCarbonValueContainer {
+            h2 {
+                font-size: 3rem;
+                color: #444;
+            }
+        }
+
+        .prevCarbonValueContainer {
+            h2 {
+                font-size: 1.8rem;
+                color: #444;
+            }
+        }
+
+        .diffCarbonValueContainer {
+            text-align: center;
+            padding: 1.5rem 0;
+
+            .material-icons {
+                font-weight: 800;
+                line-height: 0.5rem;
+            }
+
+            h3 {
+                font-size: 2.5rem;
+                font-weight: 500;
+                letter-spacing: 0;
+            }
+        }
+
+        .overallCarbonDetails {
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            &:not( :last-child) {
+                border-bottom: 1px solid #eee;
+            }
+
+            h2,
+            h5 {
+                margin: 0;
+            }
+
+            h5 {
+                font-size: 1.2rem;
+                margin: 0 0 0.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                color: #444;
+                line-height: 1;
+            }
+
+            p {
+                line-height: 1;
+            }
+        }
+
+        .otherEmissionValueDetails {
+
+            &.card {
+                .card-body {
+                    padding: 1.5rem;
+                }
+            }
+
+            h2,
+            p {
+                margin: 0;
+            }
+
+            h2 {
+                font-size: 2rem;
+                color: #444;
+                margin-top: 1rem;
+            }
+
+            .largeIcon {
+                font-size: 3rem;
+                line-height: 1;
+                text-shadow: 4px 3px 5px rgba(0, 0, 0, 0.2);
+
+                .material-icons {
+                    color: #12c381;
+                }
+            }
+
+        }
+
+    }
+
+    &.compactView {
+
+        .carbonCalculatorDashboardContainer {
+            max-width: 100%;
+
+            .card.h-full {
+                height: 100% !important;
+            }
+
+            .totalCarbonValueContainer h2 {
+                font-size: 2.5rem;
+            }
+
+            .carbonPlaceholderIcon {
+                font-size: 8.5rem;
+            }
+
+            .overallCarbonDetails h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+    }
+
+}
