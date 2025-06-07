@@ -1,0 +1,125 @@
+// For Calendar On Filter SideBar
+::ng-deep {
+
+	.p-calendar {
+		&.calenderStyle {
+			&.p-calendar.p-calendar-w-btn {
+				background-image: none !important;
+				width: 65%;
+
+				.p-inputtext {
+					padding: 0 0.5rem;
+				}
+
+				.p-datepicker-trigger.p-button {
+					padding: 9px;
+					margin-bottom: 0;
+					font-size: .7em;
+					max-height: 40px;
+					box-shadow: none;
+					border-radius: 2em !important;
+					background-color: #1ab394;
+
+					&:enabled:hover {
+						background-color: #1ab394 !important;
+					}
+
+					span {
+						color: #fff;
+					}
+
+					&:enabled:hover {
+						background-color: transparent;
+					}
+				}
+			}
+		}
+	}
+
+	p-calendar {
+		.p-calendar.p-calendar-w-btn {
+
+			.p-datepicker-trigger.p-button {
+				padding: 10px;
+				margin-bottom: 0;
+				font-size: .7em;
+				max-height: 40px;
+				box-shadow: none;
+
+				&:enabled:hover {
+					background-color: transparent;
+				}
+			}
+		}
+	}
+
+	p-dropdown {
+		.p-dropdown {
+			.p-inputtext {
+				font-size: inherit;
+				text-transform: capitalize;
+			}
+		}
+	}
+}
+
+.x-big-data-font {
+	font-size: 1.7rem;
+	font-weight: 400;
+}
+
+*.disabled {
+	opacity: 0.35;
+	cursor: auto !important;
+	-webkit-pointer-events: none;
+	pointer-events: none;
+}
+
+.heading-font {
+	font-size: 15px;
+}
+
+.card.companyDetailPopup {
+	font-family: 'Roboto', "Helvetica Neue", sans-serif;
+	font-size: 14px;
+	width: 240px;
+	min-height: auto;
+	font-weight: normal;
+	color: #212121;
+	box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.2);
+	overflow: auto;
+	margin: 0;
+
+	position: fixed;
+	left: 82% !important;
+	top: auto;
+	z-index: 1;
+
+	max-height: 0;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: all 0.8s ease-in-out;
+	-moz-transition: all 0.8s ease-in-out;
+	-ms-transition: all 0.8s ease-in-out;
+	transition: all 0.8s ease-in-out;
+
+	.popoverListItem {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: flex;
+		margin-bottom: 5px;
+	}
+
+}
+
+.bg-grey {
+	background-color: rgb(248, 248, 248);
+}
+
+.infoName {
+	position: relative;
+	display: inline-block;
+	color: #4593bd;
+	cursor: pointer;
+}

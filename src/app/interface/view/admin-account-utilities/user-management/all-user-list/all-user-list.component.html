@@ -1,0 +1,7 @@
+<div class="col">
+	<div class="col-12">
+
+		<dg-admin-record-list *ngIf="userDetails" [listColumns]="selectedRecordTableCols" [listDataValues]="userDetails" [searchTotalCount]="userDetails?.totalRecords" [thisPage]="'user-management'" (updateTableAfterPagination)="getupdateDataAfterPagination( $event )"></dg-admin-record-list>
+		
+	</div>
+</div>
