@@ -1,0 +1,554 @@
+<div #insightsChartViewContainerId class="insightsChartViewContainer px-4">
+
+	<!-- <div class="grid mb-2 hideFromSnapShot">
+		<div class="col-fixed">
+			<div class="roundedCorners p-multiselect">
+				<div class="p-multiselect-label insightsRoundedCorners">
+					<div class="grid grid-nogutter align-items-center">
+						<div class="col-fixed mr-3">
+							<label class="mr-2 labelHideFromSnapShot">Is PSC</label>
+							<p-inputSwitch [(ngModel)]="isPSCchecked" (onChange)="getPscData($event)"></p-inputSwitch>
+						</div>
+						<div class="col-fixed">
+							<label class="mr-2">Is Director</label>
+							<p-inputSwitch [(ngModel)]="isDirectorChecked" (onChange)="getDirectorData($event)"></p-inputSwitch>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="card infoSectionBorder">
+		<div class="flex justify-content-between">
+            <div class="align-self-center">
+                Woman Owned Business <strong class="c-green text-xl">( {{ femaleFoundersDataValue?.total | number }} ) </strong>
+            </div>
+			<div>
+				<button pButton type="button" label="Take Snapshot" icon="pi pi-image" class="p-button-rounded p-button-sm ml-3" title="Take Snapshot" (click)="takeSnapshot( insightsChartViewContainerId )"></button>
+			</div>
+        </div>
+	</div>
+
+	<div class="grid">
+		<div class="col-12 sm:col-6 lg:col-3">
+			<p-card styleClass="greenCard cbox">
+				<h3 class="text-center">Total Turnover</h3>
+				<h4 class="font-bold text-center">{{ femaleFoundersDataValue?.totalTurnover ? toNumberSuffix.transform( femaleFoundersDataValue?.totalTurnover, '0', selectedGlobalCurrency ) : 0 }}</h4>
+			</p-card>
+		</div>
+		<div class="col-12 sm:col-6 lg:col-3">
+			<p-card styleClass="blueCard cbox">
+				<h3 class="text-center">Average Turnover</h3>
+				<h4 class="font-bold text-center">{{ femaleFoundersDataValue?.avgTurnover ? toNumberSuffix.transform( femaleFoundersDataValue?.avgTurnover, '0', selectedGlobalCurrency ) : 0 }}</h4>
+			</p-card>
+		</div>
+		<div class="col-12 sm:col-6 lg:col-3">
+			<p-card styleClass="voiletCard cbox">
+				<h3 class="text-center">Total Employees</h3>
+				<h4 class="font-bold text-center">{{ femaleFoundersDataValue?.totalEmployees ? ( femaleFoundersDataValue?.totalEmployees | number: '1.0-2' ) : 0 }}</h4>
+			</p-card>
+		</div>
+		<div class="col-12 sm:col-6 lg:col-3">
+			<p-card styleClass="greenCard cbox">
+				<h3 class="text-center">Average Employees</h3>
+				<h4 class="font-bold text-center">{{ femaleFoundersDataValue?.avgEmployees ? ( femaleFoundersDataValue?.avgEmployees | number: '1.0-0' ) : 0 }}</h4>
+			</p-card>
+		</div>
+	</div>
+
+	<div class="grid">
+		<div class="col-6">
+			<div class="card border-round-3xl shadow-6 bg-cyan-50 text-cyan-400">
+				<h3 class="font-medium">MSME													
+				<dg-shared-itag-component><div>Represents Micro, Small, and Medium Enterprises (MSMEs) owned by women. This category highlights the role of female entrepreneurs in business growth, innovation, and economic inclusion.</div></dg-shared-itag-component></h3>
+
+				<div class="card bg-cyan-900 border-round-2xl m-0 pb-1 shadow-1">
+					<div class="grid justify-content-around	align-items-center">
+						<ng-container *ngFor="let msmeStatus of femaleFoundersDataValue?.[ 'msmeStatus' ]">
+							<div class="col-fixed align-items-stretch msme-count">
+								<a href="javascript:void(0);" class="block text-center" [ngStyle]="{ 'color': colorForWorkflowMsme[ msmeStatus.key ] }" [ngClass]="{ 'text-bluegray-100': !( colorForWorkflowMsme[ msmeStatus.key ] ) }" (click)="gotToSearchPage( msmeStatus.key, _, 'msme' )">
+									<span class="block font-bold text-xl">
+										{{ msmeStatus?.doc_count | number: '1.0-0' }}
+									</span>
+									<span class="block">
+										{{ (msmeStatus?.key).replace("Enterprise", '') | titlecase }}
+									</span>
+								</a>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-6">
+				<div class="card bg-cyan-50 border-round-3xl shadow-6 director-card">
+					<h3 class="font-medium text-indigo-500">Directors Count
+						<dg-shared-itag-component><div>Displays the total number of active female directors and the average number of such directors per company, reflecting their leadership representation in businesses.</div></dg-shared-itag-component>
+					</h3>
+					<div class="grid">
+						<div class="col-6">
+							<div class="card border-round-2xl shadow-1 bg-cyan-500 text-white director-header">
+								<div class="flex flex-column justify-content-center align-items-center">
+									<h3 class="m-0">
+										<i class="material-icons text-xl mr-2">badge</i>
+										<span class="vertical-align-middle text-lg">Total Active Director</span>
+									</h3>
+									<div class="flex align-items-baseline">
+										<span class="mr-1 text-lg font-medium">{{ totalActiveDirectorCount | number: '1.0-0' }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="card border-round-2xl shadow-1 bg-indigo-500 text-white director-header">
+								<div class="flex flex-column justify-content-center align-items-center">
+									<h3 class="m-0">
+										<i class="material-icons text-xl mr-2">badge</i>
+										<span class="vertical-align-middle text-lg">Average Active Director</span>
+									</h3>
+									<div class="flex align-items-baseline">
+										<span class="mr-1 text-lg font-medium">{{ averageActiveDirectorCount | number: '1.0-0' }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+
+	<div class="grid">
+
+		<div class="col-12 md:col-6">
+			<div class="card h-full">
+				<ng-template #LazyLeafletMapContainer></ng-template>
+			</div>
+		</div>
+
+		<div class="col-12 md:col-6">
+
+			<div class="card circleChartCard">
+				<h3> <strong>Companies By Gender (Ownership) </strong><dg-shared-itag-component><div>This breakdown shows the proportion of businesses owned by women compared to those owned by men or not specified (where ownership gender is unspecified). It provides insights into gender diversity in entrepreneurship.</div></dg-shared-itag-component></h3>
+				<div class="CircleChart">
+					<a href="javascript:void(0);" (click)="gotToSearchPage( '', '', genderCountArray[2].key )">
+						<div class="chart maleChart" [ngStyle]="{'background-color': genderCountArray?.[2].color}" attr.data-value="{{ genderCountArray?.[2]?.count | numberSuffix : '2' : '' }}"></div>
+					</a>
+					
+					<a href="javascript:void(0);" (click)="gotToSearchPage( '', '', genderCountArray[1].key )">
+						<div class="chart femaleChart" [ngStyle]="{'background-color': genderCountArray[1].color}" attr.data-value="{{ genderCountArray[1].count | numberSuffix : '2' : '' }}"></div>
+					</a>
+
+					<a href="javascript:void(0);" (click)="gotToSearchPage( '', '', genderCountArray[0].key )">
+						<div class="chart unknownChart" [ngStyle]="{'background-color': genderCountArray[0].color}" attr.data-value="{{ genderCountArray[0].count | numberSuffix : '2' : '' }}"></div>
+					</a>
+				</div>
+				<div class="flex gap-3 flex-wrap justify-content-center">
+
+					<div *ngIf="genderCount" class="femaleNavigation" title="{{ genderCount?.female?.companies | number }}">
+						<div class="grid">
+
+							<div class="col-fixed fs-large">
+								<span class="material-icons circle" style="background: #eb3b5a">female</span>
+							</div>
+							<div class="col female" (click)="gotToSearchPage()">
+
+								<span class="text-base mb-0 c-light">Female</span>
+								<span class="pi pi-chevron-right femaleCardNavigationIcon"></span>
+								<ng-container *ngIf="isPSCchecked; else forIsDirector">
+
+									<p class="text-xl mb-0" style="color: #eb3b5a; font-weight: 500;">{{ genderCount?.female_psc?.companies | numberSuffix : '2' : '' }} ({{ genderCount?.female_psc?.companiesCount_percentage | number : '1.0-2' }}%)</p>
+								</ng-container>
+
+								<ng-template #forIsDirector>
+
+									<ng-container *ngIf="isDirectorChecked; else elseBlock">
+										<p class="text-xl mb-0" style="color: #eb3b5a; font-weight: 500;">{{ genderCount?.female_director?.companies | numberSuffix : '2' : '' }} ({{ genderCount?.female_director?.companiesCount_percentage | number : '1.0-2' }}%)</p>
+									</ng-container>
+									
+									<ng-template #elseBlock>
+										<p class="text-xl mb-0" style="color: #eb3b5a; font-weight: 500;">{{ genderCount?.female?.companies | numberSuffix : '2' : '' }} ({{ genderCount?.female?.companiesCount_percentage | number : '1.0-2' }}%)</p>
+									</ng-template>
+								</ng-template>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div *ngIf="genderCount" class="maleNavigation" title="{{ genderCount?.male?.companies | number }}">
+						<div class="grid">
+							<div class="col-fixed fs-large">
+								<span class="material-icons circle" style="background: #22a6b3">male</span>
+							</div>
+							<div class="col" (click)="gotToSearchPage( '', '', 'fromMale' )">
+								<span class="text-base mb-0 c-light">Male</span>
+								<span class="pi pi-chevron-right maleCardNavigationIcon"></span>
+								
+								<p class="text-xl mb-0" style="color: #22a6b3; font-weight: 500;">{{ genderCount?.male?.companies | numberSuffix : '2' : '' }} ({{ genderCount?.male?.companiesCount_percentage | number : '1.0-2' }}%)</p>
+							</div>
+						</div>
+					</div>
+
+					<div *ngIf="genderCount" class="unknownNavigation" title="{{ genderCount?.unknown?.companies | number }}">
+						<div class="grid">
+	
+							<div class="col-fixed fs-large">
+								<span class="material-icons circle" style="background: #079992">transgender</span>
+							</div>
+							<div class="col" (click)="gotToSearchPage( '', '', 'fromUnknwon' )">
+								<span class="text-sm mb-0 c-light">Not Specified</span>
+								<span class="pi pi-chevron-right unknownCardNavigationIcon"></span>
+
+								<p class="text-xl mb-0" style="color: #079992;">{{ genderCount?.unknown?.companies | numberSuffix : '2' : '' }} ({{ genderCount?.unknown?.companiesCount_percentage | number : '1.0-2' }}%)</p>
+							</div>
+	
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="grid mt-2">
+
+		<div class="col-12 lg:col-6">
+
+			<div class="grid align-items-center mb-2 mt-2">
+				<div class="col-fixed">
+					<span class="text-base">Companies by Age </span>
+					<dg-shared-itag-component><div>Displays female-owned companies categorised by years in operation, helping assess business maturity and longevity within female-led enterprises.</div></dg-shared-itag-component>
+				</div>
+			</div>
+			<div class="grid mb-5">
+				<ng-container *ngFor="let companyAge of encorporationDate">
+					<ng-container *ngIf="companyAge.count_percentage else noRedirection">
+						<div class="smallScreenResposiveCard cardUnder1860Px col-4 md:col-6 lg:col-4">
+							<a href="javascript:void(0);" class="block" (click)="gotToSearchPage( companyAge['rangeFrom'], companyAge['rangeTo'], 'fromDate' )">
+								<dg-shared-count-card [subTitle]="companyAge.label" [dataValue]="companyAge.count" [dataValuePercentage]="companyAge.count_percentage" [displayPercentageValue]="true"></dg-shared-count-card>
+							</a>
+						</div>
+					</ng-container>
+					<ng-template #noRedirection>
+						<div class="smallScreenResposiveCard cardUnder1860Px col-4 md:col-6 lg:col-4">
+							<dg-shared-count-card [subTitle]="companyAge.label" [dataValue]="companyAge.count" [dataValuePercentage]="companyAge.count_percentage" [displayPercentageValue]="true"></dg-shared-count-card>							
+						</div>
+					</ng-template>
+				</ng-container>
+			</div>
+
+			<div class="grid align-items-center mb-2 mt-2">
+
+				<div class="col-fixed">
+					<span class="text-base">Turnover ( &pound; ) </span>
+					<dg-shared-itag-component><div>Represents the distribution of female-owned companies based on their annual revenue. Toggle the "Include Estimated Turnover" switch to include estimated figures.</div></dg-shared-itag-component>
+				</div>
+
+				<div class="col text-right mr-5">
+					<label class="mr-3">Include Estimated Turnover</label>
+					<p-inputSwitch (onChange)="forEstimatedTurnover($event)"></p-inputSwitch>
+				</div>
+
+			</div>
+
+			<ng-container *ngIf="!checkEstimatedTurnover; else estimateTurnover">
+				<div class="grid mb-5">
+					<ng-container *ngFor="let turnover of financialTurnoversArrayData">
+						<ng-container *ngIf="turnover.count_percentage else noRedirection">
+							<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+								<a href="javascript:void(0);" class="block" (click)="gotToSearchPage( turnover['value']['greaterThan'], turnover['value']['lessThan'], 'fromTurnover' )">
+									<dg-shared-count-card [subTitle]="turnover.label" [dataValue]="turnover.count" [dataValuePercentage]="turnover.count_percentage" cardColor="Amber" [displayPercentageValue]="true"></dg-shared-count-card>
+								</a>
+							</div>
+						</ng-container>
+						<ng-template #noRedirection>
+							<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+								<dg-shared-count-card [subTitle]="turnover.label" [dataValue]="turnover.count" [dataValuePercentage]="turnover.count_percentage" cardColor="Amber" [displayPercentageValue]="true"></dg-shared-count-card>								
+							</div>
+						</ng-template>
+					</ng-container>	
+				</div>
+			</ng-container>
+
+			<ng-template #estimateTurnover>
+				<div class="grid mb-5">
+					<ng-container *ngFor="let estimatedTurover of estimatedTurnoversArrayData">
+						<ng-container *ngIf="estimatedTurover.count_percentage else noRedirection">
+							<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+								<a href="javascript:void(0);" class="block" (click)="gotToSearchPage( estimatedTurover['value']['greaterThan'], estimatedTurover['value']['lessThan'], 'fromEstimatedTurnover' )">
+									<dg-shared-count-card [subTitle]="estimatedTurover.label" [dataValue]="estimatedTurover.count" [dataValuePercentage]="estimatedTurover.count_percentage" cardColor="Blue" [displayPercentageValue]="true"></dg-shared-count-card>
+								</a>
+							</div>
+						</ng-container>
+						<ng-template #noRedirection>
+							<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+								<dg-shared-count-card [subTitle]="estimatedTurover.label" [dataValue]="estimatedTurover.count" [dataValuePercentage]="estimatedTurover.count_percentage" cardColor="Blue" [displayPercentageValue]="true"></dg-shared-count-card>								
+							</div>
+						</ng-template>
+					</ng-container>	
+				</div>
+			</ng-template>
+
+			<div class="grid align-items-center mb-2">
+				<div class="col-fixed">
+					<span class="text-base">Financial Total Assets ( &pound; ) </span>
+					<dg-shared-itag-component><div>Shows the total assets held by female-owned businesses, classified into different value ranges.</div></dg-shared-itag-component>
+				</div>
+			</div>
+			<div class="grid mb-5">
+				<ng-container *ngFor="let totalAssets of financialTotalAssetsArrayData">
+					<ng-container *ngIf="totalAssets.count_percentage else noRedirection">
+						<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+							<a href="javascript:void(0);" class="block" (click)="gotToSearchPage( totalAssets['value']['greaterThan'], totalAssets['value']['lessThan'], 'fromTotalAssets' )">
+								<dg-shared-count-card [subTitle]="totalAssets.label" [dataValue]="totalAssets.count" [dataValuePercentage]="totalAssets.count_percentage" cardColor="Amber" [displayPercentageValue]="true"></dg-shared-count-card>
+							</a>
+						</div>
+					</ng-container>
+					<ng-template #noRedirection>
+						<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+							<dg-shared-count-card [subTitle]="totalAssets.label" [dataValue]="totalAssets.count" [dataValuePercentage]="totalAssets.count_percentage" cardColor="Amber" [displayPercentageValue]="true"></dg-shared-count-card>							
+						</div>
+					</ng-template>
+				</ng-container>
+			</div>
+
+			<div class="grid align-items-center mb-2">
+				<div class="col-fixed">
+					<span class="text-base">Financial Net Worth ( &pound; ) </span>
+					<dg-shared-itag-component><div>Displays the distribution of female-owned businesses based on their total net worth. This helps assess the financial stability and valuation of women-led companies.</div></dg-shared-itag-component>
+				</div>
+			</div>
+			<div class="grid mb-5">
+				<ng-container *ngFor="let netWorth of financialNetworthArrayData">
+					<ng-container *ngIf="netWorth.count_percentage else noRedirection">
+						<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+							<a href="javascript:void(0);" class="block" (click)="gotToSearchPage( netWorth['value']['greaterThan'], netWorth['value']['lessThan'], 'fromNetWorth' )">
+								<dg-shared-count-card [subTitle]="netWorth.label" [dataValue]="netWorth.count" [dataValuePercentage]="netWorth.count_percentage" [displayPercentageValue]="true"></dg-shared-count-card>
+							</a>
+						</div>
+					</ng-container>
+					<ng-template #noRedirection>
+						<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+							<dg-shared-count-card [subTitle]="netWorth.label" [dataValue]="netWorth.count" [dataValuePercentage]="netWorth.count_percentage" [displayPercentageValue]="true"></dg-shared-count-card>							
+						</div>
+					</ng-template>
+				</ng-container>
+			</div>
+
+			<div class="grid align-items-center mb-2">
+				<div class="col-fixed">
+					<span class="text-base">Number of Employees </span>
+					<dg-shared-itag-component><div>Categorises female-owned businesses based on their number of employees, offering insights into employment distribution across different company sizes.</div></dg-shared-itag-component>
+				</div>
+			</div>
+			<div class="grid mb-5">
+				<ng-container *ngFor="let employees of employeesRangeArrayData">
+					<ng-container *ngIf="employees.count_percentage else noRedirection">
+						<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+							<a href="javascript:void(0);" class="block" (click)="gotToSearchPage( +employees['rangeFrom'], +employees['rangeTo'], 'fromEmployee' )">
+								<dg-shared-count-card [subTitle]="employees.label" [dataValue]="employees.count" [dataValuePercentage]="employees.count_percentage" cardColor="Violet" [displayPercentageValue]="true"></dg-shared-count-card>
+							</a>
+						</div>
+					</ng-container>
+					<ng-template #noRedirection>
+						<div class="smallScreenResposiveCard cardUnder1860Px col-12 md:col-4 lg:col-4">
+							<dg-shared-count-card [subTitle]="employees.label" [dataValue]="employees.count" [dataValuePercentage]="employees.count_percentage" cardColor="Violet" [displayPercentageValue]="true"></dg-shared-count-card>							
+						</div>
+					</ng-template>
+				</ng-container>
+			</div>
+
+		</div>
+
+		<div class="col-12 lg:col-6">
+
+			<div class="card" *ngIf="doughnutChartDatasets.hasOwnProperty('riskChart')">
+				<div class="statsInsightsTableData amountBandList">
+			
+					<h3 class="c-green">Risk Analysis
+						<dg-shared-itag-component><div>Categorises female-owned businesses into different risk levels, ranging from very low risk to very high risk, based on financial and operational factors.</div></dg-shared-itag-component>
+					</h3>
+			
+					<div class="card-body flex flex-column col justify-content-center">
+			
+						<div class="flex align-items-center flex-wrap">
+							<div class="col flex align-items-center justify-content-center">
+								<p-chart type="doughnut" [data]="doughnutChartDatasets['riskChart']"
+									[options]="doughnutChartOptions['riskChart']" [plugins]="ChartDataLabelsPlugins" width="300px" height="300px" [responsive]="true">
+								</p-chart>
+							</div>
+							<div class="col-fixed">
+								<div class="flex flex-column justify-content-end riskPieChartLegends">
+			
+									<div class="roundedColoredChipLabel notScoredLegendBg"
+										*ngIf="femaleFoundersDataValue && femaleFoundersDataValue.riskChart.notScored && femaleFoundersDataValue && femaleFoundersDataValue.riskChart.notScored_percentage"
+										(click)="goToSearchForMisc( 'Bands', $event)">
+										<p class="text-sm mb-0">Not Scored / Very High Risk</p>
+										<p class="text-xl mb-0">
+											{{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.notScored | number : '1.0-0' }}
+											({{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.notScored_percentage | number :
+											'1.00'}}%)
+										</p>
+									</div>
+			
+									<div class="roundedColoredChipLabel highRiskLegendBg"
+										*ngIf="femaleFoundersDataValue && femaleFoundersDataValue.riskChart.highRisk && femaleFoundersDataValue && femaleFoundersDataValue.riskChart.highRisk_percentage"
+										(click)="goToSearchForMisc( 'Bands', $event)">
+										<p class="text-sm mb-0">High Risk</p>
+										<p class="text-xl mb-0">
+											{{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.highRisk | number : '1.0-0' }}
+											({{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.highRisk_percentage | number :
+											'1.0'}}%)
+										</p>
+									</div>
+			
+									<div class="roundedColoredChipLabel moderateRiskLegendBg"
+										*ngIf="femaleFoundersDataValue && femaleFoundersDataValue.riskChart.moderateRisk && femaleFoundersDataValue && femaleFoundersDataValue.riskChart.moderateRisk_percentage"
+										(click)="goToSearchForMisc( 'Bands', $event)">
+										<p class="text-sm mb-0">Moderate Risk</p>
+										<p class="text-xl mb-0">
+											{{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.moderateRisk | number : '1.0-0'
+											}}
+											({{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.moderateRisk_percentage |
+											number : '1.00'}}%)
+										</p>
+									</div>
+									<div class="roundedColoredChipLabel lowRiskLegendBg"
+										*ngIf="femaleFoundersDataValue && femaleFoundersDataValue.riskChart.lowRisk && femaleFoundersDataValue && femaleFoundersDataValue.riskChart.lowRisk_percentage"
+										(click)="goToSearchForMisc( 'Bands', $event)">
+										<p class="text-sm mb-0">Low Risk</p>
+										<p class="text-xl mb-0">
+											{{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.lowRisk | number : '1.0-0' }}
+											({{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.lowRisk_percentage | number :
+											'1.00'}}%)
+										</p>
+									</div>
+			
+									<div class="roundedColoredChipLabel veryLowRiskLegendBg"
+										*ngIf="femaleFoundersDataValue && femaleFoundersDataValue.riskChart.veryLowRisk && femaleFoundersDataValue && femaleFoundersDataValue.riskChart.veryLowRisk_percentage"
+										(click)="goToSearchForMisc( 'Bands', $event)">
+										<p class="text-sm mb-0">Very Low Risk</p>
+										<p class="text-xl mb-0">
+											{{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.veryLowRisk | number : '1.0-0'
+											}}
+											({{ femaleFoundersDataValue && femaleFoundersDataValue.riskChart.veryLowRisk_percentage | number
+											: '1.00'}}%)
+										</p>
+									</div>
+			
+								</div>
+			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card mt-2">
+				<div class="statsInsightsTableData industriesList">
+					<table class="simpleTableUI">
+						<thead>
+							<tr>
+								<th>Other Stats <dg-shared-itag-component><span>Provides insights into additional company metrics, such as county court judgments, patents, grants, write-offs, land ownership, shareholdings, and environmental registrations.</span></dg-shared-itag-component></th>
+								<th width="30%" class="text-right">Count</th>
+								<th width="80" class="text-right">%</th>
+							</tr>
+						</thead>
+						<ng-container *ngIf="otherMiscArrayData && otherMiscArrayData.length">
+							<tbody>
+								<tr *ngFor="let rowData of otherMiscArrayData">
+									
+									<td class="font-bold">{{ rowData['label'] }}</td>
+
+									<td widht="30" class="text-right">
+										<ng-container *ngIf="rowData[ 'count' ]">
+											<ng-container *ngIf="rowData['label'] == 'Environment Agency Registered'; else otherLabels">
+												<ng-container *ngIf="isSuperAdmin; else otherPlans">
+													<a href="javascript:void(0);" class="c-blue" (click)="goToSearchForMisc( rowData['label'], rowData['value'] )"><strong>{{ rowData['count'] | number }}</strong></a>
+												</ng-container>
+												<ng-template #otherPlans>{{ rowData['count'] | number }}</ng-template>
+											</ng-container>
+											<ng-template #otherLabels>
+												<a href="javascript:void(0);" class="c-blue" (click)="goToSearchForMisc( rowData['label'], rowData['value'] )"><strong>{{ rowData['count'] | number }}</strong></a>
+											</ng-template>
+										</ng-container>
+										<ng-container *ngIf="!rowData[ 'count' ]"> - </ng-container>
+
+									</td>
+									<td width="30%" class="text-right">{{ rowData['count_percentage'] ? ( rowData['count_percentage'] | number: '1.0-2' ) : '-' }}</td>
+								</tr>
+							</tbody>
+						</ng-container>
+					</table>
+				</div>
+			</div>
+
+			<div class="card">
+
+				<button pButton type="button" [ngClass]="'mb-2'" class="p-button-rounded mr-2 p-button-sm" label="Reset Table" icon="pi pi-replay" (click)="resetFilters( femaleFoundersTable )"></button>
+
+				
+				<p-table #femaleFoundersTable [columns]="industryListColumn" [value]="tempIndustryTableData" [scrollable]="true" scrollHeight="flex">
+
+					<ng-template pTemplate="header" let-columns>
+						<tr>
+							<ng-container *ngFor="let col of columns">
+								<th [pSortableColumn]="col.isSortable ? col.field : ''" [ngStyle]="{ 'text-align': col.textAlign, 'min-width': col.minWidth, 'max-width': col.maxWidth }">{{col.header | uppercase }}
+									<ng-container *ngIf="col.field == 'count'">
+										<p-sortIcon [field]="col.field" (click)="customSort( $event, femaleFoundersTable, col.field )"></p-sortIcon>
+									</ng-container>
+									<ng-container *ngIf="col.field == 'label'">
+										<dg-shared-itag-component><span>This table provides a breakdown of female-owned businesses by Standard Industrial Classification (SIC) categories, displaying the total count and percentage for each industry sector. Use this data to analyse industry distribution and market trends.</span></dg-shared-itag-component>
+									</ng-container>
+								</th>
+							</ng-container>
+						</tr>
+					</ng-template>
+		
+					<ng-template pTemplate="body" let-rowData let-columns="columns">       
+						<tr>
+							<td *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{ 'text-align': col.textAlign, 'min-width': col.minWidth, 'max-width': col.maxWidth }"> 
+
+								<ng-container *ngSwitchCase="'industryName'">
+									{{ rowData[ col.field ] | titlecase }}
+								</ng-container>
+
+								<ng-container *ngSwitchCase="'count'">
+
+									<ng-container *ngIf="rowData['count']; else otherBlock">
+										<a href="javascript:void(0);" class="c-blue" (click)="gotToSearchPage( rowData['label'], rowData['value'], 'sicIndustry' )"><strong>{{ rowData['count'] | number }}</strong></a>
+									</ng-container>
+
+									<ng-template #otherBlock> - </ng-template>
+									
+								</ng-container>
+
+								<ng-container *ngSwitchCase="'count_percentage'">
+									{{ rowData['count_percentage'] ? ( rowData['count_percentage'] | number: '1.0-2' ) : '-' }}
+								</ng-container>
+								
+								<ng-container *ngSwitchDefault>{{ rowData[col.field] }}</ng-container>
+	
+							</td>
+						</tr>
+					</ng-template>
+
+					<ng-template pTemplate="emptymessage" let-columns>
+						<tr>
+							<td [attr.colspan]="columns?.length + (showCheckBox ? 1 : 0)">No records found.</td>
+						</tr>
+					</ng-template>
+	
+				</p-table>
+				
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

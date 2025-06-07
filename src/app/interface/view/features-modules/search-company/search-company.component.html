@@ -1,0 +1,66 @@
+<p-messages [value]="msgs"></p-messages>
+<div class="grid">
+    <div class="col-12">
+
+        <!-- Side Search Panel -->
+        <ng-container *ngIf="isFilterSidebarShow">
+            <dg-filter-sidebar (searchResultsCommunicator)="getTableDataValue($event)" [defaultSearchData]="defaultSearchData" [thisPage]="'companySearch'"></dg-filter-sidebar>
+        </ng-container>
+        <!-- /Side Search Panel -->
+
+        <!-- Company Details Side Panel -->
+        <dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+        <!-- Company Details Side Panel -->
+
+        <ng-container [ngSwitch]="searchCompanyService.$templateView | async">
+
+            <ng-container *ngSwitchCase="'director'">
+                <dg-admin-record-list [listColumns]="showdirectorscreenColumn" [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [appliedFilters]="appliedFilters" [firstPage]="firstPage" [thisPage]="'showDirectorScreenPage'" (operatingTable)="getOperatingTable($event)" [searchTotalCount]="searchTotalCount" [directorTotalCount]="directorTotalCount" (tableOutputValues)="getRecordTableOutputValues($event)"></dg-admin-record-list>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'charges'">
+                <!-- visible only admin on main till the testing not done on preprod and main -->
+                <ng-container *ngIf="showChargesTab; else defaultChargesTable">
+                    <p-tabMenu [model]="tabMenuItem" [activeItem]="activeItem" (activeItemChange)="chargesTabChange($event)"></p-tabMenu>
+                        <ng-container *ngIf="activeItem.label == 'Companies'">
+                            <dg-admin-record-list [listColumns]="showChargesDataColumns" [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [appliedFilters]="appliedFilters" [firstPage]='firstPage' [searchTotalCount]="searchTotalCount" [thisPage]="'showChargesTablePage'" (operatingTable)="getOperatingTable($event)" [monthAggArrayCount]="monthAggArrayCount" [hideMonthFilterMultiSelect]="hideMonthFilterMultiSelect" [selectedSavedListDataObj]="selectedSavedListDataObj" (tableOutputValues)="getRecordTableOutputValues($event)"> </dg-admin-record-list>
+                        </ng-container>
+                        <ng-container *ngIf="activeItem.label == 'List of Charges'">
+                            <dg-mortgage-charges [companyDataForMortgages]="companyDataForMortgages" [paginationObj]="mortgagesPaginationObj" [searchTotalCount]="searchTotalCount" [appliedFilters]="appliedFiltersForCharges" (tableOutputValues)="getRecordTableOutputValues($event)" (operatingTable)="getOperatingTable($event)"></dg-mortgage-charges>
+                        </ng-container>
+                    
+                    <!-- <p-tabView (onChange)="chargesTabChange($event)" [(activeIndex)]="activeIndex"> 
+                        <p-tabPanel header="Companies">
+                            <dg-admin-record-list [listColumns]="showChargesDataColumns" [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [appliedFilters]="appliedFilters" [firstPage]='firstPage' [searchTotalCount]="searchTotalCount" [thisPage]="'showChargesTablePage'" (operatingTable)="getOperatingTable($event)" [monthAggArrayCount]="monthAggArrayCount" [hideMonthFilterMultiSelect]="hideMonthFilterMultiSelect" [selectedSavedListDataObj]="selectedSavedListDataObj" (tableOutputValues)="getRecordTableOutputValues($event)"> </dg-admin-record-list>
+                        </p-tabPanel>
+                        <p-tabPanel header="List of Charges">
+                            <dg-mortgage-charges [companyDataForMortgages]="companyDataForMortgages" [paginationObj]="mortgagesPaginationObj" [searchTotalCount]="searchTotalCount" [appliedFilters]="appliedFiltersForCharges" (tableOutputValues)="getRecordTableOutputValues($event)" (operatingTable)="getOperatingTable($event)"></dg-mortgage-charges>
+                        </p-tabPanel>
+                    </p-tabView> -->
+                </ng-container>
+                <ng-template #defaultChargesTable>
+                    <dg-admin-record-list [listColumns]="showChargesDataColumns" [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [appliedFilters]="appliedFilters" [firstPage]='firstPage' [searchTotalCount]="searchTotalCount" [thisPage]="'showChargesTablePage'" (operatingTable)="getOperatingTable($event)" [monthAggArrayCount]="monthAggArrayCount" [hideMonthFilterMultiSelect]="hideMonthFilterMultiSelect" [selectedSavedListDataObj]="selectedSavedListDataObj" (tableOutputValues)="getRecordTableOutputValues($event)"> </dg-admin-record-list>
+                </ng-template>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'chargesDashboard'">
+                <dg-charge-dashboard [listDataValues]="ChargeDashdata" [thisPage]="'chargeDashboardPage'"></dg-charge-dashboard>
+            </ng-container>
+
+
+            <ng-container *ngSwitchCase="'trade'">
+                <dg-admin-record-list [listColumns]="showTradeDataColumns" [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [appliedFilters]="appliedFilters" [firstPage]='firstPage' [searchTotalCount]="searchTotalCount" [thisPage]="'showTradeTablePage'" (operatingTable)="getOperatingTable($event)" [monthAggArrayCount] = "monthAggArrayCount" [hideMonthFilterMultiSelect]="hideMonthFilterMultiSelect" (resetIntrntnltrade)="resetFromInternational($event)" [selectedSavedListDataObj]="selectedSavedListDataObj" (tableOutputValues)="getRecordTableOutputValues($event)"> </dg-admin-record-list>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'contact'">
+                <dg-admin-record-list [listColumns]="showCompanyContactScreenColumns" [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [appliedFilters]="appliedFilters" [firstPage]="firstPage" [thisPage]="'showContactScreen'" (operatingTable)="getOperatingTable($event)" [searchTotalCount]="searchTotalCount" [totalContacts]="totalContacts" (tableOutputValues)="getRecordTableOutputValues($event)"></dg-admin-record-list>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+                <dg-record-list [listDataValues]="companyData" [dissolvedIndex]="dissolvedIndex" [columnToggleData]="recordTableCols" [thisPage]="'companySearch'" [searchTotalCount]="searchTotalCount" [socialNetworkCounts]="socialNetworkCounts" [listId]="listId" [contactsCount]="contactsCount" [appliedFilters]="appliedFilters" [showExportButton]="showExportButton" [firstPage]='firstPage' [defaultSearchData]="defaultSearchData" (operatingTable)="getOperatingTable($event)" (tableOutputValues)="getRecordTableOutputValues($event)" [selectedSavedListDataObj]="selectedSavedListDataObj"></dg-record-list>
+            </ng-container>
+
+        </ng-container>
+        
+    </div>
+</div>

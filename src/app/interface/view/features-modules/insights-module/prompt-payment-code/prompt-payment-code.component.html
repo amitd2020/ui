@@ -1,0 +1,5 @@
+<ng-container>
+    <dg-admin-record-list [listColumns]="ppcDataColumn" [listDataValues]="ppcData" [searchTotalCount]="totalCount" [thisPage]="'ppcPage'" (updateTableAfterPagination)="updateTableAfterPagination( $event )" (operatingTable)="sidebarPanel($event)"></dg-admin-record-list>
+</ng-container>
+
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>

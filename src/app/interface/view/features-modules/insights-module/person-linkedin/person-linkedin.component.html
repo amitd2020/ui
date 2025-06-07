@@ -1,0 +1,170 @@
+<p-messages [(value)]="msgs" [enableService]="false" [closable]="true" />
+
+<p-dialog header="Fetched Email Info" [modal]="true" [(visible)]="personEmailDialouge" [style]="{width: '30vw'}">
+    
+    <div class="email-display flex align-items-center justify-content-between surface-50 text-sm text-700 mb-4">
+        <span class="font-medium text-base text-blue-600">{{ fetchedEmailData }}</span>
+        
+        <div class="flex align-items-center">
+            <!-- Verified Email Tick -->
+            <div *ngIf="emailVerifyIconBoolean" class="verified-email flex align-items-center">
+                <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                <span class="text-green-500 text-sm font-medium">Verified</span>
+            </div>
+            <div *ngIf="!emailVerifyIconBoolean" class="verified-email flex align-items-center">
+                <i class="pi pi-times text-orange-500 mr-2"></i>
+                <span class="text-orange-500 text-sm font-medium">Not Verified</span>
+            </div>
+
+            <!-- Copy Button -->
+            <button *ngIf="buttonDisable" class="copy-btn bg-cyan-100 hover:bg-cyan-700 text-primary-600 hover:text-white cursor-pointer text-xl p-3 border-circle border-primary-500 ml-3" (click)="copyEmailToClipboard(fetchedEmailData)"  pTooltip="Copy Email" tooltipPosition="top">
+                <i class="pi pi-copy"></i>
+            </button>
+        </div>
+    </div>
+    
+    <p *ngIf="copySuccess" class="mt-2 text-green-300 text-sm text-center">
+        Email copied to clipboard!
+    </p>
+</p-dialog>
+
+<p-dialog header="Fetched Email Info" [modal]="true" [(visible)]="personNoEmailDialouge" [style]="{width: '30vw'}" >
+    <span class="text-orange-500">No email found !</span>
+</p-dialog>
+
+<div>
+    <span>
+        <ng-container *ngIf="totalSearchedDataValue > 0; else noInputValue">
+            <h3 class="ml-3 mt-3">{{ totalSearchedDataValue | number }} Results Found</h3>
+        </ng-container>
+        
+        <ng-template #noInputValue>
+            <h3 class="ml-3 mt-3">No Result Found</h3>
+        </ng-template>
+    </span>
+
+    <div class="card flex justify-content-between align-items-center">
+        <div class="flex">
+            <button pButton type="button" class="p-button-rounded mr-1 p-button-sm darkGrey ml-2" label="Reset Table" icon="pi pi-replay" (click)="resetTable()"></button>
+            <ng-container *ngIf="!saveListId">
+                <dg-add-company-to-list [thisPage]="'connectPlusPeople'" [disableButton]="selectedCompany?.length == 0" [selectedCompany]="selectedCompany" [searchTotalCount]="totalSearchedDataValue" [appliedFilters]="selectedPropValues" (messageCommunicator)="displayMessage($event)"></dg-add-company-to-list>
+            </ng-container>
+            <p-selectButton class="ml-2 p-button-sm" [options]="paymentOptions" [(ngModel)]="value" optionLabel="name" optionValue="value" (onChange)="toggleHighlight()" [hidden]="!searchTerm"></p-selectButton>
+        </div>
+        <p-paginator [first]="first" [rows]="rows" [pageLinkSize]="3" [rowsPerPageOptions]="[20,50,100]" [totalRecords]="totalSearchedDataValue > 10000 ? 10000 : totalSearchedDataValue" (onPageChange)="pageChange($event)"></p-paginator>
+    </div>
+</div>
+
+<p-dataView [value]="personLinkedinData" [paginator]="false" [rows]="100" filterBy="name" layout="grid" paginatorPosition="top" [style]="{'overflow-y': 'auto' }">
+    <ng-template pTemplate="gridItem" let-rowData let-i="rowIndex">
+
+        <div class="col-fixed col-6 md:col-6 lg:col-6 pb-3 flex">
+            <div class="product-grid-item card w-full pb-0">
+                <div class="flex">
+                    <div class="col-2">
+                        <div class="flex justify-content-center">
+                            <p-table *ngIf="!saveListId" [value]="[rowData]" [(selection)]="selectedCompany">
+                                <ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData>
+                                    <tr [pSelectableRow]="rowData">
+                                        <td>
+                                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+            
+                            <div class="flex justify-content-center align-items-center mt-2">
+                                <ng-container *ngIf="rowData?.image_url; else noImage">
+                                    <img [src]="rowData?.['image_url']" alt="problem with url" width="70px" height="70px" class="image-shadow" (error)="updateUrl($event)" />
+                                </ng-container>
+                                <ng-template #noImage>
+                                    <span class="mt-3">
+                                        <i class="pi pi-user" style="font-size: 3rem"></i>
+                                    </span>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-10">
+                        <div class="flex justify-content-between align-items center">
+
+                            <div>
+                               <span class="featuredLinks mr-2" *ngIf="rowData?.linkedeni_url">
+                                    <a [href]="rowData?.linkedeni_url" target="_blank">
+                                       <svg [ngClass]="{ 'linkedin': rowData?. linkedeni_url != '', 'svg-fill-light': rowData?. linkedeni_url == '' }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                           <path
+                                               d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                       </svg>
+                                   </a>
+                               </span>
+
+                               <span>
+                                   <a [href]="rowData?. linkedeni_url" target="_blank"><strong>{{ rowData['full_name'] ? ( rowData['full_name'] | titlecase ) : '-' }}</strong></a>
+                               </span>
+
+                               <span *ngIf="rowData?.company_number" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)"> | <a class="cName text-base" target="_blank" [href]="'/company/' + rowData['company_number'] + '/' + formatCompanyNameForUrl(rowData['company_name'] | titlecase)"> {{ rowData?.company_number | uppercase }}</a></span>
+
+                               <p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+
+                                <div>
+                                    <div><span class="font-medium">Size: </span>{{ rowData['company_size'] ? rowData['company_size'] : '-' }}</div>
+                                    <div><span class="font-medium">Industry: </span>{{ rowData['industry'] ? ( rowData['industry'] | titlecase ) : '-' }}</div>
+
+                                    <div><span class="font-medium">Risk Analysis: </span><span class="riskRatingLabel" [ngClass]="{'lightGreen' : rowData.internationalScoreDescription == 'very low risk', 'cyan' : rowData.internationalScoreDescription == 'low risk', 'yellow' : rowData.internationalScoreDescription == 'moderate risk', 'orange' : rowData.internationalScoreDescription == 'high risk', 'darkRed': rowData.internationalScoreDescription == 'not scored' }">{{ ( rowData.internationalScoreDescription ? rowData.internationalScoreDescription == 'not scored'? 'Not Scored /Very High Risk': rowData.internationalScoreDescription : '-' ) | titlecase }}</span></div>
+                                </div>
+
+                               </p-overlayPanel>
+                               
+                            </div>
+        
+                            <div>
+                                
+                               <span class="text-cyan-700 hover:text-blue-500 hover:shadow-8 mr-2" *ngIf="rowData?.['website']" (click)="fetchPersonEmail(rowData['full_name'], rowData?.['website'])"><i pTooltip="Fetch Email" tooltipPosition="right" class="ui-icon-mail text-xl"></i></span>
+
+                                <ng-conatiner *ngIf="rowData?.['location']">
+                                    <span class="roundedColoredChipLabel">
+                                        <p-chip pTooltip="Person Location" tooltipPosition="top"><span><i class="ui-icon-location-on" style="color: #686363"></i>{{ rowData.location }}</span></p-chip>
+                                    </span>
+                                </ng-conatiner>
+        
+                                <ng-conatiner *ngIf="rowData?.['social_connections']">
+                                    <span class="roundedColoredChipLabel">
+                                        <p-chip pTooltip="Total Connection" tooltipPosition="top"><span><i class="pi pi-users social-icon"></i>{{ rowData.social_connections }}</span></p-chip>
+                                    </span>
+                                </ng-conatiner>
+                            </div>
+                        </div>
+        
+                        <div>
+                            <p class="mb-0 text-sm font-medium">
+                                <span *ngIf="rowData?.['position']" [innerHTML]="highlightText(rowData?.['position'])"></span>
+                                <span *ngIf="rowData?.experience && ( rowData?.experience[0]?.company_name || rowData?.experience[0]?.start_time )"> | </span>
+                                <span *ngIf="rowData?.experience && ( rowData?.experience[0]?.company_name )"> {{ rowData.experience[0].company_name | titlecase }} </span>
+                                <span *ngIf="rowData?.experience && ( rowData?.experience[0]?.company_name && rowData?.experience[0]?.start_time )"> | </span>
+                                <span *ngIf="rowData?.experience && ( rowData?.experience[0]?.start_time )"> {{ ( rowData.experience[0].start_time | titlecase ) + '-' + ( rowData.experience[0].end_time | titlecase ) }} </span>
+                            </p>
+                        </div>
+        
+                        <ng-container *ngIf="rowData?.about_me">
+                            <span class="flex col-12 px-0 pt-0 mt-1">
+                                <span class="font-bold pt-0 mr-2">About me:</span>
+                                <div class="col grid text-sm" [dgReadMore]="true" [numberOfLines]="1" [defaultLineHeight]="41">
+                                    <span class="read-more-text" [innerHTML]="highlightText(rowData.about_me)"></span>
+                                </div>
+                            </span>
+                        </ng-container>
+    
+                    </div>
+                </div>
+                
+
+
+            </div>
+        </div>        
+    </ng-template>
+</p-dataView>
+
+<ng-container *ngIf="visibleFilterSidebar">
+    <dg-filter-sidebar [thisPage]="'personLinkedIn'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" [saveUpdateExisting] = "saveUpdateExisting" (searchResultsCommunicator)="personLinkedInCommunicator($event)"></dg-filter-sidebar>
+</ng-container>

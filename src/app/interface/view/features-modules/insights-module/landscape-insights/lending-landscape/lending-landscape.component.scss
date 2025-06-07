@@ -1,0 +1,131 @@
+.insightsViewContainer {
+    min-height: calc( 100vh - 117px );
+    padding: 20px;
+		
+    @media only screen and (max-width: 1024px) {
+        flex-direction: column;
+    }
+    
+    .insightsChartViewContainer {
+        flex: 1;
+		
+		@media only screen and (max-width: 1024px) {
+            padding-left: 0;
+		}
+		
+		.grid {
+			.md-6 {
+				.card {
+					@media only screen and ( min-width: 768px ) {
+						min-height: calc( 100% - 1em );
+					}
+				}
+			}
+		}
+
+    }
+	
+	.insightsRegionalMap {
+		flex: 1;
+		height: 380px;
+		background-color: transparent;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+
+	.roundedColoredChipLabel {
+		font-size: 1.2em;
+		padding: 0.4em 1em;
+	}
+	
+	.insightsInputtext {
+		background: 0 0;
+	}
+
+	.insightsRoundedCorners {
+		max-width: 520px;
+	}
+
+	.insightsCheckboxText {
+		font-weight: 600;
+		color: #898989;
+	}
+}
+
+@media only screen and (max-width:992px) {
+
+	::ng-deep {
+		dg-lending-landscape {
+			.p-datatable {
+			
+				table {
+					display: table;
+				}
+			
+				.p-datatable-thead {
+					& > tr {
+						& > th {
+							display: table-cell;
+						}
+					}
+				}
+				.p-datatable-tbody {
+	
+					display: table-row-group;
+	
+					& > tr {
+	
+						display: table-row;
+	
+						& > td {
+							display: table-cell;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.noRecords {
+    text-align: center;
+    padding: 5em;
+    -webkit-pointer-events: none;
+    pointer-events: none;
+
+    p {
+        font-size: 2rem;
+        font-weight: 300;
+        color: #e2e2e2;
+    }
+}
+
+::ng-deep {
+	p-chip {
+        .p-chip {
+            background-color: transparent;
+            .pi {
+                &.pi-facebook {
+                    &.p-chip-icon {
+                        color: #3b5999;
+                    }
+                }
+                &.pi-twitter {
+                    &.p-chip-icon {
+                        color: #1da1f2;
+                    }
+                }
+            }
+            &.linkedin {
+                background-image: url('../../../../../../../assets/layout/images/linkedin_logo.svg');
+                background-repeat: no-repeat;
+                background-position: bottom 7px left 4px;
+                padding-left: 25px;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+.bgColorCount {
+	background-color: transparent !important;
+}

@@ -1,0 +1,10 @@
+<div class="grid justify-content-center">
+    <ng-container *ngFor="let workflowCard of ( _workflowService.workflowCardItems | async ); let indx = index">
+        <div class="col-fixed px-5 w-18rem">
+            <a class="workflowMenuItem" [ngClass]="{ 'firstItem': indx == 0, 'disabled': !workflowCard?.cardActiveState }" [routerLink]="workflowCard.buttonRoute.route" routerLinkActive="activeWorkflow" [routerLinkActiveOptions]="{exact: true}" [queryParams]="{ chipData: chipData, cListId: workflowCard?.buttonRoute?.cListId, listPageName: workflowCard?.buttonRoute?.listPageName, hideList: false }">
+                <i class="{{ workflowCard?.cardIconClass }} icon-circle"></i>
+                <span class="itemLabel">{{ workflowCard.cardTitle }}</span>
+            </a>
+        </div>
+    </ng-container>
+</div>

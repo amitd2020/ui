@@ -1,0 +1,826 @@
+.featuredLinks {
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+
+        & + a {
+            margin-left: 5px;
+        }
+        img, svg, i {
+            max-height: 20px;
+        }
+        i {
+            position: relative;
+            top: 1.5px;
+            color: #23b394;
+        }
+    }
+    .linkedin {
+        fill: #0077b5;
+    }
+
+    .facebook {
+        fill: #3b5999;
+    }
+    
+    .twitter {
+        fill: #1da1f2;
+    }
+}
+
+.cardHeaderTitle {
+    font-size: 1em;
+    font-weight: 400;
+
+    @media only screen and (max-width:280px) {
+        font-size: 0.9em;
+    }
+}
+
+.companyDetailsIndustryTags {
+	display: inline-block;
+	vertical-align: middle;
+
+}
+
+.roundedColoredChipLabel {
+    background-color: #cdf0d7;
+    color: #2b9348;
+    border-color: #2b9348;
+    margin-right: 0.5em;
+}
+
+::ng-deep {
+    .p-chip {
+        display: inline-flex;
+        align-items: center;
+        background-color: transparent;
+        color: #2b9348;
+    }
+}
+
+
+
+.d-block {
+    display: block;
+}
+
+.card {
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.status { 
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 0 8px;
+}
+
+.grey {
+    color: rgb(155, 155, 155);
+}
+
+.green {
+    color: #1ab394;
+}
+
+.red {
+    color: #df2020;
+}
+
+.blue {
+    color: #1f4599;
+}
+
+.amberYellow {
+    color: #ffd400;
+}
+
+.p-col-fixed {
+
+    &.w-20 {
+        width: 20%;
+    }
+
+    &.w-15 {
+        width: 15%;
+    }
+
+    &.w-16 {
+        width: 16%;
+    }
+
+    &.w-10 {
+        width: 10%;
+    }
+
+    &.w-7 {
+        width: 7%;
+    }
+
+    &.w-6 {
+        width: 6%;
+    }
+
+    &.w-5 {
+        width: 5%;
+    }
+}
+
+.sm-data-font {
+    @media only screen and (max-width:280px) {
+        font-size: 12px;
+    }
+}
+.x-big-bold-data-font {
+    font-size: 20px !important;
+    font-weight: 600;
+}
+
+.big-bold-data-font {
+    font-size: 17px !important;
+    font-weight: 600;
+}
+
+.big-data-font {
+    font-size: 17px !important;
+    font-weight: 400;
+    @media only screen and (max-width: 1025px){
+        font-size: 14.5px !important;
+    }
+}
+
+.data-font {
+    font-size: 14px !important;
+    font-weight: 400;
+
+}
+.small-data-font {
+    font-size: 11px !important;
+    font-weight: 400;
+}
+
+.heading-font {
+    font-weight: 600;
+
+}
+
+.card-box {
+    background: white;
+    margin-bottom: 15px;
+}
+
+i[class*='ui-icon'],
+.material-icons {
+    vertical-align: bottom;
+}
+
+.lockIconForFilters {
+	height: 27px;
+}
+
+.social-link {
+    & > a {
+        svg, img#google-image {
+            max-height: 17px;
+            max-width: 17px;
+        }
+        &:not(:last-of-type) {
+            svg, img#google-image {
+                margin-right: 5px;
+            }
+        }
+    }
+    
+    .linkedin {
+        fill: #0077b5;
+    }
+
+    .facebook {
+        fill: #3b5999;
+    }
+
+    .twitter {
+        fill: #1da1f2;
+    }
+}
+
+.float-r {
+    float: right;
+}
+
+.bg-grey {
+    background-color: rgb(248, 248, 248);
+}
+
+.bg-white {
+    background-color:#fff;
+}
+
+.card-row {
+    padding: 0.5em;
+    border-bottom: 0.5px solid rgb(218, 218, 218);
+}
+
+.ml-8{
+    margin-left: -8px;
+}
+
+.directorStatus {
+    width: 19px;
+    height: 12px;
+}
+
+.greenFill {
+    fill: #1ab394;
+
+}
+
+.redFill {
+    fill: #df2020;
+}
+
+.greyFill {
+    fill: #9b9b9b;
+}
+
+.seperator {
+    width: 12px;
+    height: 12px;
+    vertical-align: bottom;
+}
+
+.cardHeaderTitle {
+    font-size: 1em;
+    font-weight: 400;
+
+    @media only screen and (max-width:280px) {
+        font-size: 0.9em;
+    }
+}
+
+.card {
+    box-shadow: none;
+    .cardHeaderTitle {
+        @extend .cardHeaderTitle;
+    }
+}
+
+.lifelineWrapper {
+    .material-icons {
+        color: white;
+        border-radius: 20px;
+        height: 36px;
+        width: 36px;
+        font-size: 1.7em !important;
+        text-align: center;
+        padding-top: 6px
+    }
+}
+
+.addedNotesWrapper {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            &:nth-child(even) {
+                a {
+                    background-color: #f1f1f1;
+                }
+            }
+
+            a {
+                display: block;
+                background-color: #fff;
+                padding: 0.5em;
+
+                &:hover {
+                    background-color: #e8e8e8;
+                }
+            }
+        }
+    }
+}
+
+#target {
+    height: 38vh;
+}
+
+.bold {
+    padding-top: 18px;
+    font-weight: 600;
+}
+
+.ccj-font {
+    font-size: 15px;
+}
+
+.ccj-bold {
+    font-weight: 600;
+}
+
+.ccj-height {
+    line-height: 1;
+}
+
+.i-line {
+    line-height: 1.2;
+}
+
+.commentry-timeline {
+    max-height: 448px;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    @media only screen and (max-width: 767px) {
+        max-height: 260px;
+    }
+
+    [class*="ui-icon-arrow"] {
+        display: inline-block;
+        vertical-align: middle;
+        width: 26px;
+        height: 26px;
+        font-size: 1.2em;
+        line-height: 26px;
+        text-align: center;
+        color: #fff !important;
+        border-radius: 50%;
+
+        &.c-green {
+            background-color: #1ab394;
+        }
+        &.c-red {
+            background-color: #df2020;
+        }
+        &.amberYellow {
+            background-color: #ffd400;
+        }
+    }
+}
+
+.no_data {
+    margin: 0;
+    padding: 0;
+}
+
+.charges-timeline {
+    max-height: 345px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.featuredLinks {
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+
+        & + a {
+            margin-left: 5px;
+        }
+        img, svg, i {
+            max-height: 20px;
+        }
+        i {
+            position: relative;
+            top: 1.5px;
+            color: #23b394;
+        }
+    }
+    .linkedin {
+        fill: #0077b5;
+    }
+
+    .facebook {
+        fill: #3b5999;
+    }
+    
+    .twitter {
+        fill: #1da1f2;
+    }
+}
+
+p-tree {
+    .highlightCurrentCompanyNode {        
+        &:before {
+            content: '';
+            display: block;
+            background-color: #fff266;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 3px;
+            pointer-events: none;
+            user-select: none;
+            @media only screen and (max-width:1024px){
+                border-radius: 12px;
+            }
+        }
+
+        * {
+            position: relative;
+            z-index: 1;
+        }
+    }
+}
+
+.businessValuationCard {
+    .card.onlyLinesAround {
+        min-height: 94.4%;
+
+        .cardTitle {
+            margin: 0 0 20px;
+            padding: 0 0 10px;
+            border-bottom: 1px solid #d2d2d2;
+        }
+    }
+}
+
+@media only screen and (max-width:767px) {
+    
+
+    .md-font {
+        font-size: 14px;
+        @media only screen and (max-width:320px){
+            font-size: 11px !important;
+        }
+        @media only screen and (max-width:280px){
+            font-size: 9px !important;
+        }
+
+    }
+    .monitor{
+        line-height: 3.5;
+    }
+    .reportFullcredit{
+        line-height: 2.0;
+    }
+    .companyDetailsWidth{
+        width: auto;
+    }
+
+    .responsiveCharts {
+        display: inline;
+    }
+
+    .responsiveBtn {
+        // margin-left: 45%;
+        //direction: rtl;
+        margin-bottom: -11px;
+    }
+    .responsiveMargin {
+        margin-bottom: -7px;
+    }
+
+    .responsiveLifeline {
+        position: relative;
+        right: 19px;
+    }
+
+    .responsiveLine {
+        display: none;
+    }
+
+    .small-data-font {
+        font-size: 8px !important;
+        font-weight: 400;
+    }
+}
+
+.tabsToggleButtonWrapper {
+    position: relative;
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+
+    @media only screen and ( min-width: 1025px ) {
+        display: none;
+    }
+
+    .selectedTabPlaceholder {
+        display: block;
+        background-color: #fff;
+        min-height: 32px;
+        font-size: 1.2em;
+        font-weight: 500;
+        line-height: 1.4;
+        color: #1ab394;
+        padding: 8.5px 40px 8.5px 20px;
+        -webkit-pointer-events: none;
+        pointer-events: none;
+    }
+    .ui-button {
+        font-size: 1.35em;
+        line-height: 1;
+        color: #1ab394;
+        position: absolute;
+        top: 0;
+        right: 12px;
+        -webkit-pointer-events: none;
+        pointer-events: none;
+    }
+}
+.chooseOptionsBlock {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1px 7px;
+    margin: 7px;
+
+    @media only screen and (max-width: 767px) {
+        background-color: #fff;
+        // flex: 1;
+    }
+    
+    @media only screen and (max-width: 576px) {
+        margin-top: -7px;
+    }
+
+    h4 {
+        position: relative;
+        color: #1ab394;
+        //padding-bottom: 10px;
+        padding-right: 40px;
+
+        -webkit-transition: all 0.4s ease-in-out;
+        -moz-transition: all 0.4s ease-in-out;
+        -ms-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
+        
+        .toggleContainerBlock {
+            display: block;
+            width: 25px;
+            height: 25px;
+            font-size: inherit;
+            color: inherit;
+            line-height: 25px;
+            text-align: center;
+            position: absolute;
+            right: -15px;
+            top: 0px;
+            font-family: "Material Icons";
+            font-weight: normal;
+            font-style: normal;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: "liga";
+
+            &:after {
+                content: 'expand_more';
+                font-size: 20px;
+            }
+        }
+
+    }
+
+    .categoriesBtnsContainer {
+        max-height: 1000px;
+        overflow: auto;
+
+        -webkit-transition: max-height 0.4s ease-in-out;
+        -moz-transition: max-height 0.4s ease-in-out;
+        -ms-transition: max-height 0.4s ease-in-out;
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    &.collapsed {
+        h4 {
+            padding-bottom: 0;
+
+            .toggleContainerBlock {
+                &:after {
+                    content: 'expand_less';
+                }
+            }
+        }
+
+        .categoriesBtnsContainer {
+            max-height: 0;
+            overflow: hidden;
+        }
+    }
+
+}
+
+@media only screen and (min-width: 767px) {
+    .chooseOptionsBlock {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .boxTextSize {
+        font-size: 9px;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .boxTextSize {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    
+    .companiesShareHolderHeading {
+        font-size: 13px;
+    }
+
+}
+
+@media only screen and (max-width: 320px) {
+    .chooseOptionsBlock {
+        max-width: 225px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .companyDetailsInfoSection {
+        display: none;
+    }
+    .floatleft {
+        float: left;
+    }
+    .marginLeft{
+        margin-left: -7px;
+    }
+}
+@media only screen and (max-width: 280px) {
+    .chooseOptionsBlock {
+        max-width: 186px !important;
+    }
+
+}
+@media only screen and (min-width:1026px){
+
+    .vertical-style,
+    .ui-vertical-layout {
+        display: none;
+    }
+
+}
+@media only screen and (max-width:1026px) {
+
+    .horizontal-style {
+        display: none;
+    }
+
+}
+.defaultCompanyLogo {
+    font-size: 48px;
+    color: #4593bd;
+}
+.chartLegendTriggerBox {
+    display: inline-block;
+    vertical-align: text-top;
+    width: 35px;
+    height: 13px;
+    border: 3px solid #585858;
+    margin-right: 5px;
+}
+.download-link {
+    color: rgb(82, 166, 255);
+    text-decoration: underline;
+}
+.in-block {
+    display: inline-block;
+}
+.financialCard {
+    position: relative;
+
+    p-progressSpinner {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .p-progress-spinner {
+        width: 120px;
+        height: 443px;
+    }
+}
+.companyRiskAssessmentAnalysisTab {
+    p-card {
+        h3 {
+            font-weight: normal;
+        }
+    }
+
+    .riskValueMeterBar {
+        position: relative;
+        padding-top: 20px;
+
+        .notScoredPointer {
+            display: block;
+            font-size: 1.5em;
+            text-align: center;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 0.4em 0;
+            z-index: 1;
+        }
+        .meterBar {
+            background: #23cd8f;
+            background: -moz-linear-gradient(90deg, #23cd8f 8%, #ffe835 60%, #ff4800 100%);
+            background: -webkit-linear-gradient(90deg, #23cd8f 8%, #ffe835 60%, #ff4800 100%);
+            background: linear-gradient(90deg, #23cd8f 8%, #ffe835 60%, #ff4800 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#23cd8f",endColorstr="#ff4800",GradientType=1);
+
+            display: block;
+            height: 10px;
+            border-radius: 20px;
+        }
+        .barPointer {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            font-size: 0.8em;
+
+            & > span {
+                position: relative;
+
+                &.active {
+                    &::before {
+                        content: "";
+                        display: block;
+                        width: 10px;
+                        height: 13px;
+                        background-color: #9b9b9b;
+                        border-top-left-radius: 10px;
+                        border-top-right-radius: 10px;
+                        position: absolute;
+                        left: 50%;
+                        top: -30px;
+                        margin-left: -5px;
+                    }
+                    &::after {
+                        content: "";
+                        display: block;
+                        width: 7.5px;
+                        height: 7.5px;
+                        background-color: #9b9b9b;
+                        transform: rotate(45deg);
+                        position: absolute;
+                        left: 50%;
+                        top: -20px;
+                        margin-left: -4px;
+                    }
+                }
+            }
+        }
+    }
+
+    .underlineOnHover {
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+::ng-deep {
+    p-tabview {
+        .p-tabview {
+            .p-tabview-panels {
+                padding: 0;
+                background: none
+            }
+        }
+    }
+}
+.inputarea{
+    border: 1px solid #a5a1a1 ;
+    width: 245px;
+    padding-left: 10px;
+}
+.dialog{
+    width: auto;
+}
+.iconcolor{
+	color: #4285F4;
+}

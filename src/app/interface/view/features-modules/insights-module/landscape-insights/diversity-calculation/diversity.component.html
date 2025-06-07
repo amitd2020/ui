@@ -1,0 +1,281 @@
+<!-- <ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card upgradePlan text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container> -->
+
+<ng-container>
+
+    <p-messages [(value)]="msgs"></p-messages>
+   
+    <div class="grid mb-3">
+
+        <p-dialog [draggable]="false" [modal]="true" [header]="'Header Mapping'" [(visible)]="showDialog" [style]="{width: '87vw' }" [maximizable]="true">
+            <p-messages [(value)]="msgs"></p-messages>
+            <div class="mt-4">
+                <div class="c-light mb-2"><small>( *Note : When mapping headers, please ensure that the <strong> "Supplier Name", "Spend Net" and "Date Paid" </strong> fields are included as they are mandatory )</small></div>
+                <table class="dynamic-table">
+                    <tr>
+                        <th *ngFor="let items of headerDropdownNgModel">
+                        <div>
+                            <p-dropdown [options]="dropdownOptionsArray" name="key" placeholder="Select Header" [filter]="false" appendTo="body" optionLabel="label" optionValue="value" optionDisabled="inactive" [(ngModel)]="items.ngModel" (onChange)="updateInactivityForFinancialKeyDropdown( items )"></p-dropdown>
+
+                        </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let header of headers">{{ header }}</th>
+                    </tr>
+                    <ng-container *ngFor="let row of columnData">
+                        <tr>
+                        <td *ngFor="let cell of row">{{ cell }}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+            <ng-template pTemplate="footer">
+                <p-button label="Mapping Headers" (onClick)="setHeaders()"></p-button>
+            </ng-template>
+        </p-dialog>
+    
+        <div class="col-6 flex">
+            <p-dropdown [options]="diversitySaveList" [(ngModel)]="selectlist" placeholder="Select a List" optionLabel="listName" styleClass="roundedCorners" (onChange)="getDiversityIndexdData( selectlist ); diversitySpendsTableInformation(selectlist)"></p-dropdown>
+            <div class="ml-4 mt-1" addOnAccess="diversityCalculation">
+                <p-fileUpload #fileUploader  mode="basic" chooseLabel="Choose File" name="file[]" accept=".csv" [auto]="true"  (onSelect)="onSelectedFile($event)"></p-fileUpload>
+            </div>
+
+        </div>
+    </div>
+
+    <ng-container *ngIf="diversitySaveList.length; else noRecordTemplate">
+        
+        <div class="grid">
+            <div class="col-3 bg-gray-200 py-2 px-3 border-1 border-gray-400 border-round-left-xl">
+                <div class="flex gap-1 align-items-center">
+                    <h3 class="text-teal-500 font-semibold mb-1 py-2">Segmentation By Ownership</h3>
+                    <!-- <dg-shared-itag-component><div class="m-2 cursor-pointer">Focusing on diversity, inclusion & workplace representation.</div></dg-shared-itag-component> -->
+                </div>
+                <div class="grid">
+                    <ng-container *ngFor="let data of counts | keyvalue: preventDefaultSort">
+                        <!-- {{data | json}} -->
+                        <ng-container *ngIf="![ 'msdukCertification', 'bcorpCertification', 'netZeroTargetCounts', 'ppcCategoryCount', 'modernSlaveryCount', 'vcse_categoryCount', 'genderpayGapReportingCount', 'raceAtWork', 'dataControllersCount'].includes( data.key )">
+                            <div class="col-12">
+                                <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                                    <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )">
+                                        <div class="grid">                    
+                                            <div class="col-fixed text-lg">
+                                                <span class="circle font-bold text-4xl" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">{{ data.value.value | number: '1.0-0' }}</span>    
+                                            </div>
+                                            <div class="col" >
+                                                <!-- <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )"> -->
+                                                    <span class="text-base mb-0 c-light">{{ data.value.label }}
+                                                        <dg-shared-itag-component><div class="m-2" [innerHTML]="data.value.infoMsg"></div></dg-shared-itag-component>
+                                                    </span>
+                                                    <div class="flex justify-content-between py-2">
+                                                        <div class="text-lg mb-0 font-medium" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">{{ data.value.totalSpent | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                                                            <span>({{ data.value.percentage | number : '1.0-2' }}%)</span>
+                                                        </div>
+                                                    </div>
+                                                <!-- </a> -->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                
+            </div>
+
+            <div class="col-6 bg-gray-200 py-2 px-3 border-1 border-gray-400">
+                <div class="flex gap-1 align-items-center">
+                    <h3 class="text-teal-500 font-semibold mb-1 py-2">Mission Spectrum</h3>
+                    <!-- <dg-shared-itag-component><div class="m-2">Focusing on sustainability, social impact & ethical business practices.</div></dg-shared-itag-component> -->
+                </div>
+                <div class="grid">
+                    <ng-container *ngFor="let data of counts | keyvalue: preventDefaultSort">
+                        <ng-container *ngIf="['bcorpCertification', 'netZeroTargetCounts', 'modernSlaveryCount', 'genderpayGapReportingCount', 'raceAtWork', 'ppcCategoryCount', 'vcse_categoryCount', 'dataControllersCount'].includes( data.key )">
+                            <div class="col-6">
+                                <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                                    <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )">
+                                        <div class="grid">                    
+                                            <div class="col-fixed text-lg">
+                                                <span class="circle font-bold text-4xl" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">{{ data.value.value | number: '1.0-0' }}</span>    
+                                            </div>
+                                            <div class="col" >
+                                                <!-- <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )"> -->
+                                                    <span class="text-base mb-0 c-light">{{ data.value.label }}
+                                                        <dg-shared-itag-component><div class="m-2" [innerHTML]="data.value.infoMsg"></div></dg-shared-itag-component>
+                                                    </span>
+                                                    <div class="flex justify-content-between py-2">
+                                                        <div class="text-lg mb-0 font-medium" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">{{ data.value.totalSpent | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                                                            <span>({{ data.value.percentage | number : '1.0-2' }}%)</span>
+                                                        </div>
+                                                    </div>
+                                                <!-- </a> -->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+            <!-- <ng-container *ngIf="this.userAuthService.hasAddOnPermission('developerFeatures')"> -->
+            <div class="col-3 bg-gray-200 py-2 px-3 border-1 border-gray-400 border-round-right0-xl">
+                <div class="flex gap-1 align-items-center">
+                    <h3 class="text-teal-500 font-semibold mb-1 py-2">Public Sector Spent</h3>
+                </div>
+                <!-- <dg-shared-itag-component><div class="m-2">Covering government bodies, councils & educational institutions.</div></dg-shared-itag-component> -->
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="diversityInclusionCountCards bg-white border-yellow-700 border-x-2">
+                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( diversityInclusionData?.result?.isGovtDeptsCounts, 'Public Sector Spent' )">
+                                <div class="grid">                    
+                                    <div class="col-fixed text-lg">
+                                        <span class="circle font-bold text-4xl text-yellow-700">{{ diversityInclusionData?.result?.isGovtDeptsCounts.doc_count | number: '1.0-0' }}</span>    
+                                    </div>
+                                    <div class="col" >
+                                        <!-- <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )"> -->
+                                            <span class="text-base mb-0 c-light">{{ diversityInclusionData?.result?.isGovtDeptsCounts?.key }}
+                                                <dg-shared-itag-component><div class="m-2">Organizations funded and operated by the government, including departments, agencies, and public services.</div></dg-shared-itag-component>
+                                            </span>
+                                            <div class="flex justify-content-between py-2">
+                                                <div class="text-lg mb-0 font-medium text-yellow-700">{{ diversityInclusionData?.result?.isGovtDeptsCounts.spendTotal | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                                                    <span *ngIf="diversityInclusionData?.result?.isGovtDeptsCounts.spendPercentage">({{ diversityInclusionData?.result?.isGovtDeptsCounts.spendPercentage | number : '1.0-2' }}%)</span>
+                                                </div>
+                                            </div>
+                                        <!-- </a> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12" >
+                        <div class="diversityInclusionCountCards bg-white border-blue-700 border-x-2">
+                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( diversityInclusionData?.result?.isCouncilCounts, 'Public Sector Spent' )">
+                                <div class="grid">                    
+                                    <div class="col-fixed text-lg">
+                                        <span class="circle font-bold text-4xl text-blue-700">{{ diversityInclusionData?.result?.isCouncilCounts.doc_count | number: '1.0-0' }}</span>    
+                                    </div>
+                                    <div class="col" >
+                                        <!-- <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )"> -->
+                                            <span class="text-base mb-0 c-light">{{ diversityInclusionData?.result?.isCouncilCounts?.key }}
+                                                <dg-shared-itag-component><div class="m-2">Local government entities responsible for services such as planning, transportation, and public welfare.</div></dg-shared-itag-component>
+                                            </span>
+                                            <div class="flex justify-content-between py-2">
+                                                <div class="text-lg mb-0 font-medium text-blue-700">{{ diversityInclusionData?.result?.isCouncilCounts.spendTotal | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                                                    <span *ngIf="diversityInclusionData?.result?.isCouncilCounts.spendPercentage">({{ diversityInclusionData?.result?.isCouncilCounts.spendPercentage | number : '1.0-2' }}%)</span>
+                                                </div>
+                                            </div>
+                                        <!-- </a> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-12" >
+                        <div class="diversityInclusionCountCards bg-white border-pink-700 border-x-2">
+                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( diversityInclusionData?.result?.isUniversityCounts, 'Public Sector Spent' )">
+                                <div class="grid">                    
+                                    <div class="col-fixed text-lg">
+                                        <span class="circle font-bold text-4xl text-pink-700">{{ diversityInclusionData?.result?.isUniversityCounts.doc_count | number: '1.0-0' }}</span>    
+                                    </div>
+                                    <div class="col" >
+                                        <!-- <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )"> -->
+                                            <span class="text-base mb-0 c-light">{{ diversityInclusionData?.result?.isUniversityCounts.key }}
+                                                <dg-shared-itag-component><div class="m-2">Universities, colleges, and research institutions providing advanced education and academic research.</div></dg-shared-itag-component>
+                                            </span>
+                                            <div class="flex justify-content-between py-2">
+                                                <div class="text-lg mb-0 font-medium text-pink-700">{{ diversityInclusionData?.result?.isUniversityCounts.spendTotal | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                                                    <span *ngIf="diversityInclusionData?.result?.isUniversityCounts.spendPercentage">({{ diversityInclusionData?.result?.isUniversityCounts.spendPercentage | number : '1.0-2' }}%)</span>
+                                                </div>
+                                            </div>
+                                        <!-- </a> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-12" >
+                        <div class="diversityInclusionCountCards border-cyan-700 bg-white border-x-2">
+                            <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage( diversityInclusionData?.result?.isOtherCounts, 'Public Sector Spent' )">
+                                <div class="grid">                    
+                                    <div class="col-fixed text-lg">
+                                        <span class="circle font-bold text-4xl text-cyan-700">{{ diversityInclusionData?.result?.isOtherCounts.doc_count | number: '1.0-0' }}</span>    
+                                    </div>
+                                    <div class="col" >
+                                        <!-- <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(data, 'Ethnicity Spectrum' )"> -->
+                                            <span class="text-base mb-0 c-light">{{ diversityInclusionData?.result?.isOtherCounts?.key }}</span>
+                                            <div class="flex justify-content-between py-2">
+                                                <div class="text-lg mb-0 font-medium text-cyan-700">{{ diversityInclusionData?.result?.isOtherCounts.spendTotal | currency: 'GBP' : 'symbol' : '1.0-0' }}
+                                                    <span *ngIf="diversityInclusionData?.result?.isOtherCounts.spendPercentage">({{ diversityInclusionData?.result?.isOtherCounts.spendPercentage | number : '1.0-2' }}%)</span>
+                                                </div>
+
+                                            </div>
+                                        <!-- </a> -->
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- </ng-container> -->
+            
+        </div>
+        
+        <div class="grid">
+            <div class="col-12">
+                <div class="h-full border-round-lg">
+                        <div class="grid">
+                            <div class="col-6">
+                                <h3 class="text-teal-500 font-semibold my-3">Segmentation By Size 
+                                    <ng-container *ngIf="routerUrl == 'supplier-analytics'">
+                                        <dg-shared-itag-component><div class="m-2">{{'Categorises supplier spend by business size, from micro to large enterprises, offering insights into supplier diversity and economic impact.'}}</div></dg-shared-itag-component>
+                                    </ng-container> 
+                                </h3>
+                                <div class="card">
+                                    <dg-shared-graph [chartOptions]="optionForGraph?.['size']" [chartStyles]="{ height: '260px' }" (updateClickInChart)="updateClickInChart( $event, 'MSME Classification' )"></dg-shared-graph>
+                                </div>
+                            </div>
+                            <!-- <ng-container *ngIf="this.userAuthService.hasAddOnPermission('developerFeatures')"> -->
+                                <div class="col-6">
+                                    <h3 class="text-teal-500 font-semibold my-3">Risk Assessment 
+                                        <ng-container *ngIf="routerUrl == 'supplier-analytics'">
+                                            <dg-shared-itag-component><div class="m-2">{{'Evaluate supplier risk based on financial and operational factors to ensure a resilient and stable supply chain. Understand how much of your spend is allocated to low, medium, and high-risk suppliers to make informed procurement decisions.'}}</div></dg-shared-itag-component>
+                                        </ng-container>
+                                    </h3>
+                                    <div class="card">
+                                        <!-- <dg-shared-echart [dataForGraph]="diversityInclusionData?.result?.internationalScoreDescriptionCounts" [donutChartHeight]="'height: 260px'" [thisPage]="'diversityCalculation'" (updateClickInChart)="updateClickInChart( $event, 'Credit Risk Bands' )" [internationalScoreBgColor]="internationalScoreStatusColor"></dg-shared-echart> -->
+                                        <dg-shared-graph [chartOptions]="optionForGraph?.['risk']" [chartStyles]="{ height: '260px' }" (updateClickInChart)="updateClickInChart( $event, 'Credit Risk Bands' )"></dg-shared-graph>
+                                    </div>
+                                </div>
+                            <!-- </ng-container> -->
+                        </div>
+    
+                </div>
+            </div>
+    
+        
+        </div>
+
+        <dg-admin-record-list *ngIf="diversityInclusionData" [listId]="globalFilterDataObject.listId" [listColumns]="keyPreparationObj[routerUrl].tableColumns" [listDataValues]="diversityIndexDataValue" [searchTotalCount]="searchTotalCount" [thisPage]="keyPreparationObj[routerUrl].thisPage" (updateTableAfterPagination)="updateTableAfterPagination( $event )" [companyStatusCount]="diversityInclusionData?.result?.companyStatusCounts" [companyTotalCount]="diversityInclusionData.total" [globalFilterDataObject]="globalFilterDataObject" [listName]="globalFilterDataObject.listName"></dg-admin-record-list>
+
+    </ng-container>
+
+</ng-container>
+
+<ng-template #noRecordTemplate>
+    <div class="h-5rem bg-white flex flex-column justify-content-center align-items-center mt-5">
+        <i class="pi pi-exclamation-circle text-2xl text-gray-400"></i>
+        <p class="text-gray-500 mt-2 text-lg">No data found. Please upload a CSV file to proceed.</p>
+    </div>
+</ng-template>

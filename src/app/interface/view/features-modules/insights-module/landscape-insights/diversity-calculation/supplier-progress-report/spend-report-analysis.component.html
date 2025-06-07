@@ -1,0 +1,178 @@
+<div class="bg-white p-1">
+    <div class="grid" *ngIf="dataHandler && dataHandler['totalSpends']?.length; else skeletonLoader">
+
+        <div class="col-6">
+            <div class="grid">
+                
+                <div class="col-12 flex gap-4 align-items-center p-2 pb-4">
+                    <h2 class="p-2 text-gray-700">Spend Overview</h2>
+                    <ng-container *ngIf="pdfScreen">
+                        <dg-make-pdf-report [apiDataResults]="dataHandler"></dg-make-pdf-report>
+                    </ng-container>
+                </div>
+        
+                <div class="col-7">
+
+                    <ng-container *ngFor="let item of dataHandler['totalSpends']">
+                        <ng-container *ngIf="item['key'] == 'total'">
+                            <div class="grid mb-1">
+                                <div class="col-4 text-lg font-semibold text-gray-600 text-right">Total Spend:</div>
+                                <div class="col-fixed text-xl font-bold text-left">{{item.value | currency: 'GBP' : 'symbol': '1.0-0'}}</div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngFor="let item of dataHandler['totalSpends']; let indx=index">
+                        <ng-container *ngIf="item['key'] != 'total'">
+                            <div class="grid">
+                                <div class="col-4 text-sm font-semibold text-gray-600 text-right">{{item.key}}:</div>
+                                <div class="col-fixed text-base text-left">{{item.value | currency : 'GBP' : 'symbol' : '1.0-0'}}
+                                    <!-- <span>(+32.5% from 2019)</span> -->
+                                    <span  *ngIf="item?.type && item?.type == 'increase'">(
+                                        <i class="pi pi-arrow-up text-green-900 font-bold mr-1 text-sm"></i>
+                                        <span class="text text-green-900 font-semibold">{{item['percentage']}}% </span>
+                                        <span class="text-sm">from </span>
+                                        <span class="text font-semibold">{{dataHandler['totalSpends'][indx - 1] ? dataHandler['totalSpends'][indx - 1]['key']: '-'}}</span>
+                                        )
+                                    </span>
+                                    <span *ngIf="item?.type && item?.type == 'decrease'">(
+                                        <i class="pi pi-arrow-down text-red-900 font-bold mr-1 text-sm"></i>
+                                        <span class="text text-red-900 font-semibold">{{item['percentage']}}% </span>
+                                        <span class="text-sm">from </span>
+                                        <span class="text font-semibold">{{dataHandler['totalSpends'][indx - 1] ? dataHandler['totalSpends'][indx - 1]['key'] : '-'}}</span>
+                                        )
+                                    </span> 
+                                </div>
+                            </div>  
+                        </ng-container>
+                    </ng-container>
+
+                </div>
+                
+                <div class="col-5">
+                    <div class="text-lg font-semibold text-gray-800 text-left mb-1">
+                        <span class="material-icons mr-2 text-blue-800">trending_up</span>
+                        Spend Breakdown
+                    </div>
+
+                    <ng-container *ngFor="let item of spendBreakDown">
+                        <div class="text-base {{item.class}} mt-2 mb-1 font-semibold ml-2 pl-5">{{ item['header'] }}</div>
+                        <div class="text-sm ml-4 pl-6">
+                            <span class="text-lg font-semibold {{item.class}}">{{dataHandler[item['key']][0]['percentage'] | number: '1.0-2' }}% </span>
+                            <!-- <span>of total spend </span> -->
+                            <span class="text-lg">({{dataHandler[item['key']][0]['total'] | currency : 'GBP' : 'symbol' : '1.0-0'}})</span>  
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- Link section -->
+                <div class="col-12 flex justify-content-between py-2 mb-3 mt-5 mx-3 bg-gray-50 border-round">
+
+                    <div class="flex gap-3">
+                        <ng-container *ngFor="let item of buttons;">
+                            <div id="{{item.key + index}}" class="text-right mr-4 text-sm">
+                                <a *ngIf="activeButtonKey != item['key']" class="text-blue-700 font-medium underline" href="javascript:void(0)" (click)="viewAnalytics( item )">
+                                    {{ item.label }}
+                                </a>
+                                <a  *ngIf="activeButtonKey == item['key']" class="cursor-auto text-white bg-indigo-600  px-2 p-1 py-2 border-round " href="javascript:void(0)">
+                                    {{ item.label }}
+                                </a>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <!-- <div>Links</div> -->
+
+                </div>
+                
+                <!-- content of selected item -->
+                 <ng-container *ngFor="let item of graphForDiverse[activeButtonKey]['itemArray']">
+                    <div class="col-12 p-2 ml-3 border-round pb-0 mb-2">
+                         <div class="grid p-1 pb-0" style="min-height: 10rem;">
+     
+                             <div class="col-6 pb-0">
+                                 <div class="text-base font-medium text-blue-800 mb-2 py-1">{{diverseColorObj[item]['header']}}</div>
+                                 <ng-container *ngFor="let dataItem of dataHandler[item]; let indx=index">
+                                    <ng-container *ngIf="dataItem['key'] != 'total'; else totalSpend">
+                                        <div class="grid">
+                                            <div class="col-fixed text-xs font-semibold text-gray-600">{{dataItem['key']}}:</div>
+                                            <div class="col-fixed text-base text-left">{{dataItem['value'] | currency : 'GBP' : 'symbol' : '1.0-0'}}
+                                                <span *ngIf="dataItem?.type && dataItem?.type == 'increase'">(
+                                                    <i class="pi pi-arrow-up text-green-900 font-bold mr-1 text-sm"></i>
+                                                    <span class="text text-green-900 font-semibold">{{dataItem['percentage']}}% </span>
+                                                    <span class="text-sm">from </span>
+                                                    <span class="text font-semibold">{{dataHandler[item][indx - 1]['key']}}</span>
+                                                    )
+                                                </span>
+                                                <span *ngIf="dataItem?.type && dataItem?.type == 'decrease'">(
+                                                   <i class="pi pi-arrow-down text-red-900 font-bold mr-1 text-sm"></i>
+                                                   <span class="text text-red-900 font-semibold">{{dataItem['percentage']}}% </span>
+                                                   <span class="text-sm">from </span>
+                                                   <span class="text font-semibold">{{dataHandler[item][indx - 1]['key']}}</span>
+                                                   )
+                                               </span> 
+                                            </div>
+                                        </div>
+
+                                    </ng-container>
+                                    <ng-template #totalSpend>
+                                        <div class="grid">
+                                            <div class="col-fixed text-sm font-medium text-gray-600">Total Spend:</div>
+                                            <div class="col-fixed text-lg font-semibold text-indigo-600">{{dataItem['value'] | currency: 'GBP' : 'symbol' : '1.0-0'}}</div>
+                                        </div>
+                                    </ng-template>
+                                 </ng-container>
+                             </div>
+                             <div class="col-6 hfull">
+                                 <dg-shared-graph [chartOptions]="optionForBarGraph[item]" [chartStyles]="{height: '150px' }"></dg-shared-graph>
+                             </div>
+
+                         </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngFor="let item of graphForDiverseTemp['ownership_diverse']['itemArray']">
+                    <div *ngIf="chartsLoaded" class="col-6 hfull">
+                        <dg-shared-graph id="{{item}}" #chartContainer [chartOptions]="optionForBarGraph[item]" [chartStyles]="{height: '150px' }"></dg-shared-graph>
+                    </div>
+                </ng-container>
+                
+            </div>
+        </div>
+
+        <div class="col-6 pt-0">
+            <div class="bg-gray-50 ml-5 mr-2 mt-3 border-bottom-3 border-top-2 px-2 py-3 border-round-xl border-gray-300">
+                <dg-shared-graph [chartOptions]="optionForOverviewDoughnut" [chartStyles]="{ height: '250px' }"></dg-shared-graph> 
+            </div>
+            <div class="bg-gray-50 ml-5 mr-2 mt-3 border-bottom-3 border-top-2 px-2 py-3 border-round-xl border-gray-300">
+                <dg-shared-graph [chartOptions]="optionForPieDiverse" [chartStyles]="{ height: '250px' }"></dg-shared-graph> 
+            </div>
+            <div class="bg-gray-50 ml-5 mr-2 mt-3 border-bottom-3 border-top-2 px-2 py-3 border-round-xl border-gray-300">
+                <dg-shared-graph [chartOptions]="roseGraphMSME" [chartStyles]="{ height: '250px' }"></dg-shared-graph> 
+            </div>
+        </div>
+    </div>
+    
+    <!-- below container used in pdf  -->
+    <ng-container *ngIf="chartsLoaded">
+        <div class="grid">
+            <div class="col-3 bg-gray-200">
+                <dg-shared-graph id="ownership_diverse" #chartContainer [chartOptions]="pieGraphForOwnershipDiverse" [chartStyles]="{ height: '200px' }"></dg-shared-graph>
+            </div>
+            <div class="col-3 bg-blue-100">
+                <dg-shared-graph id="mission_diverse" #chartContainer [chartOptions]="pieGraphForMissionDiverse" [chartStyles]="{ height: '200px' }"></dg-shared-graph>
+            </div>
+            <div class="col-3 bg-blue-100">
+                <dg-shared-graph id="msme_diverse" #chartContainer [chartOptions]="pieGraphForMSMEDiverse" [chartStyles]="{ height: '200px' }"></dg-shared-graph>
+            </div>
+        </div>
+    </ng-container>
+    <!-- END HERE  -->
+    
+    <ng-template #skeletonLoader>
+        <div class="empty-container text-center h-5rem">
+            <i class="pi pi-exclamation-circle text-5xl text-gray-400"></i>
+            <p class="text-gray-500 mt-2">No data available</p>
+        </div>
+    </ng-template> 
+
+</div>

@@ -1,0 +1,55 @@
+:host {
+    ::ng-deep .p-datatable .p-datatable-thead>tr>th {
+        background-color: #009688;
+        color: #fff;
+    }
+
+    ::ng-deep .ui-icon-touch-app:before {
+        content: "touch_app";
+        font-size: x-large;
+        color: bisque;
+    }
+}
+
+::ng-deep .p-tooltip {
+    max-width: 350px;
+    width: 350px;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+    background: rgba(30, 162, 202, 0.671);
+    color: #fff;
+}
+
+.header {
+    background-color: #009688;
+    padding: 10px;
+    text-align: center;
+    margin-top: -28px;
+}
+
+.menu {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin: 5px 10px;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        flex-direction: column;
+    }
+}
+
+::ng-deep {
+    .p-fieldset {
+        height: 162px; /* Set your desired height */
+        overflow-y: auto; /* Add vertical scroll if the content overflows */
+    }
+}

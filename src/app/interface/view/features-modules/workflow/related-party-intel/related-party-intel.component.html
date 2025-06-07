@@ -1,0 +1,29 @@
+<div class="grid align-items-center">
+    <div class="col-5">
+        <div class="card">
+            <p-dropdown [options]="sourceGroupedLists" [(ngModel)]="sourceList" optionLabel="listName" placeholder="Select source list" [group]="true">
+                <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center py-2 bg-blue-50">
+                        <span class="text-cyan-700 font-medium pl-2">{{ group.label | uppercase }} LIST</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <p-dropdown [options]="sourceGroupedLists" [(ngModel)]="destinationList" optionLabel="listName" placeholder="Select destination list" [group]="true">
+                <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center py-2 bg-blue-50">
+                        <span class="text-cyan-700 font-medium pl-2">{{ group.label | uppercase }} LIST</span>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="col-2 pl-6">
+        <button pButton type="submit" label="Show Relation" class="p-button-rounded p-button-lg" [disabled]="!( (sourceList.hasOwnProperty('_id') && destinationList.hasOwnProperty('_id')) && ( sourceList != destinationList ) )" (click)="getComparedWorkflowListData()"></button>
+    </div>
+</div>
+
+<dg-record-list [listColumns]="relatedIntelPartyCols" [listDataValues]="relatedIntelPartyVals" [showCheckBox]="false" [searchTotalCount]="comparedListTotalCount" [pageNumber]="first" [pageSize]="pageSize" (tableOutputValues)="tableOutputHandler($event)" [thisPage]="'relatedPartyIntel'"></dg-record-list><br><br>

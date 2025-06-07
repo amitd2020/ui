@@ -1,0 +1,212 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card upgradePlan text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+
+<ng-template #otherPlansCheck>
+    <div class="grid mb-3">
+        <div class="col-3 ">
+            <p-dropdown [options]="diversitySaveList" [(ngModel)]="selectlist" placeholder="Select a List" optionLabel="listName" styleClass="roundedCorners" (onChange)="getDiversityIndexdData( selectlist )"></p-dropdown>
+        </div>
+    </div>
+
+    <div class="grid mb-2">
+
+        <div class="col-8">
+            <!--<div class="card">
+
+                <div class="grid">
+
+                    <ng-container *ngFor="let data of counts | keyvalue: preventDefaultSort">
+
+                        <div class="col-4" [class.hidden]="data.key === 'msdukCertification'">
+                            <div class="diversityInclusionCountCards mr-2" [ngStyle]="{ 'background-color': 'rgb( var( ' + data.value.colorVar + ' ) / 25% )' }" (click)="updateTableAfterPagination( undefined, data.value.label )">
+                                <div class="grid">
+                    
+                                    <div class="col-fixed text-2xl">
+                                        <span *ngIf="data.value.hasOwnProperty( 'iconDisplay' )" class="material-icons circle" [ngStyle]="{ 'background-color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">{{ data.value.materialIconClassName }}</span>
+    
+                                        <span *ngIf="data.value.hasOwnProperty( 'imageName' )" class="circle" [ngStyle]="{ 'background-color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">
+                                            <img src="assets/layout/images/{{ data.value.imageName }}.png" alt="MSDUK Certified" width="50">
+                                        </span>
+    
+                                    </div>
+                                    <div class="col">
+                                        <span>
+                                            <dg-shared-itag-component><div class="m-2">{{data.value.infoMsg}}</div></dg-shared-itag-component><span class="text-base mb-0 c-light"> {{ data.value.label }}</span>
+                                        </span>
+    
+                                        <span class="pi pi-chevron-down countCardNavigationIcon" [ngStyle]="{ 'background-color': 'rgb( var( ' + data.value.colorVar + ' ) )' }"></span>
+                                        
+                                        
+                                        <p class="text-xl mb-0 font-medium" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }">{{ data.value.value | number: '1.0-0' }}</p>
+                                    </div>
+                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+                </div>
+
+            </div>-->            
+
+            <div class="grid">
+                <div class="col-4 bg-gray-200 py-2 px-3 border-1 border-gray-400 border-round-left-xl">
+                    <div class="flex gap-1 align-items-center">
+                        <h3 class="text-teal-500 font-semibold mb-1 py-2">Segmentation By Ownership</h3>
+                    </div>
+                    <div class="grid">
+                        <ng-container *ngFor="let data of counts | keyvalue: preventDefaultSort">
+                            <ng-container *ngIf="![ 'msdukCertification', 'netZeroTargetCounts', 'ppcCategoryCount', 'modernSlaveryCount', 'genderpayGapReportingCount', 'raceAtWork', 'dataControllersCount', 'nonProfitCount', 'registeredCharitableOrganizationCount', 'communityInterestBusinessCount'].includes( data.key )">
+                                <div class="col-12">
+                                    <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                                        <div class="grid">                    
+
+                                            <div class="col-3 flex align-items-center p-0">
+                                                <img [src]="data.value.imageSource" alt="Supplier Analytics" width="80" height="65">
+                                            </div>
+                                            <div class="col-9 flex justify-content-center align-items-center flex-column gap-1">
+                                                <div pTooltip="Click Info Icon to check details">
+                                                    <span class="text-base c-light mr-1">{{ data.value.label }}</span>
+                                                    <dg-new-shared-clicked-itag><div class="m-2" [innerHTML]="data.value.infoMsg + ( data?.value?.urlLink || '' )"></div></dg-new-shared-clicked-itag>
+                                                </div>
+                                                
+                                                <div class="font-bold text-2xl cursor-pointer" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }" (click)="updateTableAfterPagination( undefined, data.value.label )">
+                                                    {{ data.value.value | number: '1.0-0' }}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                    
+                </div>
+    
+                <div class="col-4 bg-gray-200 py-2 px-3 border-1 border-gray-400">
+                    <div class="flex gap-1 align-items-center">
+                        <h3 class="text-teal-500 font-semibold mb-1 py-2">Mission Spectrum</h3>
+                    </div>
+                    <div class="grid">
+                        <ng-container *ngFor="let data of counts | keyvalue: preventDefaultSort">
+                            <ng-container *ngIf="['raceAtWork', 'ppcCategoryCount', 'nonProfitCount', 'registeredCharitableOrganizationCount', 'communityInterestBusinessCount'].includes( data.key )">
+                                <div class="col-12">
+                                    <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                                        <div class="grid">                    
+
+                                            <div class="col-3 flex align-items-center p-0">
+                                                <img [src]="data.value.imageSource" alt="Supplier Analytics" width="80" height="65">
+                                            </div>
+                                            <div class="col-9 flex justify-content-center align-items-center flex-column gap-1">
+                                                <div pTooltip="Click Info Icon to check details">
+                                                    <span class="text-base c-light mr-1">{{ data.value.label }}</span>
+                                                    <dg-new-shared-clicked-itag><div class="m-2" [innerHTML]="data.value.infoMsg + ( data?.value?.urlLink || '' )"></div></dg-new-shared-clicked-itag>
+                                                </div>
+                                                
+                                                <div class="font-bold text-2xl cursor-pointer" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }" (click)="updateTableAfterPagination( undefined, data.value.label )">
+                                                    {{ data.value.value | number: '1.0-0' }}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>  
+                
+                <div class="col-4 bg-gray-200 py-2 px-3 border-1 border-gray-400 border-round-right-xl">
+                    <div class="flex gap-1 align-items-center">
+                        <h3 class="text-teal-500 font-semibold mb-1 py-2">Risk Register</h3>
+                    </div>
+                    <div class="grid">
+                        <ng-container *ngFor="let data of counts | keyvalue: preventDefaultSort">
+                            <ng-container *ngIf="['netZeroTargetCounts', 'modernSlaveryCount', 'genderpayGapReportingCount', 'dataControllersCount'].includes( data.key )">
+                                <div class="col-12">
+                                    <div class="diversityInclusionCountCards bg-white mr-2" [ngStyle]="{ 'border-left': '2px solid rgb( var( ' + data.value.colorVar + ' ) )', 'border-right': '2px solid rgb( var( ' + data.value.colorVar + ' ) )' }">
+                                        <div class="grid">                    
+
+                                            <div class="col-3 flex align-items-center p-0">
+                                                <img [src]="data.value.imageSource" alt="Supplier Analytics" width="80" height="65">
+                                            </div>
+                                            <div class="col-9 flex justify-content-center align-items-center flex-column gap-1">
+                                                <div pTooltip="Click Info Icon to check details">
+                                                    <span class="text-base c-light mr-1">{{ data.value.label }}</span>
+                                                    <dg-new-shared-clicked-itag><div class="m-2" [innerHTML]="data.value.infoMsg + ( data?.value?.urlLink || '' )"></div></dg-new-shared-clicked-itag>
+                                                </div>
+                                                
+                                                <div class="flex gap-3">
+                                                    <div class="font-bold text-2xl cursor-pointer" [ngStyle]="{ 'color': 'rgb( var( ' + data.value.colorVar + ' ) )' }" (click)="updateTableAfterPagination( undefined, data.value.label )">
+                                                        {{ data.value.value | number: '1.0-0' }}
+                                                    </div>
+
+                                                    <ng-container  *ngIf="['genderpayGapReportingCount', 'modernSlaveryCount'].includes(data.key)">
+                                                        <div class="text-red-600 text-2xl font-bold" [pTooltip]="'Risk'"> | {{data.value.riskRegisterCount}}</div>
+                                                    </ng-container>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>  
+
+            </div>
+            <ng-container *ngIf="diversityInclusionData?.msmeStatus?.length">
+                <div class="card flex align-items-center mt-2">
+                    <div class="counts">
+                        <ng-container *ngFor="let msmeStatus of diversityInclusionData?.msmeStatus">
+                            <span class="text-lg text-white px-3 py-1 border-round-2xl mr-2" [ngStyle]="{ 'background-color': msmeStatusColor[ msmeStatus.key ] }" [ngClass]="{ 'bg-bluegray-100': !( msmeStatusColor[ msmeStatus.key ] ) }">
+                                {{ msmeStatus.key | titlecase }}: {{ msmeStatus.doc_count | number: '1.0-0' }}
+                            </span>
+                        </ng-container>
+                    </div>
+                    <div class="ml-auto">
+                        <i class="ui-icon-info-outline ml-1" (mouseenter)="msmeInfoOverlay.show($event)" (mouseleave)="msmeInfoOverlay.hide($event)"></i>
+                        <p-overlayPanel #msmeInfoOverlay [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                            <dg-msme-svg-popup-card></dg-msme-svg-popup-card>
+                        </p-overlayPanel>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="col-4">
+            <div class="card circleChartCard" *ngIf="diversityInclusionData">
+                <span class="grid justify-content-end mr-3">
+                    <dg-shared-itag-component><div class="m-2">{{'Highlights the age distribution of company leaders, including senior executives and young entrepreneurs.'}}</div></dg-shared-itag-component>
+                </span>
+                <div class="grid align-items-center h-full mt-0">
+                    <div class="col-7 h-full">
+                        <div class="CircleChart">
+                            <div class="chart largeCircle" title="{{ diversityInclusionData.directorAgeAbove65Count | number }}" attr.data-value="{{ diversityInclusionData.directorAgeAbove65Count | number: '1.0-0' }}"></div>
+                            <div class="chart smallCircle" title="{{ diversityInclusionData.directorAgeBelow30Count | number }}" attr.data-value="{{ diversityInclusionData.directorAgeBelow30Count | number: '1.0-0' }}"></div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="counts">
+                            <div class="text-4xl mb-2" [ngStyle]="{ 'color': 'rgb( var( --lightblueRGB ) )' }">{{ diversityInclusionData.directorAgeAbove65Count | number: '1.0-0' }}</div>
+                            <div class="fs-medium mb-4 c-light">Director's Age Above 65</div>
+                            <div class="text-4xl mb-2" [ngStyle]="{ 'color': 'rgb( var( --aquaRGB ) )' }">{{ diversityInclusionData.directorAgeBelow30Count | number: '1.0-0' }}</div>
+                            <div class="fs-medium c-light">Director's Age Below 30</div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+    </div>
+
+    <dg-admin-record-list *ngIf="diversityInclusionData" [listId]="globalFilterDataObject.listId" [listColumns]="diversityIndexDataColumn" [listDataValues]="diversityIndexDataValue" [searchTotalCount]="searchTotalCount" [thisPage]="'diversityInclusion'" (updateTableAfterPagination)="updateTableAfterPagination( $event )" [companyStatusCount]="diversityInclusionData.companyStatusArray" [globalFilterDataObject]="globalFilterDataObject" [companyTotalCount]="diversityInclusionData.total" [listName]="globalFilterDataObject.listName"></dg-admin-record-list>
+
+</ng-template>

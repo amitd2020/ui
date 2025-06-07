@@ -1,0 +1,95 @@
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Company Insights' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showUpgradePlan"> -->
+
+    <div class="insightsViewContainer lightLayout mb-2" featureAccess="Company Insights" optionalTemplate="true">
+    
+        <p-messages [value]="msgLogs"></p-messages>
+    
+        <div class="insightsChartViewContainer">
+            <div class="grid">
+                <div class="col-6 md-6">
+                    <!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+    
+                    <ng-template #LazyLeafletMapContainer></ng-template>
+                    
+                </div>
+                <div class="col-6 md-6">
+    
+                    <div class="card">
+                        <h3 class="mt-0">
+                            <span class="c-green">{{ selectedRegion | titlecase }}</span>
+                        </h3>
+    
+                        <div class="furloughDataTable industriesList">
+                            <table class="simpleTableUI">
+                                <thead>
+                                    <tr>
+                                        <th>Industry</th>
+                                        <th width="30%" class="text-right">Count</th>
+                                    </tr>
+                                </thead>
+                                <ng-container *ngIf="industryListData && industryListData.length; else noDataValues">
+                                    <tbody>
+                                        <tr *ngFor="let rowData of industryListData">
+                                            <td>{{ rowData['label'] | titlecase }}</td>
+                                            <td width="30%" class="text-right">{{ rowData['doc_count'] ? ( rowData['doc_count'] | number ) : '-' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </ng-container>
+                            </table>
+                        </div>
+    
+                    </div>
+    
+                    <div class="card">
+                        <h3 class="mt-0">Furlough Amount Band</h3>
+    
+                        <div class="furloughDataTable amountBandList">
+                            <table class="simpleTableUI">
+                                <thead>
+                                    <tr>
+                                        <th>Amount Band ( &pound; )</th>
+                                        <th width="30%" class="text-right">Count</th>
+                                    </tr>
+                                </thead>
+                                <ng-container *ngIf="furloughAmountBandListData && furloughAmountBandListData.length; else noDataValues">
+                                    <tbody>
+                                        <tr *ngFor="let rowData of furloughAmountBandListData">
+                                            <td>{{ rowData['key'] | titlecase }}</td>
+                                            <td class="text-right">{{ rowData['doc_count'] ? ( rowData['doc_count'] | number ) : '-' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </ng-container>
+                            </table>
+                        </div>
+    
+                    </div>
+                    
+                    <ng-template #noDataValues>
+                        <tbody>
+                            <tr>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- </ng-container> -->
+
+<!-- <ng-template #showUpgradePlan>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ) || ( [ subscribedPlanModal['Enterprise_Annual_Two_Year'] ] ).includes( currentPlan ); else otherThanClientUserLoggedIn">
+			<div class="card text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<div class="card">
+				<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+			</div>
+		</ng-template>
+	</p-card>
+</ng-template> -->

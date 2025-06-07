@@ -1,0 +1,164 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+	<div class="flex align-items-center justify-content-start mb-1">
+		<div class="col-fixed py-0">
+			<button pButton label="Reset Filter" (click)="resetAppliedFilters()" class="p-button-sm"></button>
+		</div>
+	</div>
+
+	<div class="insightsViewContainer mb-2 lightLayout">
+	
+		<div class="insightsChartViewContainer">
+			
+			<ng-container *ngIf="chargeStatusDataCounts && chargeStatusDataCounts.length">
+				<div class="card mb-3 pb-1">
+					<ng-container *ngFor="let chargeStatusData of chargeStatusDataCounts">
+						<ng-container *ngIf="chargeStatusData?.count > 0 ; else otherBlock">
+							<a href="javascript:void(0);" class="roundedColoredChipLabel" (click)="goToSearchAblForIndustry(undefined, undefined, undefined, chargeStatusData?.label )" [ngClass]="{ 'c-green': chargeStatusData?.label == 'Fully Satisfied', 'c-voilet': chargeStatusData?.label == 'Part Satisfied', 'c-royalBlue': chargeStatusData?.label == 'Outstanding' }">
+								<strong>{{ chargeStatusData?.label }}: </strong> {{ chargeStatusData?.count | number: '1.0-0' }}
+							</a>
+						</ng-container>
+						<ng-template #otherBlock>
+							<span class="roundedColoredChipLabel" [ngClass]="{ 'c-green': chargeStatusData?.label == 'Fully Satisfied', 'c-voilet': chargeStatusData?.label == 'Part Satisfied', 'c-royalBlue': chargeStatusData?.label == 'Outstanding' }">
+								<strong>{{ chargeStatusData?.label }}: </strong> {{ chargeStatusData?.count | number: '1.0-0' }}
+							</span>
+						</ng-template>
+					</ng-container>
+					<ng-container *ngIf="contactsCount">
+						<div class="flex flex-column">
+							<div class="flex align-items-center flex-wrap">
+								<div class="roundedColoredChipLabel p-0 bgColorCount">
+									<p-chip label="{{ contactsCount['all_email_count'] | number }} Total" icon="pi pi-envelope" pTooltip="Total Email Count" tooltipPosition="top"></p-chip>|
+									<p-chip label="{{ contactsCount['director_email_count'] | number }} Director" pTooltip="Director Email Count" tooltipPosition="top"></p-chip>
+								</div>
+								<div class="roundedColoredChipLabel p-0 bgColorCount">
+									<p-chip label="{{ contactsCount['all_linkedin_url_count'] | number }} Total" styleClass="linkedin" pTooltip="Total LinkedIn Count" tooltipPosition="top"></p-chip>|
+									<p-chip label="{{ contactsCount['director_linkedin_url_count'] | number }} Director" pTooltip="Director LinkedIn Count" tooltipPosition="top"></p-chip>
+								</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</ng-container>
+			<div class="grid">
+				<div class="col-6 md-6">
+	
+					<!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+	
+					<ng-template #LazyLeafletMapContainer></ng-template>
+	
+				</div>
+				<div class="col-6 md-6">
+					<div class="card" [ngClass]="{ 'pt-0': ablInsightsLineChartData }">
+						<div class="flex flex-wrap align-items-center p-2">
+							<ng-container *ngIf="chartSwitchType == 'yearly'">
+								<div class="c-light">
+									*Note: Below data is for latest 5 years.
+								</div>
+							</ng-container>
+							
+							<div class="ml-auto">
+								<button pButton label="Yearly" (click)="chartSwitch('yearly')" class="p-button-sm"></button>
+								<button pButton label="Monthly" (click)="chartSwitch('monthly')" class="p-button-sm ml-2"></button>
+							</div>
+                        </div>
+
+						<ng-container *ngIf="ablInsightsLineChartData?.datasets[0].data.length">
+							<p-chart #ablInsightsLineChart type="line" [data]="ablInsightsLineChartData" [options]="lineOptions" [responsive]="true" height="500px"></p-chart>
+						</ng-container>
+						<ng-container *ngIf="!ablInsightsLineChartData?.datasets[0].data.length">
+							<div class="noRecords">
+								<p>No Records Found</p>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+	
+			<div class="card">
+	
+				<div class="col-12">
+					
+					<p-table [columns]="industryListColumns" [scrollable]="true" [value]="industryListData" responsiveLayout="scroll" scrollHeight="40vh" *ngIf="industryListData">
+
+	
+						<ng-template pTemplate="header" let-columns>
+							<tr>
+								<th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">{{ col.header | uppercase }}</th>
+							</tr>
+						</ng-template>
+	
+						<ng-template pTemplate="body" let-rowData let-columns="columns">       
+							<tr [ngClass]="{ 'disabled' : selectSICCodeIndustry && selectSICCodeIndustry.length > 0 && selectSICCodeIndustry.length != 0 && !selectSICCodeIndustry.includes(rowData['industrySicCodeValue']) }">
+								<td *ngFor="let col of columns; let colIndex = index" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }" [ngSwitch]="col.field">
+									
+									<ng-container *ngSwitchCase="'industryName'">
+										{{ rowData[ col.field ] | titlecase }}
+									</ng-container>
+									
+									<ng-container *ngSwitchCase="'totalValues'">
+										<strong>{{ rowData[ col.field ] | number: '1.0-0' }}</strong>
+									</ng-container>
+	
+									<ng-container *ngSwitchDefault>
+										<ng-container *ngIf="rowData[ col.field ]">
+											<a href="javascript:void(0);" class="c-blue" [ngClass]="{'disabled': selectedMonthOfCharge && selectedMonthOfCharge.length > 0 && !selectedMonthOfCharge.includes('') && !selectedMonthOfCharge.includes( monthsEnum[col.field] < 10 ? '0' + monthsEnum[col.field] : monthsEnum[col.field].toString() )  }" (click)="goToSearchAblForIndustry( rowData['industryName'], rowData['industrySicCodeValue'], colIndex, undefined )"><strong>{{ rowData[ col.field ] | number: '1.0-0' }}</strong></a>
+										</ng-container>
+										<ng-container *ngIf="!rowData[ col.field ]"> - </ng-container>
+	
+									</ng-container>
+	
+								</td>
+							</tr>
+						</ng-template>
+	
+						<ng-template pTemplate="footer" let-columns>
+							<tr>
+								<th *ngFor="let col of columns; let colIndex = index" [ngStyle]="{ 'min-width': colIndex == 0 ? '485px' : col.minWidth, 'max-width': col.maxWidth,  'text-align': col.textAlign }" [ngSwitch]="true">
+	
+									<ng-container *ngSwitchCase="colIndex == 0">
+										Total
+									</ng-container>
+									
+									<ng-container *ngSwitchCase="'totalValues'"></ng-container>
+	
+									<ng-container *ngSwitchDefault>
+	
+										<ng-container *ngFor="let monthTotalVal of industryListMonthsTotal | keyvalue">
+											<ng-container *ngIf="monthTotalVal.key == col.field">
+												{{ monthTotalVal?.value | number: '1.0-0' }}
+											</ng-container>
+										</ng-container>
+										
+									</ng-container>
+									
+								</th>
+							</tr>
+						</ng-template>
+	
+						<ng-template pTemplate="emptymessage" let-columns>
+							<tr>
+								<td [attr.colspan]="columns?.length">No records found.</td>
+							</tr>
+						</ng-template>
+	
+					</p-table>
+	
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+</ng-template>
+
+<ng-container *ngIf="visibleFilterSidebar">
+	<dg-filter-sidebar [thisPage]="'lendingLandscapePage'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="lendingLandscapeCommunicator($event)"></dg-filter-sidebar>
+</ng-container>
+
+<!-- <dg-filter-sidebar [thisPage]="'lendingLandscapePage'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="lendingLandscapeCommunicator($event)" [isFilterSidebarShow]="isFilterSidebarShow"></dg-filter-sidebar> -->

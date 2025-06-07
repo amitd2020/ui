@@ -1,0 +1,135 @@
+<!-- Company Details Side Panel -->
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+<!-- Company Details Side Panel -->
+
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+    
+    <div class="insightsViewContainer mb-2 lightLayout">
+        
+        <div class="insightsSideNav">
+            
+            <p-messages [value]="msgLogs"></p-messages>
+    
+            <div class="grid mb-2">
+                <div class="col-fixed">
+                    <p-dropdown [options]="listOfCreditRiskBandOptions" placeholder="Select Credit Risk Band" [(ngModel)]="selectedCreditRiskBand" (onChange)="getDataForDropdownLists('cagrList');getDataForDropdownLists('zScoreList');" styleClass="roundedCorners"></p-dropdown>
+                </div>
+                <div class="col-fixed">
+                    <p-dropdown [options]="zScoreListDropdownOptions" placeholder="Z Score" [(ngModel)]="selectedZscoreList" (onChange)="getDataForDropdownLists('cagrList');getDataForDropdownLists('creditRiskBand');" styleClass="roundedCorners"></p-dropdown>
+                </div>
+                <div class="col-fixed">
+                    <p-dropdown [options]="compoundAnnualGrowthListDropdownOptions" placeholder="Compound Annual Growth Rate" [(ngModel)]="selectedCompoundAnnualGrowthList" (onChange)="getDataForDropdownLists('zScoreList');getDataForDropdownLists('creditRiskBand');" styleClass="roundedCorners"></p-dropdown>
+                </div>
+            </div>
+    
+            <div class="grid mb-2">
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectIndustry [options]="industryListDropdownOptions" optionLabel="label" optionValue="value"  defaultLabel="Select Industry" maxSelectedLabels="2" selectedItemsLabel="{ selectedIndustryList?.length } Industries Selected" [(ngModel)]="selectedIndustryList" styleClass="roundedCorners" (onChange)="getDataForDropdownLists('cagrList');getDataForDropdownLists('zScoreList');getDataForDropdownLists('creditRiskBand');" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectRegion [options]="regionListDropdownOptions" optionLabel="label" optionValue="value" defaultLabel="Select Region" maxSelectedLabels="2" selectedItemsLabel="{ selectedRegionList?.length } Regions Selected" [(ngModel)]="selectedRegionList" styleClass="roundedCorners" [showToggleAll]="false" (onChange)="onChangeRegionSelection($event)" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+                <div class="col-fixed">
+                    <p-dropdown styleClass="roundedCorners" [options]="listOfTurnOver" placeholder="Select Turnover" [(ngModel)]="selectedTurnOver" (onChange)="getDataForDropdownLists('cagrList');getDataForDropdownLists('zScoreList');getDataForDropdownLists('creditRiskBand');"></p-dropdown>
+                </div>
+                
+                <div class="col-fixed">
+                    <div class="roundedCorners p-multiselect">
+                        <div class="p-multiselect-label insightsRoundedCorners">
+                            <div class="grid grid-nogutter align-items-center">
+                                <div class="col-fixed"><label for="estimatedTurnoverField">Include Estimated Turnover:</label></div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="estimatedTurnover" value="true" label="Yes" [(ngModel)]="checkEstimatedTurnover"></p-radioButton>
+                                </div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="estimatedTurnover" value="false" label="No" [(ngModel)]="checkEstimatedTurnover"></p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-fixed">
+                    <div class="roundedCorners p-multiselect">
+                        <div class="p-multiselect-label insightsRoundedCorners">  
+                            <div class="grid grid-nogutter align-items-center">
+                                <div class="col-fixed"><label for="companyAgeValueField">Company Age: </label></div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="Greater Than" value="Greater Than" label="Greater Than" [(ngModel)]="companyAgeLessThanOrGreaterThan"></p-radioButton>
+                                </div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="Less Than" value="Less Than" label="Less Than" [(ngModel)]="companyAgeLessThanOrGreaterThan" ></p-radioButton>
+                                </div>
+                                <div class="col ml-2">
+                                    <p-inputNumber [(ngModel)]="nameOrNumberValue" mode="decimal" placeholder="Enter Years" inputId="withoutgrouping" [useGrouping]="false" max="999" (onInput)="validateInputField( $event.value )"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="c-red" *ngIf="showInputFieldMessage">
+						<small>Please Enter Age upto 999yr</small>
+					</span>
+                </div>
+            </div>
+    
+            <div class="card mt-2">
+                <div class="grid">
+    
+                    <div class="col-fixed">
+                        <p-checkbox name="Commentary Positive" label="Commentary Positive" [(ngModel)]="hasCommentaryPositive" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                    <div class="col-fixed">
+                        <p-checkbox name="Commentary Negative" label="Commentary Negative" [(ngModel)]="hasCommentaryNegative" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                    <div class="col-fixed">
+                        <p-checkbox name="Accounts Overdue" label="Accounts Overdue" [(ngModel)]="accountsOverdueByThreeMonths" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                    <div class="col-fixed">
+                        <p-checkbox name="Outstanding CCJ" label="Outstanding CCJ" [(ngModel)]="hasOutstandingCCJ" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                    <div class="col-fixed">
+                        <p-checkbox name="Furlough Staff" label="Furlough Staff" [(ngModel)]="hasFurloughData" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                    <div class="col-fixed">
+                        <p-checkbox name="Land Registered" label="Land Registered" [(ngModel)]="hasLandCorporate" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                    <div class="col-fixed">
+                        <p-checkbox name="Charges Registered" label="Charges Registered" [(ngModel)]="hasCharges" binary="true" (onChange)="getDataForDropdownLists('cagrList'); getDataForDropdownLists('zScoreList'); getDataForDropdownLists('creditRiskBand');"></p-checkbox>
+                    </div>
+                </div>
+            </div>
+    
+            <div>
+               
+                <button pButton type="button" label="Search" class="p-button-rounded p-button-lg mb-0" [disabled]="showInputFieldMessage" (click)="getCorporateRiskInsightsData( 'includeGlobalFilterParams' );  resetTablePagination();"></button>
+                <button pButton type="button" label="Reset" class="p-button-rounded p-button-lg darkGrey mb-0 ml-2" (click)="resetInsightCriteria()"></button>
+            </div>
+        </div>
+    
+        <div class="insightsChartViewContainer">
+    
+            <div class="grid">
+                <div class="col-12">
+    
+                    <!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+    
+                    <ng-template #LazyLeafletMapContainer></ng-template>
+                    
+                </div>
+                <div class="col-12">
+
+                    <dg-admin-record-list *ngIf="companiesDataListForTable" [listColumns]="companiesColumnListForTable" [listDataValues]="companiesDataListForTable" [searchTotalCount]="searchTotalCount" [thisPage]="'corporateRiskPage'" (operatingTable)="getOperatingTable($event)" (updateTableAfterPagination)="requestUpdateTableData( $event )" [appliedFilters]="appliedFilters"></dg-admin-record-list>
+    
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</ng-template>

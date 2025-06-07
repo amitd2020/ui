@@ -1,0 +1,212 @@
+<!-- Company Details Side Panel -->
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+<!-- Company Details Side Panel -->
+<!-- <dg-filter-sidebar  [thisPage]="'investor-finder'"></dg-filter-sidebar> -->
+<dg-filter-sidebar [thisPage]="'investor-finder'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" (searchResultsCommunicator)="investorFinderCommunicator($event)"></dg-filter-sidebar>
+
+
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+    <div class="insightsViewContainer mb-2 lightLayout">
+    
+        <!--<div class="insightsSideNav">
+    
+            <!~~ <p-messages [value]="msgLogs"></p-messages> ~~>
+    
+            <div class="grid mb-2">
+    
+                <div class="col-fixed">
+                    <div class="roundedCorners p-multiselect">
+                        <div class="p-multiselect-label ui-input-width">
+                            <div class="grid grid-nogutter align-items-center">
+                                <div class="col-fixed"><label for="shareHolderRangeId">Shareholdings : </label></div>
+                                <div class="col ml-1">
+                                    <p-inputNumber [(ngModel)]="shareholdingsGreaterThanValue" mode="decimal" placeholder="Greater Than" inputId="withoutgrouping" [useGrouping]="false" min="0" (onInput)="checkInputFieldForShareholdings( $event, 'shareholdingsGreaterThanValue' )"></p-inputNumber>
+                                </div>
+                                <div class="col ml-3">
+                                    <p-inputNumber [(ngModel)]="shareholdingsLessThanValue" mode="decimal" placeholder="Less Than" inputId="withoutgrouping" [useGrouping]="false" min="0" (onInput)="checkInputFieldForShareholdings( $event, 'shareholdingsLessThanValue' )"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="c-red" *ngIf="showInputFieldMessageForShareholdings">
+                        <small>Value should be bigger than {{ shareholdingsGreaterThanValue | currency: selectedGlobalCurrency:'':'1.0-2' }}</small>
+                    </span>
+                </div>
+    
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectForSicCodeMultiSelectId [options]="sicCodeListOptions" optionLabel="label" optionValue="value" defaultLabel="Select SIC Code" maxSelectedLabels="0" selectedItemsLabel="{ selectedSicCodeList?.length } SIC Code Selected" [(ngModel)]="selectedSicCodeList" styleClass="roundedCorners" [showToggleAll]="false" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectRegionMultiSelectId [options]="regionListDropdownOptions" optionLabel="label" optionValue="value" defaultLabel="Select Region" maxSelectedLabels="2" selectedItemsLabel="{ selectedRegionList?.length } Regions Selected" [(ngModel)]="selectedRegionList" styleClass="roundedCorners" [showToggleAll]="false" (onChange)="onChangeRegionSelection($event)" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectForIndustryTags [options]="industryTagOptions" optionLabel="label" optionValue="value" defaultLabel="Select Industry" maxSelectedLabels="0" selectedItemsLabel="{ selectedIndustryTags?.length } Industry Selected" [(ngModel)]="selectedIndustryTags" styleClass="roundedCorners" (onPanelShow)="getDataForDropdownLists('industryTags'); showFullListOfIndustryTags('industryTags')" (onPanelHide)="showLessListOfIndustryTags('industryTags')" [showToggleAll]="false" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+            </div>
+    
+            <div class="grid mb-2">
+                
+                <div class="col-fixed">
+                    <p-dropdown styleClass="roundedCorners" [options]="listOfTurnOver" placeholder="Select Turnover" [(ngModel)]="selectedTurnOver"></p-dropdown>
+                </div>
+    
+                <div class="col-fixed">
+                    <div class="roundedCorners p-multiselect">
+                        <div class="p-multiselect-label insightsRoundedCorners">  
+                            <div class="grid grid-nogutter align-items-center">
+                                <div class="col-fixed"><label for="estimatedTurnoverField">Include Estimated Turnover: </label></div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="estimatedTurnover" value="true" label="Yes" [(ngModel)]="checkEstimatedTurnover"></p-radioButton>
+                                </div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="estimatedTurnover" value="false" label="No" [(ngModel)]="checkEstimatedTurnover"></p-radioButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-fixed">
+                    <div class="roundedCorners p-multiselect">
+                        <div class="p-multiselect-label insightsRoundedCorners">  
+                            <div class="grid grid-nogutter align-items-center">
+                                <div class="col-fixed"><label for="companyAgeValueField">Company Age: </label></div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="Greater Than" value="Greater Than" label="Greater Than" [(ngModel)]="companyAgeLessThanOrGreaterThan"></p-radioButton>
+                                </div>
+                                <div class="col ml-2">
+                                    <p-radioButton name="Less Than" value="Less Than" label="Less Than" [(ngModel)]="companyAgeLessThanOrGreaterThan"></p-radioButton>
+                                </div>
+                                <div class="col ml-2">
+                                    <p-inputNumber [(ngModel)]="companyAgeNumberValue" mode="decimal" placeholder="Enter Years" inputId="withoutgrouping" [useGrouping]="false" max="999" (onInput)="validateInputField( $event )"></p-inputNumber>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="c-red" *ngIf="showInputFieldMessage">
+                        <small>Please Enter Age upto 999yr</small>
+                    </span>
+                </div>
+    
+            </div>
+    
+            <!~~ <div class="grid mb-4">
+                <div class="col-12">
+                    <button pButton type="button" label="Search" class="p-button-rounded p-button-lg" [disabled]="showInputFieldMessage || showInputFieldMessageForShareholdings" (click)="getSearchResults( 'includeGlobalFilterParams', 'getInvestmentValues' ); resetTablePagination();"></button>
+                    <button pButton type="button" label="Reset" class="p-button-rounded p-button-lg darkGrey ml-2" (click)="resetCriteria()"></button>
+                </div>
+            </div> ~~>
+    
+            <!~~ <div class="grid align-items-center">
+    
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectForInvestmentSicCodeMultiSelectId optionLabel="label" optionValue="value" [options]="investmentSicCodeListOptions" defaultLabel="Select Investment SIC Code" maxSelectedLabels="0" selectedItemsLabel="{ selectedSicCodeList?.length } Investment SIC Code Selected" [(ngModel)]="selectedInvestmentSicCodeList" styleClass="roundedCorners" (onPanelShow)="getDataForDropdownLists('investmentSicCode'); showFullListOfIndustryTags('investmentSicCode')" (onPanelHide)="showLessListOfIndustryTags('investmentSicCode')" [showToggleAll]="false" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+                <div class="col-fixed">
+                    <p-multiSelect #multiSelectForInvestmentIndustryTags [options]="investmentIndustryTagOptions" optionLabel="label" optionValue="value" defaultLabel="Select Investment Industry" maxSelectedLabels="0" selectedItemsLabel="{ selectedIndustryTags?.length } Investment Selected" [(ngModel)]="selectedInvestmentIndustryTags" styleClass="roundedCorners" (onPanelShow)="getDataForDropdownLists('investmentIndustryTags'); showFullListOfIndustryTags('investmentIndustryTags')" (onPanelHide)="showLessListOfIndustryTags('investmentIndustryTags')" [showToggleAll]="false" resetFilterOnHide=true ></p-multiSelect>
+                </div>
+    
+                <div class="col-fixed">
+                    <button pButton type="button" label="Search Also" class="p-button-rounded mb-0 p-button-lg" (click)="getSearchResults('includeGlobalFilterParams'); resetTablePagination();"></button>
+                    <button pButton type="button" label="Reset" class="p-button-rounded ml-2 mb-0 p-button-lg darkGrey" (click)="resetInvestmentCriteria()"></button>
+                </div>
+    
+            </div> ~~>
+    
+        </div>-->
+    
+        <div class="insightsChartViewContainer">
+
+            <div class="grid">
+    
+                <!-- <div class="col-12 flex"> -->
+    
+                    <!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+                    <!-- <div class="col-6 card"> -->
+                        <!-- <p-chart type="doughnut" [data]="data" [options]="options" /> -->
+
+                        <!--<div class="furloughDataTable amountBandList">
+                            <div class="flex justify-content-between flex-wrap">
+                                <div class="col-12 lg:col-6">
+                                    <div>
+                                        <h3 class="c-green ml-1">Risk Analysis</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body flex flex-column col justify-content-center">
+                    
+                                <div class="flex align-items-center flex-wrap">
+                                    <div class="col flex align-items-center justify-content-center">
+                                        <p-chart type="doughnut" [data]="data"
+                                            [options]="options" [plugins]="ChartDataLabelsPlugins" width="300px" height="300px" [responsive]="true">
+                                        </p-chart>
+                                    </div>
+                                    <div class="col-fixed">
+                                        <div class="flex flex-column justify-content-end riskPieChartLegends">
+                    
+                                            <div class="roundedColoredChipLabel notScoredLegendBg">
+                                                <p class="text-sm mb-0">Not Scored / Very High Risk</p>
+                                                <p class="text-lg mb-0">
+                                            </div>
+                    
+                                            <div class="roundedColoredChipLabel highRiskLegendBg">
+                                                <p class="text-sm mb-0">High Risk</p>
+                                                <p class="text-lg mb-0">
+                                                </p>
+                                            </div>
+                    
+                                            <div class="roundedColoredChipLabel moderateRiskLegendBg">
+                                                <p class="text-sm mb-0">Moderate Risk</p>
+                                                <p class="text-lg mb-0">
+                                                </p>
+                                            </div>
+                                            <div class="roundedColoredChipLabel lowRiskLegendBg">
+                                                <p class="text-sm mb-0">Low Risk</p>
+                                                <p class="text-lg mb-0">
+                                                </p>
+                                            </div>
+                    
+                                            <div class="roundedColoredChipLabel veryLowRiskLegendBg">
+                                                <p class="text-sm mb-0">Very Low Risk</p>
+                                                <p class="text-lg mb-0">
+                                                </p>
+                                            </div>
+
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+
+                    <!-- </div> -->
+                    
+                <!-- </div> -->
+                <div class="col-12">
+                    <ng-template #LazyLeafletMapContainer></ng-template>
+                </div>
+    
+                <div class="col-12">
+    
+                    <dg-admin-record-list *ngIf="companiesDataListForTable" [listColumns]="companiesColumnListForTable" [listDataValues]="companiesDataListForTable" [searchTotalCount]="searchTotalCount" [thisPage]="'investorFinderPage'" (operatingTable)="getOperatingTable($event)" (updateTableAfterPagination)="requestUpdateTableData( $event )" [appliedFilters]="appliedFilters"></dg-admin-record-list>
+    
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    </div>
+
+</ng-template>

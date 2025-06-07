@@ -1,0 +1,11 @@
+<ng-container *ngIf="updateTagsBoolean">
+    <dg-bulk-tag [listId]="bulklistId" [updateTagPageName]="updateTagPageName" [rowData]="rowData" [thisPage]="'user-saved-list'" (messageCommunicator)="showMessage($event)" [updatedFieldsforBulkTag]="updatedFieldsforBulkTagObj" ></dg-bulk-tag>
+</ng-container>
+
+<ng-container *ngIf="tableData.length; else otherBlock">
+    <dg-user-list [listColumns]="tableCols" [listDataValues]="tableData" [listPage]="true" [thisPage]="'companyListPage'" [totalNumOfRecords]="totalNumOfRecords" [limitsDetailsEmailsData]= 'limitsDetailsForEmailsData' [verifyEmailCreditLimit]="verifyEmailCreditLimit" [msgs]="msgs" [limitsDetailsForEmailsVerifyDatas]="limitsDetailsForEmailsVerifyData" [limitsDetailsForEmailsVerifyCols]="limitsDetailsForEmailsVerifyCols" [limitsDetailsForEmailsColumns]= "limitsDetailsForEmailsCols" [serverSidePaginator]="true" [actionCols]="actionCols" [resetDisplayModelTable]="resetDisplayModelTable" (updateTableDataList)="getUpdateTableDataList( $event )" (updateActionField)="getUpdateActionField( $event )" (updatedFieldsforBulkTag)="getUpdatedFieldsforBulkTag( $event )"></dg-user-list>
+</ng-container>
+
+<ng-template #otherBlock>
+    <dg-user-list [listColumns]="tableCols" [listDataValues]="tableData" [listPage]="true" [thisPage]="'companyListPage'" (updateTableDataList)="getUpdateTableDataList( $event )"></dg-user-list>
+</ng-template>

@@ -1,0 +1,1170 @@
+<!-- <ng-container *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasFeaturePermission('Compare Companies'); else showUpgradePlan"> -->
+<div featureAccess="Compare Companies" optionalTemplate="true">
+	<div class="px-4">
+		<div class="card compareContainer">
+			
+			<form #getCompareCompanyData="ngForm" (submit)="getCompaniesData( getCompareCompanyData )">
+				
+				<div class="font-italic"  class="c-light"><small>*Please input the Company Name / Number and choose the company from the suggestions.</small></div>
+				<div class="grid">
+					<div class="col-4">
+			
+						<span class="p-float-label">
+							<p-autoComplete appendTo="body" [(ngModel)]="companyNameNumberSearchKey1" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany( $event, undefined, 'companyName1' )" (completeMethod)="filteredCompanyName( $event.query, undefined, 'companyName1' )" (onSelect)="searchCompany( $event, 'companyName1' )" [size]="100" [minLength]="0" name="company_name_1" #company_name_1="ngModel" required></p-autoComplete>
+							<label>Company 1</label>
+							<span class="help-block" style="color: red;" *ngIf="company_name_1.invalid && fieldValidate">
+								Company 1 is required
+							</span>
+						</span>
+			
+					</div>
+					<div class="col-4">
+			
+						<span class="p-float-label">
+							<p-autoComplete appendTo="body" [(ngModel)]="companyNameNumberSearchKey2" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany( $event, undefined, 'companyName2' )" (completeMethod)="filteredCompanyName( $event.query, undefined, 'companyName2' )" (onSelect)="searchCompany( $event,'companyName2')" [size]="100" [minLength]="0" name="company_name_2" [disabled]="!this.showHideInputFieldBool['company2']" #company_name_2="ngModel"  required></p-autoComplete>
+							<label [style]="{opacity: !this.showHideInputFieldBool['company2'] ? 0.5: 1}">Company 2</label>
+							<span class="help-block" style="color: red;" *ngIf="company_name_2.invalid && fieldValidate">
+								Company 2 is required
+							</span>
+						</span>
+			
+					</div>
+					<div class="col-4">
+		
+						<span class="p-float-label">
+							<p-autoComplete appendTo="body" [(ngModel)]="companyNameNumberSearchKey3" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany( $event, undefined, 'companyName3' )" (completeMethod)="filteredCompanyName( $event.query, undefined, 'companyName3' )" (onSelect)="searchCompany( $event,'companyName3')" [size]="100" [minLength]="0" name="company_name_3" [disabled]="!this.showHideInputFieldBool['company3']" #company_name_3="ngModel"></p-autoComplete>
+							<label [style]="{opacity: !this.showHideInputFieldBool['company3'] ? 0.5: 1}">Company 3</label>
+							<span class="help-block" style="color: red;" *ngIf="company_name_3.invalid && fieldValidate">
+								Company 3 is required
+							</span>
+						</span>
+
+					</div>
+				</div>
+		
+				<div class="grid mt-2">
+							
+					<div class="col-fixed">
+						<button pButton type="submit" label="Compare" class="p-button-rounded" [disabled]="!compareButtonDisable"></button>
+					</div>
+					<div class="col-fixed">
+						<button pButton type="button" label="Reset" class="p-button-rounded p-button-danger" (click)="cancel()"></button>
+					</div>
+					<div class="col-fixed">
+						<button pButton type="button" label="Previously Compared" class="p-button-rounded p-button-primary" (click)="lastSearches()"></button>
+					</div>
+				</div>
+		
+			</form>
+
+		</div>
+	</div>
+
+	<ng-container *ngIf="compareCompaniesData; else noDataBlock">
+	
+		<div class="flex flex-wrap pl-4 goToELementContainer">
+			
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'financial' )">Financial</a></small>
+			</div>
+		
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'ratios' )">Ratios</a></small>
+			</div>
+		
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'profitability' )">Profitability</a></small>
+			</div>
+		
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'liquidity' )">Liquidity</a></small>
+			</div>
+		
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'solvency' )">Solvency</a></small>
+			</div>
+
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'internationalTrading' )">International Trade</a></small>
+			</div>
+
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'gvtProcurements' )">Govt. Procurements</a></small>
+			</div>
+		
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'assets' )">Assets</a></small>
+			</div>
+		
+			<div class="mr-3 columns">
+				<small><a href="javascript:void(0)" class="cName mr-1 inline" (click)="scrollToElement( 'management' )">Management</a></small>
+			</div>
+		
+		</div>
+		
+		<div class="grid">
+	
+			<p-scrollTop></p-scrollTop>
+		
+			<ng-container *ngFor="let companiesData of comparingCompanies | keyvalue">
+		
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+		
+					<div class="px-4">
+						<div class="card pageTitle px-4 py-3">
+		
+							<div class="grid">
+								<div class="col flex align-self-center">
+									<div class="grid">
+										<div class="col-fixed">
+											<i class="material-icons iconSize c-blue">business</i>
+										</div>
+										<div class="col pl-0">
+											<h2><a class="cName mr-1 inline" target="_blank" [href]="'/company/' + companiesData.value.companyNumber + '/' + commonService.formatCompanyNameForUrl(companiesData.value.companyName | titlecase)">{{ companiesData.value.companyName | uppercase }}</a></h2>
+										</div>
+									</div>
+								</div>
+								<div class="col-fixed">
+									<ng-container *ngIf="companiesData?.value?.companyStatus; else noCompanyStatus">                        
+										<ng-container *ngIf="[ 'live', 'in liquidation' ].includes(companiesData?.value?.companyStatus) ; else companyStatusNotLive">
+											<span [ngClass]="{ 'green': companiesData?.value?.companyStatus != undefined &&  companiesData?.value?.companyStatus == 'live',  'c-orange': companiesData?.value?.companyStatus != undefined &&  companiesData?.value?.companyStatus == 'in liquidation' }" class="status">
+												{{ companiesData?.value?.companyStatus | uppercase }}
+											</span>
+										</ng-container>
+										<ng-template #companyStatusNotLive>
+											<span [ngClass]="{ 'red': companiesData?.value?.companyStatus }" class="status">
+												{{ companiesData?.value?.companyStatus | uppercase }}
+											</span>                        
+										</ng-template>
+									</ng-container>
+									<ng-template #noCompanyStatus>-</ng-template>
+								</div>
+							</div>
+			
+							<div class="grid">
+								<div class="col">
+									<div class="companyDetailsLabel">Company Number</div>
+									<div class="companyDetailsInfoText"><a class="cName mr-1 inline" target="_blank" [href]="'/company/' + companiesData.value.companyNumber + '/' + commonService.formatCompanyNameForUrl(companiesData.value.companyName | titlecase)">{{ companiesData.value.companyNumber | uppercase }}</a></div>
+								</div>
+								<div class="col-fixed">
+									<div class="companyDetailsLabel">Incorporated on</div>
+									<div class="companyDetailsInfoText text-right">{{ companiesData?.value?.companyRegistrationDate }}</div>
+								</div>
+							</div>
+
+							<div class="grid">
+								<div class="col">
+									<div class="companyDetailsLabel">SIC Code</div>
+									<div class="companyDetailsInfoText">
+										<p *ngIf="companiesData.value?.sicCode?.SicNumber_1; else noRecordTemplate" class="text-2xl m-0"> {{ companiesData.value?.sicCode?.SicNumber_1 }} </p>
+									</div>
+								</div>
+								<div class="col-fixed">
+									<div class="companyDetailsLabel text-right">Head Office</div>
+									<div class="companyDetailsInfoText text-right">
+										<p *ngIf="companiesData.value?.headOfficeTradingAddress; else noRecordTemplate">
+											{{ companiesData.value?.headOfficeTradingAddress | titlecase}}</p>
+									</div>
+								</div>
+							</div>	
+					
+						</div>
+
+						<div class="grid">
+							<div class="col-12 mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Risk Assessment</h3>
+										<span class="riskRatingLabel" [ngClass]="{ 'lightGreen' : companiesData.value?.internationalScoreDescription == 'very low risk', 'cyan' : companiesData.value?.internationalScoreDescription == 'low risk', 'yellow' : companiesData.value?.internationalScoreDescription == 'moderate risk', 'orange' : companiesData.value?.internationalScoreDescription == 'high risk', 'darkRed': companiesData.value?.internationalScoreDescription == 'not scored' }">
+											{{ companiesData.value?.internationalScoreDescription == 'not scored'? 'Not scored /Very High Risk': companiesData.value?.internationalScoreDescription | titlecase }}
+										</span>
+									</div>
+									<div class="card-body">
+											<div class="grid">
+												<div class="col-12">
+													<p-chart *ngIf="companiesData.value.riskGaugeChartDataValues; else showNoRecordTemplate" type="doughnut" [options]="gaugeChartOptionsProps" [data]="companiesData.value.riskGaugeChartDataValues" [plugins]="gaugeChartPluginProps" width="480"></p-chart>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Company Age & Accounts</h3>
+									</div>
+									<div class="card-body">
+										
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-5">
+												<p *ngIf="companiesData.value?.companyAge; else noRecordTemplate" class="text-2xl m-0">{{ companiesData.value?.companyAge }}</p>
+												<p class="text-sm m-0">Years Old</p>
+											</div>
+											<div class="col-12 md:col-7 md:text-right" *ngIf="companiesData.value?.accountsDueDate; else noRecordTemplate">
+												<p class="text-lg m-0 {{ calculateAccountOverduePeriod( companiesData.value?.accountsDueDate ) ? 'c-red' : 'c-green' }}" *ngIf="companiesData.value?.accountsDueDate && calculateAccountOverduePeriod( companiesData.value?.accountsDueDate )">{{ commonService.changeToDate( companiesData.value?.accountsDueDate ) | date: 'dd-MM-yyyy' }} <span class="text-sm">( {{ calculateDays( companiesData.value?.accountsDueDate ) | number: '1.0-0' }} days )</span></p>
+												<p class="text-sm m-0 {{ calculateAccountOverduePeriod( companiesData.value?.accountsDueDate ) ? 'c-red' : 'c-green' }}" *ngIf="companiesData.value?.accountsDueDate">{{ calculateAccountOverduePeriod( companiesData.value?.accountsDueDate ) ? 'Accounts Overdue' : 'No Overdues' }}</p>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="grid">
+							<div class="col mt-3">
+							 <div class="card min-height">
+								 <div class="card-header">
+									<h3>Director's Details</h3>
+								 </div>
+								 <div class="card-body">									 
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6">
+										<p *ngIf="companiesData.value?.directors_Details.active_directors; else noRecordTemplate" class="text-2xl m-0 c-green">{{ (companiesData.value?.directors_Details.active_directors + companiesData.value?.directors_Details.active_secretary ) | number }}</p>
+										<p class="text-sm m-0">Active Directors</p>											 
+										</div>
+										<div class="col-12 md:col-6 md:text-right">
+										<p *ngIf="companiesData.value?.directors_Details.total_directors; else noRecordTemplate" class="text-2xl m-0">{{ companiesData.value?.directors_Details.total_directors | number }}</p>
+											<p class="text-sm m-0">Total Directors</p>
+										</div>
+									</div>			 
+								 </div>
+							 </div>
+							</div> 
+						 </div>
+			
+						<div class="grid">
+						   <div class="col mt-3">
+							<div class="card min-height">
+								<div class="card-header">
+									<h3>Charges</h3>
+									<span [ngClass]="{ 'disabled': !companiesData.value?.chargesDetails?.outstandingCount && !companiesData.value?.chargesDetails?.fullySatisfiedCount }">
+										<h3><a href="javascript:void(0);" (click)="goToTab( companiesData.value.companyNumber, companiesData.value.companyName, 'viewCharges' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+									</span>
+								</div>
+								<div class="card-body">
+									
+									<div class="grid align-items-center">
+										<div class="col-12 md:col-6">
+											<p *ngIf="companiesData.value?.chargesDetails?.outstandingCount; else noRecordTemplate" class="text-2xl m-0 c-red">{{ companiesData.value?.chargesDetails?.outstandingCount | number }}</p>
+											<p class="text-sm m-0">Outstanding</p>
+										</div>
+										<div class="col-12 md:col-6 md:text-right">
+											<p *ngIf="companiesData.value?.chargesDetails?.fullySatisfiedCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companiesData.value?.chargesDetails?.fullySatisfiedCount | number }}</p>
+											<p class="text-sm m-0">Fully Satisfied</p>
+										</div>
+									</div>
+			
+								</div>
+							</div>
+						   </div> 
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>County Court Judgements</h3>
+										<span [ngClass]="{ 'disabled': !companiesData.value?.ccjDetails?.newJudgmentAmountCount && !companiesData.value?.ccjDetails?.satisfiedAmountCount }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( companiesData.value.companyNumber, companiesData.value.companyName, 'viewCcj' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">
+										
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6">
+												<p class="text-2xl m-0 c-red" *ngIf="companiesData.value?.ccjDetails?.newJudgmentAmountCount; else noRecordTemplate">{{ toNumberSuffix.transform( companiesData.value?.ccjDetails?.newJudgmentAmountCount, '2', selectedGlobalCurrency ) }}</p>
+												<p class="m-0"><strong class="c-red" *ngIf="companiesData.value?.ccjDetails?.newJudgmentCount">{{ companiesData.value?.ccjDetails?.newJudgmentCount | number }}</strong><small> New Judgements</small></p>
+											</div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p *ngIf="companiesData.value?.ccjDetails?.satisfiedAmountCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{  toNumberSuffix.transform( companiesData.value?.ccjDetails?.satisfiedAmountCount, '2', selectedGlobalCurrency ) }}</p>
+												<p class="m-0"><strong class="c-green" *ngIf="companiesData.value?.ccjDetails?.satisfiedCount">{{ companiesData.value?.ccjDetails?.satisfiedCount | number }}</strong><small> Satisfied</small></p>
+											</div>
+										</div>
+			
+									</div>
+								</div>
+			
+							</div>
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Write-offs</h3>
+										<span [ngClass]="{ 'disabled': !( companiesData.value?.writeOffs && companiesData.value?.writeOffs.length &&companiesData.value?.writeOffs[0]?.totalAmount ) && !( companiesData.value?.writeOffs && companiesData.value?.writeOffs.length && companiesData.value?.writeOffs[0]?.totalCount ) }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( companiesData.value.companyNumber, companiesData.value.companyName, 'viewWrtieOffs' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">
+										
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-red" *ngIf="( companiesData.value?.writeOffs && companiesData.value?.writeOffs.length &&companiesData.value?.writeOffs[0]?.totalAmount ); else noRecordTemplate">{{ toNumberSuffix.transform( companiesData.value?.writeOffs[0]?.totalAmount, '2', selectedGlobalCurrency ) }}</p>
+												<p class="m-0"><strong class="c-red" *ngIf="( companiesData.value?.writeOffs && companiesData.value?.writeOffs.length && companiesData.value?.writeOffs[0]?.totalCount )">{{ companiesData.value?.writeOffs[0]?.totalCount }}</strong><small> Companies</small></p>
+											</div>
+										</div>
+			
+									</div>
+								</div>
+							</div>
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Company Commentary</h3>
+										<span [ngClass]="{ 'disabled': !companiesData.value?.companyCommentary.commentaryImpactNegative && !companiesData.value?.companyCommentary?.commentaryImpactPositive }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( companiesData.value.companyNumber, companiesData.value.companyName, 'viewCommentary' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6">
+												<p *ngIf="companiesData.value?.companyCommentary.commentaryImpactNegative ; else noRecordTemplate" class="text-2xl m-0 c-red">{{ companiesData.value?.companyCommentary?.commentaryImpactNegative | number }}</p>
+												<p class="text-sm m-0">Negative</p>
+											</div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p *ngIf="companiesData.value?.companyCommentary?.commentaryImpactPositive; else noRecordTemplate" class="text-2xl m-0 c-green">{{ companiesData.value?.companyCommentary?.commentaryImpactPositive | number}}</p>
+												<p class="text-sm m-0">Positive</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			
+					</div>
+		
+				</div>
+		
+			</ng-container>
+		
+		</div>
+
+		<p-divider></p-divider>
+	
+		<div id="financial" class="grid">
+		
+			<div class="col align-items-center mt-3 px-5">
+				
+				<span class="x-big-data-font c-darkBlue">Financial</span>
+		
+			</div>
+		
+		</div>
+	
+		<div class="grid">
+	
+			<ng-container *ngFor="let financialData of financialCardDatasets | keyvalue">
+	
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+	
+					<div class="px-4">
+						<div class="grid">
+							<ng-container *ngFor="let financial of financialData.value.financials | keyvalue">
+	
+								<div class="col-12 mt-3">
+									
+									<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: financial.key, body: financial.value } }"></ng-container>
+										
+								</div>
+	
+							</ng-container>
+						</div>
+					</div>
+	
+				</div>
+	
+			</ng-container>
+	
+		</div>
+	
+		<div class="grid">
+	
+			<ng-container *ngFor="let financialData of financialCardDatasets | keyvalue">
+	
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+	
+					<div class="px-4">
+						<div class="grid">
+							<ng-container *ngFor="let additionalRatio of financialData.value.additionalCalculatedRatios | keyvalue">
+	
+								<div class="col-12 mt-3">
+									
+									<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: additionalRatio.key, body: additionalRatio.value } }"></ng-container>
+										
+								</div>
+	
+							</ng-container>
+						</div>
+					</div>
+	
+				</div>
+	
+			</ng-container>
+	
+		</div>
+	
+		<div id="ratios" class="grid align-items-center mt-3 px-5">
+			<div class="col-fixed">
+				<span class="text-lg font-bold">Ratios</span>
+			</div>
+		</div>
+	
+		<div class="grid">
+	
+			<ng-container *ngFor="let financialData of financialCardDatasets | keyvalue : returnZero">
+	
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+	
+					<div class="px-4">
+						<div class="grid">
+							<ng-container *ngFor="let ratio of financialData.value.ratios | keyvalue : returnZero">
+	
+								<div class="col-12 mt-3">
+	
+									<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: ratio.key, body: ratio.value } }"></ng-container>
+									
+								</div>
+	
+							</ng-container>
+						</div>
+					</div>
+	
+				</div>
+	
+			</ng-container>
+	
+		</div>
+	
+		<div id="profitability" class="grid align-items-center mt-3 px-5">
+			<div class="col-fixed">
+				<span class="text-lg font-bold">Profitability</span>
+			</div>
+		</div>
+	
+		<div class="grid">
+	
+			<ng-container *ngFor="let financialData of financialCardDatasets | keyvalue : returnZero">
+	
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+	
+					<div class="px-4">
+						<div class="grid">
+							<ng-container *ngFor="let profitability of financialData.value.profitability | keyvalue : returnZero">
+	
+								<div class="col-12 mt-3">
+									
+									<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: profitability.key, body: profitability.value } }"></ng-container>
+										
+								</div>
+	
+							</ng-container>
+						</div>
+					</div>
+	
+				</div>
+	
+			</ng-container>
+	
+		</div>
+	
+		<div id="liquidity" class="grid align-items-center mt-3 px-5">
+			<div class="col-fixed">
+				<span class="text-lg font-bold">Liquidity</span>
+			</div>
+		</div>
+	
+		<div class="grid">
+	
+			<ng-container *ngFor="let financialData of financialCardDatasets | keyvalue : returnZero">
+	
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+	
+					<div class="px-4">
+						<div class="grid">
+							<ng-container *ngFor="let liquidity of financialData.value.liquidity | keyvalue : returnZero">
+	
+								<div class="col-12 mt-3">
+									
+									<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: liquidity.key, body: liquidity.value } }"></ng-container>
+										
+								</div>
+	
+							</ng-container>
+						</div>
+					</div>
+	
+				</div>
+	
+			</ng-container>
+	
+		</div>
+	
+		<div id="solvency" class="grid align-items-center mt-3 px-5">
+			<div class="col-fixed">
+				<span class="text-lg font-bold">Solvency</span>
+			</div>
+		</div>
+	
+		<div class="grid">
+	
+			<ng-container *ngFor="let financialData of financialCardDatasets | keyvalue : returnZero">
+	
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+	
+					<div class="px-4">
+						<div class="grid">
+							<ng-container *ngFor="let solvency of financialData.value.solvency | keyvalue : returnZero">
+	
+								<div class="col-12 mt-3">
+									
+									<ng-container [ngTemplateOutlet]="financialCardDisplayTemplate" [ngTemplateOutletContext]="{ $implicit: { title: solvency.key, body: solvency.value } }"></ng-container>
+										
+								</div>
+	
+							</ng-container>
+						</div>
+					</div>
+	
+				</div>
+	
+			</ng-container>
+	
+		</div>
+		
+		<p-divider></p-divider>
+		
+		<div id="internationalTrading" class="grid">
+		
+			<div class="col align-items-center mt-3 px-5">
+				
+				<span class="x-big-data-font c-darkBlue">International Trade</span>
+		
+			</div>
+		
+		</div>
+		
+		<div class="grid">
+		
+			<ng-container *ngFor="let internationalData of comparingCompanies | keyvalue">
+		
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+		
+					<div class="px-4">
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Imports</h3>
+										<span addOnAccess="internationalTradeFilter">
+											<span [ngClass]="{ 'disabled': !internationalData.value?.importExportData?.lastFiveYearImports && !internationalData.value?.importExportData?.lastOneYearImports }">
+												<h3><a href="javascript:void(0);" (click)="goToTab( internationalData.value.companyNumber, internationalData.value.companyName, 'viewImportExport' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+											</span>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6">
+												<p class="text-2xl m-0" *ngIf="internationalData.value?.importExportData?.lastFiveYearImports; else noRecordTemplate">{{ internationalData.value?.importExportData?.lastFiveYearImports | number }}</p>
+												<p class="m-0"><small>Last<strong> 60 </strong>Months</small></p>
+											</div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0" *ngIf="internationalData.value?.importExportData?.lastOneYearImports; else noRecordTemplate">{{ internationalData.value?.importExportData?.lastOneYearImports | number }}</p>
+												<p class="m-0"><small>Last<strong> 12 </strong>Months</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Exports</h3>
+										<span addOnAccess="internationalTradeFilter">
+											<span [ngClass]="{ 'disabled': !internationalData.value?.importExportData?.lastFiveYearExports && !internationalData.value?.importExportData?.lastOneYearExports }">
+												<h3><a href="javascript:void(0);" (click)="goToTab( internationalData.value.companyNumber, internationalData.value.companyName, 'viewImportExport' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+											</span>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6">
+												<p class="text-2xl m-0" *ngIf="internationalData.value?.importExportData?.lastFiveYearExports; else noRecordTemplate">{{ internationalData.value?.importExportData?.lastFiveYearExports | number }}</p>
+												<p class="m-0"><small>Last<strong> 60 </strong>Months</small></p>
+											</div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0" *ngIf="internationalData.value?.importExportData?.lastOneYearExports; else noRecordTemplate">{{ internationalData.value?.importExportData?.lastOneYearExports | number }}</p>
+												<p class="m-0"><small>Last<strong> 12 </strong>Months</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					</div>
+		
+				</div>
+		
+			</ng-container>
+		
+		</div>
+		
+		<p-divider></p-divider>
+		
+		<div id="gvtProcurements" class="grid">
+		
+			<div class="col align-items-center mt-3 px-5">
+				
+				<span class="x-big-data-font c-darkBlue">Govt. Procurements</span>
+		
+			</div>
+		
+		</div>
+		
+		<div class="grid">
+		
+			<ng-container *ngFor="let gvtProcData of comparingCompanies | keyvalue">
+		
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+		
+					<div class="px-4">
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>As Supplier</h3>
+										<span addOnAccess="governmentEnabler">
+											<span [ngClass]="{ 'disabled': !gvtProcData.value?.supplierDataCount?.awardValueCount && !gvtProcData.value?.supplierDataCount?.contractWonCount }">
+												<h3><a href="javascript:void(0);" (click)="goToTab( gvtProcData.value.companyNumber, gvtProcData.value.companyName, 'viewGovernmentEnablerSupplier' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+											</span>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-green" *ngIf="gvtProcData.value?.supplierDataCount?.awardValueCount; else noRecordTemplate">{{ toNumberSuffix.transform( gvtProcData.value?.supplierDataCount?.awardValueCount, '2', selectedGlobalCurrency ) }}</p>
+												<p class="m-0"><strong *ngIf="gvtProcData.value?.supplierDataCount?.contractWonCount" class="c-green">{{ gvtProcData.value?.supplierDataCount?.contractWonCount | number }}</strong><small> Contracts Awarded</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>As Buyer</h3>
+										<span addOnAccess="governmentEnabler">
+											<span [ngClass]="{ 'disabled': !gvtProcData.value?.buyerDataCount?.awardValueCount && !gvtProcData.value?.buyerDataCount?.awardedCount }">
+												<h3><a href="javascript:void(0);" (click)="goToTab( gvtProcData.value.companyNumber, gvtProcData.value.companyName, 'viewGovernmentEnablerBuyer' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+											</span>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-green" *ngIf="gvtProcData.value?.buyerDataCount?.awardValueCount; else noRecordTemplate">{{  toNumberSuffix.transform( gvtProcData.value?.buyerDataCount?.awardValueCount, '2', selectedGlobalCurrency ) }}</p>
+												<p class="m-0"><strong *ngIf="gvtProcData.value?.buyerDataCount?.awardedCount" class="c-green">{{ gvtProcData.value?.buyerDataCount?.awardedCount | number }}</strong><small> Contracts Awarded</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					</div>
+		
+				</div>
+		
+			</ng-container>
+		
+		</div>
+		
+		<p-divider></p-divider>
+		
+		<div id="assets" class="grid">
+		
+			<div class="col align-items-center mt-3 px-5">
+				
+				<span class="x-big-data-font c-darkBlue">Assets</span>
+		
+			</div>
+		
+		</div>
+		
+		<div class="grid">
+		
+			<ng-container *ngFor="let assets of comparingCompanies | keyvalue">
+		
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+		
+					<div class="px-4">
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Land Purchased</h3>
+										<span [ngClass]="{ 'disabled': !assets.value?.landPurchaseFreeholdCount && !assets.value?.landPurchaseLeaseholdCount }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( assets.value.companyNumber, assets.value.companyName, 'viewCorporateLand' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6">
+												<p *ngIf="assets.value?.landPurchaseFreeholdCount ; else noRecordTemplate" class="text-2xl m-0 c-green">{{ assets.value?.landPurchaseFreeholdCount | number }}</p>
+												<p class="text-sm m-0">Freehold</p>
+											</div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p *ngIf="assets.value?.landPurchaseLeaseholdCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ assets.value?.landPurchaseLeaseholdCount | number }}</p>
+												<p class="text-sm m-0">Leasehold</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Land Sold</h3>
+										<span [ngClass]="{ 'disabled': !assets.value?.landSaleFreeholdCount && !assets.value?.landSaleLeaseholdCount }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( assets.value.companyNumber, assets.value.companyName, 'viewCorporateLand' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6">
+												<p *ngIf="assets.value?.landSaleFreeholdCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ assets.value?.landSaleFreeholdCount | number }}</p>
+												<p class="text-sm m-0">Freehold</p>
+											</div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p *ngIf="assets.value?.landSaleLeaseholdCount; else noRecordTemplate" class="text-2xl m-0 c-green">{{ assets.value?.landSaleLeaseholdCount | number }}</p>
+												<p class="text-sm m-0">Leasehold</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Grants Offered</h3>
+										<span [ngClass]="{ 'disabled': !( assets.value?.grantOffered && assets.value?.grantOffered.length && assets.value?.grantOffered[0] ) }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( assets.value.companyNumber, assets.value.companyName, 'viewInnovateGrant' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-green" *ngIf="( assets.value?.grantOffered && assets.value?.grantOffered.length && assets.value?.grantOffered[0] ); else noRecordTemplate">{{ toNumberSuffix.transform( assets.value?.grantOffered[0], '2', selectedGlobalCurrency ) }}</p>
+												<p class="m-0"><small>Final Claimed</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					</div>
+		
+				</div>
+		
+			</ng-container>
+		
+		</div>
+		
+		<p-divider></p-divider>
+		
+		<div id="management" class="grid">
+		
+			<div class="col align-items-center mt-3 px-5">
+				
+				<span class="x-big-data-font c-darkBlue">Management</span>
+		
+			</div>
+		
+		</div>
+		
+		<div class="grid">
+		
+			<ng-container *ngFor="let management of comparingCompanies | keyvalue">
+		
+				<div [ngClass]="[ companyNumberArr && companyNumberArr.length == 2 ? 'col-6' : 'col-4' ]">
+		
+					<div class="px-4">
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Directors's Change</h3>
+										<span [ngClass]="{ 'disabled': management.value?.directors_Details?.Changed_Directors_in_3_months == '' }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( management.value.companyNumber, management.value.companyName, 'viewDirectors' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-green" *ngIf="management.value?.directors_Details?.Changed_Directors_in_3_months !== ''; else noRecordTemplate">{{ management.value?.directors_Details?.Changed_Directors_in_3_months.length | number }}</p>
+												<p class="m-0"><small>in<strong> 3 </strong>Months</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Shareholders</h3>
+										<span [ngClass]="{ 'disabled': !management.value?.totalShareHolder }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( management.value.companyNumber, management.value.companyName, 'viewShareholders' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-green" *ngIf="management.value?.totalShareHolder; else noRecordTemplate">{{ management.value?.totalShareHolder | number }}</p>
+												<p class="m-0"><small>Total</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+						<div class="grid">
+							<div class="col mt-3">
+								<div class="card min-height">
+									<div class="card-header">
+										<h3>Disqualified Directors</h3>
+										<span [ngClass]="{ 'disabled': !management.value?.disqualifiedDirectorsCount }">
+											<h3><a href="javascript:void(0);" (click)="goToTab( management.value.companyNumber, management.value.companyName, 'viewDirectors' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+										</span>
+									</div>
+									<div class="card-body">		
+										<div class="grid align-items-center">
+											<div class="col-12 md:col-6"></div>
+											<div class="col-12 md:col-6 md:text-right">
+												<p class="text-2xl m-0 c-red" *ngIf="management.value?.disqualifiedDirectorsCount; else noRecordTemplate">{{ management.value?.disqualifiedDirectorsCount | number }}</p>
+												<p class="m-0"><small>Total</small></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		
+					</div>
+		
+				</div>
+		
+			</ng-container>
+		
+		</div>
+	
+	</ng-container>
+
+	<ng-template #financialCardDisplayTemplate let-cardData>
+
+		<div class="card min-height">
+
+			<div class="card-header">
+
+				<ng-container *ngIf="cardData.title == 'revenue'; else elseBlock">
+					<h3>Turnover</h3>
+				</ng-container>
+				
+				<ng-template #elseBlock>
+					<h3>{{ [ 'cagr', 'EBITDA' ].includes( cardData.title ) ? ( cardData.title | uppercase ) : commonService.camelCaseToTitleCaseStr( cardData.title ) }}</h3>
+				</ng-template>
+
+				<ng-container *ngIf="![ 'grossMarginByNumberOfEmployees', 'grossMarginByTurnoverPercent', 'profitBeforeTaxByTurnoverPercent', 'turnoverByNumberOfEmployees', 'wagesAndSalariesByTurnoverPercent', 'cashRatio', 'quickRatio' ].includes( cardData.title )">
+					<ng-container *ngIf="[ 'zScore' ].includes( cardData.title ); else forCAGR">
+						<span addOnAccess="industryAnalysis">
+							<span [ngClass]="{ 'disabled': !cardData.body.hasZScore }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( cardData.body.companyNumber, cardData.body.companyName, 'viewZscore'  )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+						</span>
+					</ng-container>
+
+					<ng-template #forCAGR>
+
+						<ng-container *ngIf="[ 'cagr' ].includes( cardData.title ); else otherKeys">
+							<span addOnAccess="industryAnalysis">
+								<span [ngClass]="{ 'disabled': !cardData.body.hasCAGR }">
+									<h3><a href="javascript:void(0);" (click)="goToTab( cardData.body.companyNumber, cardData.body.companyName, 'viewCagr' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+								</span>
+							</span>
+
+						</ng-container>
+
+						<ng-template #otherKeys>
+
+							<span [ngClass]="{ 'disabled': !cardData.body.hasFinances }">
+								<h3><a href="javascript:void(0);" (click)="goToTab( cardData.body.companyNumber, cardData.body.companyName, [ 'gearingPercentage', 'creditorDays', 'debtorDays', 'returnOnCapital', 'returnOnTotalAssets', 'currentRatio', 'equityInPercentage', 'totalDebtRatio' ].includes( cardData.title ) ? 'viewFinancialRatios' : 'viewFinancials' )"><span class="material-icons">arrow_circle_right</span></a></h3>
+							</span>
+
+						</ng-template>
+
+					</ng-template>
+				
+				</ng-container>
+
+			</div>
+
+			<div class="card-body">
+				<div class="grid align-items-end">
+
+					<ng-container *ngIf="[ 'zScore' ].includes( cardData.title ); else forCagr">
+
+						<ng-container *ngIf="cardData.body.hasZScore; else noRecordTemplateData">
+
+							<div class="col-fixed">
+
+								<ng-container *ngIf="cardData.body.latestYearValue >= 0">
+									<p class="text-4xl m-0">{{ toNumberSuffix.transform( cardData.body.latestYearValue, '2', cardData.body.valueType ) }}</p>
+								</ng-container>
+								<ng-container *ngIf="cardData.body.latestYearValue < 0">
+									<p class="text-4xl m-0 c-red">({{ toNumberSuffix.transform( cardData.body.latestYearValue * -1, '2', cardData.body.valueType ) }})</p>
+								</ng-container>
+			
+								<p class="text-sm m-0" [class.c-light]="cardData.body.previousYearValue >= 0" [class.c-red]="cardData.body.previousYearValue < 0">
+			
+									<ng-container *ngIf="cardData.body.previousYearValue >= 0">
+										{{ toNumberSuffix.transform( cardData.body.previousYearValue, '2', cardData.body.valueType ) }}
+									</ng-container>
+									<ng-container *ngIf="cardData.body.previousYearValue < 0">
+										({{ toNumberSuffix.transform( cardData.body.previousYearValue * 1, '2', cardData.body.valueType ) }})
+									</ng-container>
+			
+									<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('increased')">
+			
+										<span class="text-sm c-green ml-2">
+											<i class="material-icons text-lg">trending_up</i>
+											{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.increased, '2', cardData.body.valueType ) }}%
+										</span>
+			
+									</ng-container>
+			
+									<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('decreased')">
+			
+										<span class="text-sm c-red ml-2">
+											<i class="material-icons text-lg">trending_down</i>
+											{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.decreased, '2', cardData.body.valueType ) }}%
+										</span>
+			
+									</ng-container>
+			
+									<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('equal')">
+			
+										<span class="text-sm c-red ml-2">
+											<i class="material-icons text-lg">trending_flat</i>
+											{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.equal, '2', cardData.body.valueType ) }}%
+										</span>
+			
+									</ng-container>
+			
+								</p>
+			
+							</div>
+							<div class="col-fixed ml-auto">
+								<p-chart type="bar" [data]="cardData.body.chartDatasets" [options]="miniBarChartOptions" [plugins]="ChartDataLabelsPlugin" responsive="true" width="180px" height="60px"></p-chart>
+							</div>
+
+						</ng-container>
+
+					</ng-container>
+					<ng-template #forCagr>
+
+						<ng-container *ngIf="[ 'cagr' ].includes( cardData.title ); else otherKeys">
+
+							<ng-container *ngIf="cardData.body.hasCAGR; else noRecordTemplateData">
+
+								<div class="col-fixed">
+
+									<ng-container *ngIf="cardData.body.latestYearValue >= 0">
+										<p class="text-4xl m-0">{{ toNumberSuffix.transform( cardData.body.latestYearValue, '2', cardData.body.valueType ) }}</p>
+									</ng-container>
+									<ng-container *ngIf="cardData.body.latestYearValue < 0">
+										<p class="text-4xl m-0 c-red">({{ toNumberSuffix.transform( cardData.body.latestYearValue * -1, '2', cardData.body.valueType ) }})</p>
+									</ng-container>
+				
+									<p class="text-sm m-0" [class.c-light]="cardData.body.previousYearValue >= 0" [class.c-red]="cardData.body.previousYearValue < 0">
+				
+										<ng-container *ngIf="cardData.body.previousYearValue >= 0">
+											{{ toNumberSuffix.transform( cardData.body.previousYearValue, '2', cardData.body.valueType ) }}
+										</ng-container>
+										<ng-container *ngIf="cardData.body.previousYearValue < 0">
+											({{ toNumberSuffix.transform( cardData.body.previousYearValue * 1, '2', cardData.body.valueType ) }})
+										</ng-container>
+				
+										<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('increased')">
+				
+											<span class="text-sm c-green ml-2">
+												<i class="material-icons text-lg">trending_up</i>
+												{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.increased, '2', cardData.body.valueType ) }}%
+											</span>
+				
+										</ng-container>
+				
+										<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('decreased')">
+				
+											<span class="text-sm c-red ml-2">
+												<i class="material-icons text-lg">trending_down</i>
+												{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.decreased, '2', cardData.body.valueType ) }}%
+											</span>
+				
+										</ng-container>
+				
+										<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('equal')">
+				
+											<span class="text-sm c-red ml-2">
+												<i class="material-icons text-lg">trending_flat</i>
+												{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.equal, '2', cardData.body.valueType ) }}%
+											</span>
+				
+										</ng-container>
+				
+									</p>
+				
+								</div>
+								<div class="col-fixed ml-auto">
+									<p-chart type="bar" [data]="cardData.body.chartDatasets" [options]="miniBarChartOptions" [plugins]="ChartDataLabelsPlugin" responsive="true" width="180px" height="60px"></p-chart>
+								</div>
+
+							</ng-container>
+
+						</ng-container>
+
+						<ng-template #otherKeys>
+
+							<div class="col-fixed">
+
+								<ng-container *ngIf="cardData.body.latestYearValue >= 0">
+									<p class="text-4xl m-0">{{ toNumberSuffix.transform( cardData.body.latestYearValue, '2', cardData.body.valueType ) }}</p>
+								</ng-container>
+								<ng-container *ngIf="cardData.body.latestYearValue < 0">
+									<p class="text-4xl m-0 c-red">({{ toNumberSuffix.transform( cardData.body.latestYearValue * -1, '2', cardData.body.valueType ) }})</p>
+								</ng-container>
+			
+								<p class="text-sm m-0" [class.c-light]="cardData.body.previousYearValue >= 0" [class.c-red]="cardData.body.previousYearValue < 0">
+			
+									<ng-container *ngIf="cardData.body.previousYearValue >= 0">
+										{{ toNumberSuffix.transform( cardData.body.previousYearValue, '2', cardData.body.valueType ) }}
+									</ng-container>
+									<ng-container *ngIf="cardData.body.previousYearValue < 0">
+										({{ toNumberSuffix.transform( cardData.body.previousYearValue * 1, '2', cardData.body.valueType ) }})
+									</ng-container>
+			
+									<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('increased')">
+			
+										<span class="text-sm c-green ml-2">
+											<i class="material-icons text-lg">trending_up</i>
+											{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.increased, '2', cardData.body.valueType ) }}%
+										</span>
+			
+									</ng-container>
+			
+									<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('decreased')">
+			
+										<span class="text-sm c-red ml-2">
+											<i class="material-icons text-lg">trending_down</i>
+											{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.decreased, '2', cardData.body.valueType ) }}%
+										</span>
+			
+									</ng-container>
+			
+									<ng-container *ngIf="cardData.body.diffPercentageValue && cardData.body.diffPercentageValue.hasOwnProperty('equal')">
+			
+										<span class="text-sm c-red ml-2">
+											<i class="material-icons text-lg">trending_flat</i>
+											{{ toNumberSuffix.transform( cardData.body.diffPercentageValue.equal, '2', cardData.body.valueType ) }}%
+										</span>
+			
+									</ng-container>
+			
+								</p>
+			
+							</div>
+							<div class="col-fixed ml-auto">
+								<p-chart type="bar" [data]="cardData.body.chartDatasets" [options]="miniBarChartOptions" [plugins]="ChartDataLabelsPlugin" responsive="true" width="180px" height="60px"></p-chart>
+							</div>
+
+						</ng-template>
+
+
+					</ng-template>
+					
+				</div>
+				
+			</div>
+
+		</div>
+
+	</ng-template>
+	<!-- /Financial Card Template -->
+
+	<ng-template class="pt-2" #noDataBlock>
+		<div class="px-4">
+			<div class="card noCompareData">
+				<p>Please select any company</p>
+			</div>
+		</div>
+	</ng-template>
+
+	<ng-template #noRecordTemplate>
+		<div class="noRecords">
+			<p>No Data</p>
+		</div>
+	</ng-template>
+
+	<ng-template #noRecordTemplateData>
+		<div class="noRecordsData">
+			<p>No Data</p>
+		</div>
+	</ng-template>
+</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #showUpgradePlan>
+	<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ) || ( [ subscribedPlanModal['Enterprise_Annual_Two_Year'] ] ).includes( currentPlan ); else otherThanClientUserLoggedIn">
+		<div class="card text-center">
+			To enable this feature, please contact your Administrator.
+		</div>
+	</ng-container>
+	<ng-template #otherThanClientUserLoggedIn>
+		<p-card>
+			<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+		</p-card>
+	</ng-template>
+</ng-template> -->

@@ -1,0 +1,75 @@
+.insightsViewContainer {
+    min-height: calc( 100vh - 117px );
+    padding: 20px;
+		
+    @media only screen and (max-width: 1024px) {
+        flex-direction: column;
+    }
+    
+    .insightsChartViewContainer {
+        flex: 1;
+		
+		@media only screen and (max-width: 1024px) {
+            padding-left: 0;
+		}
+
+        .card {
+            box-shadow: none;
+
+			&.mapCard {
+				height: calc( 100% - 1em );
+				display: flex;
+				flex-direction: column;
+				padding: 5px;
+			}
+
+			.furloughDataTable {
+				text-align: left;
+
+				&.industriesList {
+					max-height: 280px;
+					overflow-y: auto;
+				}
+			}
+        }
+    }
+}
+
+.insightsViewContainer {
+	.insightsRegionalMap {
+		flex: 1;
+		min-height: 380px;
+		background-color: transparent;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+}
+table.simpleTableUI {
+    width: 100%;
+    font-size: 1em;
+    border-spacing: 0;
+    border: 1px solid #e4e4e4;
+    
+    tr {
+        th {
+            border-bottom: 1px solid #e4e4e4;
+        }
+        &:not( :last-child ) {
+            th,
+            td {
+                border-bottom: 1px solid #e4e4e4;
+            }
+        }
+        th,
+        td {
+            padding: 5px 8px;
+
+            &:not( :last-child ) {
+                border-right: 1px solid #e4e4e4;
+            }
+        }
+        td {
+            font-size: 0.9em;
+        }
+    }
+}

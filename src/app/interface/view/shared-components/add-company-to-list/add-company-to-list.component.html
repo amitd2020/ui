@@ -1,0 +1,74 @@
+<p-messages [value]="alreadyExistsMsz"></p-messages>
+
+<!-- Add Company To List Button Declaration-->
+<button pButton type="button" icon="ui-icon-add" class="p-button-rounded p-button-sm p-mb-xxl-2 mx-2" [ngClass]="{ 'hasFeatureLockIcon': !isFeatureAccessAddCompanyList }"  label="{{ thisPage == 'companyListOfIServiceCategoryPage' ? 'Portfolio List' : [ 'uploadCsvPage', 'companyLinkedInCsv', 'personLinkedInCsv' ].includes(thisPage) ?'Add To List' : 'List' }}" (click)="addCompanyToListHandeler()" [disabled]="( [ 'accountSearch', 'connectPlusCompany', 'personLinkedIn', 'companyDescription', 'chargesDescription', 'connectPlusPeople' ].includes( thisPage ) ) ? !selectedCompany.length : disableButton">
+	<span *ngIf="!isFeatureAccessAddCompanyList && thisPage !== 'companyListOfIServiceCategoryPage'" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+</button>
+
+<ng-container *ngIf="!['exportedBucket'].includes( activatedRoute.snapshot.queryParams['listPageName'] )">
+	<button pButton *ngIf="!defaultSearchData && ( ( thisPage == 'companySearch'  && appliedFilters.length ) ||  ( ['accountSearch', 'personLinkedIn', 'showChargesTablePage','showTradeTablePage', 'otherRelatedCompanies', 'companyDescription', 'chargesDescription', 'investorFinderPage', 'investeeFinderPage', 'connectPlusCompany', 'contractFinderPage', 'connectPlusPeople', 'promptSearchAi'].includes(thisPage)) )" type="button" icon="ui-icon-add" class="p-button-rounded p-mb-xxl-2 ml-2 mr-2" [ngClass]="{ 'p-button-sm': ( ['companySearch', 'accountSearch', 'connectPlusCompany', 'personLinkedIn', 'companyDescription', 'chargesDescription', 'showChargesTablePage','showTradeTablePage', 'otherRelatedCompanies', 'investorFinderPage', 'investeeFinderPage', 'contractFinderPage', 'connectPlusPeople', 'promptSearchAi'].includes(thisPage) ), 'hasFeatureLockIcon': !isFeatureAccessAddCompanyList }" label="Add All in List" (click)="addAllCompanyToList()" [disabled]="!searchTotalCount">
+		<span *ngIf="!isFeatureAccessAddCompanyList" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+	</button>
+</ng-container>
+<!-- Add Company To List Button Declaration End-->
+
+<!-- Login Modal Dialog -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false">
+	<dg-login></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<ng-container *ngIf="isLoggedIn">
+
+	<!-- Upgrade Plan Dialog -->
+	<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: 'auto' }">
+		<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+	</p-dialog>
+	<!-- Upgrade Plan Dialog End -->
+	
+	<!-- Upgrade Plan Dialog For Client User -->
+	<p-dialog styleClass="subscriptionPlanDialogModalForClientUser" [modal]="true" [draggable]="false" [(visible)]="showUpgradePlanDialogForClientuser" [baseZIndex]="999999998" appendTo="body" [style]="{ width: '40vw', 'overflow-y': 'auto' }">
+		<div class="text-center">
+			To enable this feature, please contact your Administrator.
+		</div>
+	</p-dialog>
+	<!-- Upgrade Plan Dialog For Client User End -->
+
+</ng-container>
+
+<ng-container *ngIf="isFeatureAccessAddCompanyList">
+
+	<!-- Add Company To List Modal Dialog -->
+	<p-dialog header="{{ ( thisPage && thisPage == 'companyListOfIServiceCategoryPage' ) ? 'Add In Your Portfolio List' : 'Add To List' }}" styleClass="addCompanyToListModal" [(visible)]="displayListModal" [modal]="true" [focusOnShow]="false" [baseZIndex]="10000" [draggable]="false" appendTo="body" [style]="{width: '40vw'}">
+	
+		<div *ngIf="!['buyersDashboard', 'company', 'uploadCsvPage', 'contractFinderPage','suppliersDashboard', 'personLinkedInCsv', 'companyLinkedInCsv'].includes(thisPage)" class="c-light font-italic"><small>{{noteMessage}}</small></div>
+		<span class="specialCharacters">Punctuation marks or special characters are not allowed (e.g., #, *, &#64;, /, -)</span>
+		<p-listbox #listBox [pKeyFilter]="noSpecialCharacter" *ngIf="listBoxReset" [options]="favList" (keyup)="keyupSearchList( $event )" (onClick)="selectList( $event.option, 'listUpdateSuccess')" [(ngModel)]="listArrayData" filter="filter" optionLabel="name" [listStyle]="{'max-height':'250px'}" class="listBoxhidden"></p-listbox>
+	
+		<div *ngIf="recordsAfterFilter || !favList">
+			<h4>
+				<p class="text-center">No records found,
+					<ng-container *ngIf="!favList; else defaultMsgTemplate">Please create a new list by entering the name of list in above text field.</ng-container>
+					<ng-template #defaultMsgTemplate>
+						Do you want to create
+						<strong>
+							<u>{{ newCreateListName }}</u>
+						</strong> List?
+					</ng-template>
+				</p>
+				<div class="text-center">
+					<button pButton type="button" label="Yes" class="p-button-rounded p-pb-2 mr-2" (click)="createNewList('addToListMessage')" [disabled]="!newCreateListName"></button>
+					<button pButton type="button" label="No" class="p-button-rounded p-pb-2" (click)="clearFilterField()" [disabled]="!newCreateListName"></button>
+				</div>
+			</h4>
+		</div>
+	
+	</p-dialog>
+	<!-- Add Company To List Modal Dialog End -->
+
+</ng-container>
+
+<p-dialog [(visible)]="WorkflowPageAddToListDialouge" [modal]="true" header="Add Reference">
+		<input pInputText type="text" [(ngModel)]="referenceKeyword" placeholder="Enter reference keywords" class="mb-3"/>
+		<button pButton type="button" label="Submit" (click)="addCompaniesToWorkflowList()" [disabled]="!referenceKeyword" class="p-button-rounded text-center"></button>
+</p-dialog>

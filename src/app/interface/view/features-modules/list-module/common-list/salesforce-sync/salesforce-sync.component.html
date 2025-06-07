@@ -1,0 +1,26 @@
+<p-messages [value]="msgs"></p-messages>
+
+<div class="card">
+
+	<h2 class="mt-0 text-left">Salesforce Sync</h2>
+
+		<div class="grid mt-4">
+			<div class="col-3">
+				<label>Salesforce Org.</label>
+				<p-dropdown [options]="salesForceOrgValue" placeholder="Select Salesforce" [(ngModel)]="selectedSalesForceOrg" (onChange)="showDomain()" [showClear]="true"></p-dropdown>
+				<div *ngIf="selectedSalesForceOrg == undefined && showRequiredMessage == true" class="c-red">
+					<small>This option is required</small>
+				</div>
+			</div>
+			<div class="col-3 ml-4">
+				<label>Domain</label>
+				<input type="text" pInputText [(ngModel)]="domainValue" >
+			</div>
+		</div>
+
+		<div class="text-left mt-4">
+			<button pButton type="button" label="Connect Salesforce" class="p-button-rounded p-button-lg mr-2" (click)="connectSalesforce()"></button>
+			<button pButton type="button" label="Revoke Connection" class="p-button-rounded p-button-lg" (click)="revokeConnection()"></button>
+		</div>	
+
+</div>

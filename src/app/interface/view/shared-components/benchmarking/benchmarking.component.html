@@ -1,0 +1,270 @@
+<header class="header mb-3" [ngClass]="{'mt-0':benchmarkingDialog}">
+    <ul class="menu">
+        <li *ngFor="let code of sicCode; let i = index">
+            <ng-container *ngIf="getTruncatedText(code, 6) as result"> 
+                <button class="p-3" pButton [pTooltip]="result.isTruncated ? ( code | titlecase ) : null" tooltipPosition="bottom" icon="ui-icon-touch-app" label="{{ result.truncatedText }}" (click)="onMenuClick(code)" [ngClass]="{'bg-cyan-800': selectedMenu === code, 'active': i === 0 && !selectedMenu}"></button>
+            </ng-container>
+        </li>
+    </ul>
+</header>
+
+<div class="grid">
+    <div class="col-8">
+        <div class="grid">
+            <div class="col-6">
+                <div class="card h-full py-6">
+                    <div class="grid">
+                        <div class="col-fixed m-auto">
+                            <h2 class="text-center text-7xl font-bold text-teal-700">{{ selectedScore?.['totalGrowthScore'] }}</h2>
+                            <h2 class="text-center text-base font-bold text-color-secondary">Total Score</h2>
+                        </div>
+                        <div class="col-fixed">
+                            <div class="grid">
+                                <div class="col">
+                                    <div class="text-center bg-orange-100 p-3 text-teal-700 font-bold">
+                                        {{ selectedScore?.['financialPerformance'] }}
+                                        <!-- <dg-shared-itag-component>
+                                            <div *ngIf="selectedScore?.['financialPerformance']" [innerHTML]="benchMarkingHtml?.[selectedScore?.['financialPerformance'].split(' ')[0]]"></div>
+                                        </dg-shared-itag-component> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-fixed" style="margin-right: -15px;">
+                                    <div class="text-center p-3 bg-primary font-bold text-xl" style="min-width: 60px;">{{ selectedScore?.['financialTotalScore'] }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="text-center surface-300	 p-3 text-teal-700 font-bold">Financial Score</div>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-fixed" style="margin-right: -15px;">
+                                    <div class="text-center p-3 bg-primary font-bold text-xl" style="min-width: 60px;">{{ selectedScore?.['totalNonFinancialScore'] ? selectedScore?.['totalNonFinancialScore'] : 'N/A' }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="text-center surface-300	 p-3 text-teal-700 font-bold">Non Financial Score</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-Center pt-3 ml-2">
+                        Among <span class="font-bold"> {{rankData?.['total_companies'] | number}} </span> peers, your company ranks <span class="font-bold"> {{rankData?.['requestedCompanyEstimatedRank'] | number}}</span> based on the latest available financial data.
+                    </div>
+                    <div *ngIf="selectedScore?.['isDormant']" class="col-12 text-Center pt-4">
+                        <strong>*Accounts With Accounts Type Dormant.</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card h-full">
+                    <p-chart [data]="graphApidata" [options]="options"></p-chart>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card h-full">
+        
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="text-cyan-800 font-bold">Industry</div>
+                        </div>
+        
+                        <ng-container *ngFor="let val of industryTableData">
+                            
+                            <div class="col-12">
+                                <div class="text-500 font-bold">{{ selectedScore?.[ val[ 'key' ] ]?.[ val['childKey'] ] | titlecase }}</div>
+                            </div>
+            
+                            <div class="col-12">
+                                <p-table [value]="tableData">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>Score</th>
+                                            <th>Current</th>
+                                            <th>{{val.secondaryHeader}}</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData>
+                                            <tr >
+                                                <td>{{rowData.name}}</td>
+                                                <td class="text-right">{{selectedScore?.[ rowData['current'] ]}}</td>
+                                                <td class="text-right">{{selectedScore?.[ val[ 'key' ] ]?.[rowData['average']]}}</td>
+                                            </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+        
+                        </ng-container>
+        
+                    </div>
+        
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card h-full ">
+        
+                    <div class="grid">
+        
+                        <div class="col-12">
+                            <div class="text-cyan-800 font-bold">MSME <sup><i class="ui-icon-info-outline x-big-data-font text-600 ml-1" (mouseenter)="msmeInfoOverlay.show($event)" (mouseleave)="msmeInfoOverlay.hide($event)"></i></sup></div>
+                        </div>
+                        <p-overlayPanel #msmeInfoOverlay [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                            <dg-msme-svg-popup-card></dg-msme-svg-popup-card>                        
+                        </p-overlayPanel>
+                        
+                        <ng-container *ngFor="let val of msmeTableDataHandler">
+                            <ng-container *ngIf="val?.tableData && val?.tableData.length">
+                              <div class="col-12">
+                                <div class="text-500 font-bold">{{ val.header | titlecase }}</div>
+                              </div>
+                              <div class="col-12">
+                                <p-table [value]="val['tableData']" [columns]="msmeColumn">
+                                  <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                      <ng-container *ngFor="let col of columns">
+
+                                        <th [ngClass]="{'text-right': col.field === 'current' || col.field === 'estimate'}">
+                                            <ng-container *ngIf="col.field === 'estimate'; else other">
+                                                {{ val.secondaryHeader }}
+                                            </ng-container>
+                                            <ng-template #other>
+                                                {{col.header}}
+                                            </ng-template>
+                                        </th>
+
+                                      </ng-container>
+                                    </tr>
+                                  </ng-template>
+                                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                    <tr>
+                                      <td *ngFor="let col of columns" [ngClass]="{'text-right': col.field === 'current' || col.field === 'estimate'}">
+                                        {{ rowData[col.field] }}
+                                      </td>
+                                    </tr>
+                                  </ng-template>
+                                </p-table>
+                              </div>
+                            </ng-container>
+                          </ng-container>
+                    </div>
+        
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="col-4">
+        <div class="card">
+            <div class="grid">
+                <div class="col-12 bg-cyan-600 mb-3">
+                    <p-fieldset legend="Advantages" class="custom-fieldset">
+                        <div class="p-1" *ngFor=" let postvItem of positiveCommentsObj">
+                            <span *ngIf="postvItem?.['mszValue']">
+                            <strong class="pr-2 text-cyan-600">●</strong>{{ postvItem?.['mszValue'] }}
+                            </span>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12 bg-orange-100">
+                    <p-fieldset legend="In progress">
+                        <div  class="p-1" *ngFor=" let negItem of negativeCommentsObj">
+                            <span *ngIf="negItem?.['mszValue']">
+                                <strong class="pr-2 font-bold text-orange-600">#</strong>{{ negItem?.['mszValue'] }}
+                            </span>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12">
+                    <div class="text-cyan-800 font-bold">Regions <small>(Counts indicates the number of Companies)</small></div>
+                </div>
+                <div class="col-12">
+                    <div class="h-30rem">
+                        <dg-map-analysis [mapData]="{region: selectedScore['region']}" [selectedFilter]="selectedFilter" mapId="'growthMap'"></dg-map-analysis>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<div class="grid">
+    <ng-container *ngFor="let item of headerCardArray">
+        <div class="col-6">
+            <div class="card {{item?.['colorClass']}}">
+                <h5 class="text-base text-gray-700 ml-1" >{{selectedScore?.[item['key']]?.['sicCode'] | titlecase}}</h5>
+                <div class="grid">
+                    <ng-container *ngFor="let val of selectedScore?.[item?.['key']]?.['countryScore']">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-fixed" style="margin-right: -15px;">
+                                    <div class="text-center border-round p-3 {{item?.childDivClass}} font-bold text-xl"
+                                        style="min-width: 60px;">{{ val?.['count'] }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="text-center surface-300	p-3 text-teal-700 font-bold">
+                                        {{val?.['key'] | titlecase}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="grid">
+    <ng-container *ngFor="let val of regionArray">
+        <div class="col-6">
+            <div class="card h-full ">        
+                <div class="grid">        
+                    <div class="col-12">
+                        <div class="text-cyan-800 font-bold">{{val?.cardHeader}}</div>
+                        <div class="col-12">
+                            <div class="text-500 font-bold">{{ selectedScore?.[val?.['key']]?.[val?.['childKey']] | titlecase }}</div>
+                        </div>
+                        <div class="col-12">
+                            <p-table [value]="val?.['tableData']" [columns]="regionColumnArray">
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                <ng-container *ngFor="let col of columns">
+        
+                                    <th [ngClass]="{'text-right': col.field === 'count'}">
+                                        <ng-container *ngIf="col.field === 'count'; else other">
+                                            {{ val?.header }}
+                                        </ng-container>
+                                        <ng-template #other>
+                                            {{col?.header}}
+                                        </ng-template>
+                                    </th>
+        
+                                </ng-container>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr>
+                                <td *ngFor="let col of columns" [ngClass]="{'text-right': col.field === 'current' || col.field === 'count'}">
+                                    <ng-container *ngIf="col.field === 'key'; else other">
+                                        {{ rowData[col.field] | titlecase }}
+                                    </ng-container>
+                                    <ng-template #other>
+                                        {{ rowData[col.field] && rowData[col.field] != 'null' ? rowData[col.field] : '-' }}
+                                    </ng-template>
+                                </td>
+                                </tr>
+                            </ng-template>
+                            </p-table>
+                        </div>
+                </div>
+        
+            </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+

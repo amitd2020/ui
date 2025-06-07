@@ -1,0 +1,71 @@
+<p-messages [value]="msgs"></p-messages>
+<div class="card border-noround">
+    <p-table [value]="companyDataForMortgages" [columns]="chargesDataColumnFormortgages" sortField="businessName" sortMode="single" [scrollable]="true" scrollHeight="65vh" rowGroupMode="subheader" groupRowsBy="businessName">
+        <ng-template pTemplate="caption">
+            <div class="grid">
+                <div class="col-6 ">
+                        
+                    <div class="flex align-items-center">
+                        <h4 class="font-normal" *ngIf="( companyDataForMortgages && companyDataForMortgages.length )">{{ searchTotalCount | number }} Companies Found</h4>
+                    </div>
+    
+                    <button pButton type="button" class="p-button-rounded mr-3 p-button-sm darkGrey mb-xxl-2" label="Reset Table"  icon="pi pi-replay" (click)="resetListOfCharges()"></button>
+                    <ng-container *ngIf="selectedGlobalCountry == 'uk' ">
+                        <dg-export-admin-record-list [thisPage]="'showMortgagesChargesTablePage'" [searchTotalCount]="searchTotalCount" [listDataValues]="companyDataForMortgages" [appliedFilters]="appliedFilters" (successMessage)="successMessageForExport( $event )"></dg-export-admin-record-list>
+                    </ng-container>         
+                        
+                </div>
+                <div class="col-6 justify-content-end align-self-end" *ngIf="searchTotalCount > 25 && userDetails?.isSubscriptionActive && !userDetails?.isTrial">
+                    <p-paginator #recordListPaginator [first]="paginationObj.first" [rows]="paginationObj.rows" [totalRecords]="searchTotalCount >= 10000 ? 10000 : searchTotalCount" [rowsPerPageOptions]="[25,50,100]" (onPageChange)="pageChange($event)"></p-paginator>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'text-align': col.textAlign }">{{col.header}}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-personEntitledData>
+            <tr pRowGroupHeader>
+                <td [attr.colspan]="chargesDataColumnFormortgages.length">
+                    <span class="companyLogoAlign" *ngIf=" personEntitledData?.companyContactDetails && personEntitledData?.companyContactDetails.logo; else noCompanyLogo">
+                        <ng-container *ngIf="!personEntitledData?.companyContactDetails.logo.includes('https://static'); else noCompanyLogo">
+                            <img class="companyLogoSize" src="{{ personEntitledData?.companyContactDetails.logo }}" alt="Company Logo" />
+                        </ng-container>
+                    </span>
+                    <ng-template #noCompanyLogo>
+                        <span class="companyLogoAlign">
+                            <i class="material-icons c-blue">business</i>
+                        </span>
+                    </ng-template>
+                    <span class="ml-2">
+                        <a class="cName hidden xl:inline" target="_blank" [href]="'/company/' + personEntitledData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(personEntitledData[ 'businessName' ] | titlecase)" (click)="showCompanySideDetailsPanel($event, personEntitledData['companyRegistrationNumber'], personEntitledData[ 'businessName' ])">{{ personEntitledData['businessName'] | uppercase }}</a>
+                        <span class="c-blue font-bold mx-1">|</span>
+                        <a class="cName inline" target="_blank" [href]="'/company/' + personEntitledData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(personEntitledData['businessName'] | titlecase)"> {{ personEntitledData['companyRegistrationNumber'] | uppercase }}</a>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr *ngFor="let mortgage of rowData[ dataDisplayKey ]">
+    
+                <td *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.width, 'text-align': col.textAlign }" [ngSwitch]="true">
+    
+                    <ng-container *ngSwitchCase="col.field == 'status'">
+                        <span *ngIf="mortgage[ col.field ]" class="status" [ngClass]="{ 'red': [ 'Outstanding', 'Not Satisfied', 'Charge Deleted' ].includes( mortgage[ col.field ] ), 'green': mortgage[ col.field ] == 'Fully Satisfied', 'amberYellow': [ 'Part Satisfied', 'Interim' ].includes( mortgage[ col.field ] ) }">
+                            {{ mortgage[ col.field ] | titlecase }}
+                        </span>
+                        <span *ngIf="!mortgage[ col.field ]"> - </span>
+                    </ng-container>
+    
+                    <ng-container *ngSwitchDefault>
+                        {{ mortgage[ col.field ] ? ( mortgage[ col.field ] | titlecase ) : '-' }}
+                    </ng-container>
+    
+                </td>
+    
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>

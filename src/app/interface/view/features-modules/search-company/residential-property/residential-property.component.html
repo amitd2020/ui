@@ -1,0 +1,10 @@
+<!-- Side Search Panel -->
+<!-- <dg-filter-sidebar (searchResultsCommunicator)="getTableDataValues($event)" (totalFoundResultsCountCommunicator)="getTotalCount($event)" [thisPage]="'landRegistry'" [isFilterSidebarShow]="isFilterSidebarShow"></dg-filter-sidebar> -->
+
+<dg-filter-sidebar (searchResultsCommunicator)="getTableDataValues($event)" [thisPage]="'landRegistry'"></dg-filter-sidebar>
+
+<!-- Record list to show the search results  -->
+<!-- <dg-record-list [listDataValues]="companyData" [searchTotalCount]="searchTotalCount" [columnToggleData]="landRegistryTableCols" [appliedFilters]="appliedFilters" [thisPage]="'landRegistry'" [showExportButton]="showExportButton" [showFilterSearch]="false" (operatingTable)="getOperatingTable($event)" (tableOutputValues)="getTableDataValues($event)"></dg-record-list> -->
+
+<p-messages [value]="msgs"></p-messages>
+<dg-record-list [listDataValues]="companyData" [searchTotalCount]="searchTotalCount" [defaultSearchData]="defaultSearchData" [columnToggleData]="landRegistryTableCols" [thisPage]="'landRegistry'" [showExportButton]="showExportButton" [showFilterSearch]="false" (tableOutputValues)="getTableDataValues($event)"></dg-record-list>

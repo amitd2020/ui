@@ -1,0 +1,252 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+	<div class="insightsViewContainer mb-2 lightLayout">
+		
+		<div class="insightsSideNav">
+			
+			<p-messages [value]="msgLogs"></p-messages>
+	
+			<div class="grid">
+				
+				<div class="col-fixed">
+					<p-multiSelect #multiSelectCommodityCode [options]="listOfCommodityCodeOptions" optionLabel="label" optionValue="value" defaultLabel="Select Commodity Code" maxSelectedLabels="0" selectedItemsLabel="{ selectedCommodityCodes?.length } Commodity Codes Selected" [(ngModel)]="selectedCommodityCodes" styleClass="roundedCorners" [showToggleAll]="false"  resetFilterOnHide=true ></p-multiSelect>
+				</div>
+	
+				<div class="col-fixed roundedCorners p-multiselect mt-1 mb-1">
+					<div class="p-multiselect-label ui-input-width">
+						<div class="grid grid-nogutter align-items-center">
+							<div class="col"><label>Period ( DD-MM-YYYY ): </label></div>
+							<div class="col ml-1">
+								<p-calendar placeholder="From Date" styleClass="calendarStyling" [(ngModel)]="selectedPeriodValue.fromDate" [readonlyInput]="true" dateFormat="dd-mm-yy" [monthNavigator]="true" [defaultDate]="maxSelectableDate"
+								[yearNavigator]="true" hideOnDateTimeSelect="true" [numberOfMonths]="1" appendTo="body" yearRange="2016:{{maxYear}}" [maxDate]="selectedPeriodValue.toDate ? selectedPeriodValue.toDate : maxSelectableDate" [showIcon]="true"></p-calendar>
+							</div>
+							<div class="col ml-3">
+								<p-calendar placeholder="To Date" styleClass="calendarStyling" [(ngModel)]="selectedPeriodValue.toDate" [readonlyInput]="true" dateFormat="dd-mm-yy" [monthNavigator]="true" [defaultDate]="maxSelectableDate"
+								[yearNavigator]="true" hideOnDateTimeSelect="true" [numberOfMonths]="1" appendTo="body" yearRange="2016:{{maxYear}}" [minDate]="selectedPeriodValue.fromDate" [maxDate]="maxSelectableDate" [showIcon]="true"></p-calendar>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+			</div>
+			<div class="grid">
+	
+				<div class="col-fixed">
+					<p-multiSelect #multiSelectIndustry [options]="industryListDropdownOptions" optionLabel="label" defaultLabel="Select Industry" maxSelectedLabels="2" selectedItemsLabel="{ selectedIndustryList?.length } Industries Selected" optionValue="value" [(ngModel)]="selectedIndustryList" styleClass="roundedCorners"  resetFilterOnHide=true ></p-multiSelect>
+				</div>
+				<div class="col-fixed">
+					<p-multiSelect #multiSelectRegion [options]="regionListDropdownOptions" optionLabel="label" optionValue="value" defaultLabel="Select Region" maxSelectedLabels="2" selectedItemsLabel="{ selectedRegionList?.length } Regions Selected" [(ngModel)]="selectedRegionList" styleClass="roundedCorners" [showToggleAll]="true" (onChange)="onChangeRegionSelection($event)"></p-multiSelect>
+				</div>
+	
+				<div class="col-fixed">
+					<p-dropdown styleClass="roundedCorners" [options]="listOfTurnOver" placeholder="Select Turnover" [(ngModel)]="selectedTurnOver"></p-dropdown>
+				</div>
+	
+				 <div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label insightsRoundedCorners">  
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="companyAgeValueField">Company Age: </label></div>
+								<div class="col ml-2">
+									<p-radioButton name="Greater Than" value="Greater Than" label="Greater Than" [(ngModel)]="companyAgeLessThanOrGreaterThan"></p-radioButton>
+								</div>
+								<div class="col ml-2">
+									<p-radioButton name="Less Than" value="Less Than" label="Less Than" [(ngModel)]="companyAgeLessThanOrGreaterThan" ></p-radioButton>
+								</div>
+								<div class="col ml-2">
+									<p-inputNumber [(ngModel)]="nameOrNumberValue" mode="decimal" placeholder="Enter Years" inputId="withoutgrouping" [useGrouping]="false" max="999" (onInput)="validateInputField( $event.value )"></p-inputNumber>
+								</div>
+							</div>
+						</div>
+					</div>
+					<span class="c-red" *ngIf="showInputFieldMessage">
+						<small>Please Enter Age upto 999yr</small>
+					</span>
+				</div>
+			</div>
+			<div class="grid mt-1">
+				<div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label insightsRoundedCorners">
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="estimatedTurnoverField">Include Estimated Turnover:</label></div>
+								<div class="col ml-2">
+									<p-radioButton name="estimatedTurnover" value="true" label="Yes" [(ngModel)]="checkEstimatedTurnover"></p-radioButton>
+								</div>
+								<div class="col ml-2">
+									<p-radioButton name="estimatedTurnover" value="false" label="No" [(ngModel)]="checkEstimatedTurnover"></p-radioButton>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label insightsRoundedCorners">
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="importAndExportField">Select: </label></div>
+								<div class="col ml-2">
+									<p-checkbox name="Importer" label="Import" [(ngModel)]="selectedImporter" binary="true" (onChange)="onCheckedPreferences($event, {checkBoxName: 'Importer'})"></p-checkbox>
+								</div>
+								<div class="col ml-2">
+									<p-checkbox name="Exporter" label="Export" [(ngModel)]="selectedExporter" binary="true" (onChange)="onCheckedPreferences($event, {checkBoxName: 'Exporter'})"></p-checkbox>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="mt-2">
+				
+				<button pButton type="button" label="Search" class="p-button-rounded p-button-lg" [disabled]="showInputFieldMessage" (click)="getTradeInsightsData()"></button>
+				<button pButton type="button" label="Reset" class="p-button-rounded p-button-lg ml-2 darkGrey" (click)="resetInsightCriteria()"></button>
+			</div>
+	
+		</div>
+	
+		<div class="insightsChartViewContainer">
+	
+			<ng-container *ngIf="tradeCountsData && tradeCountsData.length">
+				<div class="card mb-3 pb-1">
+					<ng-container *ngFor="let tradeCount of tradeCountsData">
+						<ng-container *ngIf="tradeCount?.count > 0 ; else otherBlock">
+							<span class="roundedColoredChipLabel" [ngClass]="{'c-voilet': tradeCount?.label == 'Last 12 Months Import' || tradeCount?.label == 'Last 5 Years Import', 'c-royalBlue': tradeCount?.label == 'Last 12 Months Export' || tradeCount?.label == 'Last 5 Years Export'}">
+								<strong>{{ tradeCount?.label }}: </strong> {{ tradeCount?.count | number: '1.0-0' }}
+							</span>
+						</ng-container>
+						<ng-template #otherBlock>
+							<span class="roundedColoredChipLabel" *ngIf="selectedImporter == 'false'" style="display: none;">
+								<strong>{{ tradeCount?.label }}: </strong> {{ tradeCount?.count | number: '1.0-0' }}
+							</span>
+						</ng-template>
+					</ng-container>
+				</div>
+			</ng-container>
+	
+			<div class="grid">
+				<div class="col-6 md-6">
+	
+					<!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+	
+					<ng-template #LazyLeafletMapContainer></ng-template>
+					
+				</div>
+				<div class="col-6 md-6">
+					<div class="card pt-0">
+						<div *ngIf="showDisplayMsg" class="c-light p-3">Note* We are showing updated data.</div>
+						<p-chart #tradeInsightsLineChart type="line" [data]="tradeInsightsLineChartData" [options]="lineOptions"></p-chart>
+					</div>
+				</div>
+			</div>
+	
+			<div class="card">
+	
+				<div class="col-12">
+					
+					<p-table [columns]="industryListColumns" [scrollable]="true" [value]="industryListData" responsiveLayout="scroll" scrollHeight="40vh" *ngIf="industryListData">
+	
+						<!-- <ng-template pTemplate="colgroup" let-columns>
+							<colgroup>
+								<col  *ngFor="let col of columns" [ngStyle]="{ 'width': col.width }" />
+							</colgroup>
+						</ng-template> -->
+	
+						<ng-template pTemplate="header" let-columns>
+							<tr>
+								<th *ngFor="let col of columns" [ngStyle]="{ 'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }">{{ col.header | uppercase }}</th>
+							</tr>
+						</ng-template>
+	
+						<ng-template pTemplate="body" let-rowData let-columns="columns">                      
+							<tr [ngClass]="{ 'disabled' : selectedIndustryList && selectedIndustryList.length > 0 && selectedIndustryList.length != 0 && !selectedIndustryList.includes(rowData['industrySicCodeValue']) }"   >
+								<td *ngFor="let col of columns; let colIndex = index" [ngStyle]="{'min-width': col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }" [ngSwitch]="col.field">
+									
+									<ng-container *ngSwitchCase="'industryName'">
+										{{ rowData[ col.field ] | titlecase }}
+									</ng-container>
+									
+									<ng-container *ngSwitchCase="'totalValues'">
+										<strong>{{ rowData[ 'totalValues' ] | number: '1.0-0' }}</strong>
+									</ng-container>
+	
+									<ng-container *ngSwitchDefault>
+
+										<ng-container *ngIf="rowData[ col.field ]">
+											<a href="javascript:void(0);" class="c-blue" (click)="goToSearchAblForIndustry( rowData['industryName'], rowData['industrySicCodeValue'],colIndex )" [ngClass]="{ 'hidden': selectedMonthPeriod && selectedMonthPeriod.length > 0 && !selectedMonthPeriod.includes( monthsEnum[col.field] < 10 ? '0' + monthsEnum[col.field] : monthsEnum[col.field].toString() ) }"><strong>{{ rowData[ col.field ] | number: '1.0-0' }}</strong></a>
+										</ng-container>
+										<ng-container *ngIf="!rowData[ col.field ]"> - </ng-container>
+	
+									</ng-container>
+	
+								</td>
+							</tr>
+						</ng-template>
+	
+						<ng-template pTemplate="footer" let-columns>
+							<tr>
+								<th *ngFor="let col of columns; let colIndex = index"  [ngStyle]="{ 'min-width': colIndex == 0 ? '280px' : col.minWidth, 'max-width': col.maxWidth, 'text-align': col.textAlign }" [ngSwitch]="true">
+	
+									<ng-container *ngSwitchCase="colIndex == 0">
+										Total
+									</ng-container>
+
+									<ng-container *ngSwitchCase="'totalValues'"></ng-container>
+	
+									<ng-container *ngSwitchDefault>
+	
+										<ng-container *ngFor="let monthTotalVal of industryListTotal | keyvalue">
+											<ng-container *ngIf="monthTotalVal.key == col.field">
+												{{ monthTotalVal?.value | number: '1.0-0' }}
+											</ng-container>
+										</ng-container>
+										
+									</ng-container>
+									
+								</th>
+							</tr>
+						</ng-template>
+	
+						<ng-template pTemplate="emptymessage" let-columns>
+							<tr>
+								<td [attr.colspan]="columns?.length">No records found.</td>
+							</tr>
+						</ng-template>
+	
+					</p-table>
+	
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="grid align-items-center my-2 ml-2">
+			<div class="col-fixed">
+				<span class="text-base font-medium">Export Amount</span>
+			</div>
+		</div>
+		<div class="grid mb-3">
+			<ng-container *ngFor="let amount of exportAmount">
+				<ng-container *ngIf="amount.count_percentage else noRedirection">
+					<div class="col-3">
+						<a href="javascript:void(0);" class="p-d-block" (click)="goToSearchData( amount['value']['greaterThan'], amount['value']['lessThan'] )">
+							<dg-shared-count-card [subTitle]="amount.label" [dataValue]="amount.count" [dataValuePercentage]="amount.count_percentage" cardColor="Orange" [displayPercentageValue]="true"></dg-shared-count-card>
+						</a>
+					</div>
+				</ng-container>
+				<ng-template #noRedirection>
+					<div class="col-3">
+						<dg-shared-count-card [subTitle]="amount.label" [dataValue]="amount.count" [dataValuePercentage]="amount.count_percentage" cardColor="Orange" [displayPercentageValue]="true"></dg-shared-count-card>
+					</div>
+				</ng-template>				
+			</ng-container>
+		</div>
+	</div>
+
+</ng-template>

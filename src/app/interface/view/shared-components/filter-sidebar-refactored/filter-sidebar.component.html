@@ -1,0 +1,344 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" key="ConfirmOnSavedListSelect"></p-confirmDialog>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" key="isExclude"></p-confirmDialog>
+
+<p-dialog header="Filter Name Here" [modal]="true" [(visible)]="saveInFilterModalDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '30vw'}">
+	<form #saveInFilterForm="ngForm" (ngSubmit)="saveInFilter(saveInFilterForm,'new')">
+		<div class="p-input-filled col-12">
+			<span class="p-float-label">
+				<input id="float-input" type="text" name="filtername" [(ngModel)]="filterNameData" #filtername="ngModel" pInputText ngModel required> 
+				<label for="float-input">Filter Name</label>
+				<span *ngIf="(filtername.touched || saveInFilterForm.submitted) && filtername.errors?.required && saveFilterData" style="color: red;">
+					<span style="float: left;font-size: small;">
+						Filter Name is required
+					</span>
+				 </span>
+			</span>
+		</div>
+		<ng-container *ngIf="saveFiltersName && saveFiltersId;else other">
+			<div class="col-12 pb-0 p-my-3">
+				<button pButton type="submit" label="Save as new" [disabled]="!saveInFilterForm.valid" class="p-button-rounded p-button-lg"></button>
+				<span class="pl-3">
+					<button pButton type="button" label="Update Existing"  class="sidebarToggleBtn" (click)="saveInFilter(saveInFilterForm, 'Update Existing')"></button>
+				</span>
+			</div>
+		</ng-container>
+		<ng-template #other>
+			<div class="col-12 pb-0 p-my-3">
+				<button pButton type="submit" label="Save" [disabled]="!saveInFilterForm.valid" class="p-button-rounded p-button-lg"></button>
+			</div>
+		</ng-template>
+	</form>    
+</p-dialog>
+<!-- Dialouge Box after clicked on SAVE SCHEDULER BUTTON on side filter bar ((Starts Here))  -->
+
+<!-- Login Modal Dialog -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false">
+	<dg-login></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<div #filterSearchContainer class="filterSearchWrapper">
+
+	<span class="block lg:hidden">
+		<button pButton type="button" label="Filters" icon="ui-icon-filter-list" iconPos="right" class="sidebarToggleBtnResponsiveness" (click)="toggleSidebarFilters()"></button>
+	</span>
+
+	<!-- responsiveMobPadding responsiveBtnFilters -->
+	<div class="fixedSidebarPanel panelRight fixedSidebarPanelResponsiveness">
+
+		<span class="lg:block hidden">
+			<button pButton type="button" label="Filters" icon="ui-icon-filter-list" class="sidebarToggleBtn" (click)="toggleSidebarFilters()"></button>
+		</span>
+
+		<div class="filterPropsContainer">
+
+			<div class="flex justify-content-between">
+				<a href="javascript:void(0);" class="closePanel lg:hidden" (click)="closeSidebar()"><i class="pi pi-times"></i></a>
+				<div class="flex align-items-center justify-content-center">
+
+					<div>
+						<h2 class="lg:mt-0">Filter Options</h2>
+					</div>
+
+					<!-- <ng-container *ngIf="thisPage === 'companySearch' && selectedGlobalCountry == 'uk'">
+						<div class="mb-2">
+							<label class="ml-5 mr-2 font-bold">Basic</label>
+							<p-inputSwitch [(ngModel)]="switchBasicAndAdvanceFilter" (onChange)="onToggleChange()"></p-inputSwitch>
+							<label class="ml-2 font-bold">Advanced</label>
+						</div>
+					</ng-container> -->
+				</div>
+			</div>
+			
+			<p-messages [value]="msgs"></p-messages>
+
+			<!-- Choose Filter Options -->
+			<div class="grid filtersColumnsReverseForResponsiveness">
+
+				<div class="col-12 lg:col-3">
+					<div class="propsContainer first">
+
+						<dg-filter-options-list-section
+							[optionsListForPage]="thisPage"
+							[optionsListType]="switchBasicAndAdvanceFilter"
+							[searchInFilterOptions]="thisPage == 'companySearch'"
+							[selectedCountry]="selectedGlobalCountry"
+							(filterOptionsItemsOutput)="filterItemClickHandler( $event )"
+						></dg-filter-options-list-section>
+
+					</div>
+				</div>
+
+				<div class="col-12 lg:col-6">
+
+					<div class="propsContainer second p-2">
+
+						<ng-container *ngIf="selectedFilterOptionItem.hasOwnProperty('label')">
+							
+							<div class="mb-2">
+								<a href="javascript:void(0);" class="closePanel closePropGrp lg:hidden" (click)="closePropGrp()"><i class="pi pi-times"></i></a>
+							</div>
+
+							<div class="card">
+
+								<div class="flex align-items-center mb-2" *ngIf="selectedFilterOptionItem?.chipGroupLabel !== 'Preferences'">
+									<div>
+										<span class="text-lg"><strong>{{ selectedFilterOptionItem?.displayLabel ? selectedFilterOptionItem?.displayLabel : selectedFilterOptionItem?.label }}</strong></span>
+										<ng-container *ngIf="selectedFilterOptionItem['componentFeatures'] && selectedFilterOptionItem['componentFeatures'].includes('info-icon')">
+
+											<ng-container *ngIf="selectedFilterOptionItem?.imagePath">
+												<i class="ui-icon-info-outline text-gray-800 ml-2" (click)="visible=true;"></i>
+												<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" [dismissableMask]="true">
+													<img [src]="selectedFilterOptionItem?.imagePath"/>
+												</p-dialog>
+											</ng-container>
+
+											<ng-container *ngIf="selectedFilterOptionItem?.iTagContent">
+												<span class="ml-1">
+													<dg-shared-itag-component><div [innerHTML]="selectedFilterOptionItem.iTagContent"></div></dg-shared-itag-component>
+												</span>
+											</ng-container>
+
+										</ng-container>
+									</div>
+									<div class="ml-auto" *ngIf="selectedFilterOptionItem?.additionalNote">
+										<p class="text-gray-500"><small><em>{{ selectedFilterOptionItem.additionalNote }}</em></small></p>
+									</div>
+								</div>
+
+								<ng-container *ngFor="let filterComponent of selectedFilterOptionItem?.componentTypes; let compIndex = index">
+
+									<!-- Divider -->
+									<hr class="border-bluegray-300" *ngIf="compIndex && compIndex < selectedFilterOptionItem?.componentTypes?.length">
+									<!-- /Divider -->
+
+									<ng-container [ngSwitch]="filterComponent">
+
+										<ng-container *ngSwitchCase="'string-search'">
+											
+											<dg-string-search
+												fieldType="{{ selectedFilterOptionItem?.componentFeatures.includes('number') ? 'number' : '' }}"
+												[componentFeatures]="selectedFilterOptionItem?.componentFeatures"
+												[filterOptionChipGroupLabel]= "selectedFilterOptionItem?.label"
+												[selectedPropValues]="selectedPropValues"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-string-search>
+											
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'list-box'">
+											<dg-extended-list-box
+												[preSelectedValues]="preSelectedFilterValues"
+												[listItemOptions]="aggregateListDataArray"
+												[componentFeatures]="selectedFilterOptionItem?.componentFeatures"
+												[filterOptionLabel]="selectedFilterOptionItem?.label"
+												[selectedPropValues]="selectedPropValues"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-extended-list-box>
+											
+										</ng-container>
+										
+										<ng-container *ngSwitchCase="'group-list-box'">
+											<dg-extended-group-list-box
+												[preSelectedValues]="preSelectedFilterValues"
+												[listItemOptions]="aggregateListDataArray"
+												[componentFeatures]="selectedFilterOptionItem?.componentFeatures"
+												[filterOptionLabel]="selectedFilterOptionItem?.label"
+												[selectedPropValues]="selectedPropValues"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-extended-group-list-box>
+											
+										</ng-container>
+										
+										<ng-container *ngSwitchCase="'tree-list'">
+											
+											<dg-extended-tree-list
+												[preSelectedValues]="preSelectedFilterValues"
+												[treeListValues]="aggregateListDataArray"
+												[componentFeatures]="selectedFilterOptionItem?.componentFeatures"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-extended-tree-list>
+
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'date-range'">
+
+											<dg-date-range 
+												[dateRange]="selectedFilterOptionItem?.dateRange"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-date-range>
+
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'radius-slider'">
+
+											<dg-radius-slider
+												[filterExcludeBoolean]="filterExcludeBoolean"
+											    [selectedCountry]="selectedGlobalCountry"
+												[radiusProps]="postCodesRadiusProps"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-radius-slider>
+
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'preference-options'">
+
+											<dg-preference-options
+												[selectedCountry]="selectedGlobalCountry"
+												[preferenceGroup]="selectedFilterOptionItem.parentLabel"
+												[preSelectedValues]="preSelectedFilterValues"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-preference-options>
+
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'input-range'">
+											<ng-container *ngIf="selectedFinanciallterOptionItem[0].key == 'propensity_score'; else other">
+												<dg-range-input-field *ngIf="aggregateListDataArray.length"
+												[rangeInputField]="selectedFinanciallterOptionItem"
+												(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+												[mandaDropdowndata]="aggregateListDataArray"
+												></dg-range-input-field>
+											</ng-container>
+											<ng-template #other>
+												<dg-range-input-field 
+													[rangeInputField]="selectedFinanciallterOptionItem"
+													(OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+												></dg-range-input-field>
+											</ng-template>
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'year-range'">
+											<dg-year-range
+											    (OutputEmitter)="secondBlockComponentsOutputHandler( $event )"
+											></dg-year-range>
+										</ng-container>
+
+										<ng-container *ngSwitchCase="'upgrade-plan'">
+
+											<ng-container *ngIf="!( userAuthService.isLoggedInSubject$ | async )">
+												<div class="card text-center mt-2">
+													<p class="c-light m-0"><small>Please login to see more.</small></p>
+													<button pButton type="button" label="Login" class="p-button-rounded p-button-sm mt-3" (click)="showLoginDialog = true"></button>
+												</div>
+											</ng-container>
+				
+											<ng-container *ngIf="( userAuthService.isLoggedInSubject$ | async )">
+				
+												<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+													<div class="card">
+														To enable this feature, please contact your Administrator.
+													</div>
+												</ng-container>
+												
+												<ng-template #otherThanClientUserLoggedIn>
+													
+													<ng-container *ngIf="selectedFilterOptionItem?.addOnAccessKey; else defaultUpgradePlanTemplate">
+														<div class="card">
+															To enable this feature, please email at <a class="cName" href="mailto: grow@datagardener.com">grow&#64;datagardener.com</a>
+														</div>
+													</ng-container>
+													
+													<ng-template #defaultUpgradePlanTemplate>
+														<p-card>
+															<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+														</p-card>
+													</ng-template>
+					
+												</ng-template>
+				
+											</ng-container>
+				
+										</ng-container>
+
+									</ng-container>
+
+								</ng-container>
+
+							</div>
+							
+						</ng-container>
+
+					</div>
+
+				</div>
+				
+				<div class="col-12 lg:col-3">
+
+					<ng-container *ngIf="selectedPropValues.length">
+						<div class="propsContainer selectedChips">
+							<div class="mb-2">
+								<a href="javascript:void(0);" class="c-green" (click)="clearAllSelectedFilterValues()">Clear Filters</a>
+							</div>
+							<dg-display-filter-chip [rawDataChips]="selectedPropValues" [displayType]="'styled'" [removableChips]="true" (OutputEmitter)="displayStyleFilterOutputHandler( $event )"></dg-display-filter-chip>
+						</div>
+					</ng-container> 
+
+				</div>
+
+				
+				<div class="col-12 mt-4 md:text-right text-left filterButtons">
+					<ng-container *ngIf="( selectedPropValues.length >= 2 ) || ( selectedPropValues[0]?.chip_group == 'Saved Lists' && selectedPropValues.length )">
+						<button pButton type="button" label="Stats" class="p-button-rounded p-button-lg mr-2" icon="pi pi-chart-line" (click)="goToStatsPage(selectedPropValues, 'statsScreen')" *ngIf="selectedPropValues.length > 0 && ['companySearch'].includes(thisPage)"></button>
+						<button type="button" pButton class="p-button-rounded p-button-lg mr-2 bg-blue-600"  label="Growth Anaysis" icon="pi pi-chart-line" (click)="goToStatsPage(selectedPropValues, 'growthAnaysis')" [disabled]="listDataValues && listDataValues?.length === 0" *ngIf="selectedPropValues.length > 0 && ['companySearch'].includes(thisPage) && selectedGlobalCountry == 'uk'"></button>
+					</ng-container>
+
+					<ng-container *ngIf="!['buyersDashboard', 'suppliersDashboard', 'investor-finder'].includes( thisPage )">
+						<button pButton type="button" label="Save Filters" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-save" (click)="showModalDialog()" *ngIf="selectedPropValues.length > 0"></button>
+					</ng-container>
+
+					<ng-container *ngIf="payloadForChildApi?.listId; else withoutId">
+
+						<button [disabled]="!selectedPropValues.length" pButton type="button" label="Apply Filters" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-search" (click)="applyFilters()" *ngIf="searchCompanyService.filterPanelApplyButtons.company"></button>
+
+						<button pButton type="button" label="View Contacts" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-email" (click)="applyFilters( 'contact' )" *ngIf="searchCompanyService.filterPanelApplyButtons.contact"></button>
+						
+						<button pButton type="button" label="Show Trade Info" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-bar-chart" *ngIf="searchCompanyService.filterPanelApplyButtons.trade" (click)="applyFilters( 'trade' )"></button>
+						
+						<button pButton type="button" label="View Director" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-person" (click)="applyFilters( 'director' )" *ngIf="searchCompanyService.filterPanelApplyButtons.director && ( userAuthService.hasFeaturePermission( 'View Director' ) || userAuthService.hasRolePermission( ['Super Admin'] ) || subscribedPlanModal['Valentine_Special'].includes( currentPlan ) )"></button>
+
+						<button pButton type="button" label="Show Charges Info" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-account-balance" *ngIf="searchCompanyService.filterPanelApplyButtons.charges && ( userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasAddOnPermission('lendingLandscape') || subscribedPlanModal['Valentine_Special'].includes( currentPlan ) )" (click)="applyFilters( 'charges' )"></button>
+
+					</ng-container>
+
+					<ng-template #withoutId>
+						<ng-container *ngIf="otherSearchTypeViewActiveButtons.length; else otherFilter">
+							<p-splitButton icon="ui-icon-search" [disabled]="!selectedPropValues.length" label="Apply Filters" [model]="otherSearchTypeViewButtons" styleClass="p-button-rounded p-button-lg" (onClick)="applyFilters()"></p-splitButton>
+						</ng-container>
+						<ng-template #otherFilter>
+							<button [disabled]="!selectedPropValues.length" pButton type="button" label="Apply Filters" class="p-button-rounded p-button-lg mr-2" icon="ui-icon-search" (click)="applyFilters()" *ngIf="searchCompanyService.filterPanelApplyButtons.company"></button>
+						</ng-template>
+
+					</ng-template>
+
+					
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="overlay" (click)="toggleSidebarFilters()"></div>
+</div>

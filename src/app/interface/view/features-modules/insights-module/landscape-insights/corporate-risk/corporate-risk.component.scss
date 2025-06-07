@@ -1,0 +1,92 @@
+.insightsViewContainer {
+    min-height: calc( 100vh - 117px );
+    padding: 20px;
+		
+    @media only screen and (max-width: 1024px) {
+        flex-direction: column;
+    }
+    
+    .insightsChartViewContainer {
+        flex: 1;
+		
+		@media only screen and (max-width: 1024px) {
+            padding-left: 0;
+		}
+		
+		.grid {
+			.md-6 {
+				.card {
+					@media only screen and ( min-width: 768px ) {
+						min-height: calc( 100% - 1em );
+					}
+				}
+			}
+		}
+
+		::ng-deep {
+			.filterSearchWrapper {
+				.fixedSidebarPanel {
+					z-index: 999;
+				}
+			}
+		}
+
+    }
+	
+	.insightsRegionalMap {
+		flex: 1;
+		height: 380px;
+		background-color: transparent;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+
+	.roundedColoredChipLabel {
+		font-size: 1.2em;
+		padding: 0.4em 1em;
+	}
+
+	.roundedCorners {
+		.ui-inputtext {
+			font-size: inherit;
+			font-weight: inherit;
+			color: inherit;
+		}
+		::ng-deep {
+			.ui-slider {
+				margin: 0 25px;
+			}
+		}
+	}
+
+	.insightsInputtext {
+		background: 0 0;
+	}
+
+	.insightsRoundedCorners {
+		max-width: 550px;
+	}
+
+	.insightsCheckboxText {
+		font-weight: 600;
+		color: #898989;
+	}
+
+}
+:host ::ng-deep {
+
+	.p-datatable, .p-treetable  {		
+
+		.p-datatable-tbody, .p-treetable-tbody {
+			& > tr {
+			
+				& > td {					
+					
+					&:not(:first-child) {
+						text-align: right;
+					}
+				}
+			}
+		}
+	}
+}

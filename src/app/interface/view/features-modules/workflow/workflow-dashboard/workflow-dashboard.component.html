@@ -1,0 +1,81 @@
+
+<div class="grid">
+    <ng-container *ngFor="let item of dashboardCardItems">
+        
+        <!-- Clients Card | Suppliers Card | Prospects Card | Accountss Card  -->
+        <div class="col-12 md:col-6 lg:col-4">
+
+            <!-- company count in list -->
+            <div class="card flex border-round-3xl shadow-6 bg-{{ item.cardTheme }}-500 text-white">
+                <div class="flex-1">
+                    <h3 class="m-0">
+                        <i class="material-icons text-3xl mr-2">{{ item.icon }}</i>
+                        <span class="vertical-align-middle"> {{ item.header }}</span>
+                    </h3>
+                    <div class="flex align-items-baseline mt-4">
+                        <span class="mr-1 text-4xl font-medium">{{ workFlowData?.[ item.field ]?.[ 'totalResults' ] | number: '1.0-0' }}</span>
+                        <span class="text-sm">Companies</span>
+                    </div>
+                </div>
+                <div class="ml-auto">
+                    <button pButton pRipple type="button" icon="pi pi-arrow-right" class="p-button-rounded p-button-text shadow-none text-white m-0 -m-2 text-lg" [routerLink]="item.routerLink"></button>
+                </div>
+            </div>
+
+            <!-- Risk Profile details -->
+            <div class="card border-round-3xl shadow-6 bg-{{ item.cardTheme }}-50 text-{{ item.cardTheme }}-400">
+                <div>
+                    <h3 class="font-medium">Risk Analysis</h3>
+                </div>
+                <div class="flex align-items-center justify-content-center">
+                    <p-chart type="doughnut" [data]="doughnutChartDatasets[ item.field ]"
+                        [options]="doughnutChartOptions[ item.field ]" [plugins]="ChartDataLabelsPlugins" width="300px" height="300px" [responsive]="true">
+                    </p-chart>
+                </div>
+            </div>
+
+            <!-- MSME Details Card -->
+            <div class="card border-round-3xl shadow-6 bg-{{ item.cardTheme }}-50 text-{{ item.cardTheme }}-400">
+                <h3 class="font-medium">MSME</h3>
+                <div class="card bg-{{ item.cardTheme }}-900 border-round-2xl m-0 pb-1 shadow-1">
+                    <div class="grid">
+                        <ng-container *ngFor="let msmeStatus of workFlowData?.[ item.field ]?.[ 'msmeStatus' ]">
+                            <div class="col-fixed align-items-stretch">
+                                <a class="block text-center" [ngStyle]="{ 'color': colorForWorkflowMsme[ msmeStatus.key ] }" [ngClass]="{ 'text-bluegray-100': !( colorForWorkflowMsme[ msmeStatus.key ] ) }">
+                                    <span class="block font-bold text-xl">
+                                        {{ msmeStatus?.doc_count | number: '1.0-0' }}
+                                    </span>
+                                    <span class="block">
+                                        {{ (msmeStatus?.key).replace("Enterprise", '') | titlecase }}
+                                    </span>
+                                </a>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Region Map  -->
+            <div class="card border-round-3xl shadow-6 bg-{{ item.cardTheme }}-50 text-{{ item.cardTheme }}-400">
+                <div>
+                    <h3 class="font-medium">Region</h3>
+                </div>
+                <ng-container *ngIf="item.field == 'clients'">
+                    <ng-template #clients></ng-template>
+                </ng-container>
+                <ng-container *ngIf="item.field == 'suppliers'">
+                    <ng-template #suppliers></ng-template>
+                </ng-container>
+                <ng-container *ngIf="item.field == 'prospects'">
+                    <ng-template #prospects></ng-template>
+                </ng-container>
+                <ng-container *ngIf="item.field == 'accounts'">
+                    <ng-template #accounts></ng-template>
+                </ng-container>
+            </div>
+
+        </div>
+
+    </ng-container>
+
+</div>

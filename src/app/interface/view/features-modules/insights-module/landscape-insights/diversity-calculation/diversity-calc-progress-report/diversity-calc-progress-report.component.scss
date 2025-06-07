@@ -1,0 +1,13 @@
+::ng-deep {
+    .p-picklist .p-picklist-header {
+        background-color: #30aa9f;
+        color: #fff
+    }
+
+    .p-picklist .p-picklist-buttons button[aria-label="Move All to Target"] {
+        display: none;
+    }
+    .p-picklist .p-picklist-buttons button[aria-label="right button handler"] {
+        display: none;
+    }
+}

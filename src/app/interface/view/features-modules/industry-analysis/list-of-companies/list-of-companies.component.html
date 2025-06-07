@@ -1,0 +1,12 @@
+
+<h3 class="mt-0 p-2 md:pt-3" *ngIf="!portfolioListId">Companies with {{ choosenCategory | titlecase }} in {{ choosenYear }} | {{ industryType | titlecase }}</h3>
+
+<!-- Company Details Side Panel -->
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+<!-- Company Details Side Panel -->
+
+<div class="col">
+    <div class="col-12">
+        <dg-admin-record-list [listColumns]="listOfCompaniesTableCols" [listDataValues]="listOfCompaniesTableData" [thisPage]="'companyListOfIServiceCategoryPage'" (updateTableDataList)="getUpdatesFromTable( $event )" [searchTotalCount]="totalNoOfRecords" (operatingTable)="getOperatingTable($event)"></dg-admin-record-list>
+    </div>
+</div>

@@ -1,0 +1,371 @@
+.insightsChartViewContainer {
+    flex: 1;
+    
+    @media only screen and (max-width: 991px) {
+        padding: 1rem;
+    }
+
+    .card {
+        box-shadow: none;
+        
+        .statsInsightsTableData {
+            text-align: left;
+
+            .furloughDataTable {
+                &.industriesList {
+                    max-height: 318px;
+                    overflow-y: auto;
+                }
+            }
+        
+            table {
+                width: 100%;
+                font-size: 1em;
+                border-spacing: 0;
+                border: 1px solid #e4e4e4;
+                
+                tr {
+                    th {
+                        border-bottom: 1px solid #e4e4e4;
+                    }
+                    &:not( :last-child ) {
+                        th,
+                        td {
+                            border-bottom: 1px solid #e4e4e4;
+                        }
+                    }
+                    th,
+                    td {
+                        padding: 5px 8px;
+        
+                        &:not( :last-child ) {
+                            border-right: 1px solid #e4e4e4;
+                        }
+                    }
+                    td {
+                        font-size: 0.9em;
+                    }
+                }
+            }
+        }
+
+        &.infoSectionBorder {
+            border-left: 10px solid var( --primary-dark-color );
+
+            .dropdownSelectionContent {
+                box-shadow: 0 1px 10px 0px rgb(0 0 0 / 25%);
+                padding: 0rem 0.5rem;
+                border-radius: 30px;
+            }
+
+        }
+
+        &.circleChartCard {
+            min-height: 550px;
+
+            .CircleChart {
+                min-height: 355px;
+                position: relative;
+                .chart {
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 8em;
+                    height: 8em;
+                    font-size: 1em;
+                    padding: 1.2em;
+                    border-radius: 100%;
+                    top: 50%;
+                    left: 50%;
+                    color: #fff;
+
+                    &::after {
+                        content: attr( data-value );
+                        font-size: 1.35em;
+                    }
+
+                    &.maleChart {
+                        background-color: rgb(34 166 179 / 60%);
+                        font-size: 1.6518em;
+                        transform: translate( -25%, -95% );
+                        z-index: 2;
+                    }
+
+                    &.femaleChart {
+                        background-color: rgb(235 59 90 / 60%);
+                        font-size: 1.384em;
+                        transform: translate( -91%, -48% );
+                        z-index: 1;
+                    }
+
+                    &.unknownChart {
+                        background-color: rgb(7 153 146 / 60%);
+                        transform: translate( -6%, -9% );
+                    }
+
+                    &.ethnicCircle {
+                        cursor: pointer;
+                        background-color: rgb(96 163 188 / 65%);
+                        transform: translate( -100%, -20% );
+                        font-size: 1.6em;
+                        z-index: 1;
+                        // cursor: pointer;
+                        // background-color: rgb(56 173 169 / 65%);
+                        // transform: translate( -15%, -55% );
+                        // font-size: 2.3em;
+                        // z-index: 2;
+                    }
+
+                    &.nonEthnicCircle {
+                        cursor: pointer;
+                        background-color: rgb(56 173 169 / 65%);
+                        transform: translate( -15%, -55% );
+                        font-size: 2.3em;
+                        z-index: 2;
+                        // cursor: pointer;
+                        // background-color: rgb(96 163 188 / 65%);
+                        // transform: translate( -100%, -20% );
+                        // font-size: 1.6em;
+                        // z-index: 1;
+                    }
+
+                }
+
+            }
+
+            .circle{
+                color: #fff;
+                width: 50px;
+                height: 50px;
+                border-radius: 100%;
+                line-height: 50px;
+                text-align: center;
+            }
+
+            .maleNavigation {
+                cursor: pointer;
+                background-color: rgba( 34 166 179 / 25% );
+                border-radius: 40px;
+                padding: 0.8rem 1.5rem 0.2rem 1rem;
+                box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 10%);
+
+                .maleCardNavigationIcon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 15px;
+                    height: 15px;
+                    background-color: rgba( 34 166 179 );
+                    color: #fff;
+                    font-size: 0.7rem;
+                    line-height: 17px;
+                    text-align: center;
+                    border-radius: 100%;
+                    margin-left: 0.5rem;
+                    margin-bottom: 0.3rem;
+                }
+
+            }
+
+            .femaleNavigation {
+                cursor: pointer;
+                background-color: rgba( 235 59 90 / 25% );
+                border-radius: 40px;
+                padding: 0.8rem 1.5rem 0.2rem 1rem;
+                box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 10%);
+
+                .femaleCardNavigationIcon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 15px;
+                    height: 15px;
+                    background-color: rgb( 235 59 90 );
+                    color: #fff;
+                    font-size: 0.7rem;
+                    line-height: 17px;
+                    text-align: center;
+                    border-radius: 100%;
+                    margin-left: 0.5rem;
+                    margin-bottom: 0.3rem;
+                }
+
+            }
+
+            .unknownNavigation {
+                cursor: pointer;
+                background-color: rgba( 7 153 146 / 25% );
+                border-radius: 40px;
+                padding: 0.8rem 1.5rem 0.2rem 1rem;
+                box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 10%);
+
+                .unknownCardNavigationIcon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 15px;
+                    height: 15px;
+                    background-color: rgb( 7 153 146 );
+                    color: #fff;
+                    font-size: 0.7rem;
+                    line-height: 17px;
+                    text-align: center;
+                    border-radius: 100%;
+                    margin-left: 0.5rem;
+                    margin-bottom: 0.3rem;
+                }
+            }
+
+            .ethnicNavigation {
+                cursor: pointer;
+                background-color: rgba( 96 163 188 / 25% );
+                border-radius: 40px;
+                padding: 0.8rem 3rem 0.2rem 1rem;
+                box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 10%);
+
+                .ethnicCardNavigationIcon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 15px;
+                    height: 15px;
+                    background-color: rgba( 96 163 188 );
+                    color: #fff;
+                    font-size: 0.7rem;
+                    line-height: 17px;
+                    text-align: center;
+                    border-radius: 100%;
+                    margin-left: 0.5rem;
+                    margin-bottom: 0.3rem;
+                }
+
+            }
+
+            .nonEthnicNavigation {
+                cursor: pointer;
+                background-color: rgba( 56 173 169 / 25% );
+                border-radius: 40px;
+                padding: 0.8rem 3rem 0.2rem 1rem;
+                box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 10%);
+
+                .nonEthnicCardNavigationIcon {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 15px;
+                    height: 15px;
+                    background-color: rgba( 56 173 169 );
+                    color: #fff;
+                    font-size: 0.7rem;
+                    line-height: 17px;
+                    text-align: center;
+                    border-radius: 100%;
+                    margin-left: 0.5rem;
+                    margin-bottom: 0.3rem;
+                }
+
+            }
+            
+        }
+
+    }
+
+    &.captureSnapshotActive {
+        background-color: var( --surface-d );
+        padding: 1rem;
+
+        ::ng-deep {
+            * { box-shadow: none !important; }
+            .p-button,
+            .hideFromSnapShot {
+                display: none !important;
+            }
+        }
+        
+    }
+
+    .genderCountForFooter {
+        line-height: 1.3rem !important;   
+    }
+    
+    .height-70 {
+        height: 70% !important;
+        padding: 1rem 1.5rem !important;
+        margin: 0;
+    }
+    
+    p-dropdown {
+        ::ng-deep {
+            .p-dropdown {
+                &,
+                &.p-focus,
+                &:not(.p-disabled).p-focus {
+    
+                    &.roundedCorners {
+                        min-width: 0;
+                    }
+    
+                }
+            }
+        }
+    }
+    
+    .riskPieChartLegends {
+        .roundedColoredChipLabel {
+            min-width: 215px;
+            color: white;
+            border-radius: 8px;
+            padding: 0.3rem 0.6rem;
+            margin-right: 0;
+            cursor: pointer;
+    
+            * {
+                user-select: none;
+                pointer-events: none;
+            }
+    
+            &.notScoredLegendBg {
+                background-color: #D92727;
+            }
+    
+            &.highRiskLegendBg {
+                background-color: #E4790F;
+            }
+    
+            &.moderateRiskLegendBg {
+                background-color: #FFC201;
+            }
+    
+            &.lowRiskLegendBg {
+                background-color: #59BA9B;
+            }
+    
+            &.veryLowRiskLegendBg {
+                background-color: #6DC470;
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .p-datatable {
+                
+            .p-datatable-scrollable-wrapper {
+
+                .p-datatable-scrollable-view {
+
+                    .p-datatable-wrapper {
+                        .p-datatable-wrapper-box {
+                            padding-right: 0 !important;
+                        }
+                    }
+
+                    .p-datatable-scrollable-body {
+                        overflow-y: hidden !important;
+                    }
+
+
+                }
+
+
+            }
+        }
+    }
+
+}

@@ -1,0 +1,92 @@
+
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+	<p-card>
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</p-card>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+
+	<div class="col">
+		<div class="col-12">
+	
+			<div class="grid mb-2">
+				<div class="col-fixed">
+					<p-dropdown [options]="industryListOptions" [(ngModel)]="selectedIndustry" placeholder="Choose Industry" styleClass="roundedCorners" (onChange)="getIndustryWiseIServiceData()"></p-dropdown>
+				</div>
+			</div>
+	
+			<ng-container *ngIf="industryWiseIServiceData && industryWiseIServiceData.length; else noDataTemplate">
+	
+				<div class="grid mb-2">
+					<div class="col-6 md-6">
+						<div class="card" *ngIf="industryWiseIServiceData && iServiceCategoriesChartData">
+							<h3 class="mt-0 c-darkBlue">{{ iServiceCategoriesChartData[0]?.year }}</h3>
+							<p-chart type="doughnut" [data]="iServiceCategoriesChartData[0]?.chartData" [options]="pieChartOptions" [plugins]="ChartDataLabelsPlugins" width="300" height="300" [responsive]="true"></p-chart>
+		
+							<!-- <p-chart id="pieChart{{key}}" type="pie" [data]="iServiceCategoriesChartData[0]?.chartData" [options]="pieChartOptions" [plugins]="ChartDataLabelsPlugin" width="300" height="300" [responsive]="true"></p-chart> -->
+						</div>
+					</div>
+					<div class="col-6 md-6">
+						<div class="card">
+							<h3 class="mt-0 c-darkBlue">Number of Companies</h3>
+		
+							<div class="statisticsList" *ngIf="iServiceCategories && iServiceCategoriesChartData">
+								<ul>
+									<li *ngFor="let iServiceCategory of iServiceCategories; index as categInx">
+										<a [routerLink]="['/industry-analysis/list-of-companies']" [queryParams]="{ industryType: selectedIndustry, category: iServiceCategory, year: iServiceCategoriesChartData[0]?.year,pageSize:pageSize,pageNumber:pageNumber }">
+											<span class="title">{{ iServiceCategory | titlecase }}</span>
+											<span class="counts">{{ iServiceCategoriesChartData[0]?.chartData?.datasets[0]?.data[ categInx ] }}</span> 
+										</a>
+									</li>
+								</ul>
+							</div>
+		
+						</div>
+					</div>
+				</div>
+		
+				<div class="grid mb-2">
+		
+					<ng-container *ngFor="let iServiceCategoryChart of iServiceCategoriesChartData; index as key">
+						
+						<div class="col-12 md-6 xl:col-4" *ngIf="key !== 0">
+							<div class="card">
+								<h3 class="mt-0 c-darkBlue">{{ iServiceCategoryChart?.year }}</h3>
+								<div class="flex flex-wrap align-items-center justify-content-between">
+									<div class="ml-3">
+										<p-chart #chartIService type="doughnut" [data]="iServiceCategoryChart?.chartData" [options]="pieChartOptions" [plugins]="ChartDataLabelsPlugins" width="250" height="250" [responsive]="true"></p-chart>
+									</div>
+
+									<div class="statisticsList" *ngIf="iServiceCategories && iServiceCategoriesChartData">
+										<ul>
+											<li *ngFor="let iServiceCategory of iServiceCategories; index as categInx">
+												<a [routerLink]="['/industry-analysis/list-of-companies']" [queryParams]="{ industryType: selectedIndustry, category: iServiceCategory, year: iServiceCategoriesChartData[key]?.year,pageSize:pageSize,pageNumber:pageNumber }">
+													<span class="title">{{ iServiceCategory | titlecase }}</span>
+													<span class="counts">{{ iServiceCategoryChart?.chartData.datasets[0].data[categInx] }}</span> 
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+			
+		
+							</div>
+						</div>
+		
+					</ng-container>
+		
+				</div>
+	
+			</ng-container>
+	
+			<ng-template #noDataTemplate>
+				<div class="card">
+					<h3 class="c-light m-0" *ngIf="industryWiseIServiceData?.length == 0">No data available for selected industry.</h3>
+				</div>
+			</ng-template>
+	
+		</div>
+	</div>
+
+</ng-template>

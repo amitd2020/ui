@@ -1,0 +1,61 @@
+.furloughDataTable {
+    text-align: left;
+
+}
+
+.cName {
+    color: #4593bd;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    font-size: 1em;
+    border-spacing: 0;
+    border: 1px solid #e4e4e4;
+
+    tr {
+        th {
+            border-bottom: 1px solid #e4e4e4;
+        }
+
+        &:not( :last-child) {
+
+            th,
+            td {
+                border-bottom: 1px solid #e4e4e4;
+            }
+        }
+
+        th,
+        td {
+            padding: 5px 8px;
+
+            &:not( :last-child) {
+                border-right: 1px solid #e4e4e4;
+            }
+        }
+
+        td {
+            font-size: 0.9em;
+        }
+    }
+}
+
+@media (max-width: 1860px) {
+    .smallScreenResposiveCard {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .cardUnder1860Px{
+        flex: 0 0 100%;
+        max-width: 50%;  
+    }
+}
+
+@media (max-width: 1365px) {
+    .fullWidth {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+}

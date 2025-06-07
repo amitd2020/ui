@@ -1,0 +1,3 @@
+<p-messages [value]="msgs"></p-messages>
+
+<dg-record-list [listColumns]="workflowListTableCols" [listDataValues]="workflowListTableVals" [searchTotalCount]="searchTotalCount" [pageNumber]="first" [pageSize]="pageSize"  (tableOutputValues)="tableOutputHandler($event)" [thisPage]="'workflowListPage'"></dg-record-list>

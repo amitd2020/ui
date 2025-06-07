@@ -1,0 +1,59 @@
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Company Insights' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showUpgradePlan"> -->
+<div featureAccess="Company Insights" optionalTemplate="true">
+
+    <div class="insightsViewContainer mb-2" [ngClass]="{ 'darkLayout': insightsLayoutModeDark, 'lightLayout': !insightsLayoutModeDark }">
+        <div class="insightsSideNav">
+    
+            <p-messages [value]="msgLogs"></p-messages>
+    
+            <div class="grid">
+                <div class="col-fixed">
+                    <p-dropdown [options]="insightsCategoryOptions" placeholder="Select Category" [(ngModel)]="selectedInsightsCategory" styleClass="roundedCorners" (onChange)="onCategoryIndustryChange( $event, selectedInsightsCategory, selectedIndustryList )"></p-dropdown>
+                </div>
+                <div class="col-fixed">
+                    <p-dropdown [options]="industryListOptions" placeholder="Choose Industry" [(ngModel)]="selectedIndustryList" styleClass="roundedCorners" (onChange)="onCategoryIndustryChange( $event, selectedInsightsCategory, selectedIndustryList )"></p-dropdown>
+                </div>
+                <!-- <span class="col-fixed ml-auto align-items-center">
+                    <button pButton type="button" label="Dark" (click)="darkLayout()" class="switchDarkBtn mb-0"></button>
+                    <button pButton type="button" label="Light" (click)="lightLayout()" class="switchLightBtn mb-0"></button>
+                </span> -->
+            </div>
+        </div>
+    
+        <div class="insightsChartViewContainer">
+    
+            <!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> for both current and previous year Map-->
+            
+            <ng-template #LazyLeafletMapContainer></ng-template>
+            
+            <div class="grid mb-3">
+                <div class="col-6 lg-6">
+                    <div class="card">
+                        <p-chart #insightBarChart type="bar" [data]="barData" [options]="barOptions" [plugins]="ChartDataLabelsPlugin"></p-chart>
+                    </div>
+                </div>
+                <div class="col-6 lg-6">
+                    <div class="card">
+                        <p-chart #insightLineChart type="line" [data]="lineData" [options]="lineOptions"></p-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #showUpgradePlan>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ) || ( [ subscribedPlanModal['Enterprise_Annual_Two_Year'] ] ).includes( currentPlan ); else otherThanClientUserLoggedIn">
+			<div class="card text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<div class="card">
+				<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+			</div>
+		</ng-template>
+	</p-card>
+</ng-template> -->

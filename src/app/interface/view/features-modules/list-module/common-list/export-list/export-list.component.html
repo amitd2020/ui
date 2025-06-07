@@ -1,0 +1,5 @@
+<p-messages [value]="msgs"></p-messages>
+
+<p-confirmDialog header="Confirmation" styleClass="logoutConfirmationDialogStyling"  icon="pi pi-exclamation-triangle" ></p-confirmDialog>
+
+<dg-user-list [listColumns]="tableCols" [listDataValues]="exportListData" [totalNumOfRecords]="totalNumOfRecords" [thisPage]="'exportListPage'" (deleteExportListData)="deleteExportListData($event)" (updateTableDataList)="getUpdateTableDataList( $event )" [serverSidePaginator]="true"></dg-user-list>     

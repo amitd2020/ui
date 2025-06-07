@@ -1,0 +1,26 @@
+.director-card {
+    height: 9.1rem;
+}
+
+.director-header {
+    height: 4.5rem;
+    margin-top: 0.2rem;
+}
+
+@media (max-width: 1860px) {
+    .smallScreenResposiveCard {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .cardUnder1860Px{
+        flex: 0 0 100%;
+        max-width: 50%;  
+    }
+}
+
+@media (max-width: 1365px) {
+    .fullWidth {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+}

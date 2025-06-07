@@ -1,0 +1,800 @@
+
+<p-messages [value]="msgs"></p-messages>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [key]="'director'"></p-confirmDialog>
+
+<!-- Director Update Dialog Box Starts here -->
+<span addOnAccess="contactInformation">
+	<p-dialog  header="Update Info" [(visible)]="showOrHideDirectorContactInfoModal" [modal]="true" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [draggable]="false" styleClass="dialog" [style]="{'max-width': 'max-content'}">
+	   <form>
+		   <div class="flex flex-column justify-conten-center align-items-center pt-0">
+			   <div class="col-12">
+				   <div class="p-inputgroup xyz mb-3">
+					   <span class="p-inputgroup-addon iconcolor"><i class="material-icons">mail</i></span>
+					   <input class="inputarea" type="text" pInputText placeholder="Email" [(ngModel)]="directorDataInfoObj.directorEmail" [ngModelOptions]="{standalone: true}">
+				   </div>
+				   <div class="p-inputgroup xyz mb-1">
+					   <span class="p-inputgroup-addon iconcolor" style="width: 43px"><i class="pi pi-linkedin"></i></span>
+					   <input class="inputarea" type="text" pInputText placeholder="LinkedIn Profile" [(ngModel)]="directorDataInfoObj.directorLinkedin" [ngModelOptions]="{standalone: true}">
+				   </div>
+			   </div>
+		   </div>
+
+		   <div class="text-center mt-3 mt-md-4">
+			   <button style="width:290px" pButton type="button" label="Submit" class="p-button-rounded" (click)="onDirectorUpdateInformation()"></button>
+		   </div>
+	   </form>
+   </p-dialog>
+</span>
+
+<div class="grid mb-3 pt-0 pt-md-3">
+	<div class="col">
+		<div class="grid">
+			<div class="col-fixed pt-0 pr-0">
+				<img src="https://img.icons8.com/ultraviolet/40/000000/person-male.png" alt="Company Logo" />
+			</div>
+			<div class="col-fixed">
+				<h1 class="cardHeaderTitle mt-0"><strong>{{ directorName | titlecase }}</strong>
+				</h1>   
+			</div>
+		</div>
+	</div>
+	<div class="col-fixed" *ngIf="selectedGlobalCountry == 'uk'">
+
+		<span *ngIf="isShowMonitor">
+			<button pButton type="button" *ngIf="directorMonitor" label="Monitor" icon="pi pi-eye" class="p-button-sm p-button-rounded" (click)="removeDirectorFromWatchList( newDirectorData )"></button>
+			<button pButton type="button" *ngIf="!directorMonitor" label="Monitor" icon="pi pi-eye-slash" class="p-button-sm p-button-rounded" (click)="addDirectorToWatchList()"></button>
+		</span>
+
+		<dg-director-pdf-report *ngIf="companiesSummeryTabData.length" 
+			[directorReportDataParams]="{ directorName: directorName, directorStatusCounts: newDirectorShipCountsData, directorDetailsCompanySummaryData: companiesSummeryTabData, companyNumber: this.companyNumber }" 
+			(messageCommunicator)="getMessage($event)">
+		</dg-director-pdf-report>
+	</div>
+</div>
+
+<div class="grid" *ngIf="newDirectorShipCountsData">
+	<div class="col-6 md:col-5 lg:col-5">
+		<div class="grid">
+			<div class="col-6 text-center">
+				<div class="card">
+					<p class="mt-0"><strong>Total</strong></p>
+					<h2 class="my-2 p-font-bold">{{ newDirectorShipCountsData.total }}</h2>
+				</div>
+			</div>
+			<div class="col-6 text-center green">
+				<div class="card">
+					<p class="mt-0"><strong>Active</strong></p>
+					<h2 class="my-2 p-font-bold">{{ newDirectorShipCountsData.active_count }}</h2>
+				</div>
+			</div>
+			<div class="col-6 text-center red">
+				<div class="card">
+					<p class="mt-0"><strong>Resigned</strong></p>
+					<h2 class="my-2 p-font-bold">{{ newDirectorShipCountsData.resigned_count }}</h2>
+				</div>
+			</div>
+			<div class="col-6 text-center c-light">
+				<div class="card">
+					<p class="mt-0"><strong>Inactive</strong></p>
+					<h2 class="my-2 p-font-bold">{{ newDirectorShipCountsData.non_active_count }}</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-6 md:col-5 lg:col-7">
+		<div class="card">			
+			<div class="grid">
+				<div class="col-6 md:col-4 lg:col-2">
+					<p class="m-0"><strong>Nationality: </strong></p>
+				</div>
+				<div class="col-6 md:col-8 lg:col-10">
+					<p class="m-0">
+						<span *ngIf="newDirectorData && newDirectorData.countryCode; else noDataBlock">
+							<img src="assets/utilities/flags/flag_placeholder.png" alt="Flag" class="flag flag-{{ newDirectorData.countryCode | lowercase }}">
+						</span>
+						<ng-container *ngIf="newDirectorData?.nationality; else noDataBlock">
+							{{ newDirectorData?.nationality | titlecase }}
+						</ng-container>
+						<ng-template #noDataBlock>-</ng-template>
+					</p>
+				</div>
+			</div>
+
+			<div class="grid">
+				<div class="col-6 md:col-3 lg:col-2">
+					<p class="m-0"><strong>Date Of Birth: </strong></p>
+				</div>
+				<div class="col-6 md:col-9 lg:col-10">
+					<p class="m-0">
+						<ng-container *ngIf="newDirectorData?.dateOfBirth; else noDataBlock">
+							{{ newDirectorData?.dateOfBirth || '-' }}<span class="small-data-font ml-2">({{ newDirectorData?.age }} Years Old)</span>
+						</ng-container>
+						<ng-template #noDataBlock>-</ng-template>
+					</p>
+				</div>
+			</div>
+
+			<div class="grid">
+				<div class="col-6 md:col-3 lg:col-2">
+					<p class="m-0"><strong>Address: </strong></p>
+				</div>
+				<div class="col-6 md:col-9 lg:col-10">
+					<p class="m-0">{{ newDirectorData?.address == null ? '-' : newDirectorData?.address }}</p>
+				</div>
+			</div>
+
+			<div class="grid" addOnAccess="contactInformation">
+				<div class="col-6 md:col-3 lg:col-2">
+					<p class="m-0"><strong>Social Media Links: </strong></p>
+				</div>
+				<div class="col-6 md:col-9 lg:col-10">
+					<ng-container *ngIf=" userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasAddOnPermission('contactInformation') && ![ subscribedPlanModal['Compliance_Plan'] ].includes( userDetails?.planId ); else otherPlan">
+						<p class="m-0">
+							<span class="featuredLinks">
+								<ng-container *ngIf="newDirectorData?.linkedin_url; else noLinkedInURL">
+									<a class="pointer" target="_blank" [href]="newDirectorData?.linkedin_url">
+										<svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+											<path
+												d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+										</svg>
+									</a>
+								</ng-container>
+								<ng-template #noLinkedInURL>
+									<a class="pointer" href="javascript: void(0);" (click)="linkedInUrlForDirector( directorName ,newDirectorData?.directorPnr  )">
+										<svg class="svg-fill-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+											<path
+												d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+										</svg>
+									</a>
+								</ng-template>
+							</span>
+						</p>
+					</ng-container>
+					<ng-template #otherPlan>
+						<p>To enable this feature, please mail to: <a class="c-blue" href="mailto:grow@datagardener.com">grow&#64;datagardener.com</a></p>
+					</ng-template>
+				</div>	
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="grid">
+				<div class="col-fixed">
+					<p class="m-0"><strong>All Occupations: </strong></p>
+				</div>
+				<div class="col-fixed">
+					<p class="m-0">
+						<ng-container *ngIf="newDirectorData?.allOccupation && newDirectorData.allOccupation.length">
+							<ng-container *ngFor="let directorOccupation of newDirectorData.allOccupation.slice(0, 5); let i = index">
+								<span>{{ directorOccupation | titlecase }}</span><ng-container *ngIf="newDirectorData.allOccupation.length > 1 && (newDirectorData.allOccupation.length - 1) !== i">, </ng-container>
+							</ng-container>
+					    </ng-container>
+					</p>
+				</div>
+			</div>
+		</div>           
+	</div>
+
+</div>
+
+<div class="flex p-flex-column">
+	<div class="flex p-ai-center p-flex-wrap">
+		<div class="roundedColoredChipLabel bg-white text-green-400">
+			<p-chip tooltipPosition="top">Companies Summary: {{ directorTotalCompaniesCount }} </p-chip>
+		</div>
+		<div class="roundedColoredChipLabel bg-white text-green-400" *ngIf="directorPossibleCompaniesCount > 0">
+			<p-chip tooltipPosition="top">Possible Companies Summary: {{ directorPossibleCompaniesCount }}</p-chip>
+		</div>
+		<div class="roundedColoredChipLabel bg-white text-green-400" *ngIf="shareholdingSummaryCount > 0">
+			<p-chip tooltipPosition="top">Shareholdings Summary: {{ shareholdingSummaryCount }}</p-chip>
+		</div>
+		<div class="roundedColoredChipLabel bg-white text-green-400" *ngIf="possibleShareholdingsCount > 0">
+			<p-chip tooltipPosition="top">Possible Shareholdings Summary: {{ possibleShareholdingsCount }}</p-chip>
+		</div>
+	</div>
+</div>
+
+<p-tabView (onChange)="possibleCompaniesSummary($event)">
+	<ng-container *ngIf="companiesSummeryTabData.length != 0">
+
+		<p-tabPanel header="Companies Summary" *ngIf="companiesSummeryTabData.length || directorPossibleCompaniesData.length" [selected]="true">
+
+			<p-accordion [multiple]="true" [activeIndex]="[0]">
+				<p-accordionTab header="Companies Summary" *ngIf="companiesSummeryTabData.length">
+					<dg-user-list [listColumns]="directorDetailsCompanySummaryColumns" [listDataValues]="companiesSummeryTabData" [listPage]="true" [thisPage]="'directorDetails'" [tableName]="'companiesSummaryTable'" [totalNumOfRecords]="directorTotalCompaniesCount" [rows]="rows" [first]="first" [serverSidePaginator]="true" (updateTableDataList)="updateTableDataList($event)"></dg-user-list>
+				</p-accordionTab>
+				<p-accordionTab header="Possible Companies Summary" *ngIf="directorPossibleCompaniesData.length">
+					<div class="directorDetailsCompanySummaryBlock">
+					
+						<ng-container *ngIf="isLoggedIn; else showWithoutLoginDirectorFinancialModal">
+						
+							<dg-user-list [listColumns]="directorDetailsCompanySummaryColumns" [listDataValues]="directorPossibleCompaniesData" [listPage]="true" [thisPage]="'directorDetails'" [tableName]="'shareholdingSummaryTable'"></dg-user-list>
+				
+						</ng-container>
+		
+						<ng-template #showWithoutLoginDirectorFinancialModal>
+							<div class="card">
+								<dg-without-login-modal></dg-without-login-modal>
+							</div>
+						</ng-template>
+						
+					</div>
+				</p-accordionTab>
+
+			</p-accordion>
+			<ng-container *ngFor="let dirDetailData of companiesSummeryTabData">
+				<div class="directorSection">
+					<div class="grid mt-2">
+		
+						<div class="col-6 md-6"> 
+							<div class="card">
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Company Name</span>
+									</div>
+									<div class="col-8 md-8">
+										<!-- <span class="x-big-data-font">
+											<a class="cName" target="_blank"
+												[href]="'/company/' + dirDetailData?.CompanyNumber + '/' + formatCompanyNameForUrl(dirDetailData?.CompanyOriginalName | titlecase)">{{ dirDetailData?.CompanyOriginalName | uppercase }}</a>
+										</span> -->
+										<span class="x-big-data-font">{{ dirDetailData?.companyName | uppercase }}</span>
+									</div>
+								</div>
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Company No.</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="x-big-data-font">{{ dirDetailData?.companyNumber | uppercase }}</span>
+									</div>
+								</div>
+								
+								<div addOnAccess="contactInformation">
+									<ng-container *ngIf="dirDetailData?.companyContactDetails">
+										<div class="grid mb-3">
+											<div class="col-4 md-4">
+												<span class="heading-font">Social Profiles</span>
+											</div>
+											<div class="col-8 md-8">
+	
+												<ng-container *ngIf="![ subscribedPlanModal['Compliance_Plan'] ].includes( userDetails?.planId ); else otherPlan">
+													
+													<div class="social-link">
+														<a href="javascript: void(0);"
+															(click)="checkSubscriptionAuth( ( userAuthService.hasAddOnPermission('contactInformation') || userAuthService.hasRolePermission( ['Super Admin'] ) ), GoogleURLCompanyURL(dirDetailData?.CompanyOriginalName) )">
+															<img tooltip="Search on google" src="https://img.icons8.com/color/48/000000/google-logo.png"
+																id="google-image">
+														</a>
+														<ng-container
+															*ngIf="dirDetailData?.companyContactDetails && dirDetailData?.companyContactDetails?.linkedin_url && dirDetailData?.companyContactDetails?.linkedin_url !== '0' && dirDetailData?.companyContactDetails?.linkedin_url !== ' ' && dirDetailData?.companyContactDetails?.linkedin_url !== 'null'; else noLinkedInURL">
+															<a href="javascript: void(0);"
+																(click)="checkSubscriptionAuth( isAuthCheckOnClick, dirDetailData?.companyContactDetails?.linkedin_url )">
+																<svg class="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+																	<path
+																		d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 6.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+																</svg>
+															</a>
+														</ng-container>
+														<ng-template #noLinkedInURL>
+															<a href="javascript: void(0);"
+																(click)="checkSubscriptionAuth( isAuthCheckOnClick, linkedinURLForCompany(dirDetailData?.CompanyOriginalName) )">
+																<svg class="svg-fill-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+																	<path
+																		d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+																</svg>
+															</a>
+														</ng-template>
+													</div>
+	
+												</ng-container>
+	
+												<ng-template #otherPlan>
+													<p>To enable this feature, please mail to: <a class="c-blue" href="mailto:grow@datagardener.com">grow&#64;datagardener.com</a></p>
+												</ng-template>
+	
+											</div>
+										</div>
+									</ng-container>
+								</div>
+		
+								<!-- Director data start -->
+								<span class="x-big-data-font c-darkBlue">Director's Data
+									<button pButton type="button" icon="pi pi-pencil" class="ml-2 mb-0 p-button-rounded p-button p-button-lg" [ngClass]="{ 'hasFeatureLockIcon': subscribedPlanModal['Valentine_Special'] .includes( userDetails?.planId ) }" (click)="[ subscribedPlanModal['Valentine_Special'], subscribedPlanModal['Compliance_Plan'] ].includes( userDetails?.planId ) ? showUpgradePlanDialog = true : onDirectorUpdateInfo(dirDetailData)" *ngIf="userAuthService.hasAddOnPermission('contactInformation') && dirDetailData?.CompanyNumber != '05109207' && selectedGlobalCountry == 'uk'">
+										<span *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId )" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+									</button>
+								</span>
+								<div class="grid mb-2 mt-1">
+									<div class="col-4 md-4">
+										<span class="heading-font">Status</span>
+									</div>
+									<div class="col-8 md-8">
+										<span [ngClass]="{ 'green': dirDetailData?.directorStatus != undefined &&  dirDetailData?.directorStatus == 'active', 'c-light': dirDetailData?.directorStatus != undefined &&  dirDetailData?.directorStatus == 'inactive', 'red': dirDetailData?.directorStatus != undefined &&  dirDetailData?.directorStatus == 'resigned'}" class="status mr-3">{{ dirDetailData?.directorStatus | titlecase }}</span>
+									</div>
+								</div>
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Appointed on</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.dateOfJoining  }}</span>
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.toDate" class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Resigned on</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.dateOfResigning  }}</span>
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.directorDateOfBirth" class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Birth</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.directorDateOfBirth }}
+										</span>
+										<span
+										class="small-data-font ml-2">({{ dirDetailData?.directorAge }} Years Old)</span>
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.directorAddress" class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Address</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">
+											{{ dirDetailData?.directorAddress }}
+										</span>
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.directorOccupation" class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Occupation</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.directorOccupation | titlecase }}</span>
+									</div>
+								</div>
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Role</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.directorRole || '-' }}</span>
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.directorQualification" class="grid mb-3">
+									<div class="col-4 md-4">
+										<span class="heading-font">Qualifications</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.directorQualification | titlecase }}</span>
+									</div>
+								</div>
+								<div class="grid mb-3" *ngIf="userAuthService.hasRolePermission( ['Super Admin'] ) || userAuthService.hasAddOnPermission('contactInformation')">
+									<div class="col-4 md-4">
+										<span class="heading-font">Email</span>
+									</div>
+									<div class="col-8 md-8">
+										<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( userDetails?.planId ); else otherPlansForEmail">
+											<span class="lockIconForFilters"><img src="{{ userAuthService?.featureLockIconPath }}"></span> 
+										</ng-container>
+										<ng-template #otherPlansForEmail>
+											<span class="data-font">{{ dirDetailData?.directorEmail || "-" }}</span>
+										</ng-template>
+									
+									</div>
+								</div>
+						   
+								<!-- director data ends -->
+		
+								<!-- company data starts -->
+								<span class="x-big-data-font c-darkBlue">Company's Data</span>
+								<div class="grid mb-2 mt-1">
+									<div class="col-4 md-4">
+										<span class="heading-font">Status</span>
+									</div>
+									<div class="col-8 md-8">
+										<span
+										[ngClass]="{ 'green':  dirDetailData?.companyStatus == 'live' || dirDetailData?.companyStatus == 'administration order', 'c-orange':  dirDetailData?.companyStatus == 'in liquidation' || dirDetailData?.companyStatus == 'removed', 'c-red': dirDetailData?.companyStatus == 'converted/closed' || dirDetailData?.companyStatus == 'dissolved' || dirDetailData?.companyStatus == 'in administration' || dirDetailData?.companyStatus == 'in receivership / administration' ||  dirDetailData?.companyStatus == 'voluntary arrangement' || dirDetailData?.companyStatus == 'in receivership' || dirDetailData?.companyStatus == 'deleted'}"
+										class="status mr-3">{{ dirDetailData?.companyStatus | titlecase }}
+										</span>
+									</div>
+								</div>
+							   
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Company Category</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.companyCategoris | titlecase }}</span><br>
+									</div>
+								</div>
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Incorporated on</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.incorporationDate }}</span>
+										<!-- <span class="small-data-font ml-2">({{ calculateAge( dirDetailData?.incorporationDate) }} Years Old )</span> -->
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.sic_Code07 && dirDetailData.sic_Code07.length" class="grid mb-4">
+									<div class="col-4 md-4">
+										<span class="heading-font">Sic Code</span>
+									</div>
+									<div class="col-8 md-8">
+										<span *ngFor="let item of dirDetailData?.sic_Code07"
+											class="data-font d-block">{{ item }}</span>
+									</div>
+								</div>
+								<div *ngIf="dirDetailData?.previousNames?.length > 0">
+									<div class="grid">
+										<div class="col-4 md-4">
+											<span class="heading-font">Previously known as</span><br>
+										</div>
+										<div class="col-8 md-8">
+											<span class="heading-font">Changed on</span><br>
+										</div>
+									</div>
+								
+									<div class="grid" *ngFor="let item of dirDetailData?.previousNames">
+										<div class="col-4 md-4">
+											<span class="data-font d-block">{{ item.name | titlecase }}</span>
+										</div>
+										<div class="col-8 md-8">
+											<span class="data-font d-block">{{ parseDate(item.dateChanged) }}</span>
+										</div>
+									</div>
+								</div>
+											
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Account Category</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">{{ dirDetailData?.accountsType | titlecase }}</span><br>
+									</div>
+								</div>
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Account</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">Last accounts filed on
+											{{ dirDetailData?.accountsFilingDate }}</span><br>
+										<span class="data-font">Last accounts made up to
+											{{ dirDetailData?.accountsMadeUpDate }}</span><br>
+										<span class="data-font">Next Due Date is
+											{{ dirDetailData?.accountsDueDate }}</span>
+									</div>
+								</div>
+								<div class="grid mb-2">
+									<div class="col-4 md-4">
+										<span class="heading-font">Confirmation Statement</span>
+									</div>
+									<div class="col-8 md-8">
+										<span class="data-font">Last made update on
+											{{ dirDetailData?.latestAnnualReturnDate }}</span><br>
+										<span class="data-font">Next Due Date is
+											{{ dirDetailData?.nextAnnualReturnDate || '(N/A)' }}</span>
+									</div>
+								</div>
+								<!-- Company data ends -->
+		
+							</div>
+						</div>
+		
+						<div class="col-6 md-6">
+							<div class="card financialCard" *ngIf="dirDetailData?.financialData">
+		
+								<ng-container *ngIf="isLoggedIn; else showWithoutLoginDirectorFinancialModal">
+									<ng-container *ngIf="userAuthService.hasFeaturePermission( 'Key Financials' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showCommentaryInfo">
+										<div class="grid align-items-center">
+											<div class="col-fixed x-big-data-font c-darkBlue">
+												<div>Financial Performance</div>
+											</div>
+										
+											<div class="col-fixed small-data-font text-right ml-auto">
+												<div class="in-block">
+													<span class="chartLegendTriggerBox"></span>
+													Click to show/hide individual elements
+												</div>
+											</div>
+										</div>
+			
+										<p-chart type="line" [data]="dirDetailData?.financeChartData" height="350px" [options]="chartOptions" [plugins]="ChartDataLabelsPlugin"></p-chart>
+			
+										<div class="financeOverviewGrid bg-grey mt-2">
+	
+											<div class="grid m-0">
+	
+												<div class="col-6 xl-6">
+	
+													<div class="card" *ngIf="dirDetailData?.financeTurnoverData">
+	
+														<div class="mb-2">Turnover</div>
+	
+														<div class="grid justify-content-between align-items-end" *ngIf="dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 1 ] !== null; else noDataBlock">
+															<div class="col-fixed py-0 x-big-data-font">
+																<span class="c-red" *ngIf="dirDetailData?.financeTurnoverData[0] < 0; else turnoverPositiveValue1">(&pound; {{ dirDetailData?.financeTurnoverData[0] * -1 | number:'1.0-0' }})</span>
+																<ng-template #turnoverPositiveValue1><span class="c-green">&pound; {{ dirDetailData?.financeTurnoverData[0] | number:'1.0-0' }}</span></ng-template>
+															</div>
+															<div class="col-fixed py-0 text-right sm-data-font ml-auto">
+																<ng-container *ngIf="dirDetailData?.financeTurnoverData[0] > dirDetailData?.financeTurnoverData[1] && dirDetailData?.financeTurnoverData[1] !== 0">
+																	<i class="ui-icon-trending-up c-green"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeTurnoverData[0] < dirDetailData?.financeTurnoverData[1] && dirDetailData?.financeTurnoverData[1] !== 0">
+																	<i class="ui-icon-trending-down c-red"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeTurnoverData[0] == dirDetailData?.financeTurnoverData[1] || dirDetailData?.financeTurnoverData[1] == 0">
+																	<ng-container *ngIf="dirDetailData?.financeTurnoverData[0] == dirDetailData?.financeTurnoverData[1]">
+																		<i class="ui-icon-trending-flat c-green"></i>
+																	</ng-container>
+																	<ng-container *ngIf="dirDetailData?.financeTurnoverData[1] == 0 && dirDetailData?.financeTurnoverData[0] > dirDetailData?.financeTurnoverData[1]">
+																		<i class="ui-icon-trending-up c-green"></i>
+																	</ng-container>
+																</ng-container>
+																<!-- <span [ngClass]="{ 'c-red': calculatePercentageForOverviewFinancials( dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 2 ], dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 1 ] ) < 0, 'c-green': calculatePercentageForOverviewFinancials( dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 2 ], dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 1 ] ) >= 0 }">
+																	{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 2 ], dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 1 ] ) | number:'1.0-0' }}{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 2 ], dirDetailData?.financeTurnoverData[ dirDetailData?.financeTurnoverData?.length - 1 ] ) ?  '%' : '' }}
+																</span> -->
+																<div>
+																	<span class="c-red" *ngIf="dirDetailData?.financeTurnoverData[1] < 0 && dirDetailData?.financeTurnoverData[1] !== 0">(&pound; {{ dirDetailData?.financeTurnoverData[1] * -1 | number:'1.0-0' }})</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeTurnoverData[1] > 0 && dirDetailData?.financeTurnoverData[1] !== 0">&pound; {{ dirDetailData?.financeTurnoverData[1] | number:'1.0-0' }}</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeTurnoverData[1] == 0">&pound; 0</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-6 xl-6">
+													<div class="card" *ngIf="dirDetailData?.financeTotalAssetsData">
+														<div class="mb-2">Total Assets</div>
+														<div class="grid justify-content-between align-items-end"
+															*ngIf="dirDetailData?.financeTotalAssetsData[0] !== null; else noDataBlock">
+															<div class="col-fixed py-0 x-big-data-font">
+																<span class="c-red" *ngIf="dirDetailData?.financeTotalAssetsData[0] < 0; else totalAssetsPositiveValue1">(&pound; {{ dirDetailData?.financeTotalAssetsData[0] * -1 | number:'1.0-0' }})</span>
+																<ng-template #totalAssetsPositiveValue1><span class="c-green">&pound; {{ dirDetailData?.financeTotalAssetsData[0] | number:'1.0-0' }}</span></ng-template>
+															</div>
+															<div class="col-fixed py-0 text-right sm-data-font ml-auto">
+																<ng-container *ngIf="dirDetailData?.financeTotalAssetsData[0] > dirDetailData?.financeTotalAssetsData[1] && dirDetailData?.financeTotalAssetsData[1] !== 0">
+																	<i class="ui-icon-trending-up c-green"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeTotalAssetsData[0] < dirDetailData?.financeTotalAssetsData[1] && dirDetailData?.financeTotalAssetsData[1] !== 0">
+																	<i class="ui-icon-trending-down c-red"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeTotalAssetsData[0] == dirDetailData?.financeTotalAssetsData[1] || dirDetailData?.financeTotalAssetsData[1] == 0">
+																	<ng-container *ngIf="dirDetailData?.financeTotalAssetsData[0] == dirDetailData?.financeTotalAssetsData[1]">
+																		<i class="ui-icon-trending-flat c-green"></i>
+																	</ng-container>
+																	<ng-container *ngIf="dirDetailData?.financeTotalAssetsData[1] == 0 && dirDetailData?.financeTotalAssetsData[0] > dirDetailData?.financeTotalAssetsData[1]">
+																		<i class="ui-icon-trending-up c-green"></i>
+																	</ng-container>
+																</ng-container>
+																<!-- <span [ngClass]="{ 'c-red': calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 2 ], dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 1 ] ) < 0, 'c-green': calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 2 ], dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 1 ] ) >= 0 }">
+																	{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 2 ], dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 1 ] ) | number:'1.0-0' }}{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 2 ], dirDetailData?.financeTotalAssetsData[ dirDetailData?.financeTotalAssetsData?.length - 1 ] ) ? '%' : '' }}
+																</span> -->
+																<div>
+																	<span class="c-red" *ngIf="dirDetailData?.financeTotalAssetsData[1] < 0 && dirDetailData?.financeTotalAssetsData[1] !== 0">(&pound; {{ dirDetailData?.financeTotalAssetsData[1] * -1 | number:'1.0-0' }})</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeTotalAssetsData[1] > 0 && dirDetailData?.financeTotalAssetsData[1] !== 0">&pound; {{ dirDetailData?.financeTotalAssetsData[1] | number:'1.0-0' }}</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeTotalAssetsData[1] == 0">&pound; 0</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-6 xl-6">
+	
+													<div class="card" *ngIf="dirDetailData?.financeTotalLiabilitiesData">
+	
+														<div class="mb-2">Total Liabilities</div>
+	
+														<div class="grid justify-content-between align-items-end" *ngIf="dirDetailData?.financeTotalLiabilitiesData[0] !== null; else noDataBlock">
+	
+															<div class="col-fixed py-0 x-big-data-font">
+																<span class="c-red" *ngIf="dirDetailData?.financeTotalLiabilitiesData[0] < 0; else totalLiabilitiesPositiveValue1">(&pound; {{ dirDetailData?.financeTotalLiabilitiesData[0] * -1 | number:'1.0-0' }})</span>
+																<ng-template #totalLiabilitiesPositiveValue1><span class="c-green">&pound; {{ dirDetailData?.financeTotalLiabilitiesData[0] | number:'1.0-0' }}</span></ng-template>
+															</div>
+	
+															<div class="col-fixed py-0 text-right sm-data-font ml-auto">
+	
+																<ng-container *ngIf="dirDetailData?.financeTotalLiabilitiesData[0] > dirDetailData?.financeTotalLiabilitiesData[1] && dirDetailData?.financeTotalLiabilitiesData[1] !== 0">
+																	<i class="ui-icon-trending-up c-red"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeTotalLiabilitiesData[0] < dirDetailData?.financeTotalLiabilitiesData[1] && dirDetailData?.financeTotalLiabilitiesData[1] !== 0">
+																	<i class="ui-icon-trending-down c-green"></i>
+																</ng-container>
+	
+																<ng-container *ngIf="dirDetailData?.financeTotalLiabilitiesData[0] == dirDetailData?.financeTotalLiabilitiesData[1] || dirDetailData?.financeTotalLiabilitiesData[1] == 0">
+																	<ng-container *ngIf="dirDetailData?.financeTotalLiabilitiesData[0] == dirDetailData?.financeTotalLiabilitiesData[1]">
+																		<i class="ui-icon-trending-flat c-green"></i>
+																	</ng-container>
+																	<ng-container *ngIf="dirDetailData?.financeTotalLiabilitiesData[1] == 0 && dirDetailData?.financeTotalLiabilitiesData[0] > dirDetailData?.financeTotalLiabilitiesData[1]">
+																		<i class="ui-icon-trending-up c-red"></i>
+																	</ng-container>
+																</ng-container>
+	
+																<!-- <span [ngClass]="{ 'c-red': calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 2 ], dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 1 ] ) < 0, 'c-green': calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 2 ], dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 1 ] ) >= 0 }">
+																	{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 2 ], dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 1 ] ) | number:'1.0-0' }}{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 2 ], dirDetailData?.financeTotalLiabilitiesData[ dirDetailData?.financeTotalLiabilitiesData?.length - 1 ] ) ? '%' : '' }}
+																</span> -->
+	
+																<div>
+																	<span class="c-red" *ngIf="dirDetailData?.financeTotalLiabilitiesData[1] < 0 && dirDetailData?.financeTotalLiabilitiesData[1] !== 0">(&pound; {{ dirDetailData?.financeTotalLiabilitiesData[1] * -1 | number:'1.0-0' }})</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeTotalLiabilitiesData[1] > 0 && dirDetailData?.financeTotalLiabilitiesData[1] !== 0">&pound; {{ dirDetailData?.financeTotalLiabilitiesData[1] | number:'1.0-0' }}</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeTotalLiabilitiesData[1] == 0">&pound; 0</span>
+																</div>
+															</div>
+	
+														</div>
+													</div>
+												</div>
+												<div class="col-6 xl-6">
+													<div class="card" *ngIf="dirDetailData?.financeNetWorthData">
+														<div class="mb-2">Net Worth</div>
+														<div class="grid justify-content-between align-items-end"
+															*ngIf="dirDetailData?.financeNetWorthData[0] !== null; else noDataBlock">
+															<div class="col-fixed py-0 x-big-data-font">
+																<span class="c-red" *ngIf="dirDetailData?.financeNetWorthData[0] < 0; else netWorthPositiveValue1">(&pound; {{ dirDetailData?.financeNetWorthData[0] * -1 | number:'1.0-0' }})</span>
+																<ng-template #netWorthPositiveValue1><span class="c-green">&pound; {{ dirDetailData?.financeNetWorthData[0] | number:'1.0-0' }}</span></ng-template>
+															</div>
+															<div class="col-fixed py-0 text-right sm-data-font ml-auto">
+																<ng-container *ngIf="dirDetailData?.financeNetWorthData[0] > dirDetailData?.financeNetWorthData[1] && dirDetailData?.financeNetWorthData[1] !== 0">
+																	<i class="ui-icon-trending-up c-green"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeNetWorthData[0] < dirDetailData?.financeNetWorthData[1] && dirDetailData?.financeNetWorthData[1] !== 0">
+																	<i class="ui-icon-trending-down c-red"></i>
+																</ng-container>
+																<ng-container *ngIf="dirDetailData?.financeNetWorthData[0] == dirDetailData?.financeNetWorthData[1] || dirDetailData?.financeNetWorthData[1] == 0">
+																	<ng-container *ngIf="dirDetailData?.financeNetWorthData[0] == dirDetailData?.financeNetWorthData[1]">
+																		<i class="ui-icon-trending-flat c-green"></i>
+																	</ng-container>
+																	<ng-container *ngIf="dirDetailData?.financeNetWorthData[1] == 0 && dirDetailData?.financeNetWorthData[0] > dirDetailData?.financeNetWorthData[1]">
+																		<i class="ui-icon-trending-up c-green"></i>
+																	</ng-container>
+																</ng-container>
+																<!-- <span [ngClass]="{ 'c-red': calculatePercentageForOverviewFinancials( dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 2 ], dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 1 ] ) < 0, 'c-green': calculatePercentageForOverviewFinancials( dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 2 ], dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 1 ] ) >= 0 }">
+																	{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 2 ], dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 1 ] ) | number:'1.0-0' }}{{ calculatePercentageForOverviewFinancials( dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 2 ], dirDetailData?.financeNetWorthData[ dirDetailData?.financeNetWorthData?.length - 1 ] ) ? '%' : '' }}
+																</span> -->
+																<div>
+																	<span class="c-red" *ngIf="dirDetailData?.financeNetWorthData[1] < 0 && dirDetailData?.financeNetWorthData[1] !== 0">(&pound; {{ dirDetailData?.financeNetWorthData[1] * -1 | number:'1.0-0' }})</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeNetWorthData[1] > 0 && dirDetailData?.financeNetWorthData[1] !== 0">&pound; {{ dirDetailData?.financeNetWorthData[1] | number:'1.0-0' }}</span>
+																	<span class="c-green" *ngIf="dirDetailData?.financeNetWorthData[1] == 0">&pound; 0</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<ng-template #noDataBlock>
+												<span class="x-big-data-font">No Data</span>
+											</ng-template>
+										</div>
+									</ng-container>
+									<ng-template #showCommentaryInfo>
+										<span class="x-big-data-font c-darkBlue">
+											<div class="text-center">
+												Financial Performance
+											</div>
+										</span>
+										<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+											<div class="text-center mt-3">
+												To enable this feature, please contact your Administrator.
+											</div>
+										</ng-container>
+										<ng-template #otherThanClientUserLoggedIn>
+											<dg-upgrade-plan [currentPlan]="userDetails?.planId"></dg-upgrade-plan>
+										</ng-template>
+									</ng-template>
+								</ng-container>
+								<ng-template #showWithoutLoginDirectorFinancialModal>
+									<span class="x-big-data-font c-darkBlue">
+										<div class="text-center">
+											Financial Performance
+										</div>
+									</span>
+									<dg-without-login-modal></dg-without-login-modal>
+								</ng-template>
+		
+							</div>
+		
+						</div>
+		
+					</div>                
+				</div>
+			</ng-container>
+
+		</p-tabPanel>
+
+		<!-- <p-tabPanel header="Possible Companies Summary" *ngIf="directorPossibleCompaniesData.length">
+
+			<div class="directorDetailsCompanySummaryBlock">
+					
+				<ng-container *ngIf="isLoggedIn; else showWithoutLoginDirectorFinancialModal">
+				
+					<dg-user-list [listColumns]="directorDetailsCompanySummaryColumns" [listDataValues]="directorPossibleCompaniesData" [listPage]="true" [thisPage]="'directorDetails'" [tableName]="'shareholdingSummaryTable'"></dg-user-list>
+		
+				</ng-container>
+
+				<ng-template #showWithoutLoginDirectorFinancialModal>
+					<div class="card">
+						<dg-without-login-modal></dg-without-login-modal>
+					</div>
+				</ng-template>
+				
+			</div>
+
+		</p-tabPanel> -->
+
+		<p-tabPanel header="Shareholdings Summary" *ngIf="newShareholdingSummaryData.length || possibleShareholdingsData.length">
+
+			<p-accordion [multiple]="true" [activeIndex]="[0,1]">
+				<p-accordionTab header="Shareholdings Summary" *ngIf="newShareholdingSummaryData.length">
+					<div class="directorDetailsCompanySummaryBlock">
+					
+						<ng-container *ngIf="isLoggedIn; else showWithoutLoginDirectorFinancialModal">
+						
+							<dg-user-list [listColumns]="directorDetailsShareholdingsSummaryColumns" [listDataValues]="newShareholdingSummaryData" [listPage]="true" [thisPage]="'directorDetails'" [tableName]="'shareholdingSummaryTable'"></dg-user-list>
+				
+						</ng-container>
+		
+						<ng-template #showWithoutLoginDirectorFinancialModal>
+							<div class="card">
+								<dg-without-login-modal></dg-without-login-modal>
+							</div>
+						</ng-template>
+						
+					</div>
+				</p-accordionTab>
+				<p-accordionTab header="Possible Shareholdings Summary" *ngIf="possibleShareholdingsData.length">
+					<div class="directorDetailsCompanySummaryBlock">
+					
+						<ng-container *ngIf="isLoggedIn; else showWithoutLoginDirectorFinancialModal">
+						
+							<dg-user-list [listColumns]="directorDetailsShareholdingsSummaryColumns" [listDataValues]="possibleShareholdingsData" [listPage]="true" [thisPage]="'directorDetails'" [tableName]="'shareholdingSummaryTable'"></dg-user-list>
+				
+						</ng-container>
+		
+						<ng-template #showWithoutLoginDirectorFinancialModal>
+							<div class="card">
+								<dg-without-login-modal></dg-without-login-modal>
+							</div>
+						</ng-template>
+						
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+		</p-tabPanel>
+
+		<!-- <p-tabPanel header="Possible Shareholdings Summary" *ngIf="possibleShareholdingsData.length">
+
+			<div class="directorDetailsCompanySummaryBlock">
+					
+				<ng-container *ngIf="isLoggedIn; else showWithoutLoginDirectorFinancialModal">
+				
+					<dg-user-list [listColumns]="directorDetailsShareholdingsSummaryColumns" [listDataValues]="possibleShareholdingsData" [listPage]="true" [thisPage]="'directorDetails'" [tableName]="'shareholdingSummaryTable'"></dg-user-list>
+		
+				</ng-container>
+
+				<ng-template #showWithoutLoginDirectorFinancialModal>
+					<div class="card">
+						<dg-without-login-modal></dg-without-login-modal>
+					</div>
+				</ng-template>
+				
+			</div>
+
+		</p-tabPanel> -->
+
+
+
+	</ng-container>
+</p-tabView>
+
+<div *ngIf="!companiesSummeryTabData.length">
+	<div class="card">
+		<h3 class="c-light">No records found.</h3>
+	</div>
+</div>

@@ -1,0 +1,139 @@
+.card {
+    min-height: 94.4%;
+
+    &:only-child {
+        min-height: 97.8%;
+    }
+
+    .statisticsList {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            
+            li {
+                margin-bottom: 1em;
+
+                a, span {
+                    display: block;
+                }
+                a {
+                    background-color: #f5f5f5;
+                    border-radius: 8px;
+                    padding: 0.5em 2.4em 0.5em 0.8em;
+                    position: relative;
+                    border: 1px solid transparent;
+
+                    -webkit-transition: all 0.4s ease-in-out;
+                    -moz-transition: all 0.4s ease-in-out;
+                    transition: all 0.4s ease-in-out;
+
+                    &:after {
+                        content: "arrow_forward";
+                        display: block;
+                        width: 20px;
+                        height: 20px;
+                        background-color: #666;
+                        line-height: 20px;
+                        text-align: center;
+                        color: #fff;
+                        border-radius: 100%;
+                        font-family: "Material Icons";
+                        font-weight: normal;
+                        font-style: normal;
+                        text-transform: none;
+                        letter-spacing: normal;
+                        word-wrap: normal;
+                        white-space: nowrap;
+                        direction: ltr;
+                        -webkit-font-smoothing: antialiased;
+                        text-rendering: optimizeLegibility;
+                        -moz-osx-font-smoothing: grayscale;
+                        font-feature-settings: "liga";
+                        position: absolute;
+                        top: 4px;
+                        right: 4px;
+                    }
+
+                    .title {
+                        font-size: 1.05em;
+                        color: #666;
+                    }
+                    .counts {
+                        font-size: 1.8em;
+                        line-height: 1.4;
+                        color: #a7a7a7;
+                    }
+
+                    &:hover {
+                        border-color: inherit;
+                    }
+                }
+
+                &:nth-child(1) {
+                    a {
+                        background-color: #f2fdfb;
+                        color: #1ab394;
+
+                        &::after {
+                            background-color: #1ab394;
+                        }
+                        
+                        .title,
+                        .counts {
+                            color: #1ab394;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    a {
+                        background-color: #e2e9f8;
+                        color: #1F4286;
+
+                        &::after {
+                            background-color: #1F4286;
+                        }
+                        
+                        .title,
+                        .counts {
+                            color: #1F4286;
+                        }
+                    }
+                }
+
+                &:nth-child(3) {
+                    a {
+                        background-color: #f6f3fb;
+                        color: #673ab7;
+
+                        &::after {
+                            background-color: #673ab7;
+                        }
+                        
+                        .title,
+                        .counts {
+                            color: #673ab7;
+                        }
+                    }
+                }
+
+                &:nth-child(4) {
+                    a {
+                        background-color: #fbe0e0;
+                        color: #df2020;
+
+                        &::after {
+                            background-color: #df2020;
+                        }
+                        
+                        .title,
+                        .counts {
+                            color: #df2020;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

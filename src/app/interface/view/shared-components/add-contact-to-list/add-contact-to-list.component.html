@@ -1,0 +1,61 @@
+<button pButton type="button" icon="ui-icon-add" class="p-button-rounded p-button-sm mr-2 mb-2" [ngClass]="{ 'hasFeatureLockIcon': isFeatureAccessAddCompanyList == false }" label="Contact List" (click)="addCompanyToList()" [disabled]="disableButton">
+	<span *ngIf="!isFeatureAccessAddCompanyList && thisPage !== 'companyListOfIServiceCategoryPage'" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+</button>
+
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998"
+	appendTo="body" [focusOnShow]="false">
+	<dg-login></dg-login>
+</p-dialog>
+
+<ng-container *ngIf="isLoggedIn">
+
+	<p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog"
+		[baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: 'auto' }">
+		<dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+	</p-dialog>
+	
+	<p-dialog styleClass="subscriptionPlanDialogModalForClientUser" [modal]="true" [draggable]="false"
+		[(visible)]="showUpgradePlanDialogForClientuser" [baseZIndex]="999999998" appendTo="body"
+		[style]="{ width: '40vw', 'overflow-y': 'auto' }">
+		<div class="text-center">
+			To enable this feature, please contact your Administrator.
+		</div>
+	</p-dialog>
+
+</ng-container>
+
+<ng-container *ngIf="isFeatureAccessAddCompanyList">
+
+	<p-dialog header="Add To Contact List" styleClass="addCompanyToListModal" [(visible)]="displayListModal" [modal]="true"
+		[focusOnShow]="false" [baseZIndex]="10000" [draggable]="false" appendTo="body" [style]="{width: '40vw'}">
+	
+		<span class="specialCharacters">Punctuation marks or special characters are not allowed (e.g., #, *, @, /, -)</span>
+	
+		<p-listbox #listBox [pKeyFilter]="noSpecialCharacter" *ngIf="listBoxReset" [options]="favList"
+			(keyup)="keyupSearchList( listBox )" (onClick)="selectList( listArrayData )" [(ngModel)]="listArrayData"
+			filter="filter" optionLabel="name" [listStyle]="{'max-height':'280px'}"></p-listbox>
+	
+		<div *ngIf="recordsAfterFilter || !favList">
+			<h4>
+				<p class="text-center">No records found,
+					<ng-container *ngIf="!favList; else defaultMsgTemplate">Please create a new list by entering the name of
+						list in above text field.</ng-container>
+					<ng-template #defaultMsgTemplate>
+						Do you want to create
+						<strong>
+							<u>{{ newCreateListName }}</u>
+						</strong> List?
+					</ng-template>
+				</p>
+				<div class="text-center">
+					<button pButton type="button" label="Yes" class="p-button-rounded pb-2 mr-2"
+						(click)="createNewList()" [disabled]="!newCreateListName"></button>
+					<button pButton type="button" label="No" class="p-button-rounded pb-2" (click)="clearFilterField()"
+						[disabled]="!newCreateListName"></button>
+				</div>
+			</h4>
+		</div>
+	
+	</p-dialog>
+
+</ng-container>

@@ -1,0 +1,60 @@
+<button *ngIf="showDirectorReportButton" pButton type="button" label="Report" icon="pi pi-file-pdf" [ngClass]="{ 'hasFeatureLockIcon': !isFeatureDirectorReport }" class="p-button-rounded p-button-sm ml-3" title="Create Report" (click)="showDialog()">    
+    <span *ngIf="!isFeatureDirectorReport" class="featureLockIconForDetailsPage"><img src="{{ userAuthService?.featureLockIconPath }}"></span>
+</button>
+
+<!-- Login Modal Dialog -->
+<p-dialog styleClass="loginDialogModal" [modal]="true" [(visible)]="showLoginDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false">
+    <dg-login></dg-login>
+</p-dialog>
+<!-- Login Modal Dialog End -->
+
+<!-- <ng-container *ngIf="isLoggedIn"> -->
+<span loginAccessModal>
+
+    <!-- Upgrade Plan Dialog -->
+    <p-dialog styleClass="subscriptionPlanDialogModal" [modal]="true" [(visible)]="showUpgradePlanDialog" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '60vw'} ">
+        <dg-upgrade-plan [currentPlan]="userDetails?.planId" [componentView]="'inModal'"></dg-upgrade-plan>
+    </p-dialog>
+    <!-- Upgrade Plan Dialog End -->
+    
+    <!-- Upgrade Plan Dialog For Client User -->
+    <p-dialog styleClass="subscriptionPlanDialogModalForClientUser" [modal]="true" [draggable]="false" [(visible)]="showUpgradePlanDialogForClientuser" [baseZIndex]="999999998" appendTo="body" [style]="{ width: '40vw', 'overflow-y': 'auto' }">
+        <div class="text-center">
+            To enable this feature, please contact your Administrator.
+        </div>
+    </p-dialog>
+    <!-- Upgrade Plan Dialog For Client User End -->
+    
+    <p-dialog header="Choose Director Status" styleClass="downloadReportModalDialog" [(visible)]="display" [modal]="true" [focusOnShow]="false" [style]="{width: '30vw'}" [baseZIndex]="10000" appendTo="body" [draggable]="false" [resizable]="true" (onHide)="resetOnHideDialog()">
+    
+        <!-- <div class="grid p-y-3 p-x-3" *ngIf="directorStatusCounts.length"> -->
+        <div class="grid p-y-3 p-x-3">
+    
+            <div class="col-12">
+                <p-radioButton name="reportTypeOpts" value="selectedAll" label="All" binary="true" [(ngModel)]="selectedReportTypeValue"></p-radioButton>
+            </div>
+    
+            <div class="col-12">
+                <p-radioButton name="reportTypeOpts" value="selectedActiveOnly" label="Active" binary="true" [(ngModel)]="selectedReportTypeValue" [disabled]="directorStatusCounts?.active_count <= 0"></p-radioButton>
+            </div>
+    
+            <div class="col-12">
+                <p-radioButton name="reportTypeOpts" value="selectedActiveResignedOnly" label="Active and Resigned" binary="true" [(ngModel)]="selectedReportTypeValue" [disabled]="( directorStatusCounts?.active_count <= 0 || directorStatusCounts?.resigned_count <= 0 )"></p-radioButton>
+            </div>
+    
+            <div class="col-12">
+                <p-radioButton name="reportTypeOpts" value="selectedActiveInactiveOnly" label="Active and Inactive" binary="true" [(ngModel)]="selectedReportTypeValue" [disabled]="( directorStatusCounts?.active_count <= 0 || directorStatusCounts?.non_active_count <= 0 )"></p-radioButton>
+            </div>
+    
+        </div>
+    
+        <p-footer>
+            <div class="text-center">
+                <button pButton type="button" label="Download Report" icon="pi pi-file-pdf" class="p-button-rounded p-button-sm mr-2 mb-2" title="Download Report" (click)='checkPdfReportLimit()'></button>
+                <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-sm blue-grey-btn mb-2" (click)="display = false"></button>
+            </div>
+        </p-footer>
+    
+    </p-dialog>
+</span>
+<!-- </ng-container> -->

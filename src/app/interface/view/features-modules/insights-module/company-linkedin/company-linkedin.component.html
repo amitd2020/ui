@@ -1,0 +1,227 @@
+<p-messages [(value)]="addAlltoListSucess"></p-messages>
+
+<p-dialog [(visible)]="employeeSizeBool" [style]="{width: '70vw'}" [modal]="true" appendTo="body" [closeOnEscape]="true">
+    <div class="flex items-center gap-2">
+      <h4>Employee Details</h4>
+      <i class="pi pi-info-circle" (mouseenter)="op2.show($event)" (mouseleave)="op2.hide($event)" style="font-size:18px"></i>
+            <p-overlayPanel #op2 [showCloseIcon]="false" [dismissable]="true" appendTo="body">
+                <span>
+                    The profile data below is based on updates provided by the individuals listed on their official online profiles.
+                </span>
+            </p-overlayPanel>
+    </div>
+    <div *ngIf="employeeClickData.length">
+        <div class="card" *ngFor="let empData of employeeClickData; let i = index" [ngClass]="{'bg-cyan-50': i % 2 === 0, 'bg-indigo-50': i % 2 !== 0}">
+
+            <div class="flex align-items-center">
+                <img class="profile-image" *ngIf="empData?.['image_url']" [src]="empData?.['image_url']" alt="{{ empData?.['full_name'] }}" (error)="updateUrl($event)"/>
+                <h3 class="text-xl font-semibold text-blue-500 hover:underline"><a href="{{ empData?.['linkedeni_url'] }}" target="_blank">{{ empData?.['full_name'] | uppercase }}</a></h3>
+            </div>
+            <div class="info-section" *ngIf="empData?.['about_me']">
+                <p [dgReadMore]="true" [numberOfLines]="1" [defaultLineHeight]="20">{{ empData?.['about_me'] }}</p>
+            </div>
+            <div class="info-details">
+                <div class="info-item">
+                    <span class="font-semibold text-bluegray-700 mr-2 w-2">Company Name:</span>
+                    <span class="text-blue-600">{{ empData?.['company_name'] }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="font-semibold text-bluegray-700 mr-2 w-2">Company Number:</span>
+                    <span class="text-blue-600">{{ empData?.['company_number'] | uppercase}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="font-semibold text-bluegray-700 mr-2 w-2">Website:</span>
+                    <a href="https://www.{{ empData?.['website'] }}" target="_blank" class="text-blue-600 hover:underline">{{ empData?.['website'] }}
+                    </a>
+                </div>
+                <div class="info-item">
+                    <span class="font-semibold text-bluegray-700 mr-2 w-2">LinkedIn URL:</span>
+                    <a href="{{ empData?.['linkedeni_url'] }}" target="_blank" class="text-blue-600 hover:underline">
+                        {{ empData?.['linkedeni_url'] }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="connectedEmpNotFoundBool" [style]="{width: '20vw'}" [contentStyle]="{'text-align': 'center'}" [modal]="true">
+        <span class="text-pink-900 text-2xl"><i class="ui-icon-person_off"></i></span>
+        <p class="text-cyan-800	p-4">No Employee Found !</p>
+</p-dialog>
+ 
+<div>
+    <span>
+        <ng-container *ngIf="totalSearchedDataValue > 0; else noInputValue">
+            <h4 class="ml-3 mt-3">{{ totalSearchedDataValue | number }} Results Found </h4>
+        </ng-container>
+        
+        <ng-template #noInputValue>
+            <h3 class="ml-3 mt-3">No Result Found</h3>
+        </ng-template>
+    </span>
+    <div class="card justify-content-between flex p-0 mb-2">
+        <div class="flex align-items-center ml-2">
+            <button pButton type="button" class="p-button-rounded mr-3 p-button-sm darkGrey mb-xxl-2" label="Reset Table"  icon="pi pi-replay"  (click)="resetTable()"></button>
+            <ng-container *ngIf="!saveListId">
+                <dg-add-company-to-list [searchTotalCount]="totalSearchedDataValue" [searchQuery]="checkInputValue" [appliedFilters]="selectedPropValues" (messageCommunicator)="getMessage($event)" [thisPage]="'connectPlusCompany'" [selectedCompany]="selectedCompany"></dg-add-company-to-list>
+            </ng-container>
+            <p-selectButton class="ml-2 p-button-sm" [options]="paymentOptions" [(ngModel)]="value" optionLabel="name" optionValue="value" (onChange)="toggleHighlight()" [hidden]="!searchTerm"></p-selectButton>
+        </div>
+        <p-paginator [first]="first" [rows]="rows" [pageLinkSize]="3" [rowsPerPageOptions]="[20,50,100]" [totalRecords]="( totalSearchedDataValue > 10000 ) ? 10000 : totalSearchedDataValue" (onPageChange)="pageChange( $event )"></p-paginator>
+    </div>
+</div>
+
+<p-dataView [value]="companyLinkedinData" [paginator]="false" [rows]="rows" filterBy="name" layout="grid" paginatorPosition="top" [style]="{  'overflow-y': 'auto' }">
+    <ng-template pTemplate="gridItem" let-rowData let-i="rowIndex">
+        <div class="col-fixed col-12 md:col-6 lg:col-6 pb-3 flex">
+            <div class="product-grid-item card pb-0 w-full">
+                <div class="flex">
+                    <div class="col-2 mr-2">
+                        <span class="flex">
+                            <p-table *ngIf="!saveListId" [value]="[rowData]" [(selection)]="selectedCompany">
+                                <ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData>
+                                    <tr [pSelectableRow]="rowData">
+                                        <td>
+                                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <span class="companyLogo mt-3">
+                                <span>
+                                    <ng-container *ngIf="rowData.image_url != ''; else defaultlogo">
+                                        <img src="{{rowData?.image_url}}"/>
+                                    </ng-container>
+                                    <ng-template #defaultlogo>
+                                        <span>
+                                            <i class="material-icons defaultCompanyLogo">business</i>
+                                        </span>
+                                    </ng-template>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="col-10">
+                            <div class="justify-content-between flex">
+                                <div class="pb-0">
+                                    <h1 class="cardHeaderTitle mb-0">
+                                        <a [href]="rowData?.linkedin_url" target="_blank">
+                                            <strong>{{ rowData?.company_name | titlecase }} </strong>
+                                        </a>
+        
+                                        <strong *ngIf="rowData?.company_reg">  | </strong>
+                                        
+                                        <span *ngIf="rowData?.company_reg"><a class="cName" target="_blank" [href]="'/company/' + rowData['company_reg'] + '/' + formatCompanyNameForUrl(rowData['company_name'] | titlecase)"> {{ rowData?.company_reg | uppercase }}</a></span>
+                                        
+                                        <span pTooltip="Employee Size" class="employeeChip round-icon ml-2" (click)="employeeDetailFromPersonLinkedInAPI(rowData?.['company_id'])"><i class="material-icons">groups</i></span>
+                                       
+                                    </h1>
+                                    
+                                    <!-- <p-toast position="top-center" key="accountsToastMsz"></p-toast> -->
+        
+                                </div>
+                                
+                                <div class="flex flex-column mt-2">
+                                    <div class="flex align-items-center flex-wrap">
+                                        <div class="websiteChip">
+                                                <span class="featuredLinks mr-2">
+                                                    <a *ngIf="rowData?.linkedin_url" [href]="rowData?.linkedin_url" target="_blank" title="Linkedin">
+                                                        <svg [ngClass]="{ 'linkedin': rowData?.linkedin_url != '', 'svg-fill-light': rowData?.linkedin_url == '' }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                            <path
+                                                                d="M417.2 64H96.8C79.3 64 64 76.6 64 93.9V415c0 17.4 15.3 32.9 32.8 32.9h320.3c17.6 0 30.8-15.6 30.8-32.9V93.9C448 76.6 434.7 64 417.2 64zM183 384h-55V213h55v171zm-25.6-197h-.4c-17.6 0-29-13.1-29-29.5 0-16.7 11.7-29.5 29.7-29.5s29 12.7 29.4 29.5c0 16.4-11.4 29.5-29.7 29.5zM384 384h-55v-93.5c0-22.4-8-37.7-27.9-37.7-15.2 0-24.2 10.3-28.2 20.3-1.5 3.6-1.9 8.5-1.9 13.5V384h-55V213h55v23.8c8-11.4 20.5-27.8 49.6-27.8 36.1 0 63.4 23.8 63.4 75.1V384z" />
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                                <span *ngIf="rowData?.website" class="mr-2"><strong><a target="_blank" title="Website" class="cName mr-2" href="http://www.{{formatWebsite(rowData?.website)}}"><i class="material-icons">language</i></a></strong></span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+        
+                            </div>       
+                            <div [innerHTML]="highlightText(rowData.slogan)"></div>
+                            <div *ngIf="rowData?.internationalScoreDescription" class="flex px-0 pt-0">    
+                                <div  class="riskRatingLabel" [ngClass]="{'lightGreen' : rowData.internationalScoreDescription == 'very low risk', 'cyan' : rowData.internationalScoreDescription == 'low risk', 'yellow' : rowData.internationalScoreDescription == 'moderate risk', 'orange' : rowData.internationalScoreDescription == 'high risk', 'darkRed': rowData.internationalScoreDescription == 'not scored' }">
+                                    {{ rowData.internationalScoreDescription == 'not scored'? 'Not Scored /Very High Risk': rowData.internationalScoreDescription | titlecase }}
+                                </div>
+                            </div>
+                            <div class="grid mt-2">
+                                <ng-container *ngIf="rowData?.company_size">
+                                    <div class="flex flex-column align-items-center flex-wrap">
+                                        <div class="roundedColoredChipLabel">
+                                            <p-chip pTooltip="Company Size" tooltipPosition="top"><span >Size:</span> <span class="ml-2">{{rowData?.company_size }}</span></p-chip>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="rowData?.type">
+                                    <div class="flex flex-column align-items-center flex-wrap">
+                                        <div class="roundedColoredChipLabel">
+                                            <p-chip pTooltip="Company Type" tooltipPosition="top"><span>Type:</span>
+                                                    <span class="ml-2">
+                                                        {{rowData?.type | titlecase }}
+                                                </span></p-chip>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="rowData?.turnover && rowData?.turnover != ''">
+                                    <div class="flex flex-column align-items-center flex-wrap">
+                                        <div class="roundedColoredChipLabel">
+                                            <p-chip pTooltip="Industry" tooltipPosition="top"><span>Turnover:</span> <span class="ml-2">&pound;{{rowData?.turnover | number:'1.0-0'}}</span></p-chip>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="rowData?.estimated_turnover && rowData?.estimated_turnover != ''">
+                                    <div class="flex flex-column align-items-center flex-wrap">
+                                        <div class="roundedColoredChipLabel">
+                                            <p-chip pTooltip="Industry" tooltipPosition="top"><span>Estimated Turnover:</span> <span class="ml-2">&pound;{{ rowData?.estimated_turnover | number:'1.0-0' }}</span></p-chip>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="rowData?.industry">
+                                    <div class="flex flex-column align-items-center flex-wrap">
+                                        <div class="roundedColoredChipLabel">
+                                            <p-chip pTooltip="Industry" tooltipPosition="top"><span>Industry:</span> <span class="ml-2" [innerHTML]="highlightText(rowData?.industry)"></span></p-chip>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                
+                            </div>                               
+                            <span class="flex col-fixed">
+                            </span>         
+                        <!-- </span> -->
+                    
+                        
+                    </div>
+                </div>
+                <div>                  
+                    <ng-container *ngIf="rowData?.specialties.length">
+                        <span class="flex px-0 pt-0">
+                            <span class="col-fixed font-bold pt-0">Specialties:</span>
+                            <div class="flex flex-wrap gap-1 text-cyan-500">
+                                <div class="text-blue-700" *ngFor="let chips of rowData?.specialties; let last = last">
+                                    <span [innerHTML]="highlightText(chips)"></span>
+                                    <span *ngIf="!last">,</span>
+                                </div>
+                            </div>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="rowData?.about_us">
+                        <span class="flex px-0 pt-0">
+                            <span class="col-fixed font-bold pt-0">About us:</span>
+                            <div class="col grid" [dgReadMore]="true" [numberOfLines]="1" [defaultLineHeight]="38">
+                                <span class="read-more-text" [innerHTML]="highlightText(rowData.about_us)"></span>
+                                <!-- <span >{{highlightText(rowData.about_us)}}</span> -->
+                            </div>
+                        </span>
+                    </ng-container>
+
+                </div>
+            </div>
+        </div>        
+
+    </ng-template>
+</p-dataView>
+<ng-container *ngIf="visibleFilterSidebar">
+    <dg-filter-sidebar [thisPage]="'companyLinkedIn'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" [saveUpdateExisting] = "saveUpdateExisting"  (searchResultsCommunicator)="companyLinkedInCommunicator($event)"></dg-filter-sidebar>
+</ng-container>

@@ -1,0 +1,11 @@
+.pad4Rem {
+    padding: 0.4rem;    
+}
+
+.card {
+    ::ng-deep {
+        .mapCard {
+            background-color: transparent;
+        }
+    }
+}

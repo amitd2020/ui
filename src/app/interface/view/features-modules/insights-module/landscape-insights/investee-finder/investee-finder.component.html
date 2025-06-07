@@ -1,0 +1,71 @@
+<!-- Company Details Side Panel -->
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+<!-- Company Details Side Panel -->
+
+<p-messages [value]="msgs"></p-messages>
+
+<dg-filter-sidebar [thisPage]="'investee-finder'"  (searchResultsCommunicator)="investeeFinderCommunicator($event)"></dg-filter-sidebar>
+
+
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+	<div class="insightsViewContainer mb-2 lightLayout">
+	
+
+		<div class="insightsChartViewContainer">
+		
+			<div class="grid">
+				<div class="col-6">
+					<ng-template #LazyLeafletMapContainer ></ng-template>
+				</div>
+
+				<div class="col-6">
+					<div class="card">
+						<dg-shared-echart [dataForGraph]="dataForNewEchart" [donutChartHeight]="'height: 500px'" [thisPage]="'investeeFinderPage'"></dg-shared-echart>
+					</div>
+				</div>
+		
+				<div class="col-12">
+					<dg-admin-record-list *ngIf="companiesDataListForTable" [listColumns]="companiesColumnListForTable" [listDataValues]="companiesDataListForTable" [searchTotalCount]="searchTotalCount" [thisPage]="'investeeFinderPage'" (operatingTable)="getOperatingTable($event)" (updateTableAfterPagination)="requestUpdateTableData($event)" [appliedFilters]="appliedFilters"></dg-admin-record-list>
+				</div>
+			</div>
+		</div>
+
+		<p-dialog header="Filter Name Here" [modal]="true" [(visible)]="investeeDisplayModal" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{width: '30vw'}">
+			<form #saveInFilterForm="ngForm" (ngSubmit)="saveInFilter(saveInFilterForm,'new')">
+				<div class="p-input-filled col-12">
+					<span class="p-float-label">
+						<input id="float-input" type="text" name="filtername" [(ngModel)]="investeeFilterNameData" #filtername="ngModel" pInputText ngModel required> 
+						<label for="float-input">Filter Name</label>
+						<span *ngIf="(filtername.touched || saveInFilterForm.submitted) && filtername.errors?.required && saveFilterData" style="color: red;">
+							<span style="float: left;font-size: small;">
+								Filter Name is required
+							</span>
+						 </span>
+					</span>
+				</div>
+				<ng-container *ngIf="saveFiltersName && saveFiltersId;else other">
+					<div class="col-12 pb-0 p-my-3">
+						<button pButton type="submit" label="Save as new" [disabled]="!saveInFilterForm.valid" class="p-button-rounded p-button-lg"></button>
+						<span class="pl-3">
+							<button pButton type="button" label="Update Existing"  class="sidebarToggleBtn" (click)="saveInFilter(saveInFilterForm, 'Update Existing')"></button>
+						</span>
+					</div>
+				</ng-container>
+				<ng-template #other>
+					<div class="col-12 pb-0 p-my-3">
+						<button pButton type="submit" label="Save" [disabled]="!saveInFilterForm.valid" class="p-button-rounded p-button-lg"></button>
+					</div>
+				</ng-template>
+			</form>    
+		</p-dialog>
+	
+	</div>
+
+</ng-template>
+

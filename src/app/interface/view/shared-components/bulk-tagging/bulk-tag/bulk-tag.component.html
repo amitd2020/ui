@@ -1,0 +1,66 @@
+<!-- Select Company Tags Button Declaration-->
+<p-dialog *ngIf="industryTagList?.length" header="Choose Industry" [(visible)]="showOrHideIndustryModal" [modal]="true" [baseZIndex]="999999998" appendTo="body" [focusOnShow]="false" [style]="{ width: '30vw' }" [blockScroll]="true" [closable]="false" [draggable]="true">
+    
+    <div class="grid">
+        <div class="col mb-4">
+            <div class="flex justify-content-end" *ngIf="userAuthService.hasRolePermission(['Super Admin'])">
+                <button pButton type="button" class="p-button-sm p-button-rounded" label="Create New Industry" icon="pi pi-plus" (click)="createNewIndustryTag()"></button>
+            </div>
+            <!-- For Industry Tag Template Starts-->
+            <ng-container *ngIf="!multiple">
+                <div class="mb-2">
+                    <ng-container [ngTemplateOutlet]="industryTagsViewTemplate" [ngTemplateOutletContext]="{ $implicit: selectedIndustryTag }"></ng-container>
+                </div>
+            </ng-container>
+            <!-- For Industry Tag Template End-->
+            <p-listbox [options]="industryTagList" optionLabel="label" [(ngModel)]="selectedIndustryTag" selectedItemsLabel="{0} industryTagList selected" defaultLabel="Choose Industry" [showToggleAll]="false" [checkbox]="true" [filter]="true" [multiple]="true" class="d-xl-none forScrollListBox" *ngIf="industryTagList?.length"></p-listbox>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button [ngClass]="{'cursor-pointer': selectedIndustryTag.length, 'cursor-not-allowed': !selectedIndustryTag.length}" [disabled]="!selectedIndustryTag.length" pButton type="button" label="Save" class="p-button-rounded mr-2" (click)="addTags()"></button>
+        <button pButton type="button" class="p-button-rounded darkGrey" label="Close" (click)="CloseAddTags()"></button>
+    </div>
+
+</p-dialog>
+
+<p-dialog *ngIf="industryTagList?.length" header="Create Industry" [(visible)]="showOrHideNewCreateIndustryModal" [modal]="true" [baseZIndex]="999999998" appendTo="body" [style]="{ width: '30vw' }">
+    <div>
+        <div class="p-float-label">
+            <input pInputText type="text" class="p-inputtext w-full p-2" aria-describedby="username-help" placeholder="Input Industry Name" (input)="inputNewTag($event)">
+        </div>
+         <div class="text-center mt-4">
+            <button pButton type="button" [disabled]="!newIndustryName || newIndustryName == '' || !this.newIndustryName.length" class="p-button-rounded mr-2" label="Create" (click)="CreateTags()"></button>
+            <button pButton type="button" class="p-button-rounded darkGrey" label="Close" (click)="CloseCreateTags()"></button>
+        </div>
+    </div>
+
+</p-dialog>
+
+<button pButton *ngIf="thisPage != 'user-saved-list'" type="button"  icon="ui-icon-edit" class="p-button-rounded p-button-sm p-mb-xxl-2 mr-2 ml-2" label="Update Tags" [disabled]="!selectedCompany.length && multiple && !activeRoute.snapshot.queryParams['cListId']" (click)="selectTags()"></button>
+<!-- <ng-container *ngIf="activeRoute.snapshot.queryParams['cListId']">
+    <button pButton type="button"  icon="ui-icon-edit" class="p-button-rounded p-button-sm p-mb-xxl-2 mr-2 ml-2" label="Update Tags" (click)="selectTags()"></button>
+</ng-container>
+<ng-container *ngIf="!activeRoute.snapshot.queryParams['cListId']">
+    <button pButton type="button"  icon="ui-icon-edit" class="p-button-rounded p-button-sm p-mb-xxl-2 mr-2 ml-2" label="Update Tags" [disabled]="!selectedCompany.length && multiple" (click)="selectTags()"></button>
+</ng-container> -->
+<!-- <div class="card" *ngIf="!companyData['industryTagList']">
+    <div class="grid">
+        <div class="col">
+            <ng-container *ngIf="companyData['industryTagList'] && companyData['industryTagList'].length > 0" [ngTemplateOutlet]="industryTagsViewTemplate" [ngTemplateOutletContext]="{ $implicit:  companyData['industryTagList']  }"></ng-container>
+            <span class="c-light" *ngIf="!companyData['industryTagList']">No Tags Available</span>
+        </div>
+    </div>
+</div> -->
+
+<ng-template #industryTagsViewTemplate let-industryTagListArray>
+    <span class="companyDetailsIndustryTags">
+        <ng-container *ngFor="let item of industryTagListArray">
+            <ng-container *ngIf="item !== 'lending'">
+				<span class="roundedColoredChipLabel">
+					{{ item.key | titlecase }}
+				</span>
+			</ng-container>
+        </ng-container>
+    </span>
+</ng-template>

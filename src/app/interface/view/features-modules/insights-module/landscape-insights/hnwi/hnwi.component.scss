@@ -1,0 +1,84 @@
+.insightsViewContainer {
+	min-height: calc( 100vh - 117px );
+	padding: 20px;
+	z-index: 1;
+		
+	@media only screen and (max-width: 1024px) {
+		flex-direction: column;
+	}
+	
+	.insightsChartViewContainer {
+		flex: 1;
+		
+		@media only screen and (max-width: 1024px) {
+			padding-left: 0;
+		}
+		
+		.grid {
+			.md-6 {
+				.card {
+					@media only screen and ( min-width: 768px ) {
+						min-height: calc( 100% - 1em );
+					}
+				}
+			}
+		}
+
+		::ng-deep {
+			.filterSearchWrapper {
+				.fixedSidebarPanel {
+					z-index: 999;
+				}
+			}
+		}
+
+	}
+	
+	.insightsRegionalMap {
+		flex: 1;
+		height: 380px;
+		background-color: transparent;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+
+	.roundedColoredChipLabel {
+		font-size: 1.2em;
+		padding: 0.4em 1em;
+	}
+
+	.roundedCorners {
+		.ui-inputtext {
+			font-size: inherit;
+			font-weight: inherit;
+			color: inherit;
+			background-image: linear-gradient(to bottom, #2f4050, #2f4050), linear-gradient(to bottom, #bdbdbd, #bdbdbd);
+		}
+		::ng-deep {
+			.ui-slider {
+				margin: 0 25px;
+			}
+			.p-inputnumber {
+				.p-inputnumber-input {
+					&.p-inputtext {
+						padding: 0;
+						border-radius: 0;
+						border-width: 0 0 1px;
+						border-color: #bdbdbd;
+						font-style: italic;
+						max-width: 100px;
+						font-size: 12px;
+					}
+				}
+			}
+		}
+		.ui-input-width {
+			max-width: 570px;
+		}
+	}
+
+	.insightsRoundedCorners {
+		max-width: 550px;
+	}
+
+}

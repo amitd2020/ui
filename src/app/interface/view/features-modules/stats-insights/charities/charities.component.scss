@@ -1,0 +1,18 @@
+.director-card {
+    height: 9.1rem;
+}
+
+.director-header {
+    height: 4.5rem;
+    margin-top: 0.2rem;
+}
+::ng-deep {
+    .p-tabview .p-tabview-panels {
+        background: none;
+        // padding: .75rem;
+        // border: 0 none;
+        // color: rgba(0, 0, 0, .87);
+        // border-bottom-right-radius: 4px;
+
+    }
+}

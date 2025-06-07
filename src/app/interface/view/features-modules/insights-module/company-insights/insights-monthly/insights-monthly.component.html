@@ -1,0 +1,76 @@
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Company Insights' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showUpgradePlan"> -->
+<div featureAccess="Company Insights" optionalTemplate="true">
+
+	<div class="insightsViewContainer mb-2" [ngClass]="{ 'darkLayout': insightsLayoutModeDark, 'lightLayout': !insightsLayoutModeDark }">
+		<div class="insightsSideNav">
+	
+			<p-messages [value]="msgLogs"></p-messages>
+	
+			<div class="grid">
+				<div class="col-fixed">
+					<p-dropdown [options]="insightsCategoryOptions" placeholder="Select Category" [(ngModel)]="selectedInsightsCategory" styleClass="roundedCorners" (onChange)="onCategoryIndustryChange( $event, selectedInsightsCategory, selectedIndustryList )"></p-dropdown>
+				</div>
+				<div class="col-fixed">
+					<p-dropdown [options]="industryListOptions" placeholder="Select Industry" [(ngModel)]="selectedIndustryList" styleClass="roundedCorners" (onChange)="onCategoryIndustryChange( $event, selectedInsightsCategory, selectedIndustryList )"></p-dropdown>
+				</div>
+			</div>
+		</div>
+	
+		<div class="insightsChartViewContainer">
+	
+			<!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+			
+			<ng-template #LazyLeafletMapContainer></ng-template>
+		
+			<div class="card">
+				<div class="col-12">
+					<div class="furloughDataTable industriesList">
+						<table class="simpleTableUI">
+							<thead>
+								<tr>
+									<th>Industry</th>
+									<th width="30%" class="text-right">{{ currentMonthName }}</th>
+									<th width="30%" class="text-right">{{ previousMonthName }}</th>
+								</tr>
+							</thead>
+							<ng-container *ngIf="industryListData && industryListData.length; else noDataValues">
+								<tbody>
+									<tr *ngFor="let rowData of industryListData">
+										<td>{{ rowData['label'] | titlecase }}</td>
+										<td width="30%" class="text-right">{{ rowData['doc_count_current_month'] ? ( rowData['doc_count_current_month'] | number ) : '0' }}</td>
+										<td width="30%" class="text-right">{{ rowData['doc_count_previous_month'] ? ( rowData['doc_count_previous_month'] | number ) : '0' }}</td>
+									</tr>
+								</tbody>
+							</ng-container>
+						</table>
+					</div>
+				</div>
+			   
+				<ng-template #noDataValues>
+					<tbody>
+						<tr>
+							<td colspan="2"></td>
+						</tr>
+					</tbody>
+				</ng-template>
+	
+			</div>
+		</div>
+	</div>
+</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #showUpgradePlan>
+	<p-card>
+		<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ) || ( [ subscribedPlanModal['Enterprise_Annual_Two_Year'] ] ).includes( currentPlan ); else otherThanClientUserLoggedIn">
+			<div class="card text-center">
+				To enable this feature, please contact your Administrator.
+			</div>
+		</ng-container>
+		<ng-template #otherThanClientUserLoggedIn>
+			<div class="card">
+				<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+			</div>
+		</ng-template>
+	</p-card>
+</ng-template> -->

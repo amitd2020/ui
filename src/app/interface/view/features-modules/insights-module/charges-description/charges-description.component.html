@@ -1,0 +1,74 @@
+<p-messages [(value)]="addAlltoListSucess"></p-messages>
+
+<div class="card flexp-input-icon-right accountSearchBar">
+    <ng-container *ngIf="totalSearchedDataValue > 0; else noInputValue">
+        <h3>{{ totalSearchedDataValue | number }} results found from {{ totalDataValue | number }} companies.</h3>
+    </ng-container>
+    
+    <ng-template #noInputValue>
+        <h3>No Result Found</h3>
+    </ng-template>
+
+    <dg-add-company-to-list [searchTotalCount]="totalSearchedDataValue" [searchQuery]="checkInputValue" [appliedFilters]="selectedPropValues" (messageCommunicator)="getMessage($event)" [thisPage]="'chargesDescription'" [selectedCompany]="selectedCompany"></dg-add-company-to-list>
+
+    <div>
+
+        <p-table [columns]="chargesDescriptionColumn" [value]="chargesDescriptionData" [scrollable]="true" [(selection)]="selectedCompany" scrollHeight="flex">
+            <ng-template pTemplate="caption">
+				<div class="flex justify-content-end" *ngIf="!userDetails?.isTrial && totalSearchedDataValue">
+                    <p-paginator [first]="first" [rows]="rows" pageLinkSize="5" [totalRecords]="( totalSearchedDataValue > 10000 ) ? 10000 : totalSearchedDataValue" [rowsPerPageOptions]="[25,50,100]" (onPageChange)="pageChange( $event )" [serverSidePaginator]="true"></p-paginator>
+				</div>
+			</ng-template>
+
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="min-width: 35px; max-width: 35px;">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <ng-container *ngFor="let col of columns">
+                        <th [ngStyle]="{ 'text-align': col.textAlign, 'min-width': col.minWidth, 'max-width': col.maxWidth }">{{col.header | titlecase }}</th>
+                    </ng-container>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-columns="columns">       
+                <tr>
+                    <td style="min-width: 35px; max-width: 35px;">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{ 'text-align': col.textAlign, 'min-width': col.minWidth, 'max-width': col.maxWidth }">
+
+                        <ng-container *ngSwitchCase="'companyRegistrationNumber'">
+                            <a class="cName" target="_blank" [href]="'/company/' + rowData['companyRegistrationNumber'] + '/' + formatCompanyNameForUrl(rowData['businessName'] | titlecase)">{{ rowData[col.field] | uppercase }}</a>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'snapshot'">
+                            <span [innerHTML]="highlightMatchedWords( rowData[col.field] , inputValue ) | titlecase"></span>
+                        </ng-container>  
+                        <ng-container *ngSwitchCase="'mortgagePersonEntitled'">
+                            <ng-conatiner *ngFor="let perEnt of rowData[col.field]">
+                                <span [ngClass]="{ 'badge badge-red badge-round': perEnt && perEnt.hasOwnProperty('description') }">{{ ( perEnt?.description | titlecase ) || '-' }}</span>
+                            </ng-conatiner>
+                        </ng-container>               
+
+                        <ng-container *ngSwitchDefault>
+                            {{ rowData[col.field] ? (rowData[col.field] | uppercase) : '-' }}
+                        </ng-container>
+
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns?.length">No records found.</td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+
+</div>
+<ng-container *ngIf="visibleFilterSidebar">
+    <dg-filter-sidebar [thisPage]="'chargesDescription'" [resetAppliedFiltersBoolean]="resetAppliedFiltersBoolean" [saveUpdateExisting] = "saveUpdateExisting" (searchResultsCommunicator)="chargesDescriptionCommunicator($event)"></dg-filter-sidebar>
+</ng-container>

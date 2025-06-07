@@ -1,0 +1,143 @@
+<!-- Company Details Side Panel -->
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+<!-- Company Details Side Panel -->
+
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+    <div class="card text-center">
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</div>
+</ng-container>
+<ng-template #otherPlansCheck>
+	
+	<div class="insightsViewContainer mb-2 lightLayout">
+	
+		<div class="insightsSideNav">
+	
+			<!-- <p-messages [value]="msgLogs"></p-messages> -->
+	
+			<div class="grid mb-2">
+	
+				<div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label ui-input-width">
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="shareHolderRangeId">Individual Name : </label></div>
+								<div class="col ml-2">
+									<input class="p-inputtext-sm avoidItalic" type="text" pInputText placeholder="Search Individual" [(ngModel)]="investorCompanyNameOrNumber">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label ui-input-width">
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="shareHolderRangeId">Individual Shareholdings : </label></div>
+								<div class="col ml-2">
+									<p-inputNumber [(ngModel)]="investorShareholdingsGreaterThanValue" mode="decimal" placeholder="Greater Than" inputId="withoutgrouping" [useGrouping]="false" min="0" (onInput)="checkInputFieldForShareholdings( $event, 'investorShareholdingsGreaterThanValue' )"></p-inputNumber>
+								</div>
+								<div class="col ml-2">
+									<p-inputNumber [(ngModel)]="investorShareholdingsLessThanValue" mode="decimal" placeholder="Less Than" inputId="withoutgrouping" [useGrouping]="false" min="0" (onInput)="checkInputFieldForShareholdings( $event, 'investorShareholdingsLessThanValue' )"></p-inputNumber>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c-red" *ngIf="showInputFieldMessageForShareholdings">
+						<small>Value should be bigger than {{ investorShareholdingsGreaterThanValue | currency: selectedGlobalCurrency:'':'1.0-2' }}</small>
+					</div>
+				</div>
+	
+				<div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label">
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="turnoverRangeValueField">Turnover : </label></div>
+								<div class="col ml-1">
+									<p-inputNumber [(ngModel)]="turnoverGreaterThan" mode="decimal" placeholder="Greater Than" inputId="withoutgrouping" [useGrouping]="false" min="0" (onInput)="checkInputFieldForShareholdings( $event, 'turnoverGreaterThan', 'forturnoverData' )"></p-inputNumber>
+								</div>
+								<div class="col ml-3">
+									<p-inputNumber [(ngModel)]="turnoverLessThan" mode="decimal" placeholder="Less Than" inputId="withoutgrouping" [useGrouping]="false" min="0" (onInput)="checkInputFieldForShareholdings( $event, 'turnoverLessThan', 'forturnoverData' )"></p-inputNumber>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c-red" *ngIf="showInputFieldMessageForTurnover">
+						<small>Value should be bigger than {{ turnoverGreaterThan | currency: selectedGlobalCurrency:'symbol':'1.0-2' }}</small>
+					</div>
+				</div>
+	
+			</div>
+	
+			<div class="grid mb-2">
+	
+				<div class="col-fixed">
+					<p-multiSelect #multiSelectForSicCodeMultiSelectId [options]="investorSicCodeListOptions" optionLabel="label" defaultLabel="Select Investment SIC Code" maxSelectedLabels="0" selectedItemsLabel="{ selectedSicCodeList?.length } SIC Code Selected" [(ngModel)]="selectedInvestorSicCodeList" styleClass="roundedCorners" (onPanelShow)="getDataForDropdownLists('investorSicCodeList'); showFullListOfIndustryTags('investorSicCodeList')" (onPanelHide)="showLessListOfIndustryTags('investorSicCodeList')" [showToggleAll]="false" resetFilterOnHide=true ></p-multiSelect>
+				</div>
+	
+				<div class="col-fixed">
+					<p-multiSelect #multiSelectForIndustryTags [options]="industryTagOptions" optionLabel="label" defaultLabel="Select Investment Industry" maxSelectedLabels="0" selectedItemsLabel="{ selectedIndustryTags?.length } Industry Selected" [(ngModel)]="selectedIndustryTags" styleClass="roundedCorners" (onPanelShow)="getDataForDropdownLists('industryTags'); showFullListOfIndustryTags('industryTags')" (onPanelHide)="showLessListOfIndustryTags('industryTags')" [showToggleAll]="false"  resetFilterOnHide=true ></p-multiSelect>
+				</div>
+	
+				<div class="p-col-fixed">
+					<p-multiSelect #multiSelectRegionMultiSelectId [options]="regionListDropdownOptions" optionLabel="label" defaultLabel="Select Investment Region" maxSelectedLabels="2" selectedItemsLabel="{ selectedRegionList?.length } Regions Selected" [(ngModel)]="selectedRegionList" styleClass="roundedCorners" [showToggleAll]="false" (onChange)="onChangeRegionSelection($event)"  resetFilterOnHide=true ></p-multiSelect>
+				</div>
+	
+				<div class="col-fixed">
+					<div class="roundedCorners p-multiselect">
+						<div class="p-multiselect-label insightsRoundedCorners">  
+							<div class="grid grid-nogutter align-items-center">
+								<div class="col-fixed"><label for="companyAgeValueField">Investment Company Age: </label></div>
+								<div class="col ml-2">
+									<p-radioButton name="Greater Than" value="Greater Than" label="Greater Than" [(ngModel)]="companyAgeLessThanOrGreaterThan"></p-radioButton>
+								</div>
+								<div class="col ml-2">
+									<p-radioButton name="Less Than" value="Less Than" label="Less Than" [(ngModel)]="companyAgeLessThanOrGreaterThan"></p-radioButton>
+								</div>
+								<div class="col ml-2">
+									<p-inputNumber [(ngModel)]="companyAgeNumberValue" mode="decimal" placeholder="Enter Years" inputId="withoutgrouping" [useGrouping]="false" max="999" (onInput)="validateInputField( $event )"></p-inputNumber>
+								</div>
+							</div>
+						</div>
+					</div>
+					<span class="c-red" *ngIf="showInputFieldMessage">
+						<small>Please Enter Age upto 999yr</small>
+					</span>
+				</div>
+			</div>
+	
+			<div class="grid">
+				<div class="col-12">
+					<button pButton type="button" label="Search" class="p-button-rounded p-button-lg" [disabled]="showInputFieldMessage || showInputFieldMessageForShareholdings || showInputFieldMessageForTurnover"  (click)="getSearchResults('includeGlobalFilterParams'); resetTablePagination();"></button>
+					<button pButton type="button" label="Reset" class="p-button-rounded p-button-lg darkGrey ml-2" (click)="resetCriteria()"></button>
+				</div>
+			</div>
+	
+		</div>
+	
+		<div class="insightsChartViewContainer">
+	
+			<div class="grid">
+	
+				<div class="col-12">
+					<!-- The below template has been used to plug-in this shared-component: <dg-lazy-leaflet-map [mapData]="statsMapData"></dg-lazy-leaflet-map> -->
+	
+					<ng-template #LazyLeafletMapContainer></ng-template>
+					
+				</div>
+	
+				<div class="col-12">
+	
+					<dg-admin-record-list *ngIf="companiesDataListForTable" [listColumns]="companiesColumnListForTable" [listDataValues]="companiesDataListForTable" [searchTotalCount]="searchTotalCount" [thisPage]="'hnwiPage'" (operatingTable)="getOperatingTable($event)" (updateTableAfterPagination)="requestUpdateTableData( $event )"></dg-admin-record-list>
+	
+				</div>
+	
+			</div>
+	
+		</div>
+	
+	</div>
+
+</ng-template>
+

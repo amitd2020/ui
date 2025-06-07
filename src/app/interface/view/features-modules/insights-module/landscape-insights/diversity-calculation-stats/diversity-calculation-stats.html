@@ -1,0 +1,162 @@
+<div class="grid">
+    <div class="col-6">
+        <ng-template #LazyLeafletMapContainer></ng-template>
+    </div>
+    <div class="col-6">
+        <div class="h-full	">
+            <div class="grid">
+                <div class="card mt-2">
+                    <div class="col-12">
+                        <div class="text-3xl font-semibold p-2">
+                            <span class="pl-2" style="color: #353b48">Risk Assessment</span>
+                        </div> 
+                    </div>
+                    <div class="col-12">
+                        <div class="grid">
+                            <div class="col-6 flex justify-content-center align-items-center smallScreenResposiveCard">
+                                <p-chart type="doughnut" [data]="doughnutChartDatasets" [options]="doughnutChartOptions" [plugins]="ChartDataLabelsPlugins" width="400px" height="400px" [responsive]="true"></p-chart>
+                            </div>
+                            <div class="col-6 smallScreenResposiveCard">
+                                <ng-container *ngIf="internationalScoreDescriptionArray?.length">
+                                    <div class="grid">
+                                            <ng-container *ngFor="let international_score of internationalScoreDescriptionArray">
+                                                <div class="col-12 cardUnder1860Px fullWidth">
+                                                    <a href="javascript:void(0);" class="p-d-block" (click)="gotToSearchPage(international_score, 'Credit Risk Bands')">
+                                                        <div class="border-round-xl mr-2 shadow-4 mb-2" [ngStyle]="{ 'background-color': internationalScoreBgColor[ international_score.key ] }">
+                                                            <div class="px-4 py-1 border-y-3 border-x-3 border-white border-round-xl text-lg text-white-alpha-90 text-center" [ngStyle]="{ 'background-color': internationalScoreStatusColor[ international_score.key ] }">
+                                                                
+                                                                {{ international_score.key == 'not scored' ? 'Not Scored / Very High Risk' : international_score.key | titlecase }}
+                                                            </div>
+                                                            <div class="flex mx-2">
+                                                                <div class="col-fixed mt-2 line-height-1 mr-4">
+                                                                    <div class="grid">
+                                                                        <div class="col-fixed px-0">
+                                                                                <img src="assets/layout/images/company_grp.png" style="width: 2.2rem; height: 2.2rem" alt="MSDUK Certified" width="20">
+                                                                        </div>
+                                                                        <div class="col pl-0 pt-3">
+                                                                            <div class="text-xl mb-0 font-medium" [ngStyle]="{ 'color': internationalScoreStatusColor[ international_score.key ] }">{{ international_score.doc_count | number: '1.0-0' }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col mt-2 line-height-1 justify-content-end" style="display: flex">
+                                                                    <div class="grid">
+                                                                        <div class="col-fixed pr-0">
+                                                                                <img src="assets/layout/images/pound_cash1.png" style="width: 2.2rem; height: 2.2rem" alt="MSDUK Certified" width="20">
+                                                                        </div>
+                                                                        <div class="col pl-0 pt-3">
+                                                                            <div class="text-xl mb-0 font-medium" [ngStyle]="{ 'color': internationalScoreStatusColor[ international_score.key ] }">{{ international_score.spendTotal | currency: 'GBP' : 'symbol' : '1.0-0' }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </ng-container>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <p-table [columns]="localAuthorityColumns" [value]="localAuthorityArray" responsiveLayout="scroll" scrollHeight="77vh" paginatorPosition="top" [rows]="rows" [rowsPerPageOptions]="[25, 50, 100]" [paginator]="true" [first]="first">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th [pSortableColumn]="col.isSortable ? col.field : ''" *ngFor="let col of columns" [ngStyle]="{ 'width': col.minwidth, 'text-align': col.textAlign }">
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns" [ngStyle]="{ 'width': col.minwidth, 'text-align': col.textAlign }"
+                            [ngSwitch]="true">
+            
+                            <ng-container *ngSwitchDefault>
+                                    {{ (rowData[col.field] ? ( rowData[col.field] | number ) : '-') }}
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'authority'">
+                                {{ (rowData[col.field] ? rowData[col.field] : '-') | titlecase }}
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'count'">
+                                <ng-container *ngIf="rowData[col.field], else other">
+                                    <a href="javascript:void(0);" class="p-d-block cName" (click)="gotToSearchPage(rowData, 'Local Authority Name')">
+                                        {{ rowData[col.field] | number }}
+                                    </a>
+                                </ng-container>
+                                <ng-template #other>
+                                    -
+                                </ng-template>
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'spendTotal'">
+                                {{  rowData[ col.field ] | currency: 'GBP' : 'symbol' : '1.0-0'  }}
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'spend_percentage'">
+                                {{  rowData[ col.field ] | number: '1.0-4'  }}%
+                            </ng-container>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <p-table [columns]="industryListColumnArray" [value]="industryListData" responsiveLayout="scroll" scrollHeight="77vh">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th [pSortableColumn]="col.isSortable ? col.field : ''" *ngFor="let col of columns" [ngStyle]="{ 'width': col.minwidth, 'text-align': col.textAlign }">
+                            {{ col.header }}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns" [ngStyle]="{ 'width': col.minwidth, 'text-align': col.textAlign }"
+                            [ngSwitch]="true">
+            
+                            <ng-container *ngSwitchDefault>
+                                    {{ (rowData[col.field] ? ( rowData[col.field] | number ) : '-') }}
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'count'">
+                                <ng-container *ngIf="rowData[col.field], else other">
+                                    <a href="javascript:void(0);" class="p-d-block cName" (click)="gotToSearchPage(rowData, 'SIC Codes')">
+                                        {{ rowData[col.field] | number }}
+                                    </a>
+                                </ng-container>
+                                <ng-template #other>
+                                    -
+                                </ng-template>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="col.field == 'label'">
+                                {{ rowData[col.field] ? rowData[col.field] : '-' }}
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'totalSpendCount'">
+                                {{  rowData[ col.field ] | currency: 'GBP' : 'symbol' : '1.0-0'  }}
+                            </ng-container>
+            
+                            <ng-container *ngSwitchCase="col.field == 'spend_percentage'">
+                                {{  rowData[ col.field ] | number: '1.0-4'  }}%
+                            </ng-container>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

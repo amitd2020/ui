@@ -1,0 +1,178 @@
+<p-messages [value]="msgs"></p-messages>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" styleClass="logoutConfirmationDialogStyling"></p-confirmDialog>
+
+<p-dialog header="Upload Client Watch" [(visible)]="uploadCbilUserData" [draggable]="false" [style]="{width: '500px', height: 'auto'}" [modal]="true" [closable]="true">
+	<form #uploadCbilSuite="ngForm">
+		<div class="col-12 p-mt-4">
+			<p-fileUpload #fileUploder name="file" id="chooseFile" accept=".csv" customUpload="true" maxFileSize="50000" multiple="multiple" (uploadHandler)="onSelectedFile($event)">
+				<ng-template let-file pTemplate='file'>
+					<div class="upload-file">
+						<span>{{file.name}} </span>
+						<span class="ml-2">{{file.size}} Kb</span>
+					</div>
+				</ng-template>
+			</p-fileUpload>
+		</div>
+	</form>
+	<div class="font-semibold c-green mb-1">Note:</div>
+	<div>
+		1: <small><i>Do not upload blank rows in CSV file.</i></small>
+	</div>
+	<div>
+		2: <small><i>Company name and number should be mandatory in csv file.</i></small>
+	</div>
+</p-dialog>
+
+<!-- <ng-container *ngIf="userAuthService.hasFeaturePermission( 'Customer Watch' ) || userAuthService.hasRolePermission( ['Super Admin'] ); else showUpgradePlanBlock"> -->
+	<div class="col" featureAccess="Customer Watch" optionalTemplate="true">
+		<div class="col-12">
+			<div class="card">	
+
+				<form #customerWatchFormData="ngForm" (submit)="submitCustomerWatchForm( customerWatchFormData )">
+
+					<h4 class="text-left mb-4">Client Watch</h4>
+
+					<div class="grid p-fluid">
+
+						<div class="col-12">
+
+							<div class="grid">
+
+								<div class="col-12 md:col-4">
+									<span class="p-float-label">
+										<p-autoComplete appendTo="body" [(ngModel)]="companyNameNumberSearchKey" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany($event, undefined)" (completeMethod)="filteredCompanyName($event.query, undefined)" (onSelect)="searchCompany($event)" [size]="100" [minLength]="0" name="company_Name" #company_Name="ngModel" required></p-autoComplete>
+										<label>Company Name</label>
+										<span class="help-block c-red" *ngIf="company_Name.invalid && fieldValidate">
+											Company Name is required
+										</span>
+										<span class="help-block c-red" *ngIf="companyNameNumberSearchKey && fieldValidate">
+											Invalid Company Name
+										</span>
+									</span>
+								</div>
+
+								<div class="col-12 md:col-4">
+									<span class="p-float-label">
+										<input type="text" [(ngModel)]="companyNumber" pInputText name="company_Number" #company_Number="ngModel" required>
+										<label>Company Number</label>
+									</span>
+									<span class="help-block" style="color: red;" *ngIf="company_Number.invalid && fieldValidate">
+										Company Number is required
+									</span>
+								</div>
+
+								<div class="col-12 md:col-4">
+									<span class="p-float-label">
+										<input type="text" [(ngModel)]="personFirstName" pInputText name="contact_Person_first_name" #contact_Person_first_name="ngModel">
+										<label>Contact Person First Name</label>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="col-12">
+
+							<div class="grid">
+
+								<div class="col-12 md:col-4">
+									<span class="p-float-label">
+										<input type="text" [(ngModel)]="personLastName" pInputText name="contact_Person_last_name" #contact_Person_last_name="ngModel">
+										<label>Contact Person Last Name</label>
+									</span>
+								</div>
+
+								<div class="col-12 md:col-4">
+									<span class="p-float-label">
+										<input type="text" [(ngModel)]="customerWatchReference" pInputText name="customerWatchReference">
+										<label>Reference</label>
+									</span>
+								</div>
+
+								<div class="col-12 md:col-4">
+									<span class="p-float-label">
+										<input type="text" [(ngModel)]="customerWatchDescription" pInputText name="customerWatchDescription">
+										<label>Description</label>
+									</span>
+								</div>
+							</div>
+							
+						</div>
+
+						<div class="col-12">
+							<div class="grid">
+								<div class="col-12 md:col-3">
+									<span class="p-float-label">
+										<p-calendar [(ngModel)]="customerWatchUploadDate" dateFormat="dd/mm/yy" name="customerWatchUploadDate"></p-calendar>
+										<label>Upload / Create Date</label>
+									</span>
+								</div>
+								<div class="col-12 md:col-3">
+									<span class="p-float-label">
+										<input type="text" [(ngModel)]="customerWatchNote" pInputText name="customerWatchNote">
+										<label>Add Notes</label>
+									</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="grid">
+						
+						<div class="col-fixed">
+							<button pButton type="submit" class="p-button-rounded p-mr-2 mb-2" label="Save" [disabled]="customerWatchFormData.invalid"></button>
+						</div>
+						<div class="col-fixed">
+							<button pButton type="button" class="p-button-rounded p-button-danger p-mr-2 mb-2" label="Cancel" (click)="cancelCbilData()"></button>
+						</div>
+						<div class="col-fixed">
+							<button pButton type="button" class="p-button-rounded p-mr-2 mb-2" label="Upload Csv" (click)="uploadCsv()"></button>
+						</div>
+
+						<div class="grid align-items-center">
+							<div class="col">
+								<a href="javascript:void(0)" class="c-blue" (click)="downloadSampleCsvTemplate()"><strong>Download Sample Csv</strong></a>
+							</div>
+						</div>
+
+					</div>
+
+				</form>
+				
+				<p-dialog header="Error" [(visible)]="display">
+					<p><strong>Headers Required in CSV</strong></p>
+					<span *ngFor="let item of headersRequiredArray">{{ item + " " }}</span>
+					<p><strong>Headers Found in Your CSV</strong></p>
+					<span *ngFor="let item of headersNotFoundinCSV">{{ item + " "}}</span>
+				</p-dialog>
+
+				<p-dialog header="Error" [modal]="true" [(visible)]="showErrorMessageForUploadCsv" [focusOnShow]="false" appendTo="body" [style]="{ width: '30vw' }" styleClass="text-center logoutConfirmationDialogStyling" [baseZIndex]="10000" [draggable]="false" [blockScroll]="true">
+					<p>1:<strong class="c-red"> Do not upload blank rows in CSV file..</strong></p>
+					<p>2:<strong class="c-red"> Company name and number should be mandatory in csv file.</strong></p>
+					<div class="text-center py-2">
+						<button pButton type="button" label="Cancel" class="p-button-rounded darkGrey p-ml-2 p-button-lg" (click)="showErrorMessageForUploadCsv = false;"></button>
+					</div>
+				</p-dialog>			
+			</div>
+			
+			<p-progressBar mode="indeterminate" *ngIf="isDataLoading"></p-progressBar>
+
+			<dg-admin-record-list (deleteCustomerWatchData)="deleteCustomerWatchData($event)" (cbilsData)="getCbilData($event)" (operatingTable)="getOperatingTable($event)" [listColumns]="customerWatchDataColumn" [listDataValues]="customerWatchData" [totalNoOfRecords]="totalNoOfRecords" [thisPage]="'customerWatchPage'"></dg-admin-record-list>
+
+		</div>
+	</div>
+<!-- </ng-container> -->
+
+<!-- <ng-template #showUpgradePlanBlock>
+	<ng-container *ngIf="userAuthService.hasRolePermission( ['Client User'] ); else otherThanClientUserLoggedIn">
+		<div class="card text-center">
+			To enable this feature, please contact your Administrator.
+		</div>
+	</ng-container>
+	<ng-template #otherThanClientUserLoggedIn>
+		<p-card>
+			<dg-upgrade-plan [currentPlan]="userDetails?.planId"></dg-upgrade-plan>
+		</p-card>
+	</ng-template>
+</ng-template> -->

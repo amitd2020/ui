@@ -1,0 +1,29 @@
+<ng-container [ngSwitch]="featureOrAddOnTemplateType">
+
+	<p-messages [value]="msgs"></p-messages>
+	
+	<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" styleClass="logoutConfirmationDialogStyling" appendTo="body"></p-confirmDialog>
+
+	<ng-container *ngSwitchCase="'feature'">
+		
+		<div [featureAccess]="featureAccessKey" optionalTemplate="true">
+			<ng-container *ngTemplateOutlet="ComponentTableTemplate"></ng-container>
+		</div>
+		
+	</ng-container>
+	
+	<ng-container *ngSwitchCase="'addOn'">
+		
+		<div [addOnAccess]="featureAccessKey" optionalTemplate="true">
+			<ng-container *ngTemplateOutlet="ComponentTableTemplate"></ng-container>
+		</div>
+
+	</ng-container>
+
+</ng-container>
+
+<ng-template #ComponentTableTemplate>
+	
+	<dg-user-list [listColumns]="selectedtableCols" [listDataValues]="watchlistData" [columnToggleData]="tableCols" [watchListLimitInfo]="watchListLimitInfo" [thisPage]="'watchListPage'" [pageName]="pageName" (updateTableDataList)="updateTableDataList( $event )" (searchChangeNotification)="searchChangeNotification($event)" (removeFromWatchList)="removeFromWatchList($event)" (removeFromWatchListPlus)="removeFromWatchListPlus($event)" (removeDirectorFromMonitor)="removeDirectorFromMonitor($event)"></dg-user-list>
+	
+</ng-template>

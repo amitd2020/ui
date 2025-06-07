@@ -1,0 +1,5 @@
+<p-messages [value]="msgs"></p-messages>
+
+<p-confirmDialog header="Confirmation" styleClass="logoutConfirmationDialogStyling" icon="pi pi-exclamation-triangle" ></p-confirmDialog>
+
+<dg-user-list [listColumns]="tableCols" [listDataValues]="exportCbfListData" [thisPage]="'cbfExportListPage'" (deleteExportListData)="deleteCBfExportListData($event)"></dg-user-list>

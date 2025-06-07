@@ -1,0 +1,66 @@
+:host {
+
+    .specialCharacters {
+        color: red;
+        font-size: small;
+    }
+    .listBtnPosition {
+        position: absolute;
+        @media only screen and (max-width:540px) {
+            position: relative;
+        }
+    }
+    
+    .addToListButtonPosition {
+
+        @media only screen and (max-width:320px) {
+            display: flex;
+            margin-top: 13px;
+            margin-right: 0px !important;
+        }
+        
+        @media only screen and (max-width:360px) {
+            margin-top: 30px;
+            margin-right: 33px;
+        }
+    
+        @media only screen and (max-width:414px) {
+            margin-top: 22px;
+            margin-right: 33px;
+        }
+    }
+    
+    .addAllToListButtonPosition {
+    
+        @media only screen and (min-width:1023px) and (max-width:1024px) {
+            margin-right: 2px;
+            margin-top: 33px;
+        }
+    }
+    
+    ::ng-deep {
+        .subscriptionPlanDialogModalForClientUser {
+            .p-dialog-header {
+                padding: 0.457em 1em;
+                display: flex;
+                justify-content: flex-end;
+        
+                .p-dialog-header-icons {
+                    z-index: 1;
+                }
+            }
+        }
+        .p-listbox .p-listbox-list .p-listbox-empty-message{
+            display: none;
+        }
+
+        @media only screen and (max-width: 1024px) {
+            body {
+                .p-button.p-button-sm {
+                    font-size: 0.8em;
+                }
+            }
+        }
+    }
+
+}

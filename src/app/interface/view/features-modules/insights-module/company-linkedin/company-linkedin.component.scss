@@ -1,0 +1,278 @@
+.cardHeaderTitle {
+	font-size: 1.375em;
+	font-weight: 400;
+}
+.linkedin {
+	fill: #0077b5;
+}
+.companyLogo {
+	display: block;
+	width: 90%;
+	// height: ;
+	position: relative;
+	text-align: center;
+	border: 1px solid #d7d7d7;
+	border-radius: 10px;
+	// padding: 5px;
+
+	img,
+	.defaultCompanyLogo {
+		display: inline-block;
+		vertical-align: middle;
+		width: 90%;
+		height: auto;
+		// max-width: 100%;
+		// max-height: 100%;
+		border-radius: 6px;
+		font-size: 48px;
+		color: #4593bd;
+		font-size: 6em;
+		line-height: 1.28;
+
+		-webkit-pointer-events: none;
+		pointer-events: none;
+		max-width: -webkit-fill-available;
+		max-width: -moz-available;
+		max-width: stretch;
+	}
+
+	.addToFavouriteListBtn {
+		display: block;
+		width: 30px;
+		height: 30px;
+		background-color: beige;
+		font-size: 1.2rem;
+		line-height: 1.65;
+		// color: #ffd400;
+		text-align: center;
+		// border: 1px solid #ffd400;
+		border-radius: 100%;
+		position: absolute;
+		top: -10px;
+		right: -10px;
+
+		// &.active {
+		// 	background-color: #ffd400;
+		// 	color: #fff;
+		// }
+
+		// @media only screen and (max-width: 767px) {
+		// 	width: 20px;
+		// 	height: 20px;
+		// 	font-size: 0.8em;
+		// 	line-height: 1.8;
+		// }
+	}
+
+}
+
+.product-grid-item {
+    margin: .5em;
+    border: 1px solid var(--surface-d);
+
+
+    .product-grid-item-top,
+    .product-grid-item-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .product-grid-item-content {
+        text-align: center;
+    }
+
+    .product-price {
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+}
+
+::ng-deep {
+	p-dataView {
+
+		.p-datatable .p-datatable-tbody>tr>td {
+			border: none;
+			border-radius: 5rem;
+			background-color: #fbfbfb;
+		}
+		.p-dataview .p-dataview-content {
+			background: #f5f5f5;
+		}
+	
+		p-paginator {
+			.p-paginator {
+				p-dropdown {
+					order: -1;
+				}
+			}
+		}
+	}
+
+}
+.companyDetailsIndustryTags {
+	display: inline-block;
+	vertical-align: middle;
+}
+.roundedColoredChipLabel {
+	padding: 0;
+	background-color: #cdf0d7;
+}
+.websiteChip {
+	::ng-deep{
+		p-chip{
+			.p-chip{
+				background-color: #fff;
+				border: 2px solid #98eeb1;
+			}
+		}
+	}
+}
+.limitTextHeight {
+	height: 1.3em;
+	overflow: hidden;
+}
+.featuredLinks {
+    a {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+
+        & + a {
+            margin-left: 5px;
+        }
+        img, svg, i {
+            max-height: 20px;
+        }
+        i {
+            position: relative;
+            top: 1.5px;
+            color: #23b394;
+        }
+    }
+}
+
+.riskRatingLabel {
+	font-size: 0.9rem;
+	margin-bottom: 0;
+	padding: 0.2em 0.4em;
+	border-radius: 5px;
+	margin-right: 0.2em;
+	min-width: 72px;
+	text-align: center;
+
+	@media only screen and (max-width: 840px) {
+		font-size: 0.9rem;
+		margin-right: 0em;
+		padding: 0.2em 1.1em;
+	}
+
+	&.lightGreen {
+		background-color: #6DC470;
+		color: #fff;
+	}
+
+	&.cyan {
+		background-color: #59BA9B;
+		color: #fff;
+	}
+
+	&.yellow {
+		background-color: #FFC201;
+		color: #fff;
+	}
+
+	&.orange {
+		background-color: #E4790F;
+		color: #fff;
+	}
+
+	&.darkRed {
+		background-color: #D92727;
+		color: #fff;
+	}
+
+	&.light {
+		background-color: #9b9b9b;
+		color: #fff;
+	}
+
+}
+
+.round-icon {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #007bff;
+	color: #ffffff;
+	border-radius: 50%;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+	transition: all 0.3s ease;
+	padding: 6px;
+}
+
+.round-icon:hover {
+	background-color: #0056b3;
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+	transform: scale(1.1);
+}
+
+.material-icons {
+	font-size: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.profile-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #ddd;
+    object-fit: cover;
+}
+
+.info-section p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.info-details {
+    margin-top: 10px;
+}
+
+::ng-deep{
+
+	p-selectButton {
+		
+		.p-selectbutton .p-button{
+			background: rgba(0, 0, 0, .12);
+			border: none;
+			font-size: .8rem;
+			padding: .3rem 1rem;
+		}
+		.p-selectbutton .p-button.p-highlight {
+			background: #fbc02d;
+			color: rgba(0, 0, 0, .9);
+		}
+		.p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover {
+			background: rgba(0, 0, 0, .12);
+			border-color: none;
+		}
+		.p-selectbutton .p-button:focus.p-highlight{
+			background: #fbc02d;
+			color: rgba(0, 0, 0, .9);
+		}
+	}
+
+	.p-dialog .p-dialog-header {
+		padding: 0 !important
+	}
+}

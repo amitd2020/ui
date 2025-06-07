@@ -1,0 +1,72 @@
+
+<p-messages [value]="msgs"></p-messages>
+
+<div class="card"  featureAccess="Relationship Tracker" optionalTemplate="true">
+
+    <h3 class="text-left mb-4"> Related Party </h3>
+
+    <form #getRelationData="ngForm" (submit)="getRelation(getRelationData)">
+
+        <div class="grid">
+
+            <div class="col-12 md:col-4">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" [(ngModel)]="companyNameNumberSearchKey" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany($event, undefined,'src')" (completeMethod)="filteredCompanyName($event.query, undefined,'src')" (onSelect)="searchCompany($event,'src')" [size]="100" [minLength]="0" name="src_company_Name" #src_company_Name="ngModel" required></p-autoComplete>
+                    <label>Source Company Name</label>
+                    <span class="help-block" style="color: red;" *ngIf="src_company_Name.invalid && fieldValidate">
+                        Source Company Name is required
+                    </span>
+                </span>
+            </div>
+
+            <div class="col-12 md:col-4">
+                <p-dropdown [options]="dropdownOption" name="director_or_company" [(ngModel)]="directorOrCompany" #director_or_company="ngModel" placeholder="Select Condition" [virtualScroll]="false" [itemSize]="5" [filter]="false"></p-dropdown>
+            </div>
+
+            <!-- <div *ngIf="srcDirectorArray !== undefined && directorOrCompany =='d' && srcDirectorArray.length > 0"> -->
+                <div class="col-12 md:col-4" *ngIf="srcDirectorArray !== undefined && directorOrCompany =='d' && srcDirectorArray.length > 0">
+                    <span class="p-float-label">
+                        <p-dropdown [options]="srcDirectorArray" name="src_director" [(ngModel)]="srcDirector" #src_director="ngModel" placeholder="Select Director" [virtualScroll]="false" [itemSize]="5" [filter]="false" required></p-dropdown>
+                        <span class="help-block" style="color: red;" *ngIf="src_director.invalid && fieldValidate">
+                            Director Name is required
+                        </span>
+                    </span>
+                </div>
+            <!-- </div> -->
+
+            <div class="col-12 md:col-4">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" [(ngModel)]="destcompanyNameNumberSearchKey" field="key" [suggestions]="filteredCompanyNameArray" (keyup)="searchOnEnterCompany($event, undefined,'dest')" (completeMethod)="filteredCompanyName($event.query, undefined,'dest')" (onSelect)="searchCompany($event,'dest')" [size]="100" [minLength]="0" name="dest_company_Name" #dest_company_Name="ngModel" required></p-autoComplete>
+                    <label>Destination Company Name</label>
+                    <span class="help-block" style="color: red;" *ngIf="dest_company_Name.invalid && fieldValidate">
+                        Destination Company Name is required
+                    </span>
+                </span>
+            </div>
+
+            <ng-container *ngIf="destDirectorArray && destDirectorArray.length > 0">
+                <div class="col-12 md:col-4">
+                    <span class="p-float-label">
+                        <p-dropdown [options]="destDirectorArray" name="dest_director" [(ngModel)]="destDirector" #dest_director='ngModel' placeholder="Select Destination Director" [virtualScroll]="false" [itemSize]="5" [filter]="false"></p-dropdown>
+                    </span>
+                </div>
+            </ng-container>
+            
+        </div>
+
+        <div class="pt-4">
+            <div class="grid">
+                <div class="col-fixed">
+                    <button pButton type="submit" label="Get Relation" class="p-button-sm"></button>
+                </div>
+                <div class="col">
+                    <button pButton type="button" label="Reset" class="p-button-danger p-button-sm" (click)="cancel()"></button>
+                </div>
+            </div>           
+        </div>
+
+    </form>
+
+</div>
+
+<dg-user-list [listColumns]="tableCols" [listDataValues]="tableData" [listPage]="true" [thisPage]="'meetMePage'"></dg-user-list>

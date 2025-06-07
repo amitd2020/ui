@@ -1,0 +1,20 @@
+<p-messages [value]="msgs"></p-messages>
+<div class="card p-5 searchBoxForBI">
+    <form (ngSubmit)="triggredKeywordSearch()">
+        <div class="pb-5">
+            <div class="p-inputgroup text-align-center" style="background-color: white;">
+                <input class="p-3"  type="text" [(ngModel)]="inputValue" pInputText  placeholder="Search WIth AI" [ngModelOptions]="{standalone: true}">
+                <button type="submit" pButton pRipple label="Search" icon="pi pi-search piIcon"></button>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <ng-container *ngFor="let data of data">
+            <div class="roundedColoredChipLabel" (click)="value(data)">
+                {{data.key}}
+            </div><br>
+        </ng-container>
+
+    </div>
+</div>

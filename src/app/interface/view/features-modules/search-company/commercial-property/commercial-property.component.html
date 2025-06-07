@@ -1,0 +1,15 @@
+<!-- Side Search Panel -->
+<!-- <dg-filter-sidebar [thisPage]="'landCorporate'" (searchResultsCommunicator)="getTableDataValues($event)" (totalFoundResultsCountCommunicator)="getTotalCount($event)" [isFilterSidebarShow]="isFilterSidebarShow"></dg-filter-sidebar> -->
+<!-- Side Search Panel -->
+<dg-filter-sidebar [thisPage]="'landCorporate'" (searchResultsCommunicator)="getTableDataValues($event)"></dg-filter-sidebar>
+
+<!-- Company Details Side Panel -->
+<dg-short-detail-sidefilter [overviewName]="'companyOverview'" *ngIf="showCompanySideDetails && overviewName == 'companyOverview'" [companySideDetailsParams]="companySideDetailsParams" [showCompanySideDetailsInputBool]="showCompanySideDetails" (showCompanySideDetailsOutputBool)="getShowCompanySideDetailsOutputBoolValue($event)"></dg-short-detail-sidefilter>
+<!-- Company Details Side Panel -->
+
+<!-- Corporate Land data -->
+<!-- <dg-record-list [listDataValues]="corporateLandData" [searchTotalCount]="searchTotalCount" [columnToggleData]="corporateLandcols" [appliedFilters]="appliedFilters" [thisPage]="'landCorporate'" [showExportButton]="showExportButton" [sampleLrmPdf]="sampleLrmPdf" [showFilterSearch]="false" (operatingTable)="getOperatingTable($event)" (tableOutputValues)="getTableDataValues($event)"></dg-record-list> -->
+<!-- /Corporate Land data -->
+
+<p-messages [value]="msgs"></p-messages>
+<dg-record-list [listDataValues]="corporateLandData" [searchTotalCount]="searchTotalCount" [defaultSearchData]="defaultSearchData" [columnToggleData]="corporateLandcols" [thisPage]="'landCorporate'" [showExportButton]="showExportButton" [showFilterSearch]="false"  (tableOutputValues)="getTableDataValues($event)" [appliedFilters]="appliedFilters" (operatingTable)="getOperatingTable($event)"></dg-record-list>

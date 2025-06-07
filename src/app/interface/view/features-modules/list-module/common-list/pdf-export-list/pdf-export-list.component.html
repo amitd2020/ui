@@ -1,0 +1,5 @@
+<p-messages [value]="msgs"></p-messages>
+
+<p-confirmDialog header="Confirmation" styleClass="logoutConfirmationDialogStyling" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<dg-user-list (deleteReportListData)="deleteReportListData($event)" [listColumns]="pdfTableCols" [listDataValues]="pdfReportListData" [thisPage]="'pdfReportListPage'"></dg-user-list>

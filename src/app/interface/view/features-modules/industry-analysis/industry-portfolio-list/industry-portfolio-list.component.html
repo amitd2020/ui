@@ -1,0 +1,10 @@
+<ng-container *ngIf="subscribedPlanModal['Valentine_Special'].includes( currentPlan ); else otherPlansCheck">
+	<p-card>
+		<dg-upgrade-plan [currentPlan]="currentPlan"></dg-upgrade-plan>
+	</p-card>
+</ng-container>
+<ng-template #otherPlansCheck>
+
+    <dg-user-list [listColumns]="industryPortfolioListTableCols" [listDataValues]="industryPortfolioListTableData" [listPage]="true" [actionCols]="actionCols" [msgs]="msgs" [thisPage]="'iScorePortfolioListPage'" [resetDisplayModelTable]="resetDisplayModelTable" (updateTableDataList)="getUpdatesFromTable( $event )" (updateActionField)="getupdateActionField( $event)"></dg-user-list>
+
+</ng-template>

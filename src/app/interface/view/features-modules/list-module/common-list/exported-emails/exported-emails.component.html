@@ -1,0 +1,23 @@
+<div class="col">
+	<div class="col-12">
+		<div class="card">
+			<p-tabView>
+				<p-tabPanel>
+					<ng-template pTemplate = "header">
+						<i class="ui-icon-mark-email-unread mr-2"></i>						
+						<span>Fetched Emails</span>
+					</ng-template>
+					<dg-user-list [listColumns]="fetchedEmailsColumns" [listDataValues]="fetchedEmailListData" [thisPage]="'exportedEmails'"></dg-user-list>
+				</p-tabPanel>
+
+				<!-- <p-tabPanel [disabled]="selectedGlobalCountry != 'uk'">
+					<ng-template pTemplate = "header">
+						<i  class="ui-icon-mark-email-read mr-2"></i>
+						<span>Verified Emails</span>
+					</ng-template>
+					<dg-user-list [listColumns]="verifiedEmailsColumns" [listDataValues]="verifiedEmailListData" [thisPage]="'exportedEmails'"></dg-user-list>
+				</p-tabPanel> -->
+			</p-tabView>
+		</div>
+	</div>
+</div>
