@@ -1,0 +1,49 @@
+{
+    "templateJson": [
+        {
+            "field": "full_name",
+            "header": "Person Name",
+            "orderId": 1
+        },
+        {
+            "field": "businessName",
+            "header": "Company Name",
+            "orderId": 2
+        },
+        {
+            "field": "companyRegistrationNumber",
+            "header": "Company Number",
+            "orderId": 3
+        },
+        {
+            "field": "companyStatus",
+            "header": "Company Status",
+            "orderId": 4
+        },
+        {
+            "field": "email",
+            "header": "Email Id",
+            "orderId": 5
+        },
+        {
+            "field": "emailStatus",
+            "header": "Email status",
+            "orderId": 6
+        },
+        {
+            "field": "personPosition",
+            "header": "Position",
+            "orderId": 7
+        },
+        {
+            "field": "website",
+            "header": "Website",
+            "orderId": 8
+        },
+        {
+            "field": "telephone",
+            "header": "Telephone",
+            "orderId": 9
+        }
+    ]
+}

@@ -1,0 +1,4589 @@
+{
+	"status": 200,
+	"mapData": [
+	  {
+		"northern ireland": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 33
+			},
+			{
+			  "key": "e",
+			  "doc_count": 83
+			},
+			{
+			  "key": "f",
+			  "doc_count": 669
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 213
+			},
+			{
+			  "key": "e",
+			  "doc_count": 256
+			},
+			{
+			  "key": "f",
+			  "doc_count": 313
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 226
+			},
+			{
+			  "key": "e",
+			  "doc_count": 268
+			},
+			{
+			  "key": "f",
+			  "doc_count": 287
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 223
+			},
+			{
+			  "key": "e",
+			  "doc_count": 275
+			},
+			{
+			  "key": "f",
+			  "doc_count": 283
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 82
+			},
+			{
+			  "key": "e",
+			  "doc_count": 298
+			},
+			{
+			  "key": "f",
+			  "doc_count": 406
+			}
+		  ]
+		}
+	  },
+	  {
+		"south east": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 8
+			},
+			{
+			  "key": "d",
+			  "doc_count": 152
+			},
+			{
+			  "key": "e",
+			  "doc_count": 558
+			},
+			{
+			  "key": "f",
+			  "doc_count": 4832
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 86
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1205
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1660
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2559
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 81
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1314
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1665
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2448
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 88
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1354
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1719
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2348
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 40
+			},
+			{
+			  "key": "d",
+			  "doc_count": 731
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1700
+			},
+			{
+			  "key": "f",
+			  "doc_count": 3061
+			}
+		  ]
+		}
+	  },
+	  {
+		"west midlands": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 89
+			},
+			{
+			  "key": "e",
+			  "doc_count": 300
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2329
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 36
+			},
+			{
+			  "key": "d",
+			  "doc_count": 663
+			},
+			{
+			  "key": "e",
+			  "doc_count": 803
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1206
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 27
+			},
+			{
+			  "key": "d",
+			  "doc_count": 725
+			},
+			{
+			  "key": "e",
+			  "doc_count": 797
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1156
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 42
+			},
+			{
+			  "key": "d",
+			  "doc_count": 713
+			},
+			{
+			  "key": "e",
+			  "doc_count": 854
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1094
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 18
+			},
+			{
+			  "key": "d",
+			  "doc_count": 347
+			},
+			{
+			  "key": "e",
+			  "doc_count": 884
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1467
+			}
+		  ]
+		}
+	  },
+	  {
+		"london": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 212
+			},
+			{
+			  "key": "e",
+			  "doc_count": 848
+			},
+			{
+			  "key": "f",
+			  "doc_count": 14426
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 69
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1881
+			},
+			{
+			  "key": "e",
+			  "doc_count": 4362
+			},
+			{
+			  "key": "f",
+			  "doc_count": 9135
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 74
+			},
+			{
+			  "key": "d",
+			  "doc_count": 2001
+			},
+			{
+			  "key": "e",
+			  "doc_count": 4836
+			},
+			{
+			  "key": "f",
+			  "doc_count": 8543
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 68
+			},
+			{
+			  "key": "d",
+			  "doc_count": 2110
+			},
+			{
+			  "key": "e",
+			  "doc_count": 4953
+			},
+			{
+			  "key": "f",
+			  "doc_count": 8330
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 24
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1165
+			},
+			{
+			  "key": "e",
+			  "doc_count": 3964
+			},
+			{
+			  "key": "f",
+			  "doc_count": 10321
+			}
+		  ]
+		}
+	  },
+	  {
+		"north east": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 22
+			},
+			{
+			  "key": "e",
+			  "doc_count": 140
+			},
+			{
+			  "key": "f",
+			  "doc_count": 887
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 18
+			},
+			{
+			  "key": "d",
+			  "doc_count": 278
+			},
+			{
+			  "key": "e",
+			  "doc_count": 317
+			},
+			{
+			  "key": "f",
+			  "doc_count": 430
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 15
+			},
+			{
+			  "key": "d",
+			  "doc_count": 299
+			},
+			{
+			  "key": "e",
+			  "doc_count": 311
+			},
+			{
+			  "key": "f",
+			  "doc_count": 413
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 14
+			},
+			{
+			  "key": "d",
+			  "doc_count": 309
+			},
+			{
+			  "key": "e",
+			  "doc_count": 330
+			},
+			{
+			  "key": "f",
+			  "doc_count": 391
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 6
+			},
+			{
+			  "key": "d",
+			  "doc_count": 168
+			},
+			{
+			  "key": "e",
+			  "doc_count": 340
+			},
+			{
+			  "key": "f",
+			  "doc_count": 536
+			}
+		  ]
+		}
+	  },
+	  {
+		"east midlands": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 7
+			},
+			{
+			  "key": "d",
+			  "doc_count": 98
+			},
+			{
+			  "key": "e",
+			  "doc_count": 247
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1784
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 28
+			},
+			{
+			  "key": "d",
+			  "doc_count": 576
+			},
+			{
+			  "key": "e",
+			  "doc_count": 607
+			},
+			{
+			  "key": "f",
+			  "doc_count": 912
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 37
+			},
+			{
+			  "key": "d",
+			  "doc_count": 623
+			},
+			{
+			  "key": "e",
+			  "doc_count": 567
+			},
+			{
+			  "key": "f",
+			  "doc_count": 891
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 43
+			},
+			{
+			  "key": "d",
+			  "doc_count": 648
+			},
+			{
+			  "key": "e",
+			  "doc_count": 607
+			},
+			{
+			  "key": "f",
+			  "doc_count": 824
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 22
+			},
+			{
+			  "key": "d",
+			  "doc_count": 319
+			},
+			{
+			  "key": "e",
+			  "doc_count": 702
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1082
+			}
+		  ]
+		}
+	  },
+	  {
+		"east of england": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 8
+			},
+			{
+			  "key": "d",
+			  "doc_count": 93
+			},
+			{
+			  "key": "e",
+			  "doc_count": 389
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2660
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 45
+			},
+			{
+			  "key": "d",
+			  "doc_count": 813
+			},
+			{
+			  "key": "e",
+			  "doc_count": 897
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1364
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 45
+			},
+			{
+			  "key": "d",
+			  "doc_count": 862
+			},
+			{
+			  "key": "e",
+			  "doc_count": 941
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1276
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 48
+			},
+			{
+			  "key": "d",
+			  "doc_count": 815
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1005
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1255
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 23
+			},
+			{
+			  "key": "d",
+			  "doc_count": 462
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1000
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1650
+			}
+		  ]
+		}
+	  },
+	  {
+		"yorkshire and the humber": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 85
+			},
+			{
+			  "key": "e",
+			  "doc_count": 305
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2174
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 29
+			},
+			{
+			  "key": "d",
+			  "doc_count": 696
+			},
+			{
+			  "key": "e",
+			  "doc_count": 699
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1126
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 33
+			},
+			{
+			  "key": "d",
+			  "doc_count": 729
+			},
+			{
+			  "key": "e",
+			  "doc_count": 711
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1067
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 40
+			},
+			{
+			  "key": "d",
+			  "doc_count": 706
+			},
+			{
+			  "key": "e",
+			  "doc_count": 743
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1043
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 29
+			},
+			{
+			  "key": "d",
+			  "doc_count": 399
+			},
+			{
+			  "key": "e",
+			  "doc_count": 786
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1337
+			}
+		  ]
+		}
+	  },
+	  {
+		"wales": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 25
+			},
+			{
+			  "key": "e",
+			  "doc_count": 86
+			},
+			{
+			  "key": "f",
+			  "doc_count": 539
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 10
+			},
+			{
+			  "key": "d",
+			  "doc_count": 190
+			},
+			{
+			  "key": "e",
+			  "doc_count": 197
+			},
+			{
+			  "key": "f",
+			  "doc_count": 250
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 11
+			},
+			{
+			  "key": "d",
+			  "doc_count": 193
+			},
+			{
+			  "key": "e",
+			  "doc_count": 189
+			},
+			{
+			  "key": "f",
+			  "doc_count": 246
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 8
+			},
+			{
+			  "key": "d",
+			  "doc_count": 204
+			},
+			{
+			  "key": "e",
+			  "doc_count": 178
+			},
+			{
+			  "key": "f",
+			  "doc_count": 251
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 9
+			},
+			{
+			  "key": "d",
+			  "doc_count": 100
+			},
+			{
+			  "key": "e",
+			  "doc_count": 222
+			},
+			{
+			  "key": "f",
+			  "doc_count": 320
+			}
+		  ]
+		}
+	  },
+	  {
+		"south west": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 74
+			},
+			{
+			  "key": "e",
+			  "doc_count": 250
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2028
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 33
+			},
+			{
+			  "key": "d",
+			  "doc_count": 565
+			},
+			{
+			  "key": "e",
+			  "doc_count": 799
+			},
+			{
+			  "key": "f",
+			  "doc_count": 946
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 37
+			},
+			{
+			  "key": "d",
+			  "doc_count": 626
+			},
+			{
+			  "key": "e",
+			  "doc_count": 759
+			},
+			{
+			  "key": "f",
+			  "doc_count": 920
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 40
+			},
+			{
+			  "key": "d",
+			  "doc_count": 633
+			},
+			{
+			  "key": "e",
+			  "doc_count": 787
+			},
+			{
+			  "key": "f",
+			  "doc_count": 876
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 24
+			},
+			{
+			  "key": "d",
+			  "doc_count": 336
+			},
+			{
+			  "key": "e",
+			  "doc_count": 808
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1180
+			}
+		  ]
+		}
+	  },
+	  {
+		"north west": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 95
+			},
+			{
+			  "key": "e",
+			  "doc_count": 416
+			},
+			{
+			  "key": "f",
+			  "doc_count": 3224
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 38
+			},
+			{
+			  "key": "d",
+			  "doc_count": 833
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1037
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1808
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 49
+			},
+			{
+			  "key": "d",
+			  "doc_count": 870
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1070
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1720
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 57
+			},
+			{
+			  "key": "d",
+			  "doc_count": 925
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1061
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1665
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 28
+			},
+			{
+			  "key": "d",
+			  "doc_count": 415
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1133
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2158
+			}
+		  ]
+		}
+	  },
+	  {
+		"scotland": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 52
+			},
+			{
+			  "key": "e",
+			  "doc_count": 195
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1819
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 13
+			},
+			{
+			  "key": "d",
+			  "doc_count": 402
+			},
+			{
+			  "key": "e",
+			  "doc_count": 691
+			},
+			{
+			  "key": "f",
+			  "doc_count": 950
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 12
+			},
+			{
+			  "key": "d",
+			  "doc_count": 472
+			},
+			{
+			  "key": "e",
+			  "doc_count": 701
+			},
+			{
+			  "key": "f",
+			  "doc_count": 873
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 13
+			},
+			{
+			  "key": "d",
+			  "doc_count": 473
+			},
+			{
+			  "key": "e",
+			  "doc_count": 708
+			},
+			{
+			  "key": "f",
+			  "doc_count": 862
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 7
+			},
+			{
+			  "key": "d",
+			  "doc_count": 191
+			},
+			{
+			  "key": "e",
+			  "doc_count": 696
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1165
+			}
+		  ]
+		}
+	  }
+	],
+	"lineChartDataYear": {
+	  "2017": [
+		{
+		  "key": "a",
+		  "doc_count": 456
+		},
+		{
+		  "key": "b",
+		  "doc_count": 872
+		},
+		{
+		  "key": "c",
+		  "doc_count": 442
+		},
+		{
+		  "key": "d",
+		  "doc_count": 1044
+		},
+		{
+		  "key": "e",
+		  "doc_count": 3809
+		},
+		{
+		  "key": "f",
+		  "doc_count": 3857
+		}
+	  ],
+	  "2018": [
+		{
+		  "key": "a",
+		  "doc_count": 4321
+		},
+		{
+		  "key": "b",
+		  "doc_count": 6345
+		},
+		{
+		  "key": "c",
+		  "doc_count": 4122
+		},
+		{
+		  "key": "d",
+		  "doc_count": 8306
+		},
+		{
+		  "key": "e",
+		  "doc_count": 1253
+		},
+		{
+		  "key": "f",
+		  "doc_count": 2199
+		}
+	  ],
+	  "2019": [
+		{
+		  "key": "a",
+		  "doc_count": 731
+		},
+		{
+		  "key": "b",
+		  "doc_count": 2422
+		},
+		{
+		  "key": "c",
+		  "doc_count": 4312
+		},
+		{
+		  "key": "d",
+		  "doc_count": 8943
+		},
+		{
+		  "key": "e",
+		  "doc_count": 1309
+		},
+		{
+		  "key": "f",
+		  "doc_count": 2077
+		}
+	  ],
+	  "2020": [
+		{
+		  "key": "a",
+		  "doc_count": 6687
+		},
+		{
+		  "key": "b",
+		  "doc_count": 532
+		},
+		{
+		  "key": "c",
+		  "doc_count": 4712
+		},
+		{
+		  "key": "d",
+		  "doc_count": 9136
+		},
+		{
+		  "key": "e",
+		  "doc_count": 1347
+		},
+		{
+		  "key": "f",
+		  "doc_count": 2014
+		}
+	  ],
+	  "2021": [
+		{
+		  "key": "a",
+		  "doc_count": 5782
+		},
+		{
+		  "key": "b",
+		  "doc_count": 5232
+		},
+		{
+		  "key": "c",
+		  "doc_count": 2342
+		},
+		{
+		  "key": "d",
+		  "doc_count": 4700
+		},
+		{
+		  "key": "e",
+		  "doc_count": 1274
+		},
+		{
+		  "key": "f",
+		  "doc_count": 2568
+		}
+	  ]
+	},
+	"pieChartLatestYear": {
+	  "2021": [
+		{
+		  "key": "a",
+		  "doc_count": 0
+		},
+		{
+		  "key": "b",
+		  "doc_count": 0
+		},
+		{
+		  "key": "c",
+		  "doc_count": 234
+		},
+		{
+		  "key": "d",
+		  "doc_count": 4700
+		},
+		{
+		  "key": "e",
+		  "doc_count": 12746
+		},
+		{
+		  "key": "f",
+		  "doc_count": 25682
+		}
+	  ]
+	},
+	"industriesTableData": [
+	  {
+		"A - agriculture forestry and fishing": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 19
+			},
+			{
+			  "key": "e",
+			  "doc_count": 57
+			},
+			{
+			  "key": "f",
+			  "doc_count": 195
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 103
+			},
+			{
+			  "key": "e",
+			  "doc_count": 76
+			},
+			{
+			  "key": "f",
+			  "doc_count": 87
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 109
+			},
+			{
+			  "key": "e",
+			  "doc_count": 80
+			},
+			{
+			  "key": "f",
+			  "doc_count": 78
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 99
+			},
+			{
+			  "key": "e",
+			  "doc_count": 87
+			},
+			{
+			  "key": "f",
+			  "doc_count": 78
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 50
+			},
+			{
+			  "key": "e",
+			  "doc_count": 121
+			},
+			{
+			  "key": "f",
+			  "doc_count": 100
+			}
+		  ]
+		}
+	  },
+	  {
+		"B - mining and quarrying": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 7
+			},
+			{
+			  "key": "e",
+			  "doc_count": 26
+			},
+			{
+			  "key": "f",
+			  "doc_count": 396
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 63
+			},
+			{
+			  "key": "e",
+			  "doc_count": 84
+			},
+			{
+			  "key": "f",
+			  "doc_count": 278
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 68
+			},
+			{
+			  "key": "e",
+			  "doc_count": 92
+			},
+			{
+			  "key": "f",
+			  "doc_count": 263
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 6
+			},
+			{
+			  "key": "d",
+			  "doc_count": 72
+			},
+			{
+			  "key": "e",
+			  "doc_count": 76
+			},
+			{
+			  "key": "f",
+			  "doc_count": 275
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 47
+			},
+			{
+			  "key": "e",
+			  "doc_count": 87
+			},
+			{
+			  "key": "f",
+			  "doc_count": 295
+			}
+		  ]
+		}
+	  },
+	  {
+		"C - manufacturing": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 19
+			},
+			{
+			  "key": "d",
+			  "doc_count": 274
+			},
+			{
+			  "key": "e",
+			  "doc_count": 754
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2986
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 116
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1712
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1019
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1111
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 112
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1826
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1032
+			},
+			{
+			  "key": "f",
+			  "doc_count": 993
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 137
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1820
+			},
+			{
+			  "key": "e",
+			  "doc_count": 969
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1043
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 74
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1018
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1523
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1380
+			}
+		  ]
+		}
+	  },
+	  {
+		"D - electricity, gas, steam and air conditioning supply": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 7
+			},
+			{
+			  "key": "e",
+			  "doc_count": 35
+			},
+			{
+			  "key": "f",
+			  "doc_count": 556
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 72
+			},
+			{
+			  "key": "e",
+			  "doc_count": 149
+			},
+			{
+			  "key": "f",
+			  "doc_count": 373
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 95
+			},
+			{
+			  "key": "e",
+			  "doc_count": 154
+			},
+			{
+			  "key": "f",
+			  "doc_count": 345
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 92
+			},
+			{
+			  "key": "e",
+			  "doc_count": 168
+			},
+			{
+			  "key": "f",
+			  "doc_count": 335
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 67
+			},
+			{
+			  "key": "e",
+			  "doc_count": 132
+			},
+			{
+			  "key": "f",
+			  "doc_count": 395
+			}
+		  ]
+		}
+	  },
+	  {
+		"E - water supply, sewerage, waste management and remediation activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 12
+			},
+			{
+			  "key": "e",
+			  "doc_count": 57
+			},
+			{
+			  "key": "f",
+			  "doc_count": 250
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 8
+			},
+			{
+			  "key": "d",
+			  "doc_count": 115
+			},
+			{
+			  "key": "e",
+			  "doc_count": 79
+			},
+			{
+			  "key": "f",
+			  "doc_count": 111
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 9
+			},
+			{
+			  "key": "d",
+			  "doc_count": 127
+			},
+			{
+			  "key": "e",
+			  "doc_count": 92
+			},
+			{
+			  "key": "f",
+			  "doc_count": 85
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 7
+			},
+			{
+			  "key": "d",
+			  "doc_count": 130
+			},
+			{
+			  "key": "e",
+			  "doc_count": 91
+			},
+			{
+			  "key": "f",
+			  "doc_count": 85
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 67
+			},
+			{
+			  "key": "e",
+			  "doc_count": 121
+			},
+			{
+			  "key": "f",
+			  "doc_count": 128
+			}
+		  ]
+		}
+	  },
+	  {
+		"F - construction": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 80
+			},
+			{
+			  "key": "e",
+			  "doc_count": 430
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2391
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 56
+			},
+			{
+			  "key": "d",
+			  "doc_count": 776
+			},
+			{
+			  "key": "e",
+			  "doc_count": 793
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1246
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 62
+			},
+			{
+			  "key": "d",
+			  "doc_count": 891
+			},
+			{
+			  "key": "e",
+			  "doc_count": 819
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1107
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 58
+			},
+			{
+			  "key": "d",
+			  "doc_count": 869
+			},
+			{
+			  "key": "e",
+			  "doc_count": 883
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1072
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 24
+			},
+			{
+			  "key": "d",
+			  "doc_count": 377
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1017
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1472
+			}
+		  ]
+		}
+	  },
+	  {
+		"G - wholesale and retail trade; repair of motor vehicles and motorcycles": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 8
+			},
+			{
+			  "key": "d",
+			  "doc_count": 198
+			},
+			{
+			  "key": "e",
+			  "doc_count": 647
+			},
+			{
+			  "key": "f",
+			  "doc_count": 3037
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 72
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1517
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1049
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1211
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 71
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1660
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1070
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1041
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 98
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1695
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1115
+			},
+			{
+			  "key": "f",
+			  "doc_count": 923
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 63
+			},
+			{
+			  "key": "d",
+			  "doc_count": 979
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1523
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1303
+			}
+		  ]
+		}
+	  },
+	  {
+		"H - transportation and storage": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 29
+			},
+			{
+			  "key": "e",
+			  "doc_count": 91
+			},
+			{
+			  "key": "f",
+			  "doc_count": 836
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 9
+			},
+			{
+			  "key": "d",
+			  "doc_count": 266
+			},
+			{
+			  "key": "e",
+			  "doc_count": 313
+			},
+			{
+			  "key": "f",
+			  "doc_count": 360
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 9
+			},
+			{
+			  "key": "d",
+			  "doc_count": 303
+			},
+			{
+			  "key": "e",
+			  "doc_count": 310
+			},
+			{
+			  "key": "f",
+			  "doc_count": 327
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 8
+			},
+			{
+			  "key": "d",
+			  "doc_count": 330
+			},
+			{
+			  "key": "e",
+			  "doc_count": 320
+			},
+			{
+			  "key": "f",
+			  "doc_count": 294
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 167
+			},
+			{
+			  "key": "e",
+			  "doc_count": 356
+			},
+			{
+			  "key": "f",
+			  "doc_count": 424
+			}
+		  ]
+		}
+	  },
+	  {
+		"I - accommodation and food service activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 41
+			},
+			{
+			  "key": "e",
+			  "doc_count": 119
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1038
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 227
+			},
+			{
+			  "key": "e",
+			  "doc_count": 376
+			},
+			{
+			  "key": "f",
+			  "doc_count": 590
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 247
+			},
+			{
+			  "key": "e",
+			  "doc_count": 377
+			},
+			{
+			  "key": "f",
+			  "doc_count": 568
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 246
+			},
+			{
+			  "key": "e",
+			  "doc_count": 355
+			},
+			{
+			  "key": "f",
+			  "doc_count": 589
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 83
+			},
+			{
+			  "key": "e",
+			  "doc_count": 342
+			},
+			{
+			  "key": "f",
+			  "doc_count": 773
+			}
+		  ]
+		}
+	  },
+	  {
+		"J - information and communication": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 51
+			},
+			{
+			  "key": "e",
+			  "doc_count": 234
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1902
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 27
+			},
+			{
+			  "key": "d",
+			  "doc_count": 464
+			},
+			{
+			  "key": "e",
+			  "doc_count": 580
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1111
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 35
+			},
+			{
+			  "key": "d",
+			  "doc_count": 526
+			},
+			{
+			  "key": "e",
+			  "doc_count": 592
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1026
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 28
+			},
+			{
+			  "key": "d",
+			  "doc_count": 526
+			},
+			{
+			  "key": "e",
+			  "doc_count": 630
+			},
+			{
+			  "key": "f",
+			  "doc_count": 986
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 13
+			},
+			{
+			  "key": "d",
+			  "doc_count": 280
+			},
+			{
+			  "key": "e",
+			  "doc_count": 672
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1221
+			}
+		  ]
+		}
+	  },
+	  {
+		"K - financial and insurance activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 48
+			},
+			{
+			  "key": "e",
+			  "doc_count": 195
+			},
+			{
+			  "key": "f",
+			  "doc_count": 6776
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 517
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1677
+			},
+			{
+			  "key": "f",
+			  "doc_count": 4820
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 556
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1889
+			},
+			{
+			  "key": "f",
+			  "doc_count": 4566
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 583
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1972
+			},
+			{
+			  "key": "f",
+			  "doc_count": 4459
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 387
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1507
+			},
+			{
+			  "key": "f",
+			  "doc_count": 5124
+			}
+		  ]
+		}
+	  },
+	  {
+		"L - real estate activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 25
+			},
+			{
+			  "key": "e",
+			  "doc_count": 116
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2171
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 6
+			},
+			{
+			  "key": "d",
+			  "doc_count": 243
+			},
+			{
+			  "key": "e",
+			  "doc_count": 670
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1393
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 258
+			},
+			{
+			  "key": "e",
+			  "doc_count": 729
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1324
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 248
+			},
+			{
+			  "key": "e",
+			  "doc_count": 803
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1258
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 76
+			},
+			{
+			  "key": "e",
+			  "doc_count": 614
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1623
+			}
+		  ]
+		}
+	  },
+	  {
+		"M - professional, scientific and technical activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 71
+			},
+			{
+			  "key": "e",
+			  "doc_count": 263
+			},
+			{
+			  "key": "f",
+			  "doc_count": 4050
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 36
+			},
+			{
+			  "key": "d",
+			  "doc_count": 518
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1036
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2783
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 45
+			},
+			{
+			  "key": "d",
+			  "doc_count": 522
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1110
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2695
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 38
+			},
+			{
+			  "key": "d",
+			  "doc_count": 536
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1092
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2710
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 19
+			},
+			{
+			  "key": "d",
+			  "doc_count": 312
+			},
+			{
+			  "key": "e",
+			  "doc_count": 946
+			},
+			{
+			  "key": "f",
+			  "doc_count": 3103
+			}
+		  ]
+		}
+	  },
+	  {
+		"N - administrative and support service activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 85
+			},
+			{
+			  "key": "e",
+			  "doc_count": 306
+			},
+			{
+			  "key": "f",
+			  "doc_count": 3634
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 34
+			},
+			{
+			  "key": "d",
+			  "doc_count": 647
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1115
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2214
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 35
+			},
+			{
+			  "key": "d",
+			  "doc_count": 689
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1242
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2043
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 37
+			},
+			{
+			  "key": "d",
+			  "doc_count": 735
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1248
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1979
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 19
+			},
+			{
+			  "key": "d",
+			  "doc_count": 380
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1110
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2505
+			}
+		  ]
+		}
+	  },
+	  {
+		"O - public administration and defence; compulsory social security": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 5
+			},
+			{
+			  "key": "e",
+			  "doc_count": 6
+			},
+			{
+			  "key": "f",
+			  "doc_count": 94
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 22
+			},
+			{
+			  "key": "e",
+			  "doc_count": 35
+			},
+			{
+			  "key": "f",
+			  "doc_count": 47
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 18
+			},
+			{
+			  "key": "e",
+			  "doc_count": 40
+			},
+			{
+			  "key": "f",
+			  "doc_count": 47
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 22
+			},
+			{
+			  "key": "e",
+			  "doc_count": 39
+			},
+			{
+			  "key": "f",
+			  "doc_count": 43
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 7
+			},
+			{
+			  "key": "e",
+			  "doc_count": 34
+			},
+			{
+			  "key": "f",
+			  "doc_count": 64
+			}
+		  ]
+		}
+	  },
+	  {
+		"P - education": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 10
+			},
+			{
+			  "key": "e",
+			  "doc_count": 89
+			},
+			{
+			  "key": "f",
+			  "doc_count": 2737
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 310
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1443
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1077
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 4
+			},
+			{
+			  "key": "d",
+			  "doc_count": 227
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1305
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1298
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 246
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1376
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1208
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 46
+			},
+			{
+			  "key": "e",
+			  "doc_count": 831
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1957
+			}
+		  ]
+		}
+	  },
+	  {
+		"Q - human health and social work activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 38
+			},
+			{
+			  "key": "e",
+			  "doc_count": 171
+			},
+			{
+			  "key": "f",
+			  "doc_count": 1474
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 14
+			},
+			{
+			  "key": "d",
+			  "doc_count": 347
+			},
+			{
+			  "key": "e",
+			  "doc_count": 710
+			},
+			{
+			  "key": "f",
+			  "doc_count": 607
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 21
+			},
+			{
+			  "key": "d",
+			  "doc_count": 365
+			},
+			{
+			  "key": "e",
+			  "doc_count": 733
+			},
+			{
+			  "key": "f",
+			  "doc_count": 553
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 23
+			},
+			{
+			  "key": "d",
+			  "doc_count": 426
+			},
+			{
+			  "key": "e",
+			  "doc_count": 713
+			},
+			{
+			  "key": "f",
+			  "doc_count": 512
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 6
+			},
+			{
+			  "key": "d",
+			  "doc_count": 148
+			},
+			{
+			  "key": "e",
+			  "doc_count": 696
+			},
+			{
+			  "key": "f",
+			  "doc_count": 833
+			}
+		  ]
+		}
+	  },
+	  {
+		"R - arts, entertainment and recreation": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 15
+			},
+			{
+			  "key": "e",
+			  "doc_count": 41
+			},
+			{
+			  "key": "f",
+			  "doc_count": 636
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 85
+			},
+			{
+			  "key": "e",
+			  "doc_count": 251
+			},
+			{
+			  "key": "f",
+			  "doc_count": 353
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 5
+			},
+			{
+			  "key": "d",
+			  "doc_count": 95
+			},
+			{
+			  "key": "e",
+			  "doc_count": 250
+			},
+			{
+			  "key": "f",
+			  "doc_count": 341
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 3
+			},
+			{
+			  "key": "d",
+			  "doc_count": 85
+			},
+			{
+			  "key": "e",
+			  "doc_count": 285
+			},
+			{
+			  "key": "f",
+			  "doc_count": 319
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 1
+			},
+			{
+			  "key": "d",
+			  "doc_count": 24
+			},
+			{
+			  "key": "e",
+			  "doc_count": 201
+			},
+			{
+			  "key": "f",
+			  "doc_count": 466
+			}
+		  ]
+		}
+	  },
+	  {
+		"S - other service activities": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 19
+			},
+			{
+			  "key": "e",
+			  "doc_count": 71
+			},
+			{
+			  "key": "f",
+			  "doc_count": 910
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 9
+			},
+			{
+			  "key": "d",
+			  "doc_count": 165
+			},
+			{
+			  "key": "e",
+			  "doc_count": 351
+			},
+			{
+			  "key": "f",
+			  "doc_count": 470
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 7
+			},
+			{
+			  "key": "d",
+			  "doc_count": 180
+			},
+			{
+			  "key": "e",
+			  "doc_count": 367
+			},
+			{
+			  "key": "f",
+			  "doc_count": 444
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 183
+			},
+			{
+			  "key": "e",
+			  "doc_count": 379
+			},
+			{
+			  "key": "f",
+			  "doc_count": 430
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 2
+			},
+			{
+			  "key": "d",
+			  "doc_count": 97
+			},
+			{
+			  "key": "e",
+			  "doc_count": 308
+			},
+			{
+			  "key": "f",
+			  "doc_count": 591
+			}
+		  ]
+		}
+	  },
+	  {
+		"T - activities of households as employers; undifferentiated goods- and services-producing activities of households for own use": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 0
+			},
+			{
+			  "key": "e",
+			  "doc_count": 3
+			},
+			{
+			  "key": "f",
+			  "doc_count": 54
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1
+			},
+			{
+			  "key": "e",
+			  "doc_count": 17
+			},
+			{
+			  "key": "f",
+			  "doc_count": 39
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 2
+			},
+			{
+			  "key": "e",
+			  "doc_count": 16
+			},
+			{
+			  "key": "f",
+			  "doc_count": 39
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1
+			},
+			{
+			  "key": "e",
+			  "doc_count": 18
+			},
+			{
+			  "key": "f",
+			  "doc_count": 38
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1
+			},
+			{
+			  "key": "e",
+			  "doc_count": 6
+			},
+			{
+			  "key": "f",
+			  "doc_count": 50
+			}
+		  ]
+		}
+	  },
+	  {
+		"U - activities of extraterritorial organisations and bodies": {
+		  "2017": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 0
+			},
+			{
+			  "key": "e",
+			  "doc_count": 1
+			},
+			{
+			  "key": "f",
+			  "doc_count": 9
+			}
+		  ],
+		  "2018": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1
+			},
+			{
+			  "key": "e",
+			  "doc_count": 2
+			},
+			{
+			  "key": "f",
+			  "doc_count": 7
+			}
+		  ],
+		  "2019": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 2
+			},
+			{
+			  "key": "e",
+			  "doc_count": 2
+			},
+			{
+			  "key": "f",
+			  "doc_count": 6
+			}
+		  ],
+		  "2020": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 2
+			},
+			{
+			  "key": "e",
+			  "doc_count": 0
+			},
+			{
+			  "key": "f",
+			  "doc_count": 8
+			}
+		  ],
+		  "2021": [
+			{
+			  "key": "a",
+			  "doc_count": 0
+			},
+			{
+			  "key": "b",
+			  "doc_count": 0
+			},
+			{
+			  "key": "c",
+			  "doc_count": 0
+			},
+			{
+			  "key": "d",
+			  "doc_count": 1
+			},
+			{
+			  "key": "e",
+			  "doc_count": 0
+			},
+			{
+			  "key": "f",
+			  "doc_count": 9
+			}
+		  ]
+		}
+	  }
+	]
+  }

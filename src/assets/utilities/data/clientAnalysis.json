@@ -1,0 +1,6670 @@
+{
+  "status": 200,
+  "results": [
+    {
+      "company_name": "hashtag adriana ltd",
+      "company_number": "09481494",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "whyaye ltd.",
+      "company_number": "12020479",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 10,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "brightspot marketing ltd",
+      "company_number": "12567655",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "simpson and associates limited",
+      "company_number": "08279375",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "highcliffe engineering limited",
+      "company_number": "01704931",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "rhodar industrial services limited",
+      "company_number": "06426331",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 8,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 6,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "abi engineering limited",
+      "company_number": "05373319",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "goodstuff holdings limited",
+      "company_number": "10525545",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ace lifts ltd",
+      "company_number": "01960580",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "afi-uplift limited",
+      "company_number": "03539352",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 13,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 6,
+        "50 to 65": 6,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "statista limited",
+      "company_number": "09823700",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "fulcrum diligence ltd",
+      "company_number": "10451182",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "off the fence marketing limited",
+      "company_number": "08722215",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "john addley limited",
+      "company_number": "01674672",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ckf systems limited",
+      "company_number": "02267568",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "iom communications limited",
+      "company_number": "03285009",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "n-virocycle limited",
+      "company_number": "03355530",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "interflon (uk) limited",
+      "company_number": "03547778",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "evs translations (uk) ltd",
+      "company_number": "03721888",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "budenberg gauge company limited",
+      "company_number": "00072396",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "direct air & pipework limited",
+      "company_number": "02955834",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "stanhope-seta limited",
+      "company_number": "00361699",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "becker u k limited",
+      "company_number": "01688038",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "mecmesin limited",
+      "company_number": "01302639",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "shorrock trichem limited",
+      "company_number": "04179799",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "flexilube limited",
+      "company_number": "04288169",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "vulcatech belting ltd",
+      "company_number": "04811326",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "applied product solutions limited",
+      "company_number": "03445764",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "c.d.r. pumps uk limited",
+      "company_number": "03589788",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "abbey attachments limited",
+      "company_number": "01788300",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "adelphi manufacturing company,limited",
+      "company_number": "00434896",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "manchester metrology limited",
+      "company_number": "06662400",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "sej distribution ltd",
+      "company_number": "06596249",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "vantage training limited",
+      "company_number": "03034123",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "bigneat limited",
+      "company_number": "01137691",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "beaverswood supply co. limited",
+      "company_number": "01784234",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "24 productions limited",
+      "company_number": "05180947",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "institution of mechanical engineers",
+      "company_number": "rc000266",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": "",
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "murgitroyd & company limited",
+      "company_number": "sc144082",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hi-line services (lichfield) limited",
+      "company_number": "01792593",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 11,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "grocemania limited",
+      "company_number": "09992207",
+      "is_ethnic_minority": "yes",
+      "founded_by": "male",
+      "ethnic_share_percentage": 75.85572776910035,
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "neville & more limited",
+      "company_number": "01419152",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "the digital fairy limited",
+      "company_number": "08275454",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "storage contracts limited",
+      "company_number": "02992192",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "pageone communications limited",
+      "company_number": "04560277",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "bangor university n wales",
+      "company_number": "rc000036",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": "",
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "city, university of london",
+      "company_number": "rc000121",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": "",
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "air pumping limited",
+      "company_number": "03936996",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "robert hall business equipment limited",
+      "company_number": "02596498",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 10,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "associated engineering materials ltd",
+      "company_number": "04706396",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "extract technology limited",
+      "company_number": "05849921",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "holiferm limited",
+      "company_number": "11341576",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 10,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "shropshire tree services limited",
+      "company_number": "05096666",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rocca creative thinking limited",
+      "company_number": "07152200",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "engineering training solutions ltd",
+      "company_number": "09583557",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "aquaculture stewardship council",
+      "company_number": "08172832",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 8,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "british frozen food federation",
+      "company_number": "07687541",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 11,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 5,
+        "50 to 65": 4,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "metatec limited",
+      "company_number": "01606662",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "axicon auto id limited",
+      "company_number": "02003365",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "blue yonder research limited",
+      "company_number": "05124108",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "commerce windows limited",
+      "company_number": "04699391",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "sentinel management consultants limited",
+      "company_number": "04245436",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "den-co-wear limited",
+      "company_number": "02134112",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "british toxicology society(the)",
+      "company_number": "01676618",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 12,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 6,
+        "50 to 65": 3,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "cottam parkinson consulting limited",
+      "company_number": "05158425",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "chiltern distribution ltd",
+      "company_number": "05771015",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "passenger plus ltd",
+      "company_number": "07978916",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "business360 services limited",
+      "company_number": "05522231",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rokel engineering limited",
+      "company_number": "07928585",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "gti futures limited",
+      "company_number": "02347472",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "phenomenal training limited",
+      "company_number": "06637533",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "irrigation and water limited",
+      "company_number": "07162233",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "financetalking ltd",
+      "company_number": "03972915",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ps motion ltd",
+      "company_number": "05567562",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ls engineering services limited",
+      "company_number": "06244660",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "goodwin electronics limited",
+      "company_number": "04716961",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "jarrold & sons limited",
+      "company_number": "00075278",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 8,
+      "share_holders_count": 133,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 7,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "sonoco limited",
+      "company_number": "00082196",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "m j wilson group limited",
+      "company_number": "10786160",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "enerco doors & loading bay solutions limited",
+      "company_number": "04089692",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "johnson & akam,limited",
+      "company_number": "00044985",
+      "is_ethnic_minority": "yes",
+      "founded_by": "male",
+      "ethnic_share_percentage": 61.58261582615827,
+      "active_director_count": 2,
+      "share_holders_count": 9,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "interprint documents limited",
+      "company_number": "01020073",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "ultravalve limited",
+      "company_number": "01976543",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "west and north yorkshire chamber of commerce and industry",
+      "company_number": "00054940",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 13,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 7,
+        "50 to 65": 7,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "gds technologies limited",
+      "company_number": "03529380",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "russell sewell limited",
+      "company_number": "12774144",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "highwire limited",
+      "company_number": "03417319",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "burton sameday couriers limited",
+      "company_number": "04600934",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "m. b. locking logistics group limited",
+      "company_number": "02725932",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "rs hydro limited",
+      "company_number": "03452628",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "aquapurge limited",
+      "company_number": "03463169",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "vp plc",
+      "company_number": "00481833",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "far'n'beyond limited",
+      "company_number": "05445975",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "humankind research limited",
+      "company_number": "10690925",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "impact control systems limited",
+      "company_number": "02654941",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 10,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "livens limited",
+      "company_number": "04672902",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "edge entertainment consultants limited",
+      "company_number": "04393981",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "castlemount limited",
+      "company_number": "02130955",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "toni & guy holdings limited",
+      "company_number": "04572849",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "pristine condition international ltd",
+      "company_number": "03334009",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "parfum parfait ltd",
+      "company_number": "09866731",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "fleming polymer testing ltd",
+      "company_number": "13317101",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "advance performance limited",
+      "company_number": "06325281",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "creative culture limited",
+      "company_number": "06728848",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "phoenix hsc (uk) limited",
+      "company_number": "06534364",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hoola events ltd",
+      "company_number": "12322696",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rbb economics llp",
+      "company_number": "oc315356",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 21,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 14,
+        "50 to 65": 7,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ali warner editorial limited",
+      "company_number": "08301711",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "thermofrost cryo limited",
+      "company_number": "01036288",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 3,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "stl power and process controls ltd",
+      "company_number": "03502538",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "dmn uk limited",
+      "company_number": "03617220",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "biox systems limited",
+      "company_number": "04087213",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "lee-dickens limited",
+      "company_number": "00735448",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "weigh well engineering limited",
+      "company_number": "02261763",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "lightwear limited",
+      "company_number": "02276938",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "grant instruments (cambridge) limited",
+      "company_number": "00658133",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 47,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "zepf technologies uk limited",
+      "company_number": "sc002816",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "all fill international limited",
+      "company_number": "02855635",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 9,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "tq environmental limited",
+      "company_number": "02518328",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "intertek testing & certification limited",
+      "company_number": "03272281",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "denley hydraulics limited",
+      "company_number": "04063402",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hampshire flag company limited",
+      "company_number": "04359902",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "srs automation ltd.",
+      "company_number": "03509712",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "marcote (uk) ltd",
+      "company_number": "04334738",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the bss group limited",
+      "company_number": "00060987",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "axium process limited",
+      "company_number": "04432600",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "air science technologies ltd",
+      "company_number": "05076916",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "whites recycling ltd.",
+      "company_number": "03765361",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "onetrust technology limited",
+      "company_number": "04156317",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "fresh film productions limited",
+      "company_number": "05699345",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "tigarani limited",
+      "company_number": "07714163",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "craft insight limited",
+      "company_number": "08440788",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "payne pallet inverters limited",
+      "company_number": "02899910",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "cammack & wilcox limited",
+      "company_number": "02915441",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "gps instrumentation limited",
+      "company_number": "05967115",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "tribe culture change limited",
+      "company_number": "10007314",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "speakers collective cic",
+      "company_number": "11864856",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "it business solutions limited",
+      "company_number": "09050708",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "phoenix diagnostics ltd.",
+      "company_number": "11240202",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "edi plus limited",
+      "company_number": "10199381",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "brand ambition emea ltd",
+      "company_number": "07827536",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "netherlands-british chamber of commerce(the)",
+      "company_number": "00082384",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 9,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 4,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "wakefield acoustics limited",
+      "company_number": "01508543",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 5,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "instinct training llp",
+      "company_number": "oc309802",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "expat academy limited",
+      "company_number": "07646553",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "workshop cookbook limited",
+      "company_number": "08213092",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "symbia ltd",
+      "company_number": "08740183",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "byrne looby partners (uk) limited",
+      "company_number": "07991280",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 5,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "reco (uk) trading ltd",
+      "company_number": "08167252",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "arco group limited",
+      "company_number": "00486220",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "leap environmental limited",
+      "company_number": "06552502",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "paragon rapid technologies ltd",
+      "company_number": "04858233",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "e.russum & sons,limited",
+      "company_number": "00091335",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "russell finex limited",
+      "company_number": "00294532",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "direct adhesives limited",
+      "company_number": "03144443",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rochester midland corporation limited",
+      "company_number": "03199332",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "djb labcare limited",
+      "company_number": "05365732",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "beauty kitchen uk limited",
+      "company_number": "sc476415",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "brodies llp",
+      "company_number": "so300334",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 121,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 65,
+        "50 to 65": 54,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "mark3d uk limited",
+      "company_number": "11124772",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "tin man communications limited",
+      "company_number": "08717578",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "isothermal technology limited",
+      "company_number": "01530620",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 5,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "sensemaster limited",
+      "company_number": "01852673",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "inclusive diversity limited",
+      "company_number": "05289883",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "telepathic limited",
+      "company_number": "02698061",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "teach first",
+      "company_number": "04478840",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 15,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 5,
+        "50 to 65": 8,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "thomas wright/thorite group limited",
+      "company_number": "00177707",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "j blackwell limited",
+      "company_number": "04496405",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "a.& s.manuel limited",
+      "company_number": "00605342",
+      "is_ethnic_minority": "yes",
+      "founded_by": "male",
+      "ethnic_share_percentage": 100,
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "fonlutions ltd",
+      "company_number": "08783969",
+      "is_ethnic_minority": "yes",
+      "founded_by": "male",
+      "ethnic_share_percentage": 60,
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "xyz machine tools limited",
+      "company_number": "01765883",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "jeroboams trade limited",
+      "company_number": "03315645",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "archives and records association (uk and ireland)",
+      "company_number": "02969472",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 9,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 7,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "smartscan limited",
+      "company_number": "02350671",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 10,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "food equipment europe limited",
+      "company_number": "03799628",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "ftse international limited",
+      "company_number": "03108236",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "graphicad limited",
+      "company_number": "05010313",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "kesri smolas ltd",
+      "company_number": "05852255",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "wildewood tree services & landscapes limited",
+      "company_number": "12914370",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "allison risebro & co. limited",
+      "company_number": "01435936",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "bestec co. ltd.",
+      "company_number": "05859146",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "anti counterfeiting group(the)",
+      "company_number": "01984849",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "central (high rise) limited",
+      "company_number": "01786590",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "catherine turner limited",
+      "company_number": "06960312",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "underglade ltd",
+      "company_number": "08742363",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "kate rodenhurst ltd",
+      "company_number": "06246959",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "gatehouse vision care limited",
+      "company_number": "09620890",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "western automation limited",
+      "company_number": "00775728",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "warner marketing consultants limited",
+      "company_number": "05322665",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "flint & company ltd",
+      "company_number": "08703483",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "redstone limited",
+      "company_number": "09979025",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "cayhill partners limited",
+      "company_number": "09293801",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "triponel consulting ltd",
+      "company_number": "09853668",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "penmann climatic systems ltd",
+      "company_number": "01463993",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "john attwooll and company(tents)limited",
+      "company_number": "00802641",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "pixel fridge ltd",
+      "company_number": "11677436",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "s & d solutions (uk) limited",
+      "company_number": "03957151",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "ssr general & management limited",
+      "company_number": "06796708",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "upgrade options limited",
+      "company_number": "02873785",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "air compression technology limited",
+      "company_number": "04717021",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "vibrac europe limited",
+      "company_number": "06375023",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "calderys ngj limited",
+      "company_number": "04148785",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "etg engineering solutions limited",
+      "company_number": "09007893",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "bespoke handling equipment limited",
+      "company_number": "07450943",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "industrial washing machines limited",
+      "company_number": "04636452",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "geo pollution technologies (uk) limited",
+      "company_number": "04689357",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "macphie limited",
+      "company_number": "sc031780",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 9,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 7,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "f.g. curtis limited",
+      "company_number": "00367479",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 5,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "seetru limited",
+      "company_number": "00473899",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "camlab limited",
+      "company_number": "00484244",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 7,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "birmingham chamber of commerce and industry",
+      "company_number": "00078731",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 14,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 6,
+        "50 to 65": 8,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "guyson international limited",
+      "company_number": "01549447",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "companies house limited",
+      "company_number": "14540265",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "fsg tool & die limited",
+      "company_number": "00680756",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 5,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "ron hague limited",
+      "company_number": "01614931",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "industrial boilerhouse supplies limited",
+      "company_number": "02803457",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "terraconsult limited",
+      "company_number": "03949081",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hss hire service group limited",
+      "company_number": "00644490",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "duncan and todd limited",
+      "company_number": "sc065757",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "twk media limited",
+      "company_number": "06173536",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "new pig ltd.",
+      "company_number": "sc141633",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "captain crikey limited",
+      "company_number": "04024891",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "transafety limited",
+      "company_number": "09500934",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "customised metalwork solutions limited",
+      "company_number": "11456525",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "all in design & advertising limited",
+      "company_number": "08453175",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "centre for civil society limited",
+      "company_number": "07333734",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "purpose union limited",
+      "company_number": "11767284",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "free focus limited",
+      "company_number": "09913092",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the hazard management & environmental services laboratories limited",
+      "company_number": "02647438",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "foremost limited",
+      "company_number": "10873095",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "norfolk light limited",
+      "company_number": "05528176",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "platinum wave limited",
+      "company_number": "sc342944",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "expocerts limited",
+      "company_number": "08639791",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "manners maclean limited",
+      "company_number": "07127416",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "insanity talent management limited",
+      "company_number": "06288733",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 5,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the intellectual property regulation board limited",
+      "company_number": "06624948",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 9,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 5,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "hodgkinson bennis limited",
+      "company_number": "00357540",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "magic cote cleaning uk limited",
+      "company_number": "06493880",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "digital voices limited",
+      "company_number": "10685808",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "severn ventilation limited",
+      "company_number": "01197379",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "institute of customer service",
+      "company_number": "03316394",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 6,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "a.d.t flexibles (uk) ltd",
+      "company_number": "01670585",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "aspects beauty company limited",
+      "company_number": "02882953",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "sensory dimensions limited",
+      "company_number": "04429884",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "crown workspace limited",
+      "company_number": "03250579",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "champions (uk) plc",
+      "company_number": "04247448",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 7,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 4,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "m a l pumps limited",
+      "company_number": "04170096",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "lawes consulting limited",
+      "company_number": "04508941",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "strat house ltd",
+      "company_number": "06095950",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "fredshaw & co limited",
+      "company_number": "00559389",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 5,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "endoline machinery limited",
+      "company_number": "01563793",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "capital belting limited",
+      "company_number": "09835011",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "shenton global limited",
+      "company_number": "10427830",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 17,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "pendragon fine art frames limited",
+      "company_number": "03461338",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "metrology & quality services limited",
+      "company_number": "03572542",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "mechatech systems limited",
+      "company_number": "06469333",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 7,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "mcelwaine technical services limited",
+      "company_number": "ni047740",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "unitedlex limited",
+      "company_number": "07887653",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "advanced magnetic resonance limited",
+      "company_number": "05598734",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "tudor rose international ltd",
+      "company_number": "06464557",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 10,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "perfectus biomed ltd",
+      "company_number": "08323267",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "pfw label solutions ltd",
+      "company_number": "13599665",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "storage design limited",
+      "company_number": "03184634",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "acm compaction technology limited",
+      "company_number": "02642934",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "lumus360 ltd.",
+      "company_number": "03690742",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "mectek mechanical services limited",
+      "company_number": "03729737",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "byg systems limited",
+      "company_number": "01775357",
+      "is_ethnic_minority": "yes",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": 94.5,
+      "active_director_count": 5,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 4
+      }
+    },
+    {
+      "company_name": "h foster & co limited",
+      "company_number": "05829773",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "aston & fincher limited",
+      "company_number": "00970902",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "surfachem limited",
+      "company_number": "01565953",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "rubberfast limited",
+      "company_number": "01695925",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "virado transport ltd.",
+      "company_number": "09718054",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "wernick hire limited",
+      "company_number": "00633778",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 4,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "a tyler photography limited",
+      "company_number": "08700309",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "office friendly dealer association limited",
+      "company_number": "ip29061r",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": "",
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "pega analytics limited",
+      "company_number": "09471349",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "chatterbox languages ltd",
+      "company_number": "10350661",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 21,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "edwards beers and wine supplies ltd",
+      "company_number": "07090162",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "alcumus isoqar limited",
+      "company_number": "02637608",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "buffalo7 limited",
+      "company_number": "07197045",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "parmley graham limited",
+      "company_number": "00172842",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "spectrum gas systems limited",
+      "company_number": "03073629",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "thermographic measurements limited",
+      "company_number": "01161376",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "stable micro systems limited",
+      "company_number": "01702660",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "fluorochem limited",
+      "company_number": "02049362",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "preservation equipment limited",
+      "company_number": "02264436",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "bts in london limited",
+      "company_number": "02323256",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "steam plant engineering limited",
+      "company_number": "04198992",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "don whitley scientific limited",
+      "company_number": "01342672",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 9,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 3,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "ragus sugars limited",
+      "company_number": "01375472",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "manchester fluid system technologies limited",
+      "company_number": "07132552",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "restrain company limited",
+      "company_number": "05086793",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "just digital limited",
+      "company_number": "04954829",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "sbes limited",
+      "company_number": "03440453",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "sirco controls limited",
+      "company_number": "00672489",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 15,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "cambridge publishers ltd",
+      "company_number": "03194247",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hunter safety solutions limited",
+      "company_number": "08258912",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the mangold consultancy ltd",
+      "company_number": "09152035",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "valveline supplies limited",
+      "company_number": "02355411",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "gloucestershire rural community council",
+      "company_number": "03181755",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 10,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 8
+      }
+    },
+    {
+      "company_name": "brand planet ltd",
+      "company_number": "07826234",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "npower limited",
+      "company_number": "03653277",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "lrqa limited",
+      "company_number": "01879370",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "suez water technologies & solutions united kingdom",
+      "company_number": "00950340",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "kingston upon thames chamber of commerce",
+      "company_number": "02990783",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 21,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 9,
+        "50 to 65": 11,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "crane hire solutions limited",
+      "company_number": "04840758",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "agar scientific limited",
+      "company_number": "09897580",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "instrumentation systems & services limited",
+      "company_number": "09484815",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "davis derby limited",
+      "company_number": "02701771",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "todd research limited",
+      "company_number": "00477701",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "crystal rubber limited",
+      "company_number": "04148737",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "adrian hodges advisory limited",
+      "company_number": "07964095",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the mustering ltd",
+      "company_number": "10972944",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the common purpose charitable trust",
+      "company_number": "02832875",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 12,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 8,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "gatherspeed limited",
+      "company_number": "07203711",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "m.b.c. limited",
+      "company_number": "02266529",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "orla cronin research limited",
+      "company_number": "04988267",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hutson & amro print limited",
+      "company_number": "06447300",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 5,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "track 7 couriers ltd",
+      "company_number": "09379934",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "mersey equipment company limited",
+      "company_number": "01185922",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "be the fox limited",
+      "company_number": "08477679",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "mike barry eco ltd",
+      "company_number": "12237499",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hubbub insight limited",
+      "company_number": "09611812",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "forgather limited",
+      "company_number": "10107859",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "automated water & effluent limited",
+      "company_number": "01624424",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "vox pops international limited",
+      "company_number": "02265768",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "total rental solutions ltd",
+      "company_number": "10318047",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rhino fire control limited",
+      "company_number": "11862968",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 2,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "haymarket media group ltd.",
+      "company_number": "00267189",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "keystone law limited",
+      "company_number": "04650763",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 5,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "parity professionals limited",
+      "company_number": "01543554",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "able hydraulics limited",
+      "company_number": "01593258",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "r & ps group ltd",
+      "company_number": "11951964",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "malvern panalytical limited",
+      "company_number": "01020602",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "lab plant uk limited",
+      "company_number": "05466778",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "digital id ltd",
+      "company_number": "02819044",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 5,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the pump company limited",
+      "company_number": "03428736",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "quasartronics limited",
+      "company_number": "02456654",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "bureau veritas building control uk limited",
+      "company_number": "03460854",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "indigrow (uk) limited",
+      "company_number": "04165654",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "university of bath (the)",
+      "company_number": "rc000644",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": "",
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "scott timber limited",
+      "company_number": "sc105196",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 4,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "the wool packaging company ltd",
+      "company_number": "06900094",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "jet aire (dc) limited",
+      "company_number": "03466126",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "professional response limited",
+      "company_number": "03159294",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 1,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "parotec solutions limited",
+      "company_number": "02344308",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "aston chemicals limited",
+      "company_number": "02473404",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 5,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "packaging innovation limited",
+      "company_number": "03006990",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "electrix international limited",
+      "company_number": "01570249",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "fircroft technologies ltd",
+      "company_number": "04180156",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "freddy products limited",
+      "company_number": "02907462",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "365 healthcare limited",
+      "company_number": "05166970",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rafferty specialist access services limited",
+      "company_number": "08627480",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "nas media limited",
+      "company_number": "09514833",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "nobouquet ltd",
+      "company_number": "11006368",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "access catering engineers limited",
+      "company_number": "08678458",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "passenger cars group ltd",
+      "company_number": "11258796",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "haven automation limited",
+      "company_number": "00862544",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "rsk adas limited",
+      "company_number": "10486936",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "sparkling copy limited",
+      "company_number": "06889736",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "safetycare (uk) limited",
+      "company_number": "02622187",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "alliance learning training limited",
+      "company_number": "10381804",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 5,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "kubi kalloo ltd",
+      "company_number": "08565276",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "global insight conferences limited",
+      "company_number": "07295108",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "elly ling limited",
+      "company_number": "12010830",
+      "is_ethnic_minority": "yes",
+      "founded_by": "female",
+      "ethnic_share_percentage": 100,
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "wild courage limited",
+      "company_number": "06327948",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "emtec laboratories limited",
+      "company_number": "08824427",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "pirtek (burton) limited",
+      "company_number": "05015447",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "little fires ltd",
+      "company_number": "12006243",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "international egg commission limited",
+      "company_number": "07434096",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "born & raised ltd",
+      "company_number": "09880183",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ben burgess & co limited",
+      "company_number": "04172275",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "compco fire systems limited",
+      "company_number": "02788418",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "microscope optical services ltd",
+      "company_number": "04400123",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "aqua-jet maintenance services limited",
+      "company_number": "04954503",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "labtech international ltd",
+      "company_number": "02779599",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "seal-it-systems (sis) limited",
+      "company_number": "04267805",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "dale & company (ancoats) limited",
+      "company_number": "00610341",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "gpe scientific limited",
+      "company_number": "00715866",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "reagent chemical services limited",
+      "company_number": "01318854",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "j.s.t. forklifts limited",
+      "company_number": "01118320",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "finecal group limited",
+      "company_number": "01236608",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "hanovia limited",
+      "company_number": "01473077",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "harp international limited",
+      "company_number": "02432294",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 2,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "hanna instruments limited",
+      "company_number": "02166999",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "peter cassidy (leeds) limited",
+      "company_number": "00945299",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "norman knights limited",
+      "company_number": "01176860",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "footfallcam uk limited",
+      "company_number": "04471557",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "european automation limited",
+      "company_number": "06858540",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "fera science limited",
+      "company_number": "09413107",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 8,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 6,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "penn packaging limited",
+      "company_number": "03158573",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "plasticity limited",
+      "company_number": "02840066",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "euro food brands limited",
+      "company_number": "02573100",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "fortress interlocks limited",
+      "company_number": "01312085",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "armfield limited",
+      "company_number": "01962034",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "blow design limited",
+      "company_number": "05937608",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "daisy chain (leeds) limited",
+      "company_number": "04996876",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "optimax imaging, inspection and measurement ltd",
+      "company_number": "05562754",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "phs group limited",
+      "company_number": "05384799",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "locktec limited",
+      "company_number": "03460301",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ben burgess coates limited",
+      "company_number": "08837703",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "duncan brack ltd",
+      "company_number": "08482659",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the unmistakables ltd",
+      "company_number": "11324730",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "mccullough moore limited",
+      "company_number": "05522880",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "belle vue productions limited",
+      "company_number": "08362137",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "saberr limited",
+      "company_number": "08388093",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 25,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "anita bhagwandas limited",
+      "company_number": "10318030",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "amelie ventures ltd",
+      "company_number": "12580078",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "the accessible digital documents company ltd",
+      "company_number": "06508410",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "irresistible films ltd",
+      "company_number": "06099390",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 3,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "allaboutcareers limited",
+      "company_number": "06527117",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "apex tree specialists llp",
+      "company_number": "oc402682",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "tech hose limited",
+      "company_number": "13435929",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "ma dentistry media limited",
+      "company_number": "02591009",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 8,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 3,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "singular intelligence limited",
+      "company_number": "08826313",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "elstein research ltd",
+      "company_number": "07425629",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "kingsley welding alloys limited",
+      "company_number": "04381961",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "chemlink specialities limited",
+      "company_number": "02937558",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "azo uk ltd.",
+      "company_number": "05655182",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "marden edwards limited",
+      "company_number": "00255858",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 5,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 6,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "reliant rubber engineers limited.",
+      "company_number": "04316552",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 3,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "intank technologies limited",
+      "company_number": "05097099",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "brooke edgley specialist technical services limited",
+      "company_number": "00591982",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 4,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "a place for everything limited",
+      "company_number": "06528160",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "marine stewardship council",
+      "company_number": "03322023",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 9,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 5,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "hpe process limited",
+      "company_number": "02669014",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 4,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "c m b foods ltd.",
+      "company_number": "03284706",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 4,
+      "share_holders_count": 6,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "lasnek limited",
+      "company_number": "04612589",
+      "is_ethnic_minority": "no",
+      "founded_by": "female",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 8,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 2
+      }
+    },
+    {
+      "company_name": "hsbc invoice finance (uk) limited",
+      "company_number": "00759657",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "pakawaste limited",
+      "company_number": "01256393",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "aesseal plc",
+      "company_number": "02101607",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 7,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 2,
+        "50 to 65": 2,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "edmolift uk ltd.",
+      "company_number": "02456741",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "dlt training limited",
+      "company_number": "02754039",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "servitech international limited",
+      "company_number": "03935688",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "metal craft industries uk ltd",
+      "company_number": "01140058",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "salons direct limited",
+      "company_number": "03018632",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 5,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 0,
+        "above 65": 3
+      }
+    },
+    {
+      "company_name": "nextday metals limited",
+      "company_number": "04378748",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 0,
+        "above 65": 1
+      }
+    },
+    {
+      "company_name": "aquamatic limited",
+      "company_number": "02615425",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 1,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "q4 london limited",
+      "company_number": "10451107",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 0,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "scantech packaging limited",
+      "company_number": "02890384",
+      "is_ethnic_minority": "no",
+      "founded_by": "male",
+      "ethnic_share_percentage": "",
+      "active_director_count": 1,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "avidity science limited",
+      "company_number": "03482000",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 3,
+      "share_holders_count": 2,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "british printing industries federation ltd",
+      "company_number": "04340242",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": "",
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 1,
+        "50 to 65": 5,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "wolf laboratories limited",
+      "company_number": "03011929",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 6,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 4,
+        "50 to 65": 2,
+        "above 65": 0
+      }
+    },
+    {
+      "company_name": "franklin & franklin limited",
+      "company_number": "04868600",
+      "is_ethnic_minority": "no",
+      "founded_by": "unknown",
+      "ethnic_share_percentage": "",
+      "active_director_count": 2,
+      "share_holders_count": 1,
+      "age_director_diversity": {
+        "below 30": 0,
+        "30 to 50": 0,
+        "50 to 65": 3,
+        "above 65": 0
+      }
+    }
+  ],
+  "total": 444,
+  "ethnicCompanyCount": 6,
+  "maleOwnedCompanyCount": 123,
+  "femaleOwnedCompanyCount": 63,
+  "unknownOwnedCompanyCount": 258
+}

@@ -1,0 +1,477 @@
+{
+  "Date&Time": "Friday 20th March 2020, 8:44:48 am",
+  "Total": 1,
+  "Json": {
+    "CompanyNumber": "09718853",
+    "CompanyName": "WHITEHALL FINANCE LIMITED",
+    "RegAddress": [
+      {
+        "POBox": "",
+        "AddressLine2": "THEALE",
+        "AddressLine1": "1210 ARLINGTON BUSINESS PARK",
+        "CareOf": "",
+        "Country": "ENGLAND",
+        "PostTown": "READING",
+        "PostCode": "RG7 4TY",
+        "County": ""
+      }
+    ],
+    "ActiveDirector": [
+      {
+        "Name": "levins, colin michael",
+        "Officer_role": "secretary",
+        "Address": {
+          "country": "united kingdom",
+          "premises": "87",
+          "locality": "cuffley",
+          "address_line_1": "king james avenue",
+          "postal_code": "en6 4lw"
+        }
+      },
+      {
+        "Name": "de negri, antonio maria",
+        "Officer_role": "director",
+        "Nationality": "italian",
+        "Address": {
+          "country": "england",
+          "premises": "1210",
+          "address_line_1": "arlington business park",
+          "locality": "reading",
+          "address_line_2": "theale",
+          "postal_code": "rg7 4ty"
+        }
+      },
+      {
+        "Name": "holland, robert peter",
+        "Officer_role": "director",
+        "Nationality": "british",
+        "Address": {
+          "country": "england",
+          "premises": "87",
+          "address_line_1": "king james avenue",
+          "locality": "cuffley",
+          "postal_code": "en6 4lw",
+          "region": "hertfordshire"
+        }
+      },
+      {
+        "Name": "howard, andrew kenneth",
+        "Officer_role": "director",
+        "Nationality": "british",
+        "Address": {
+          "country": "england",
+          "premises": "1210",
+          "locality": "reading",
+          "address_line_1": "arlington business park",
+          "address_line_2": "theale",
+          "postal_code": "rg7 4ty"
+        }
+      },
+      {
+        "Name": "kumar, tarun",
+        "Officer_role": "director",
+        "Nationality": "british",
+        "Address": {
+          "country": "england",
+          "premises": "1210",
+          "address_line_1": "arlington business park",
+          "locality": "reading",
+          "address_line_2": "theale",
+          "postal_code": "rg7 4ty"
+        }
+      },
+      {
+        "Name": "levins, colin michael",
+        "Officer_role": "director",
+        "Nationality": "irish",
+        "Address": {
+          "country": "united kingdom",
+          "premises": "87",
+          "address_line_1": "king james avenue",
+          "locality": "cuffley",
+          "postal_code": "en6 4lw"
+        }
+      },
+      {
+        "Name": "tuite, damian francis gerard",
+        "Officer_role": "director",
+        "Nationality": "british",
+        "Address": {
+          "country": "england",
+          "premises": "1210",
+          "address_line_1": "arlington business park",
+          "locality": "reading",
+          "address_line_2": "theale",
+          "postal_code": "rg7 4ty"
+        }
+      },
+      {
+        "Name": "de negri, antonio maria",
+        "Officer_role": "director",
+        "Nationality": "italian",
+        "Address": {
+          "country": "england",
+          "premises": "1210",
+          "locality": "reading",
+          "address_line_1": "arlington business park",
+          "address_line_2": "theale",
+          "postal_code": "rg7 4ty"
+        }
+      },
+      {
+        "Name": "gilmore, stuart",
+        "Officer_role": "director",
+        "Nationality": "british",
+        "Address": {
+          "country": "united kingdom",
+          "premises": "87",
+          "address_line_1": "king james avenue",
+          "locality": "cuffley",
+          "postal_code": "en6 4lw"
+        }
+      }
+    ],
+    "SICCode": {
+      "SicNumber_1": "64999",
+      "SicText_1": "64999 - Financial intermediation not elsewhere classified",
+      "SicNumber_2": 0,
+      "SicText_2": "",
+      "SicNumber_3": 0,
+      "SicText_3": "",
+      "SicText_4": 0,
+      "SicNumber_4": ""
+    },
+    "Mortgages": [
+      {
+        "NumMortSatisfied": 0,
+        "NumMortOutstanding": 0,
+        "NumMortCharges": 0,
+        "NumMortPartSatisfied": 0
+      }
+    ],
+    "Charges": [],
+    "Land-Registry": [],
+    "Finance": [
+      {
+        "key_name": "Equity",
+        "Year": 2019,
+        "Value": 365568
+      },
+      {
+        "key_name": "Total Assetsless Current Liabilities",
+        "Year": 2019,
+        "Value": 437426
+      },
+      {
+        "key_name": "Total Additions Including From Business Combinations In Tangibble Assets",
+        "Year": 2019,
+        "Value": 98336
+      },
+      {
+        "key_name": "Trade Creditors Trade Payables",
+        "Year": 2019,
+        "Value": 24389
+      },
+      {
+        "key_name": "Intangible Assets Gross Cost",
+        "Year": 2019,
+        "Value": 77781
+      },
+      {
+        "key_name": "Net Assets Liabilities",
+        "Year": 2019,
+        "Value": 365568
+      },
+      {
+        "key_name": "Creditors",
+        "Year": 2019,
+        "Value": 71858
+      },
+      {
+        "key_name": "Other Debtors",
+        "Year": 2019,
+        "Value": 1541
+      },
+      {
+        "key_name": "In Tangibble Assets",
+        "Year": 2019,
+        "Value": 176117
+      },
+      {
+        "key_name": "Debtors",
+        "Year": 2019,
+        "Value": 3938
+      },
+      {
+        "key_name": "Cash Bank On Hand",
+        "Year": 2019,
+        "Value": 353760
+      },
+      {
+        "key_name": "Other Creditors",
+        "Year": 2019,
+        "Value": 72000
+      },
+      {
+        "key_name": "Profit Loss",
+        "Year": 2019,
+        "Value": 369033
+      },
+      {
+        "key_name": "Number Shares Issued Fully Paid",
+        "Year": 2019,
+        "Value": 1985156
+      },
+      {
+        "key_name": "Rec Overable Value - Added Tax",
+        "Year": 2019,
+        "Value": 2397
+      },
+      {
+        "key_name": "Net Current Assets Liabilities",
+        "Year": 2019,
+        "Value": 261309
+      },
+      {
+        "key_name": "Other Creditors",
+        "Year": 2018,
+        "Value": 51050
+      },
+      {
+        "key_name": "Equity",
+        "Year": 2018,
+        "Value": 13429
+      },
+      {
+        "key_name": "Debtors",
+        "Year": 2018,
+        "Value": 5
+      },
+      {
+        "key_name": "Net Assets Liabilities",
+        "Year": 2018,
+        "Value": 50425
+      },
+      {
+        "key_name": "Share Premium",
+        "Year": 2018,
+        "Value": 9
+      },
+      {
+        "key_name": "Creditors",
+        "Year": 2018,
+        "Value": 66286
+      },
+      {
+        "key_name": "Cash",
+        "Year": 2018,
+        "Value": 27707
+      },
+      {
+        "key_name": "Total Additions Including From Business Combinations In Tangibble Assets",
+        "Year": 2018,
+        "Value": 23037
+      },
+      {
+        "key_name": "Number Shares Issued But Not Fully Paid",
+        "Year": 2018,
+        "Value": 1342900
+      },
+      {
+        "key_name": "Net Assets",
+        "Year": 2018,
+        "Value": 50425
+      },
+      {
+        "key_name": "Creditors Due With In One Year",
+        "Year": 2018,
+        "Value": 6
+      },
+      {
+        "key_name": "Cash Bank On Hand",
+        "Year": 2018,
+        "Value": 27707
+      },
+      {
+        "key_name": "Trade Creditors Trade Payables",
+        "Year": 2018,
+        "Value": 12236
+      },
+      {
+        "key_name": "Profit Loss",
+        "Year": 2018,
+        "Value": 93968
+      },
+      {
+        "key_name": "Nominal Value Shares Issued Specific Share Issue",
+        "Year": 2018,
+        "Value": 1
+      },
+      {
+        "key_name": "Share Holder Funds",
+        "Year": 2018,
+        "Value": 50425
+      },
+      {
+        "key_name": "Number Shares Issued Specific Share Issue",
+        "Year": 2018,
+        "Value": 342900
+      },
+      {
+        "key_name": "Accrued Liabilities Deferred Income",
+        "Year": 2018,
+        "Value": 3000
+      },
+      {
+        "key_name": "Retained Earnings",
+        "Year": 2018,
+        "Value": 109575
+      },
+      {
+        "key_name": "Intangible Assets Gross Cost",
+        "Year": 2018,
+        "Value": 77781
+      },
+      {
+        "key_name": "In Tangibble Assets",
+        "Year": 2018,
+        "Value": 77781
+      },
+      {
+        "key_name": "Net Current Assets Liabilities",
+        "Year": 2018,
+        "Value": 27356
+      },
+      {
+        "key_name": "Called Up Share Capital",
+        "Year": 2018,
+        "Value": 13429
+      },
+      {
+        "key_name": "Total Assetsless Current Liabilities",
+        "Year": 2018,
+        "Value": 50425
+      },
+      {
+        "key_name": "Rec Overable Value - Added Tax",
+        "Year": 2018,
+        "Value": 11223
+      },
+      {
+        "key_name": "Creditors Due After One Year",
+        "Year": 2017,
+        "Value": 61051
+      },
+      {
+        "key_name": "Net Assets Liabilities Including Pension Asset Liability",
+        "Year": 2017,
+        "Value": 5607
+      },
+      {
+        "key_name": "Fixed Assets",
+        "Year": 2017,
+        "Value": 54744
+      },
+      {
+        "key_name": "Retained Earnings",
+        "Year": 2017,
+        "Value": 15607
+      },
+      {
+        "key_name": "Net Assets",
+        "Year": 2017,
+        "Value": 5607
+      },
+      {
+        "key_name": "Current Assets",
+        "Year": 2017,
+        "Value": 700
+      },
+      {
+        "key_name": "Creditors Due With In One Year",
+        "Year": 2017,
+        "Value": 66286
+      },
+      {
+        "key_name": "Total Assetsless Current Liabilities",
+        "Year": 2017,
+        "Value": 55444
+      },
+      {
+        "key_name": "Share Premium",
+        "Year": 2017,
+        "Value": 146571
+      },
+      {
+        "key_name": "Cash",
+        "Year": 2017,
+        "Value": 700
+      },
+      {
+        "key_name": "Debtors",
+        "Year": 2017,
+        "Value": 11223
+      },
+      {
+        "key_name": "Share Holder Funds",
+        "Year": 2017,
+        "Value": 5607
+      },
+      {
+        "key_name": "Net Current Assets Liabilities",
+        "Year": 2017,
+        "Value": 700
+      },
+      {
+        "key_name": "Called Up Share Capital",
+        "Year": 2017,
+        "Value": 10000
+      },
+      {
+        "key_name": "In Tangibble Assets",
+        "Year": 2017,
+        "Value": 54744
+      },
+      {
+        "key_name": "Fixed Assets",
+        "Year": 2016,
+        "Value": 22972
+      },
+      {
+        "key_name": "Net Current Assets Liabilities",
+        "Year": 2016,
+        "Value": 667
+      },
+      {
+        "key_name": "Total Assetsless Current Liabilities",
+        "Year": 2016,
+        "Value": 23639
+      },
+      {
+        "key_name": "Creditors Due After One Year",
+        "Year": 2016,
+        "Value": 14939
+      },
+      {
+        "key_name": "Non-instalment Debts Due After5 Years",
+        "Year": 2016,
+        "Value": 14939
+      },
+      {
+        "key_name": "Share Holder Funds",
+        "Year": 2016,
+        "Value": 8700
+      },
+      {
+        "key_name": "Current Assets",
+        "Year": 2016,
+        "Value": 667
+      },
+      {
+        "key_name": "Net Assets Liabilities Including Pension Asset Liability",
+        "Year": 2016,
+        "Value": 8700
+      }
+    ]
+  }
+}

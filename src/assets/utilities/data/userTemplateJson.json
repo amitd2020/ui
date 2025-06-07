@@ -1,0 +1,318 @@
+{
+	"templateJson": [
+		{
+			"field": "companyRegistrationNumber",
+			"header": "Company Number",
+			"orderId": 1,
+			"showInputField": false
+		},
+		{
+			"field": "businessName",
+			"header": "Company Name",
+			"orderId": 2,
+			"showInputField": false
+		},
+		{
+			"field": "companyStatus",
+			"header": "Company Status",
+			"orderId": 3,
+			"showInputField": false
+		},
+		{
+			"field": "companyRegistrationDate",
+			"header": "Date of incorporation",
+			"orderId": 4,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.telephone",
+			"header": "Contact Number",
+			"orderId": 6,
+			"showInputField": false
+		},
+		{
+			"field": "industryTag",
+			"header": "Trade description",
+			"orderId": 7,
+			"showInputField": false
+		},
+		{
+			"field": "sicCode07.SicText_1",
+			"header": "Sic description",
+			"orderId": 8,
+			"showInputField": false
+		},
+		{
+			"field": "sicCode07.SicNumber_1",
+			"header": "Sic code",
+			"orderId": 9,
+			"showInputField": false
+		},
+		{
+			"field": "Industries.SicIndustry_1",
+			"header": "Industry (Sector Name)",
+			"orderId": 10,
+			"showInputField": false
+		},
+		{
+			"field": "Industries.SicText_1",
+			"header": "Industry Description",
+			"orderId": 11,
+			"showInputField": false
+		},
+		{
+			"field": "companyContactInformation.email",
+			"header": "Company Generic Email",
+			"orderId": 12,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.website",
+			"header": "Website",
+			"orderId": 13,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.addressLine1",
+			"header": "Registered address line 1",
+			"orderId": 14,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.addressLine2",
+			"header": "Registered address line 2",
+			"orderId": 15,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.addressLine3",
+			"header": "Registered address line 3",
+			"orderId": 16,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.district",
+			"header": "Registered address Town",
+			"orderId": 17,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.county",
+			"header": "Registered address County",
+			"orderId": 18,
+			"showInputField": false
+		},
+		{
+			"header": "Registered address City",
+			"field": "RegAddress_Modified.district",
+			"orderId": 19,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.postalCode",
+			"header": "Registered address Post code",
+			"orderId": 20,
+			"showInputField": false
+		},
+		{
+			"field": "RegAddress_Modified.telephone",
+			"header": "Telephone Number",
+			"orderId": 21,
+			"showInputField": false
+		},
+		{
+			"field": "detailedInformation.initials",
+			"header": "Contact's Title",
+			"orderId":  22,
+			"showInputField": false
+		},
+		{
+			"field": "detailedInformation.forename",
+			"header": "Contact's First Name",
+			"orderId": 23,
+			"showInputField": false
+		},
+		{
+			"field": "detailedInformation.surname",
+			"header": "Contact's Last Name",
+			"orderId": 24,
+			"showInputField": false
+		},
+		{
+			"field": "directorRole",
+			"header": "Contact's Job title",
+			"orderId": 25,
+			"showInputField": false
+		},
+		{
+			"field": "email",
+			"header": "Contact's Email Address",
+			"orderId": 26,
+			"showInputField": false
+		},
+		{
+			"field": "linkedin_url",
+			"header": "Contact's Linked-in Tag",
+			"orderId": 27,
+			"showInputField": false
+		},
+		{
+			"field": "accountsFilingDate",
+			"header": "Last Account/ Year end Date",
+			"orderId": 27,
+			"showInputField": false
+
+		},
+		{
+			"field": "accountsFilingDate",
+			"header": "Date of last accounts filed",
+			"orderId": 28,
+			"showInputField": false
+		},
+		{
+			"field": "auditorsQualificationCodes.auditors",
+			"header": "Auditors",
+			"orderId": 29,
+			"showInputField": false
+		},
+		{
+			"field": "bankDetails.bankName",
+			"header": "Bank",
+			"orderId": 30,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.turnover",
+			"header": "Turnover",
+			"orderId": 31,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.tradeDebtors",
+			"header": "Trade Debtors",
+			"orderId": 32,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.totalCurrentAssets",
+			"header": "Total Current Assets",
+			"orderId": 33,
+			"showInputField": false
+		},
+		{
+			"field": "numLandCorporate",
+			"header": "Commercial Property",
+			"orderId": 34,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.grossProfit",
+			"header": "Gross Profit",
+			"orderId": 35,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.profitBeforeTax",
+			"header": "Pre-Tax Profit",
+			"orderId": 36,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.netWorth",
+			"header": "Net Worth",
+			"orderId": 37,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.export",
+			"header": "Export",
+			"orderId": 38,
+			"showInputField": false
+		},
+		{
+			"field": "ccjDetails.length",
+			"header": "Total number of CCJs",
+			"orderId": 39,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.numberOfEmployees",
+			"header": "Number of Employees",
+			"orderId": 40,
+			"showInputField": false
+		},
+		{
+			"field": "statutoryAccounts.wagesAndSalaries",
+			"header": "Wages & Salaries",
+			"orderId": 41,
+			"showInputField": false
+		},
+		{
+			"header": "No of listed directors",
+			"field": "total_directors_count",
+			"orderId": 42,
+			"showInputField": false
+		},
+		{
+			"header": "Trade Creditors",
+			"field": "statutoryAccounts.tradeCreditors",
+			"orderId": 43,
+			"showInputField": false
+		},
+		{
+			"header": "Total Outstanding Charges",
+			"field": "mortgagesObj.memorandumNature.length",
+			"orderId": 44,
+			"showInputField": false
+		},
+		{
+			"header": "Primary trading address line 1",
+			"field": "tradingAddress.tradingAddress1",
+			"orderId": 45,
+			"showInputField": false
+		},
+		{
+			"header": "Primary trading address line 2",
+			"field": "tradingAddress.tradingAddress2",
+			"orderId": 46,
+			"showInputField": false
+		},
+		{
+			"header": "Primary trading address line 3",
+			"field": "tradingAddress.tradingAddress3",
+			"orderId": 47,
+			"showInputField": false
+		},
+		{
+			"header": "Primary trading address City",
+			"field": "tradingAddress.district",
+			"orderId": 48,
+			"showInputField": false
+		},
+		{
+			"header": "Primary trading address County",
+			"field": "tradingAddress.county",
+			"orderId": 49,
+			"showInputField": false
+		},
+		{
+			"header": "Primary trading address Phone",
+			"field": "tradingAddress.telephone",
+			"orderId": 50,
+			"showInputField": false
+		},
+        {
+            "header": "Created Date",
+            "field": "createdDate",
+            "orderId": 51,
+			"showInputField": false
+        },
+        {
+            "header": "Person Entitled",
+            "field": "mortgageDetails.description",
+            "orderId": 51,
+			"showInputField": false
+        }
+		
+	]
+}

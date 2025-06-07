@@ -1,0 +1,80 @@
+{
+    "status": 200,
+    "results": [
+        {
+            "serial_num": "1",
+            "dataset_names": "Company Data",
+            "source_of_data": "Credit Safe",
+            "process_automation_mongo": "Yes",
+            "process_automation_postgres": "Yes",
+            "frequencies": "Daily",
+            "last_updated_mongo": "Daily update",
+            "last_updated_postgres": "Daily Update",
+            "data_update_upto": "",
+            "next_updates": "Daily Update",
+            "data_locations": "Main Databse",
+            "copy_locations": "AWS S3 Bucket 2 copies, 1 Local system copy on Hard disk",
+            "task_owner_name": "Shivam, Rashmi"
+        },
+        {
+            "serial_num": "2",
+            "dataset_names": "Contact Data",
+            "source_of_data": "Credit Safe",
+            "process_automation_mongo": "Manual",
+            "process_automation_postgres": "Manual",
+            "frequencies": "Daily",
+            "last_updated_mongo": "Daily update",
+            "last_updated_postgres": "Daily Update",
+            "data_update_upto": "",
+            "next_updates": "Daily Update",
+            "data_locations": "Test Server",
+            "copy_locations": "",
+            "task_owner_name": "Sunil, Vipul, Rashmi"
+        },
+        {
+            "serial_num": "3",
+            "dataset_names": "Land Registry",
+            "source_of_data": "https://www.gov.uk/government/collections/price-paid-data",
+            "process_automation_mongo": "Yes",
+            "process_automation_postgres": "Yes",
+            "frequencies": "Monthly",
+            "last_updated_mongo": "26-Nov-21",
+            "last_updated_postgres": "26-Nov-21",
+            "data_update_upto": "Oct-21",
+            "next_updates": "Check and Update on 27 December 2021",
+            "data_locations": "Test and Live Database",
+            "copy_locations": "On local system",
+            "task_owner_name": "Rashmi, Aditya"
+        },
+        {
+            "serial_num": "4",
+            "dataset_names": "Corporate Land Data",
+            "source_of_data": "https://use-land-property-data.service.gov.uk/datasets/ccod",
+            "process_automation_mongo": "Yes",
+            "process_automation_postgres": "Yes",
+            "frequencies": "Monthly",
+            "last_updated_mongo": "8-Dec",
+            "last_updated_postgres": "8-Dec",
+            "data_update_upto": "Dec-21",
+            "next_updates": "Check and Update on 10 January 2022",
+            "data_locations": "Test and Live Database",
+            "copy_locations": "On local system",
+            "task_owner_name": "Rashmi, Aditya"
+        },
+        {
+            "serial_num": "5",
+            "dataset_names": "Patent Data",
+            "source_of_data": "https://www.ipo.gov.uk/p-pj-download.htm",
+            "process_automation_mongo": "Yes",
+            "process_automation_postgres": "Yes",
+            "frequencies": "Weekly",
+            "last_updated_mongo": "8-Dec-21",
+            "last_updated_postgres": "8-Dec-21",
+            "data_update_upto": "20-Oct-21",
+            "next_updates": "Check and Update on 10 January 202215-Dec-21",
+            "data_locations": "Test and Live Database",
+            "copy_locations": "On local system",
+            "task_owner_name": "Rashmi, Aditya"
+        }
+    ]
+}

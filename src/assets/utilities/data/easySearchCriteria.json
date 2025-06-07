@@ -1,0 +1,238 @@
+[
+    {
+        "filterName": "Companies in England with 10m turnover in Construction",
+        "searchType": "Company Search",
+        "countryAccess": [ "uk" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Country",
+                "chip_values": [
+                    "england"
+                ]
+            },
+            {
+                "chip_group": "Key Financials",
+                "chip_values": [
+                    {
+                        "financialBoolean": "true",
+                        "key": "turnover",
+                        "less_than": "10000000",
+                        "selected_year": "true",
+                        "validate": false
+                    }
+                ]
+            },
+            {
+                "chip_group": "Industry",
+                "chip_values": [
+                    "construction"
+                ],
+                "chip_industry_sic_codes": [
+                    "construction"
+                ]
+            }
+        ]
+    },
+    {
+        "filterName": "Companies with Property Ownership in England",
+        "searchType": "Company Search",
+        "countryAccess": [ "uk" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Preferences",
+                "chip_values": [
+                    "Company must have corporate land"
+                ],
+                "preferenceOperator": [
+                    {
+                        "hasLandCorporate": "true"
+                    }
+                ]
+            },
+            {
+                "chip_group": "Country",
+                "chip_values": [
+                    "england"
+                ]
+            }
+        ]
+    },
+    {
+        "filterName": "Manufacturing companies more than 50 employees having 10% Turnover growth in last 5 years",
+        "searchType": "Company Search",
+        "countryAccess": [ "uk" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Industry",
+                "chip_values": [
+                    "manufacturing"
+                ],
+                "chip_industry_sic_codes": [
+                    "manufacturing"
+                ]
+            },
+            {
+                "chip_group": "Number of Employees",
+                "chip_values": [
+                    [
+                        50,
+                        ""
+                    ]
+                ]
+            },
+            {
+                "chip_group": "5 Years Growth",
+                "chip_values": [
+                    {
+                        "key": "turnover",
+                        "selected_year": "true",
+                        "greater_than": "10",
+                        "less_than": null,
+                        "financialBoolean": false,
+                        "suffix": "%"
+                        
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "filterName": "Companies With Charges & Company Age 2-5 in Ireland",
+        "searchType": "Company Search",
+        "countryAccess": [ "ie" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Preferences",
+                "chip_values": [
+                    "Company must have charges details"
+                ],
+                "preferenceOperator": [
+                    {
+                        "hasCharges": "true"
+                    }
+                ]
+            },
+            {
+                "chip_group": "Company Age Filter",
+                "chip_values": [
+                    [
+                        "2",
+                        "5"
+                    ]
+                ],
+                "filter_exclude": false
+            }
+        ]
+    },
+    {
+        "filterName": "Companies With CCJ In Ireland",
+        "searchType": "Company Search",
+        "countryAccess": [ "ie" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Preferences",
+                "chip_values": [
+                    "Company must have CCJ"
+                ],
+                "preferenceOperator": [
+                    {
+                        "hasCCJInfo": "true"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "filterName": "Companies Having No. Of Employee 101 - 250 With Company Category Private Unlimited",
+        "searchType": "Company Search",
+        "countryAccess": [ "ie" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Number of Employees",
+                "chip_values": [
+                    [
+                        "101",
+                        "250"
+                    ]
+                ]
+            },
+            {
+                "chip_group": "Category",
+                "chip_values": [
+                    "private unlimited"
+                ],
+                "filter_exclude": false
+            }
+        ]
+    },
+    {
+        "filterName": "Companies With Charges Person Entitled (Raw) ALLIED IRISH BANKS PLC with Category private & Number of Shareholders 3 - 5",
+        "searchType": "Company Search",
+        "countryAccess": [ "ie" ],
+        "chipData": [
+            {
+                "chip_group": "Status",
+                "chip_values": [
+                    "live"
+                ]
+            },
+            {
+                "chip_group": "Charges Person Entitled (Raw)",
+                "chip_values": [
+                    "ALLIED IRISH BANKS PLC"
+                ]
+            },
+            {
+                "chip_group": "Category",
+                "chip_values": [
+                    "private"
+                ]
+            },
+            {
+                "chip_group": "Number of Shareholders",
+                "chip_values": [
+                    [
+                        "3",
+                        "5"
+                    ]
+                ]
+            }
+        ]
+    }
+]

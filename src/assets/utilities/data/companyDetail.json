@@ -1,0 +1,1580 @@
+{
+    "id": "5c5711a65e40e3dcdf574f3a",
+    "CompanyName": "WHITEHALL FINANCE LIMITED",
+    "CompanyNameOriginal": "WHITEHALL FINANCE LIMITED",
+    "CompanyNumber": "09718853",
+    "RegAddress": [
+        {
+            "CareOf": "",
+            "POBox": "",
+            "AddressLine1": "1210 ARLINGTON BUSINESS PARK",
+            "AddressLine2": "THEALE",
+            "PostTown": "READING",
+            "County": "",
+            "Country": "ENGLAND",
+            "PostCode": "RG7 4TY"
+        }
+    ],
+    "CompanyCategory": "private limited company",
+    "CompanyStatus": "active",
+    "CountryOfOrigin": "united kingdom",
+    "DissolutionDate": null,
+    "IncorporationDate": "05/08/2015",
+    "Accounts": {
+        "NextDueDate": "31/05/2021",
+        "LastMadeUpDate": "31/08/2019",
+        "AccountRefDay": 31,
+        "AccountRefMonth": 8,
+        "AccountCategory": "total exemption full"
+    },
+    "Returns": {
+        "NextDueDate": "02/09/2016",
+        "LastMadeUpDate": null
+    },
+    "Mortgages": [
+        {
+            "NumMortCharges": 0,
+            "NumMortOutstanding": 0,
+            "NumMortPartSatisfied": 0,
+            "NumMortSatisfied": 0
+        }
+    ],
+    "SICCode": {
+        "SicText_1": "64999 - Financial intermediation not elsewhere classified",
+        "SicText_2": "",
+        "SicText_3": "",
+        "SicText_4": "",
+        "SicNumber_1": "64999",
+        "SicNumber_2": 0,
+        "SicNumber_3": 0,
+        "SicNumber_4": 0
+    },
+    "SICCode_2": {
+        "SicText_1": "64999 - Financial intermediation not elsewhere classified",
+        "SicText_2": "",
+        "SicText_3": "",
+        "SicText_4": "",
+        "SicNumber_1": "64",
+        "SicNumber_2": "0",
+        "SicNumber_3": "0",
+        "SicNumber_4": "0"
+    },
+    "SICCode_4": {
+        "SicText_1": "64999 - Financial intermediation not elsewhere classified",
+        "SicText_2": "",
+        "SicText_3": "",
+        "SicText_4": "",
+        "SicNumber_1": "6499",
+        "SicNumber_2": "0",
+        "SicNumber_3": "0",
+        "SicNumber_4": "0"
+    },
+    "LimitedPartnerships": {
+        "NumGenPartners": 0,
+        "NumLimPartners": 0
+    },
+    "PreviousName_1": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_2": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_3": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_4": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_5": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_6": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_7": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_8": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_9": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "PreviousName_10": {
+        "CONDATE": null,
+        "CompanyName": ""
+    },
+    "URI": "http://business.data.gov.uk/id/company/09718853",
+    "ConfStmtNextDueDate": "04/06/2020",
+    "ConfStmtLastMadeUpDate": "21/05/2019",
+    "pin": {
+        "company_location": {
+            "lat": 51.437125,
+            "lon": -1.066698
+        }
+    },
+    "Industry": {
+        "SicText_1": "64999 - Financial intermediation not elsewhere classified",
+        "SicText_2": "",
+        "SicText_3": "",
+        "SicText_4": "",
+        "SicIndustry_1": "financial and insurance activities",
+        "SicIndustry_2": "",
+        "SicIndustry_3": "",
+        "SicIndustry_4": ""
+    },
+    "RegAddress_Modified": {
+        "CareOf": "",
+        "POBox": "",
+        "AddressLine1": "1210 arlington business park",
+        "AddressLine2": "theale",
+        "PostTown": "reading",
+        "PostCode": "rg74ty",
+        "Country": "england",
+        "local_authority_name": "west berkshire",
+        "ward_name": "theale",
+        "region": "south east",
+        "parliament_constituency_name": "reading west",
+        "european_electoral_region_name": "south east",
+        "primary_trust_name": "berkshire west",
+        "district_code": "rg7",
+        "County": "berkshire"
+    },
+    "active_directors": [
+        {
+            "address": {
+                "country": "united kingdom",
+                "locality": "cuffley",
+                "address_line_1": "king james avenue",
+                "postal_code": "en6 4lw",
+                "premises": "87"
+            },
+            "name": "levins, colin michael",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/WlNvpLuDWZkZkADAfqkBe0zcSe0/appointments"
+                }
+            },
+            "officer_role": "secretary",
+            "company_number": "09718853",
+            "appointed_on": "2015-08-05"
+        },
+        {
+            "occupation": "director",
+            "nationality": "italian",
+            "country_of_residence": "england",
+            "address": {
+                "address_line_1": "arlington business park",
+                "postal_code": "rg7 4ty",
+                "country": "england",
+                "address_line_2": "theale",
+                "premises": "1210",
+                "locality": "reading"
+            },
+            "name": "de negri, antonio maria",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/nNzLSrf_UeyGvDbrJGdlehnI6fQ/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "month": 9,
+                "year": 1984
+            },
+            "appointed_on": "2019-07-29"
+        },
+        {
+            "occupation": "none",
+            "nationality": "british",
+            "country_of_residence": "united kingdom",
+            "address": {
+                "address_line_1": "king james avenue",
+                "premises": "87",
+                "postal_code": "en6 4lw",
+                "region": "hertfordshire",
+                "country": "england",
+                "locality": "cuffley"
+            },
+            "name": "holland, robert peter",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/7o6Fo53TO06YX0nfO3NC7W_XNjU/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "year": 1977,
+                "month": 4
+            },
+            "appointed_on": "2017-05-21"
+        },
+        {
+            "occupation": "director",
+            "nationality": "british",
+            "country_of_residence": "england",
+            "address": {
+                "premises": "1210",
+                "locality": "reading",
+                "address_line_1": "arlington business park",
+                "country": "england",
+                "address_line_2": "theale",
+                "postal_code": "rg7 4ty"
+            },
+            "name": "howard, andrew kenneth",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/7YtCGhBThHUimLwls0b5BVfRZrY/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "month": 8,
+                "year": 1960
+            },
+            "appointed_on": "2018-10-19"
+        },
+        {
+            "occupation": "company director",
+            "nationality": "british",
+            "country_of_residence": "united kingdom",
+            "address": {
+                "address_line_1": "arlington business park",
+                "country": "england",
+                "postal_code": "rg7 4ty",
+                "address_line_2": "theale",
+                "premises": "1210",
+                "locality": "reading"
+            },
+            "name": "kumar, tarun",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/B8N0jbW4XSoMbZaSEDkAjXcYsTU/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "year": 1982,
+                "month": 4
+            },
+            "appointed_on": "2017-05-21"
+        },
+        {
+            "occupation": "chartered accountant",
+            "nationality": "irish",
+            "country_of_residence": "england",
+            "address": {
+                "address_line_1": "king james avenue",
+                "postal_code": "en6 4lw",
+                "premises": "87",
+                "country": "united kingdom",
+                "locality": "cuffley"
+            },
+            "name": "levins, colin michael",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/xww4XFQsoRyNIVXldIBLRl9-RPM/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "month": 11,
+                "year": 1960
+            },
+            "appointed_on": "2015-08-05"
+        },
+        {
+            "occupation": "director",
+            "nationality": "british",
+            "country_of_residence": "england",
+            "address": {
+                "address_line_2": "theale",
+                "postal_code": "rg7 4ty",
+                "address_line_1": "arlington business park",
+                "country": "england",
+                "locality": "reading",
+                "premises": "1210"
+            },
+            "name": "tuite, damian francis gerard",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/mztvgoEF_AyAPLFtdacxECb4cIk/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "month": 8,
+                "year": 1963
+            },
+            "appointed_on": "2018-10-19"
+        },
+        {
+            "occupation": "director",
+            "nationality": "italian",
+            "country_of_residence": "england",
+            "address": {
+                "locality": "reading",
+                "country": "england",
+                "premises": "1210",
+                "address_line_1": "arlington business park",
+                "postal_code": "rg7 4ty",
+                "address_line_2": "theale"
+            },
+            "name": "de negri, antonio maria",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/nNzLSrf_UeyGvDbrJGdlehnI6fQ/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "year": 1984,
+                "month": 9
+            },
+            "appointed_on": "2019-07-25",
+            "resigned_on": "2019-07-31"
+        },
+        {
+            "occupation": "company director",
+            "nationality": "british",
+            "country_of_residence": "scotland",
+            "address": {
+                "premises": "87",
+                "postal_code": "en6 4lw",
+                "address_line_1": "king james avenue",
+                "locality": "cuffley",
+                "country": "united kingdom"
+            },
+            "name": "gilmore, stuart",
+            "links": {
+                "officer": {
+                    "appointments": "/officers/bHc1Z5sYONlpRhS0TzBrdrq_zj4/appointments"
+                }
+            },
+            "officer_role": "director",
+            "company_number": "09718853",
+            "date_of_birth": {
+                "month": 2,
+                "year": 1961
+            },
+            "appointed_on": "2018-03-28",
+            "resigned_on": "2018-07-31"
+        }
+    ],
+    "pscData": [
+        {
+            "natures_of_control": [
+                "ownership-of-shares-75-to-100-percent"
+            ],
+            "name": "Mr Colin Michael Levins",
+            "links": {
+                "self": "/company/09718853/persons-with-significant-control/individual/kGaW2oZ4SR8HPoS04fRriPeJXzc"
+            },
+            "address": {
+                "address_line_1": "Arlington Business Park",
+                "address_line_2": "Theale",
+                "country": "England",
+                "locality": "Reading",
+                "postal_code": "RG7 4TY",
+                "premises": "1210"
+            },
+            "country_of_residence": "England",
+            "nationality": "Irish",
+            "kind": "individual-person-with-significant-control",
+            "etag": "8641fd1f02c63dc1fe2b106ad50ee5726e5adbb1",
+            "name_elements": {
+                "forename": "Colin",
+                "middle_name": "Michael",
+                "surname": "Levins",
+                "title": "Mr"
+            },
+            "date_of_birth": {
+                "month": 11,
+                "year": 1960
+            }
+        }
+    ],
+    "hasLandCorporate": false,
+    "hasContactInfo": true,
+    "hasCharges": false,
+    "hasFinances": true,
+    "resigned_directors_count": 2,
+    "active_directors_count": 7,
+    "total_directors_count": 9,
+    "chargesData": [],
+    "financeData": [
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2016": 22972,
+            "value": 22972,
+            "year": 2016,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2017": 54744,
+            "value": 54744,
+            "year": 2017,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "fixedassets",
+            "span_name": "Fixed Assets",
+            "value_2018": 0,
+            "value": 0,
+            "year": 2018,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2016": 667,
+            "value": 667,
+            "year": 2016,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2017": 700,
+            "value": 700,
+            "year": 2017,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "currentassets",
+            "span_name": "Current Assets",
+            "value_2018": 0,
+            "value": 0,
+            "year": 2018,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2016": 23639,
+            "value": 23639,
+            "year": 2016,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2017": 55444,
+            "value": 55444,
+            "year": 2017,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2018": 50425,
+            "value": 50425,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totalassetslesscurrentliabilities",
+            "span_name": "Total Assets Less Current Liabilities",
+            "value_2019": 437426,
+            "value": 437426,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2016": 8700,
+            "value": 8700,
+            "year": 2016,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2017": 5607,
+            "value": 5607,
+            "year": 2017,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "netassetsliabilitiesincludingpensionassetliability",
+            "span_name": "Total Net Assets (Liabilities)",
+            "value_2018": 0,
+            "value": 0,
+            "year": 2018,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2016": 8700,
+            "value": 8700,
+            "year": 2016,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2017": 5607,
+            "value": 5607,
+            "year": 2017,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "shareholderfunds",
+            "span_name": "Capital And Reserves",
+            "value_2018": 50425,
+            "value": 50425,
+            "year": 2018,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2016": 14939,
+            "value": 14939,
+            "year": 2016,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2017": 61051,
+            "value": 61051,
+            "year": 2017,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "creditorsdueafteroneyear",
+            "span_name": "Creditors: Amounts Falling Due After More Than One Year",
+            "value_2018": 0,
+            "value": 0,
+            "year": 2018,
+            "updatedOn": "2019-07-20"
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2016": 14939,
+            "value": 14939,
+            "year": 2016
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2017": 0,
+            "value": 0,
+            "year": 2017
+        },
+        {
+            "key_name": "non-instalmentdebtsdueafter5years",
+            "value_2018": 0,
+            "value": 0,
+            "year": 2018
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2006": 0,
+            "value": 0,
+            "year": 2006,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2007": 0,
+            "value": 0,
+            "year": 2007,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2008": 0,
+            "value": 0,
+            "year": 2008,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2009": 0,
+            "value": 0,
+            "year": 2009,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2010": 0,
+            "value": 0,
+            "year": 2010,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2011": 0,
+            "value": 0,
+            "year": 2011,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2012": 0,
+            "value": 0,
+            "year": 2012,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2013": 0,
+            "value": 0,
+            "year": 2013,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2014": 0,
+            "value": 0,
+            "year": 2014,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2015": 0,
+            "value": 0,
+            "year": 2015,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2016": 667,
+            "value": 667,
+            "year": 2016,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2017": 700,
+            "value": 700,
+            "year": 2017,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2018": 27356,
+            "value": 27356,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netcurrentassetsliabilities",
+            "span_name": "Net Current Assets/(liabilities)",
+            "value_2019": 261309,
+            "value": 261309,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "creditors",
+            "span_name": "Amounts Falling Due After More Than One Year",
+            "value_2018": 66286,
+            "value": 66286,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "creditors",
+            "span_name": "Amounts Falling Due After More Than One Year",
+            "value_2019": 71858,
+            "value": 71858,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "intangibleassets",
+            "span_name": "Intangible Assets",
+            "value_2017": 54744,
+            "value": 54744,
+            "year": 2017,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "intangibleassets",
+            "span_name": "Intangible Assets",
+            "value_2018": 77781,
+            "value": 77781,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "intangibleassets",
+            "span_name": "Intangible Assets",
+            "value_2019": 176117,
+            "value": 176117,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "equity",
+            "span_name": "Shareholders' Funds",
+            "value_2018": 13429,
+            "value": 13429,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "equity",
+            "span_name": "Shareholders' Funds",
+            "value_2019": 365568,
+            "value": 365568,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totaladditionsincludingfrombusinesscombinationsintangibleassets",
+            "span_name": "Additions",
+            "value_2018": 23037,
+            "value": 23037,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "totaladditionsincludingfrombusinesscombinationsintangibleassets",
+            "span_name": "Additions",
+            "value_2019": 98336,
+            "value": 98336,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "intangibleassetsgrosscost",
+            "span_name": "At 1 September 2018",
+            "value_2018": 77781,
+            "value": 77781,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "intangibleassetsgrosscost",
+            "span_name": "At 1 September 2018",
+            "value_2019": 77781,
+            "value": 77781,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "accruedliabilitiesdeferredincome",
+            "span_name": "Accruals And Deferred Income",
+            "value_2018": 3000,
+            "value": 3000,
+            "year": 2018,
+            "updatedOn": "2019-07-09"
+        },
+        {
+            "key_name": "numbersharesissuedbutnotfullypaid",
+            "span_name": "Value:",
+            "value_2018": 1342900,
+            "value": 1342900,
+            "year": 2018,
+            "updatedOn": "2019-07-09"
+        },
+        {
+            "key_name": "nominalvaluesharesissuedspecificshareissue",
+            "span_name": "Ordinary",
+            "value_2018": 1,
+            "value": 1,
+            "year": 2018,
+            "updatedOn": "2019-07-09"
+        },
+        {
+            "key_name": "debtors",
+            "span_name": "Debtors",
+            "value_2017": 11223,
+            "value": 11223,
+            "year": 2017,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "debtors",
+            "span_name": "Debtors",
+            "value_2018": 5,
+            "value": 5,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "debtors",
+            "span_name": "Debtors",
+            "value_2019": 3938,
+            "value": 3938,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "cashbankonhand",
+            "span_name": "Cash At Bank",
+            "value_2018": 27707,
+            "value": 27707,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "cashbankonhand",
+            "span_name": "Cash At Bank",
+            "value_2019": 353760,
+            "value": 353760,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netassetsliabilities",
+            "span_name": "Net Assets",
+            "value_2018": 50425,
+            "value": 50425,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "netassetsliabilities",
+            "span_name": "Net Assets",
+            "value_2019": 365568,
+            "value": 365568,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "othercreditors",
+            "span_name": "Other Creditors",
+            "value_2018": 51050,
+            "value": 51050,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "othercreditors",
+            "span_name": "Other Creditors",
+            "value_2019": 72000,
+            "value": 72000,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "tradecreditorstradepayables",
+            "span_name": "Trade Creditors",
+            "value_2018": 12236,
+            "value": 12236,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "tradecreditorstradepayables",
+            "span_name": "Trade Creditors",
+            "value_2019": 24389,
+            "value": 24389,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "recoverablevalue-addedtax",
+            "span_name": "Vat",
+            "value_2018": 11223,
+            "value": 11223,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "recoverablevalue-addedtax",
+            "span_name": "Vat",
+            "value_2019": 2397,
+            "value": 2397,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "profitloss",
+            "span_name": "Deficit For The Year",
+            "value_2018": 93968,
+            "value": 93968,
+            "year": 2018,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "profitloss",
+            "span_name": "Deficit For The Year",
+            "value_2019": 369033,
+            "value": 369033,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "numbersharesissuedspecificshareissue",
+            "span_name": "1p",
+            "value_2018": 342900,
+            "value": 342900,
+            "year": 2018,
+            "updatedOn": "2019-07-09"
+        },
+        {
+            "key_name": "cashbankinhand",
+            "value_2017": 700,
+            "value": 700,
+            "year": 2017
+        },
+        {
+            "key_name": "cashbankinhand",
+            "value_2018": 27707,
+            "value": 27707,
+            "year": 2018
+        },
+        {
+            "key_name": "creditorsduewithinoneyear",
+            "value_2017": 66286,
+            "value": 66286,
+            "year": 2017
+        },
+        {
+            "key_name": "creditorsduewithinoneyear",
+            "value_2018": 6,
+            "value": 6,
+            "year": 2018
+        },
+        {
+            "key_name": "calledupsharecapital",
+            "value_2017": 10000,
+            "value": 10000,
+            "year": 2017
+        },
+        {
+            "key_name": "calledupsharecapital",
+            "value_2018": 13429,
+            "value": 13429,
+            "year": 2018
+        },
+        {
+            "key_name": "retainedearnings",
+            "value_2017": 15607,
+            "value": 15607,
+            "year": 2017
+        },
+        {
+            "key_name": "retainedearnings",
+            "value_2018": 109575,
+            "value": 109575,
+            "year": 2018
+        },
+        {
+            "key_name": "netassets",
+            "value_2017": 5607,
+            "value": 5607,
+            "year": 2017
+        },
+        {
+            "key_name": "netassets",
+            "value_2018": 50425,
+            "value": 50425,
+            "year": 2018
+        },
+        {
+            "key_name": "sharepremium",
+            "value_2017": 146571,
+            "value": 146571,
+            "year": 2017
+        },
+        {
+            "key_name": "sharepremium",
+            "value_2018": 9,
+            "value": 9,
+            "year": 2018
+        },
+        {
+            "key_name": "otherdebtors",
+            "span_name": "Other Debtors",
+            "value_2019": 1541,
+            "value": 1541,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        },
+        {
+            "key_name": "numbersharesissuedfullypaid",
+            "span_name": "Value:",
+            "value_2019": 1985156,
+            "value": 1985156,
+            "year": 2019,
+            "updatedOn": "2020-03-06"
+        }
+    ],
+    "contactInfo": {
+        "id": "5e6090d000a10f34a4df8f91",
+        "company_name": "Whitehall-Finance-Limited",
+        "registered_number": "09718853",
+        "email": "info@whitehallfinance.com",
+        "website": "https://whitehallfinance.com"
+    }
+}

@@ -1,0 +1,277 @@
+{
+    "status": 200,
+    "results": {
+        "positive_comments": {
+            "currentratio_var_score": {
+                "displayKey": "Current Ratio Var Score",
+                "mszValue": "Robust finances ensure timely supplier payments."
+            },
+            "absoluteLiquidityratio_var_score": {
+                "displayKey": "Absolute Liquidity Ratio Var Score",
+                "mszValue": "Sufficient funding ensures timely coverage of supplier debts."
+            },
+            "debtors_var_score": {
+                "displayKey": "Debtors Var Score",
+                "mszValue": "Payment consistency observed post-transaction."
+            },
+            "inventorydays_var_score": {
+                "displayKey": "Inventory Days Var Score",
+                "mszValue": "Rapid stock turnover observed following purchase."
+            },
+            "creditors_var_score": {
+                "displayKey": "Creditors Var Score",
+                "mszValue": "Demonstrates a strong position to meet supplier payments for stock after purchase."
+            },
+            "cashconversioncycle_var_score": {
+                "displayKey": "Cash Conversion Cycle Var Score",
+                "mszValue": "Strategically positioned cash reserves for inventory prior to sale and customer cash collection."
+            },
+            "averagemarkup_var_score": {
+                "displayKey": "Average Markup Var Score",
+                "mszValue": "Typical profit margin appears favorable."
+            },
+            "grossProfitMargin_var_score": {
+                "displayKey": "Gross Profit Margin Var Score",
+                "mszValue": "Well-positioned by margin after accounting for all production costs."
+            },
+            "operatingProfitMargin_var_score": {
+                "displayKey": "Operating Profit Margin Var Score",
+                "mszValue": "Well-positioned by margin after accounting for all operating costs."
+            },
+            "netProfitMargin_var_score": {
+                "displayKey": "Net Profit Margin Var Score",
+                "mszValue": "Well-positioned with margins after covering all costs."
+            },
+            "returnOnNetAssets_var_score": {
+                "displayKey": "Return On Net Assets Var Score",
+                "mszValue": "Well-positioned to utilize net assets effectively for profit generation."
+            },
+            "RoE_var_score": {
+                "displayKey": "Return On Equity Var Score",
+                "mszValue": "Strategic planning is seen to enhance profitability relative to equity."
+            },
+            "equitiesshare_var_score": {
+                "displayKey": "Equities Share Var Score",
+                "mszValue": "Financial contribution demonstrates a substantial share of equity."
+            },
+            "debttoEBITDA_var_score": {
+                "displayKey": "Debt To EBITDA Var Score",
+                "mszValue": "Well-positioned to manage debt effectively."
+            },
+            "proportionofWC_var_score": {
+                "displayKey": "Proportion Of Working Capital Var Score",
+                "mszValue": "Share of working capital in assets is favorable."
+            },
+            "proportionofRP_var_score": {
+                "displayKey": "Proportion Of Retained Profit Var Score",
+                "mszValue": "Share of retained earnings in assets is strong."
+            },
+            "eBITtoasset_var_score": {
+                "displayKey": "EBIT To Asset Var Score",
+                "mszValue": "Share of retained earnings in assets is weak."
+            },
+            "equitiesvsliabilities_var_score": {
+                "displayKey": "Equities Vs Liabilities Var Score",
+                "mszValue": "Pre-tax EBIT is strong."
+            },
+            "movementofassets_var_score": {
+                "displayKey": "Movement Of Assets Var Score",
+                "mszValue": "Sales performance relative to assets is strong."
+            },
+            "turnover_Change_var_score": {
+                "displayKey": "Turnover Change Var Score",
+                "mszValue": "The ability to generate increasing sales over time is positive."
+            },
+            "pretaxprofit_var_score": {
+                "displayKey": "Pre-Tax Profit Var Score",
+                "mszValue": "Strong profitability from operations and other activities."
+            },
+            "salesPerNetWorkingCapital_var_score": {
+                "displayKey": "Sales Per Net Working Capital Var Score",
+                "mszValue": "Efficient utilization of working capital to drive sales."
+            },
+            "gearingRatio_var_score": {
+                "displayKey": "Gearing Ratio Var Score",
+                "mszValue": "Strong proportion of operations funded by equity."
+            },
+            "equityRatio_var_score": {
+                "displayKey": "Equity Ratio Var Score",
+                "mszValue": "Good proportion of total assets funded by shareholders equity."
+            },
+            "liquidity_var_score": {
+                "displayKey": "Liquidity Var Score",
+                "mszValue": "Well-placed capacity to meet current debt obligations."
+            },
+            "returnOnCapitalEmployed_var_score": {
+                "displayKey": "Return On Capital Employed Var Score",
+                "mszValue": "Well-positioned to utilize its capital for profit generation."
+            },
+            "returnOnTotalAssets_var_score": {
+                "displayKey": "Return On Total Assets Var Score",
+                "mszValue": "Well-positioned to leverage total assets for profit generation."
+            },
+            "currentdebtratioSHE_var_score": {
+                "displayKey": "Current Debt Ratio SHE Var Score",
+                "mszValue": "Well-positioned to fulfill short-term debt obligations."
+            },
+            "totalDebtRatio_var_score": {
+                "displayKey": "Total Debt Ratio Var Score",
+                "mszValue": "A limited proportion of total assets is financed by debt."
+            },
+            "stocksToTurnoverRatio_var_score": {
+                "displayKey": "Stocks To Turnover Ratio Var Score",
+                "mszValue": "A balanced position is observed in stock sales and replenishment."
+            },
+            "z_var_score": {
+                "displayKey": "Z Var Score",
+                "mszValue": "Growth trajectory shows positive trends across multiple dimensions."
+            },
+            "currentdebtratioTL_var_score": {
+                "displayKey": "Current Debt Ratio TL Var Score",
+                "mszValue": "Well-positioned to address short-term liabilities."
+            },
+            "currentdebtratioTA_var_score": {
+                "displayKey": "Current Debt Ratio TA Var Score",
+                "mszValue": "Well-positioned to meet short-term liabilities in relation to total assets."
+            }
+        },
+        "negative_comments": {
+            "currentratio_var_score": {
+                "displayKey": "Current Ratio Var Score",
+                "mszValue": "Weak finances hinder timely supplier payments."
+            },
+            "absoluteLiquidityratio_var_score": {
+                "displayKey": "Absolute Liquidity Ratio Var Score",
+                "mszValue": "Insufficient funding delays the coverage of supplier debts."
+            },
+            "debtors_var_score": {
+                "displayKey": "Debtors Var Score",
+                "mszValue": "Inconsistency observed in payments post-transaction."
+            },
+            "inventorydays_var_score": {
+                "displayKey": "Inventory Days Var Score",
+                "mszValue": "Delayed stock turnover observed following purchase."
+            },
+            "creditors_var_score": {
+                "displayKey": "Creditors Var Score",
+                "mszValue": "Indicates financial instability concerning supplier relations."
+            },
+            "cashconversioncycle_var_score": {
+                "displayKey": "Cash Conversion Cycle Var Score",
+                "mszValue": "Insufficient cash reserves for inventory prior to sale and customer cash collection."
+            },
+            "averagemarkup_var_score": {
+                "displayKey": "Average Markup Var Score",
+                "mszValue": "Typical profit margin appears unfavorable."
+            },
+            "grossProfitMargin_var_score": {
+                "displayKey": "Gross Profit Margin Var Score",
+                "mszValue": "Poorly positioned by margin after failing to cover all production costs."
+            },
+            "operatingProfitMargin_var_score": {
+                "displayKey": "Operating Profit Margin Var Score",
+                "mszValue": "Improvement required in managing core business and operating costs."
+            },
+            "netProfitMargin_var_score": {
+                "displayKey": "Net Profit Margin Var Score",
+                "mszValue": "Poorly positioned with margins after failing to cover all costs."
+            },
+            "returnOnNetAssets_var_score": {
+                "displayKey": "Return On Net Assets Var Score",
+                "mszValue": "Poorly positioned to utilize net assets effectively for profit generation."
+            },
+            "RoA_var_score": {
+                "displayKey": "Return on Assets Var Score",
+                "mszValue": "Appears unprofitable relative to total assets."
+            },
+            "RoE_var_score": {
+                "displayKey": "Return on Equity Var Score",
+                "mszValue": "Strategic planning is necessary to enhance profitability relative to equity."
+            },
+            "equitiesshare_var_score": {
+                "displayKey": "Equities Share Var Score",
+                "mszValue": "Financial contribution reflects a limited share of equity."
+            },
+            "debttoEBITDA_var_score": {
+                "displayKey": "Debt to EBITDA Var Score",
+                "mszValue": "Poorly positioned to address debt effectively."
+            },
+            "proportionofWC_var_score": {
+                "displayKey": "Proportion of Working Capital Var Score",
+                "mszValue": "Share of working capital in assets is unfavorable."
+            },
+            "proportionofRP_var_score": {
+                "displayKey": "Proportion of Retained Profits Var Score",
+                "mszValue": "The share of retained earnings in assets is weak."
+            },
+            "eBITtoasset_var_score": {
+                "displayKey": "EBIT to Asset Var Score",
+                "mszValue": "Return on assets is weak."
+            },
+            "equitiesvsliabilities_var_score": {
+                "displayKey": "Equities vs Liabilities Var Score",
+                "mszValue": "Equity proportion within liabilities is weak."
+            },
+            "movementofassets_var_score": {
+                "displayKey": "Movement of Assets Var Score",
+                "mszValue": "Sales performance relative to assets is weak."
+            },
+            "turnover_Change_var_score": {
+                "displayKey": "Turnover Change Var Score",
+                "mszValue": "The ability to generate sales over time is declining."
+            },
+            "pretaxprofit_var_score": {
+                "displayKey": "Pre-Tax Profit Var Score",
+                "mszValue": "Weak profitability from operations and other activities."
+            },
+            "salesPerNetWorkingCapital_var_score": {
+                "displayKey": "Sales per Net Working Capital Var Score",
+                "mszValue": "Inefficient utilization of working capital to drive sales."
+            },
+            "gearingRatio_var_score": {
+                "displayKey": "Gearing Ratio Var Score",
+                "mszValue": "Weak proportion of operations funded by equity."
+            },
+            "equityRatio_var_score": {
+                "displayKey": "Equity Ratio Var Score",
+                "mszValue": "Proportion of total assets inadequately funded by shareholders equity."
+            },
+            "liquidity_var_score": {
+                "displayKey": "Liquidity Var Score",
+                "mszValue": "Inadequate capacity to meet current debt obligations."
+            },
+            "returnOnCapitalEmployed_var_score": {
+                "displayKey": "Return on Capital Employed Var Score",
+                "mszValue": "Poorly positioned to utilize its capital for profit generation."
+            },
+            "returnOnTotalAssets_var_score": {
+                "displayKey": "Return on Total Assets Var Score",
+                "mszValue": "Poorly positioned to leverage total assets for profit generation."
+            },
+            "currentdebtratioSHE_var_score": {
+                "displayKey": "Current Debt Ratio (SHE) Var Score",
+                "mszValue": "Poorly positioned to fulfill short-term debt obligations."
+            },
+            "totalDebtRatio_var_score": {
+                "displayKey": "Total Debt Ratio Var Score",
+                "mszValue": "A significant proportion of total assets is financed by debt."
+            },
+            "stocksToTurnoverRatio_var_score": {
+                "displayKey": "Stocks to Turnover Ratio Var Score",
+                "mszValue": "An unbalanced position is observed in stock sales and replenishment."
+            },
+            "z_var_score": {
+                "displayKey": "Z Var Score",
+                "mszValue": "Growth trajectory indicates negative trends across multiple dimensions."
+            },
+            "currentdebtratioTL_var_score": {
+                "displayKey": "Current Debt Ratio (TL) Var Score",
+                "mszValue": "Poorly positioned to address short-term liabilities."
+            },
+            "currentdebtratioTA_var_score": {
+                "displayKey": "Current Debt Ratio (TA) Var Score",
+                "mszValue": "Poorly positioned to meet short-term liabilities in relation to total assets."
+            }
+        }
+    }
+}

@@ -1,0 +1,862 @@
+{
+    "status": 200,
+    "results": [
+        {
+            "company_name": "traffic infrastructure consultancy limited",
+            "company_number": "08908715",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 2,
+            "company_status": "dissolved",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 0,
+                "aboveTo65": 1
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Not a MSME Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "wireless logic limited",
+            "company_number": "03880663",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 2,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "culture and sport glasgow",
+            "company_number": "sc313851",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 12,
+            "share_holders_count": "",
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 1,
+                "30To50": 2,
+                "50To65": 7,
+                "aboveTo65": 2
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "atkins limited",
+            "company_number": "00688424",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 7,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 5,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "algeco uk limited",
+            "company_number": "00147207",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 3,
+            "share_holders_count": 2,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "alan jones & associates ltd",
+            "company_number": "05882753",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 3,
+            "share_holders_count": 3,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": 99.99999999999999,
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 2,
+                "aboveTo65": 1
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "yes"
+        },
+        {
+            "company_name": "hcuk group limited",
+            "company_number": "08421647",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 4,
+            "share_holders_count": 4,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": 73.3224222585925,
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 3,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "yes"
+        },
+        {
+            "company_name": "association for black engineers (uk) limited",
+            "company_number": "06570439",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": "",
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "optimise risk limited",
+            "company_number": "08393734",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 5,
+            "share_holders_count": 10,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 4,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "rsm uk tax and accounting limited",
+            "company_number": "06677561",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 5,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 3,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "treewise solutions limited",
+            "company_number": "07344287",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 2,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "computer and design services limited",
+            "company_number": "01161218",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 2,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 1
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Medium Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "howden employee benefits & wellbeing limited",
+            "company_number": "02248238",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 7,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 6,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Medium Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "key ostas limited",
+            "company_number": "06294367",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 2,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 1
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "beamore management limited",
+            "company_number": "07864072",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 2,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "mercer limited",
+            "company_number": "00984275",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 8,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 5,
+                "aboveTo65": 2
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "museum of london archaeology",
+            "company_number": "07751831",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 7,
+            "share_holders_count": "",
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 5,
+                "aboveTo65": 1
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "van elle limited",
+            "company_number": "02590521",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 5,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 3,
+                "50To65": 2,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "cambridge ecology limited",
+            "company_number": "06357707",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "zenito limited",
+            "company_number": "11930813",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 7,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "mcconnell chartered surveyors limited",
+            "company_number": "ni602539",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 6,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "honey brothers limited",
+            "company_number": "06298752",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Medium Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "ecovigour limited",
+            "company_number": "06313671",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "calcurate ltd",
+            "company_number": "10062561",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "nadar consulting ltd",
+            "company_number": "sc602528",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "the colour works international limited",
+            "company_number": "04887010",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 2,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": 100,
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "yes"
+        },
+        {
+            "company_name": "st. john ambulance",
+            "company_number": "03866129",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 10,
+            "share_holders_count": "",
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 1,
+                "30To50": 1,
+                "50To65": 6,
+                "aboveTo65": 2
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "barley communications limited",
+            "company_number": "10043675",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 3,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "beam fieldwork limited",
+            "company_number": "10347524",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 3,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": 99.01960784313725,
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "yes"
+        },
+        {
+            "company_name": "utility site search ltd",
+            "company_number": "10605894",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "suono consultancy limited",
+            "company_number": "13418764",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 5,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "artesia consulting limited",
+            "company_number": "06576180",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 3,
+            "share_holders_count": 3,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 2,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "mason advisory limited",
+            "company_number": "08990928",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 3,
+            "share_holders_count": 6,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 2,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Medium Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "sigicom limited",
+            "company_number": "10756688",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "l2 business consulting limited",
+            "company_number": "06421464",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": 2,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 2,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "j regan security services ltd",
+            "company_number": "08085173",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 1,
+            "share_holders_count": 4,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 1,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "openreach limited",
+            "company_number": "10690039",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 8,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 5,
+                "aboveTo65": 2
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Enterprise Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "workflow services ltd",
+            "company_number": "13335740",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 3,
+            "share_holders_count": 3,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 1,
+                "50To65": 2,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "no"
+        },
+        {
+            "company_name": "pearn kandola llp",
+            "company_number": "oc346998",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 2,
+            "share_holders_count": "",
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 0,
+                "aboveTo65": 0
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Small Company",
+            "female_founded": "-"
+        },
+        {
+            "company_name": "university of portsmouth enterprise limited",
+            "company_number": "02353125",
+            "is_ethnic_minority": "no",
+            "ethnic_share_percentage": "",
+            "active_director_count": 4,
+            "share_holders_count": 1,
+            "company_status": "live",
+            "msduk_certification": false,
+            "bcorp_certification": false,
+            "female_owned_share_percentage": "",
+            "age_director_diversity": {
+                "belowTo30": 0,
+                "30To50": 0,
+                "50To65": 3,
+                "aboveTo65": 1
+            },
+            "militaryVeterans": false,
+            "msmeCategory": "Micro Company",
+            "female_founded": "-"
+        }
+    ],
+    "total": 40,
+    "ethnicCompanyCount": 0,
+    "femaleOwnedCompanyCount": 4,
+    "directorAgeBelow30Count": 2,
+    "directorAgeAbove65Count": 16,
+    "msduk_certificationCount": 0,
+    "bcorp_certificationCount": 0,
+    "companyStatusArray": [
+        {
+            "key": "live",
+            "doc_count": 39
+        },
+        {
+            "key": "dissolved",
+            "doc_count": 1
+        }
+    ]
+}

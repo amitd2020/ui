@@ -1,0 +1,18 @@
+{
+    "positive_comments": {
+        "currentratio_var_score": "Robust finances ensure timely supplier payments",
+        "absoluteLiquidityratio_var_score": "Sufficient funding ensures timely coverage of supplier debts.",
+        "debtors_var_score": "Payment consistency observed post-transaction.",
+        "inventorydays_var_score": "Rapid stock turnover observed following purchase.",
+        "creditors_var_score": "Demonstrates a strong position to meet supplier payments for stock after purchase.",
+        "currentdebtratioTA_var_score": "Well-positioned to meet short-term liabilities in relation to total assets."
+    },
+    "negative_comments": {
+        "currentratio_var_score": "Weak finances hinder timely supplier payments",
+        "absoluteLiquidityratio_var_score": "Insufficient funding delays the coverage of supplier debts.",
+        "debtors_var_score": "Inconsistency observed in payments post-transaction.",
+        "inventorydays_var_score": "Delayed stock turnover observed following purchase.",
+        "creditors_var_score": "Indicates financial instability concerning supplier relations.",
+        "currentdebtratioTA_var_score": "Poorly positioned to meet short-term liabilities in relation to total assets."
+    }
+}

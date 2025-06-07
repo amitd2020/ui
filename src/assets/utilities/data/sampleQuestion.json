@@ -1,0 +1,104 @@
+[
+	{
+		"_id": {
+			"question_group": "1"
+		},
+		"data": [
+			{
+				"_id": {
+					"question_number": "1a",
+					"question_group": "1",
+					"category": "social"
+				},
+				"data": [
+					{
+						"_id": "622627654103d8de10ab1095",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1a",
+						"question": "Which of the following areas are covered by this policy?"
+					},
+					{
+						"_id": "622627654103d8de10ab1096",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1a",
+						"sub_question_no": "1a.1",
+						"question": "Child labour and Young Workers"
+					},
+					{
+						"_id": "622627654103d8de10ab1097",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1a",
+						"sub_question_no": "1a.2",
+						"question": "Wages and Benefits"
+					},
+					{
+						"_id": "622627654103d8de10ab1098",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1a",
+						"sub_question_no": "1a.3",
+						"question": "Modern slavery (i.e. slavery, servitude and forced or compulsory labour and human trafficking)"
+					},
+					{
+						"_id": "622627654103d8de10ab1099",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1a",
+						"sub_question_no": "1a.4",
+						"question": "Freedom of association and collective bargaining"
+					},
+					{
+						"_id": "622627654103d8de10ab109a",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1a",
+						"sub_question_no": "1a.5",
+						"question": "Harassment and  Non-discrimination"
+					}
+				]
+			},
+			{
+				"_id": {
+					"question_number": "1",
+					"question_group": "1",
+					"category": "social"
+				},
+				"data": [
+					{
+						"_id": "622627654103d8de10ab1094",
+						"category": "social",
+						"question_group": "1",
+						"question_number": "1",
+						"question": "Does your company have a formal policy covering working conditions and human rights?"
+					}
+				]
+			}
+		]
+	},
+	{
+		"_id": {
+			"question_group": "2"
+		},
+		"data": [
+			{
+				"_id": {
+					"question_number": "2",
+					"question_group": "2",
+					"category": "social"
+				},
+				"data": [
+					{
+						"_id": "622627654103d8de10ab109b",
+						"category": "social",
+						"question_group": "2",
+						"question_number": "2",
+						"question": "Do you organize training for your employees on this policy?"
+					}
+				]
+			}
+		]
+	}
+]

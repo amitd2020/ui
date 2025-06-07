@@ -1,0 +1,175 @@
+{
+	"code": 200,
+	"status": "Success",
+	"success": true,
+	"message": "Company emails list",
+	"response": [
+		{
+			"_id": "61892ba62ccbbc89838e98cd",
+			"companyName": "western union retail services gb limited",
+			"companyNumber": "02383761",
+			"companyDomain": "westernunion.com",
+			"companyEmails": [
+				{
+					"email": "payout@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "katie.watson@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "daniel.diaz@westernunion.com",
+					"firstName": "Daniel",
+					"lastName": "Diaz",
+					"position": "VP Communications",
+					"sourcePage": "https://www.linkedin.com/in/daniel-diaz-5491266",
+					"companyName": "Western Union",
+					"type": "prospect",
+					"status": "verified"
+				},
+				{
+					"email": "webcare@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "mohit.gupta@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "Analystkatie.watson@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "cindy.roelke@westernunion.com",
+					"firstName": "Cindy",
+					"lastName": "Roelke",
+					"position": "Director, Risk & Insurance",
+					"sourcePage": "https://www.linkedin.com/in/cindy-roelke-915a8242",
+					"companyName": "Western Union",
+					"type": "prospect",
+					"status": "verified"
+				},
+				{
+					"email": "katie.watson@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "daniel.diaz@westernunion.com",
+					"firstName": "Daniel",
+					"lastName": "Diaz",
+					"position": "VP Communications",
+					"sourcePage": "https://www.linkedin.com/in/daniel-diaz-5491266",
+					"companyName": "Western Union",
+					"type": "prospect",
+					"status": "verified"
+				},
+				{
+					"email": "customerservice@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "firstname.lastname@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "z@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "payout@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "katie.watson@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "daniel.diaz@westernunion.com",
+					"firstName": "Daniel",
+					"lastName": "Diaz",
+					"position": "VP Communications",
+					"sourcePage": "https://www.linkedin.com/in/daniel-diaz-5491266",
+					"companyName": "Western Union",
+					"type": "prospect",
+					"status": "verified"
+				},
+				{
+					"email": "customerservice@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "firstname.lastname@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "z@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "payout@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "mohit.gupta@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "Analystkatie.watson@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "cindy.roelke@westernunion.com",
+					"firstName": "Cindy",
+					"lastName": "Roelke",
+					"position": "Director, Risk & Insurance",
+					"sourcePage": "https://www.linkedin.com/in/cindy-roelke-915a8242",
+					"companyName": "Western Union",
+					"type": "prospect",
+					"status": "verified"
+				},
+				{
+					"email": "katie.watson@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				},
+				{
+					"email": "daniel.diaz@westernunion.com",
+					"firstName": "Daniel",
+					"lastName": "Diaz",
+					"position": "VP Communications",
+					"sourcePage": "https://www.linkedin.com/in/daniel-diaz-5491266",
+					"companyName": "Western Union",
+					"type": "prospect",
+					"status": "verified"
+				},
+				{
+					"email": "customerservice@westernunion.com",
+					"type": "email",
+					"status": "verified"
+				}
+			],
+			"lastId": 24171855,
+			"hasUpdate": true,
+			"totalEmailsLeftOnSnov": 0,
+			"totalEmailsOnSnov": 16191
+		}
+	]
+}
